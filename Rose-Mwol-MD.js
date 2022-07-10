@@ -1,17 +1,8 @@
-/*
- * You Can Recode, Reupload or Copy The Codes/Scripts With Credits To Code Owners ( Sachu-Settan )
- * Licenced Under MIT License
- * Copyright © 2022 Sachu. Rose Mwol-MD
- */
-
-process.on('uncaughtException', console.error)
-require("./config")
-
+require('./config')
 const {
 	eng
 } = require('./Lang')
 let lang = eng
-
 const {
 	BufferJSON,
 	WA_DEFAULT_EPHEMERAL,
@@ -21,10 +12,8 @@ const {
 	generateWAMessage,
 	prepareWAMessageMedia,
 	areJidsSameUser,
-	getContentType,
-	WAFlag
+	getContentType
 } = require('@adiwajshing/baileys')
-const zRoseMwol = require("@adiwajshing/baileys")
 const fs = require('fs')
 const util = require('util')
 const chalk = require('chalk')
@@ -34,58 +23,23 @@ const {
 	execSync
 } = require("child_process")
 const axios = require('axios')
-const {
-	Sticker,
-	createSticker,
-	StickerTypes
-} = require('wa-sticker-formatter')
 const path = require('path')
+const fetch = require('node-fetch')
 const os = require('os')
-const {
-	TiktokDownloader,
-	RoseMwolTiktok
-} = require('./lib/tiktokdl')
+const maker = require('mumaker')
+const hx = require("hxz-api")
 const moment = require('moment-timezone')
 const {
 	JSDOM
 } = require('jsdom')
 const speed = require('performance-now')
-const hx = require("hxz-api")
-const hxz = require('./lib/hxz-api')
-const bdr = require('rumus-bdr')
-const yogipw = require("tod-api")
-const {
-	color,
-	bgcolor
-} = require('./lib/color')
-const thiccysapi = require('textmaker-thiccy')
-const toHur = require('@develoka/angka-terbilang-js')
-const mathjs = require('mathjs')
 const {
 	performance
 } = require('perf_hooks')
 const {
 	Primbon
 } = require('scrape-primbon')
-const {
-	EmojiAPI
-} = require("emoji-api")
-const imgbbUploader = require('imgbb-uploader')
 const primbon = new Primbon()
-const {
-	isLimit,
-	limitAdd,
-	getLimit,
-	giveLimit,
-	addBalance,
-	kurangBalance,
-	getBalance,
-	isGame,
-	gameAdd,
-	givegame,
-	cekGLimit
-} = require('./lib/limit.js');
-const emoji = new EmojiAPI()
 const {
 	smsg,
 	formatp,
@@ -103,38 +57,43 @@ const {
 	parseMention,
 	getRandom
 } = require('./lib/myfunc')
+const xfarr = require('xfarr-api')
+const cheerio = require("cheerio")
 const {
-	aiovideodl
-} = require('./lib/scraper.js')
-const cheerio = require("cheerio");
-const textpro = require('./lib/textpro')
-const {
-	detikNews
-} = require('./lib/detik')
-const {
-	wikiSearch
-} = require('./lib/wiki.js');
-const {
-	Gempa
-} = require("./lib/gempa.js");
-const ms = require('ms')
+	RosMwolTiktok
+} = require('./lib/tiktok')
+let {
+	msgFilter
+} = require('./lib/antispam')
 let {
 	covid
 } = require('./lib/covid.js')
 const {
-	jadwaltv
-} = require('./lib/jadwaltv');
-const maker = require('mumaker')
-const xeonkey = require('xfarr-api')
+	EmojiAPI
+} = require("emoji-api")
+const emoji = new EmojiAPI()
+const thiccysapi = require('textmaker-thiccy')
 const {
-	hentai
-} = require('./lib/scraper2.js')
-let {
-	msgFilter
-} = require('./lib/antispam')
+	RoseMwolWiki
+} = require('./lib/wiki.js')
+const textpro = require('./lib/textpro')
 const {
 	mediafireDl
 } = require('./lib/mediafire.js')
+const {
+	Gempa
+} = require("./lib/gempa.js")
+const {
+	jadwaltv
+} = require('./lib/jadwaltv')
+const todapi = require("tod-api")
+const {
+	pinterest
+} = require("./lib/pinterest")
+const toHur = require('@develoka/angka-terbilang-js')
+const {
+	hentai
+} = require('./lib/scraper2.js')
 const {
 	FajarNews,
 	BBCNews,
@@ -176,108 +135,118 @@ const {
 	Quotes,
 	Couples,
 	Darkjokes
-} = require("dhn-api");
-const _ = require('lodash')
-const yargs = require('yargs/yargs')
-var low
-try {
-	low = require('lowdb')
-} catch (e) {
-	low = require('./lib/lowdb')
-}
+} = require("dhn-api")
+//rpg function\\
+const {
+	addInventoriDarah,
+	cekDuluJoinAdaApaKagaDiJson,
+	addDarah,
+	kurangDarah,
+	getDarah
+} = require('./storage/user/darah.js')
+const {
+	cekInventoryAdaAtauGak,
+	addInventori,
+	addBesi,
+	addEmas,
+	addEmerald,
+	addUmpan,
+	addPotion,
+	kurangBesi,
+	kurangEmas,
+	kurangEmerald,
+	kurangUmpan,
+	kurangPotion,
+	getBesi,
+	getEmas,
+	getEmerald,
+	getUmpan,
+	getPotion
+} = require('./storage/user/alat_tukar.js')
+const {
+	addInventoriMonay,
+	cekDuluJoinAdaApaKagaMonaynyaDiJson,
+	addMonay,
+	kurangMonay,
+	getMonay
+} = require('./storage/user/monay.js')
+const {
+	addInventoriLimit,
+	cekDuluJoinAdaApaKagaLimitnyaDiJson,
+	addLimit,
+	kurangLimit,
+	getLimit
+} = require('./storage/user/limit.js')
+const {
+	cekDuluHasilBuruanNya,
+	addInventoriBuruan,
+	addIkan,
+	addAyam,
+	addKelinci,
+	addDomba,
+	addSapi,
+	addGajah,
+	kurangIkan,
+	kurangAyam,
+	kurangKelinci,
+	kurangDomba,
+	kurangSapi,
+	kurangGajah,
+	getIkan,
+	getAyam,
+	getKelinci,
+	getDomba,
+	getSapi,
+	getGajah
+} = require('./storage/user/buruan.js')
+let DarahAwal = global.rpg.darahawal
+const isDarah = cekDuluJoinAdaApaKagaDiJson(m.sender)
+const isCekDarah = getDarah(m.sender)
+const isUmpan = getUmpan(m.sender)
+const isPotion = getPotion(m.sender)
+const isIkan = getIkan(m.sender)
+const isAyam = getAyam(m.sender)
+const isKelinci = getKelinci(m.sender)
+const isDomba = getDomba(m.sender)
+const isSapi = getSapi(m.sender)
+const isGajah = getGajah(m.sender)
+const isMonay = getMonay(m.sender)
+const isLimit = getLimit(m.sender)
+const isBesi = getBesi(m.sender)
+const isEmas = getEmas(m.sender)
+const isEmerald = getEmerald(m.sender)
+const isInventory = cekInventoryAdaAtauGak(m.sender)
+const isInventoriBuruan = cekDuluHasilBuruanNya(m.sender)
+const isInventoryLimit = cekDuluJoinAdaApaKagaLimitnyaDiJson(m.sender)
+const isInventoryMonay = cekDuluJoinAdaApaKagaMonaynyaDiJson(m.sender)
+const ikan = ['🐟', '🐠', '🐡']
 
-const {
-	Low,
-	JSONFile
-} = low
-const mongoDB = require('./lib/mongoDB')
-const {
-	yta,
-	ytv,
-	searchResult
-} = require('./lib/ytdl')
+let _limit = JSON.parse(fs.readFileSync('./storage/user/limit.json'));
+let _buruan = JSON.parse(fs.readFileSync('./storage/user/hasil_buruan.json'));
+let _darahOrg = JSON.parse(fs.readFileSync('./storage/user/darah.json'))
+
+let sticker = JSON.parse(fs.readFileSync('./Media/sticker/sticker.json'));
+let voicenote = JSON.parse(fs.readFileSync('./Media/vn/vn.json'));
+let images = JSON.parse(fs.readFileSync('./Media/image/image.json'));
+let videoss = JSON.parse(fs.readFileSync('./Media/vid/video.json'));
+let efx = JSON.parse(fs.readFileSync('./Media/efx/efx.json'));
+let autosticker = JSON.parse(fs.readFileSync('./database/autosticker.json'));
+const _autostick = JSON.parse(fs.readFileSync('./database/autostickpc.json'));
 let banUser = JSON.parse(fs.readFileSync('./database/banUser.json'));
 let banchat = JSON.parse(fs.readFileSync('./database/banChat.json'));
-let bad = JSON.parse(fs.readFileSync('./src/toxic/bad.json'));
-let _limit = JSON.parse(fs.readFileSync('./storage/user/limit.json'));
-let _buruan = JSON.parse(fs.readFileSync('./storage/user/bounty.json'));
-let _darahOrg = JSON.parse(fs.readFileSync('./storage/user/blood.json'))
-global.opts = new Object(yargs(process.argv.slice(2)).exitProcess(false).parse())
-global.db = new Low(
-	/https?:\/\//.test(opts['db'] || '') ?
-	new cloudDBAdapter(opts['db']) : /mongodb/.test(opts['db']) ?
-	new mongoDB(opts['db']) :
-	new JSONFile(`src/database.json`)
-)
-global.DATABASE = global.db
-global.loadDatabase = async function loadDatabase() {
-	if (global.db.READ) return new Promise((resolve) => setInterval(function() {
-		(!global.db.READ ? (clearInterval(this), resolve(global.db.data == null ? global.loadDatabase() : global.db.data)) : null)
-	}, 1 * 1000))
-	if (global.db.data !== null) return
-	global.db.READ = true
-	await global.db.read()
-	global.db.READ = false
-	global.db.data = {
-		users: {},
-		chats: {},
-		database: {},
-		game: {},
-		settings: {},
-		others: {},
-		sticker: {},
-		...(global.db.data || {})
-	}
-	global.db.chain = _.chain(global.db.data)
-}
-loadDatabase()
-global.db = JSON.parse(fs.readFileSync('./src/database.json'))
-if (global.db) global.db = {
-	sticker: {},
-	database: {},
-	game: {},
-	others: {},
-	users: {},
-	...(global.db || {})
-}
+let bad = JSON.parse(fs.readFileSync('./src/toxic/bad.json'))
 
-let lolkey = global.lolhuman
-let tebaklagu = db.game.tebaklagu = []
-let _family100 = db.game.family100 = []
-let kuismath = db.game.math = []
-let tebakgambar = db.game.tebakgambar = []
-let tebakkata = db.game.tebakkata = []
-let caklontong = db.game.lontong = []
-let caklontong_desk = db.game.lontong_desk = []
-let tebakkalimat = db.game.kalimat = []
-let tebaklirik = db.game.lirik = []
-let tebaktebakan = db.game.tebakan = []
-let vote = db.others.vote = []
-let pendaftar = JSON.parse(fs.readFileSync('./storage/user/user.json'))
-let balance = JSON.parse(fs.readFileSync('./database/balance.json'))
-let ssewa = JSON.parse(fs.readFileSync('./database/sewa.json'))
-let ban = JSON.parse(fs.readFileSync('./database/ban.json'))
-let autosticker = JSON.parse(fs.readFileSync('./database/autosticker.json'))
-const _autostick = JSON.parse(fs.readFileSync('./database/autostickpc.json'))
-let _leveling = JSON.parse(fs.readFileSync('./database/leveling.json'))
-let _level = JSON.parse(fs.readFileSync('./database/level.json'))
-let limit = JSON.parse(fs.readFileSync('./database/limit.json'))
-global.db = JSON.parse(fs.readFileSync('./src/database.json'))
-let _sewa = require("./lib/sewa");
-const sewa = JSON.parse(fs.readFileSync('./database/sewa.json'))
-const time = moment.tz('Asia/Kolkata').format('DD/MM HH:mm:ss')
-const ucap = moment(Date.now()).tz('Asia/Kolkata').locale('id').format('a')
-var buln = ['/01/', '/02/', '/03/', '/04/', '/05/', '/06/', '/07/', '/08/', '/09/', '/10/', '/11/', '/12/'];
-var myHari = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-var tgel = new Date();
-var hri = tgel.getDate();
-var bulnh = tgel.getMonth();
-var thisHari = tgel.getDay(),
-	thisDaye = myHari[thisHari];
-var yye = tgel.getYear();
-var syear = (yye < 1000) ? yye + 1900 : yye;
-const jangwak = (hri + '' + buln[bulnh] + '' + syear)
-const janghar = (thisDaye)
+let tebaklagu = db.data.game.tebaklagu = []
+let _family100 = db.data.game.family100 = []
+let kuismath = db.data.game.math = []
+let tebakgambar = db.data.game.tebakgambar = []
+let tebakkata = db.data.game.tebakkata = []
+let caklontong = db.data.game.lontong = []
+let caklontong_desk = db.data.game.lontong_desk = []
+let tebakkalimat = db.data.game.kalimat = []
+let tebaklirik = db.data.game.lirik = []
+let tebaktebakan = db.data.game.tebakan = []
+let vote = db.data.others.vote = []
 
 module.exports = RoseMwol = async (RoseMwol, m, chatUpdate, store) => {
 	try {
@@ -291,12 +260,16 @@ module.exports = RoseMwol = async (RoseMwol, m, chatUpdate, store) => {
 		const botNumber = await RoseMwol.decodeJid(RoseMwol.user.id)
 		const isCreator = [botNumber, ...global.owner].map(v => v.replace(/[^0-9]/g, '') + '@s.whatsapp.net').includes(m.sender)
 		const itsMe = m.sender == botNumber ? true : false
-		const text = args.join(" ")
-		const from = m.chat
+		const text = q = args.join(" ")
 		const quoted = m.quoted ? m.quoted : m
 		const mime = (quoted.msg || quoted).mimetype || ''
 		const isMedia = /image|video|sticker|audio/.test(mime)
+		const from = mek.key.remoteJid
+		const type = Object.keys(mek.message)[0]
+		const content = JSON.stringify(mek.message)
 		const messagesD = body.slice(0).trim().split(/ +/).shift().toLowerCase()
+
+		//group\\
 		const groupMetadata = m.isGroup ? await RoseMwol.groupMetadata(m.chat).catch(e => {}) : ''
 		const groupName = m.isGroup ? groupMetadata.subject : ''
 		const participants = m.isGroup ? await groupMetadata.participants : ''
@@ -304,10 +277,7 @@ module.exports = RoseMwol = async (RoseMwol, m, chatUpdate, store) => {
 		const groupOwner = m.isGroup ? groupMetadata.owner : ''
 		const isBotAdmins = m.isGroup ? groupAdmins.includes(botNumber) : false
 		const isAdmins = m.isGroup ? groupAdmins.includes(m.sender) : false
-		const isUser = pendaftar.includes(m.sender)
-		const isBan = banUser.includes(m.sender)
-		const isBanChat = m.isGroup ? banchat.includes(from) : false
-		const isRakyat = isCreator || global.rkyt.map(v => v.replace(/[^0-9]/g, '') + '@s.whatsapp.net').includes(m.sender) || false
+		const isPremium = isCreator || global.premium.map(v => v.replace(/[^0-9]/g, '') + '@s.whatsapp.net').includes(m.sender) || false
 		const AntiLink = m.isGroup ? ntilink.includes(from) : false
 		const AntiLinkYoutubeVid = m.isGroup ? ntilinkytvid.includes(from) : false
 		const AntiLinkYoutubeChannel = m.isGroup ? ntilinkytch.includes(from) : false
@@ -321,43 +291,265 @@ module.exports = RoseMwol = async (RoseMwol, m, chatUpdate, store) => {
 		const antiToxic = m.isGroup ? nttoxic.includes(from) : false
 		const antiVirtex = m.isGroup ? ntvirtex.includes(from) : false
 		const AntiNsfw = m.isGroup ? ntnsfw.includes(from) : false
-		const welcm = m.isGroup ? wlcm.includes(from) : false
-		const GcRvk = m.isGroup ? gcrevoke.includes(from) : false
-		const isLeveling = m.isGroup ? _leveling.includes(from) : false
 		const isAutoStick = _autostick.includes(from)
 		const isAutoSticker = m.isGroup ? autosticker.includes(from) : false
-		const isSewa = _sewa.checkSewaGroup(from, sewa)
 		const Autoreply = m.isGroup ? autorep.includes(from) : true
+		const ChatBot = m.isGroup ? chattbot.includes(from) : false
+		const isBan = banUser.includes(m.sender)
+		const isBanChat = m.isGroup ? banchat.includes(from) : false
 		autoreadsw = true
-		const content = JSON.stringify(m.message)
-		const q = args.join(' ')
-		const isImage = (m.type === 'imageMessage')
-		const isVideo = (m.type === 'videoMessage')
-		const isMedias = (m.mtype === 'imageMessage' || m.mtype === 'videoMessage')
-		const isQuotedImage = m.mtype === 'extendedTextMessage' && content.includes('imageMessage')
-		const isQuotedVideo = m.mtype === 'extendedTextMessage' && content.includes('videoMessage')
-		const isQuotedAudio = m.mtype === 'extendedTextMessage' && content.includes('audioMessage')
-		const isQuotedSticker = m.mtype === 'extendedTextMessage' && content.includes('stickerMessage')
-		const isQuotedLoca = m.mtype === 'extendedTextMessage' && content.includes('locationMessage')
-		const isQuotedContact = m.mtype === 'extendedTextMessage' && content.includes('contactMessage')
-		const isQuotedDocs = m.mtype === 'extendedTextMessage' && content.includes('documentMessage')
-		const isQuotedTeks = m.mtype === 'extendedTextMessage' && content.includes('quotedMessage')
-		const isQuotedTag = m.mtype === 'extendedTextMessage' && content.includes('mentionedJid')
-		const isQuotedProd = m.mtype === 'extendedTextMessage' && content.includes('productMessage')
-		const isQuotedReply = m.mtype === 'extendedTextMessage' && content.includes('Message')
 
-		_sewa.expiredCheck(RoseMwol, sewa)
+		//member\\
+		let picaks = [flaming, fluming, flarun, flasmurf]
+		let picak = picaks[Math.floor(Math.random() * picaks.length)]
+
+		try {
+			let isNumber = x => typeof x === 'number' && !isNaN(x)
+			let limitUser = isPremium ? global.limitawal.premium : global.limitawal.free
+			let user = global.db.data.users[m.sender]
+			if (typeof user !== 'object') global.db.data.users[m.sender] = {}
+			if (user) {
+				if (!isNumber(user.afkTime)) user.afkTime = -1
+				if (!('afkReason' in user)) user.afkReason = ''
+				if (!isNumber(user.limit)) user.limit = limitUser
+			} else global.db.data.users[m.sender] = {
+				afkTime: -1,
+				afkReason: '',
+				limit: limitUser,
+			}
+
+			let chats = global.db.data.chats[m.chat]
+			if (typeof chats !== 'object') global.db.data.chats[m.chat] = {}
+			if (chats) {
+				if (!('mute' in chats)) chats.mute = false
+			} else global.db.data.chats[m.chat] = {
+				mute: false,
+			}
+
+			let setting = global.db.data.settings[botNumber]
+			if (typeof setting !== 'object') global.db.data.settings[botNumber] = {}
+			if (setting) {
+				if (!isNumber(setting.status)) setting.status = 0
+				if (!('autobio' in setting)) setting.autobio = false
+				if (!('templateImage' in setting)) setting.templateImage = false
+				if (!('templateVideo' in setting)) setting.templateVideo = false
+				if (!('templateGif' in setting)) setting.templateGif = false
+				if (!('templateMsg' in setting)) setting.templateMsg = false
+				if (!('templateDocument' in setting)) setting.templateDocument = true
+			} else global.db.data.settings[botNumber] = {
+				status: 0,
+				autobio: false,
+				templateImage: false,
+				templateVideo: false,
+				templateGif: false,
+				templateMsg: false,
+				templateDocument: true,
+			}
+
+		} catch (err) {
+			console.error(err)
+		}
+
+		// FAKE TEXT IMG
+		const textImg = (teks) => {
+			RoseMwol.sendMessage(m.chat, {
+				text: teks,
+			}, {
+				quoted: m,
+				thumbnail: fs.readFileSync('./Media/image/wpmobile.png')
+			})
+		}
+
+		//FAKE CONTACT
+		const fkontak = {
+			key: {
+				participant: `0@s.whatsapp.net`,
+				...(from ? {
+					remoteJid: `919744933034 -1614953337@g.us`
+				} : {})
+			},
+			message: {
+				'contactMessage': {
+					'displayName': `${pushname}`,
+					'vcard': `BEGIN:VCARD\nVERSION:3.0\nN:XL;${pushname},;;;\nFN:${pushname},\nitem1.TEL;waid=${m.sender.split('@')[0]}:${m.sender.split('@')[0]}\nitem1.X-ABLabel:Click to chat\nEND:VCARD`,
+					'jpegThumbnail': thumb,
+					thumbnail: thumb,
+					sendEphemeral: true
+				}
+			}
+		}
+		//FAKEREPLY PRODUCT
+		const ftoko = {
+			key: {
+				fromMe: false,
+				participant: `0@s.whatsapp.net`,
+				...(from ? {
+					remoteJid: "16505434800@s.whatsapp.net"
+				} : {})
+			},
+			message: {
+				"productMessage": {
+					"product": {
+						"productImage": {
+							"mimetype": "image/jpeg",
+							"jpegThumbnail": log0 //The picture
+						},
+						"title": `${global.ownername}`,
+						"description": `${global.botname}`,
+						"currencyCode": "USD",
+						"priceAmount1000": "2000",
+						"retailerId": `${global.watermark}`,
+						"productImageCount": 1
+					},
+					"businessOwnerJid": `0@s.whatsapp.net`
+				}
+			}
+		}
+		//FAKEREPLY TROLI
+		const ftroli = {
+			key: {
+				participant: '0@s.whatsapp.net'
+			},
+			message: {
+				orderMessage: {
+					itemCount: 1,
+					status: 1,
+					surface: 1,
+					message: `${global.ownername}`, //
+					orderTitle: `${global.botname}`,
+					thumbnail: log0, //Pic
+					sellerJid: '0@s.whatsapp.net'
+
+				}
+			}
+		}
+		//FAKEREPLY LOCATION
+		const flokasi = {
+			key: {
+				participant: '0@s.whatsapp.net'
+			},
+			message: {
+				locationMessage: {
+					name: `${global.location}`,
+					jpegThumbnail: log0
+				}
+			}
+		}
+		//FAKEREPLY DOCUMENT
+		const fdocs = {
+			key: {
+				participant: '0@s.whatsapp.net'
+			},
+			message: {
+				documentMessage: {
+					title: `${global.botname}`,
+					jpegThumbnail: log0
+				}
+			}
+		}
+		//FAKEREPLY VIDEO
+		const fvideo = {
+			key: {
+				fromMe: false,
+				participant: `0@s.whatsapp.net`,
+				...(from ? {
+					remoteJid: "919744933034-1613049930@g.us"
+				} : {})
+			},
+			message: {
+				"videoMessage": {
+					"title": `${global.botname}`,
+					"h": `${global.ownername}`,
+					'seconds': '30',
+					'caption': `${global.watermark}`,
+					'jpegThumbnail': log0
+				}
+			}
+		}
+		//FAKEREPLY GROUPINVITE
+		const fgclink = {
+			"key": {
+				"fromMe": false,
+				"participant": "0@s.whatsapp.net",
+				"remoteJid": "0@s.whatsapp.net"
+			},
+			"message": {
+				"groupInviteMessage": {
+					"groupJid": "919744933034-1616169743@g.us",
+					"inviteCode": `${global.ownername}`,
+					"groupName": `${global.botname}`,
+					"caption": `${global.watermark}`,
+					'jpegThumbnail': log0
+				}
+			}
+		}
+		//FAKEREPLY GIF
+		const fgif = {
+			key: {
+				fromMe: false,
+				participant: `0@s.whatsapp.net`,
+				...(from ? {
+					remoteJid: "919744933034-1613049930@g.us"
+				} : {})
+			},
+			message: {
+				"videoMessage": {
+					"title": `${global.botname}`,
+					"h": `${global.ownername}`,
+					'seconds': "30",
+					'gifPlayback': 'true',
+					'caption': `${global.watermark}`,
+					'jpegThumbnail': log0
+				}
+			}
+		}
+		//FAKEREPLY TEXT WITH THUMBNAIL
+		const ftextt = {
+			key: {
+				fromMe: false,
+				participant: `0@s.whatsapp.net`,
+				...(from ? {
+					remoteJid: "919744933034-1613049930@g.us"
+				} : {})
+			},
+			message: {
+				"extendedTextMessage": {
+					"text": `${global.ownername}`,
+					"title": `${global.botname}`,
+					'jpegThumbnail': log0
+				}
+			}
+		}
+		//FAKEREPLY VN
+		const fvn = {
+			key: {
+				fromMe: false,
+				participant: `0@s.whatsapp.net`,
+				...(from ? {
+					remoteJid: "919744933034-1613049930@g.us"
+				} : {})
+			},
+			message: {
+				"audioMessage": {
+					"mimetype": "audio/ogg; codecs=opus",
+					"seconds": "9999999999999999",
+					"ptt": "true"
+				}
+			}
+		}
+
+		//group target \\
 		const reply = (teks) => {
 			RoseMwol.sendMessage(m.chat, {
 				text: teks,
 				contextInfo: {
 					"externalAdReply": {
 						"title": ` ${global.botname}`,
-						"body": `Join bots Official Group`,
+						"body": `${ownername}`,
 						"previewType": "PHOTO",
 						"thumbnailUrl": ``,
 						"thumbnail": fs.readFileSync(`./Bot Pic/Rose.jpg`),
-						"sourceUrl": `${linkz1}`
+						"sourceUrl": `${linkz}`
 					}
 				}
 			}, {
@@ -371,11 +563,11 @@ module.exports = RoseMwol = async (RoseMwol, m, chatUpdate, store) => {
 				contextInfo: {
 					"externalAdReply": {
 						"title": ` ${global.botname}`,
-						"body": `Join bots Official Group`,
+						"body": `${ownername}`,
 						"previewType": "PHOTO",
 						"thumbnailUrl": ``,
 						"thumbnail": fs.readFileSync(`./Bot Pic/Rose.jpg`),
-						"sourceUrl": `${linkz2}`
+						"sourceUrl": `${linkz}`
 					}
 				}
 			}, {
@@ -383,92 +575,92 @@ module.exports = RoseMwol = async (RoseMwol, m, chatUpdate, store) => {
 			})
 		}
 
-		let chats = global.db.data.chats[m.chat]
-		if (typeof chats !== 'object') global.db.data.chats[m.chat] = {}
-		if (chats) {
-			if (!('chatbot' in chats)) chats.chatbot = false
-		} else global.db.data.chats[m.chat] = {
-			chatbot: false,
+		//Public & Self\\
+		if (!RoseMwol.public) {
+			if (!m.key.fromMe) return
 		}
 
-		if (db.data.chats[m.chat].chatbot === true) {
-			try {
-				let message = budy
-				let unique_id = global.db.data.users[m.sender]
-				if (typeof message === 'string') {
-					let ChatBotReplay = await fetchJson(`http://api.brainshop.ai/get?bid=167415&key=VQkuW1MYBXsNnlpB&uid=${encodeURIComponent(unique_id)}&msg=${encodeURIComponent(message)}`)
-					let textt = ChatBotReplay.cnt
-					await RoseMwol.sendMessage(m.chat, {
-						text: textt,
-						contextInfo: {
-							externalAdReply: {
-								mediaUrl: '',
-								mediaType: 2,
-								description: '',
-								title: `${global.botname}`,
-								thumbnail: fs.readFileSync(`./Bot Pic/Rose-Mwol-MD.jpg`),
-								sourceUrl: `${global.linkz1}`
-							}
-						}
-					}, {
-						quoted: m
-					})
-				}
-			} catch (err) {
-				reply(`${mess.error}`)
-			}
+		//Push Message To Console && Auto Read\\
+		if (m.message) {
+			console.log(chalk.black(chalk.bgWhite('[ MESSAGE ]')), chalk.black(chalk.bgGreen(new Date)), chalk.black(chalk.bgBlue(budy || m.mtype)) + '\n' + chalk.magenta('=> From'), chalk.green(pushname), chalk.yellow(m.sender) + '\n' + chalk.blueBright('=> In'), chalk.green(m.isGroup ? pushname : 'Private Chat', m.chat))
 		}
 
-		let sticker = JSON.parse(fs.readFileSync('./Media/sticker/sticker.json'));
-		let voicenote = JSON.parse(fs.readFileSync('./Media/vn/vn.json'));
-		let images = JSON.parse(fs.readFileSync('./Media/image/image.json'));
-		let videoss = JSON.parse(fs.readFileSync('./Media/vid/video.json'));
-		let efx = JSON.parse(fs.readFileSync('./Media/efx/efx.json'));
-		if (Autoreply) {
-			for (let Stickers of sticker) {
-				if (budy === Stickers) {
-					result = await getBuffer(`https://raw.githubusercontent.com/Sachu-Settan/Media/main/stickers/${encodeURIComponent(Stickers)}.webp`)
-					await RoseMwol.sendMessage(m.chat, {
-						sticker: result
-					}, {
-						quoted: m
-					})
-				}
-			}
-			for (let vn of voicenote) {
-				if (budy === vn) {
-					result = await getBuffer(`https://raw.githubusercontent.com/Sachu-Settan/Media/main/vn/${encodeURIComponent(vn)}.mp3`)
-					await RoseMwol.sendMessage(m.chat, {
-						audio: result,
-						mimetype: 'audio/mpeg',
-						ptt: true
-					}, {
-						quoted: m
-					})
-				}
-			}
-			for (let imgs of images) {
-				if (budy === imgs) {
-					result = await getBuffer(`https://raw.githubusercontent.com/Sachu-Settan/Media/main/image/${encodeURIComponent(imgs)}.jpg`)
-					await RoseMwol.sendMessage(m.chat, {
-						image: result
-					}, {
-						quoted: m
-					})
-				}
-			}
-			for (let vid of videoss) {
-				if (budy === vid) {
-					result = await getBuffer(`https://raw.githubusercontent.com/Sachu-Settan/Media/main/vid/${encodeURIComponent(vid)}.mp4`)
-					await RoseMwol.sendMessage(m.chat, {
-						video: result
-					}, {
-						quoted: m
-					})
-				}
+		//reset limit every 12 hours\\
+		let cron = require('node-cron')
+		cron.schedule('00 12 * * *', () => {
+			let user = Object.keys(global.db.data.users)
+			let limitUser = isPremium ? global.limitawal.premium : global.limitawal.free
+			for (let jid of user) global.db.data.users[jid].limit = limitUser
+			console.log('Limit Reseted')
+		}, {
+			scheduled: true,
+			timezone: "Asia/Kolkata"
+		})
+
+		//hitter
+		global.hit = {}
+		if (isCmd) {
+			data = await fetchJson('https://api.countapi.xyz/hit/Rose-Mwol-MD/visits')
+			jumlahcmd = `${data.value}`
+			dataa = await fetchJson(`https://api.countapi.xyz/hit/Rose-Mwol-MD${moment.tz('Asia/Kolkata').format('DDMMYYYY')}/visits`)
+			jumlahharian = `${dataa.value}`
+		}
+
+		//auto set bio\\
+		if (db.data.settings[botNumber].autobio) {
+			let setting = global.db.data.settings[botNumber]
+			if (new Date() * 1 - setting.status > 1000) {
+				let uptime = await runtime(process.uptime())
+				await RoseMwol.setStatus(`${RoseMwol.user.name} | Runtime : ${runtime(uptime)}`)
+				setting.status = new Date() * 1
 			}
 		}
 
+		//antispam or auto react
+		//if (m.message && msgFilter.isFiltered(from)) {
+		//console.log(`${global.themeemoji}[SPAM]`, color(moment(m.messageTimestamp * 1000).format('DD/MM/YYYY HH:mm:ss'), 'yellow'), color(`${command} [${args.length}]`), 'from', color(m.pushName))
+		//return RoseMwol.sendMessage(from, { react: { text: `${global.themeemoji}`, key: m.key }})
+		//}
+
+		//auto read whatsapp status
+		if (autoreadsw) {
+			if (from === 'status@broadcast') {
+				RoseMwol.chatRead(from)
+			}
+		}
+		//autoreader gc and pm
+		if (global.autoreadpmngc) {
+			if (command) {
+				await RoseMwol.sendPresenceUpdate('composing', m.chat)
+				RoseMwol.sendReadReceipt(from, m.sender, [m.key.id])
+			}
+		}
+		//autoread gc only
+		if (global.autoReadGc) {
+			if (m.isGroup) {
+				RoseMwol.sendReadReceipt(m.chat, m.sender, [m.key.id])
+			}
+		}
+		//auto recording all
+		if (global.autoRecord) {
+			if (m.chat) {
+				RoseMwol.sendPresenceUpdate('recording', m.chat)
+			}
+		}
+		//autotyper all
+		if (global.autoTyping) {
+			if (m.chat) {
+				RoseMwol.sendPresenceUpdate('composing', m.chat)
+			}
+		}
+		//auto available all
+		if (global.available) {
+			if (m.chat) {
+				RoseMwol.sendPresenceUpdate('available', m.chat)
+			}
+		}
+
+		// Autosticker gc
 		if (isAutoSticker) {
 			if (/image/.test(mime) && !/webp/.test(mime)) {
 				let mediac = await quoted.download()
@@ -486,7 +678,7 @@ module.exports = RoseMwol = async (RoseMwol, m, chatUpdate, store) => {
 				})
 			}
 		}
-
+		//Autosticker pc
 		if (isAutoStick) {
 			if (/image/.test(mime) && !/webp/.test(mime)) {
 				let mediac = await quoted.download()
@@ -505,517 +697,7 @@ module.exports = RoseMwol = async (RoseMwol, m, chatUpdate, store) => {
 			}
 		}
 
-		function randomNomor(angka) {
-			return Math.floor(Math.random() * angka) + 1
-		}
-
-
-		if (m.message) {
-			addBalance(m.sender, randomNomor(574), balance)
-			console.log(chalk.black(chalk.bgWhite('[ MESSAGE ]')), chalk.black(chalk.bgGreen(new Date)), chalk.black(chalk.bgBlue(budy || m.mtype)) + '\n' + chalk.magenta('=> From'), chalk.green(pushname), chalk.yellow(m.sender) + '\n' + chalk.blueBright('=> In'), chalk.green(m.isGroup ? pushname : 'Private Chat', m.chat))
-		}
-		//antispam or auto react
-		//if (m.message && msgFilter.isFiltered(from)) {
-		//console.log(`${global.roseemoji}[SPAM]`, color(moment(m.messageTimestamp * 1000).format('DD/MM/YYYY HH:mm:ss'), 'yellow'), color(`${command} [${args.length}]`), 'from', color(m.pushName))
-		//return RoseMwol.sendMessage(from, { react: { text: `${global.themeemoji}`, key: m.key }})
-		//}
-		if (isCmd && !isUser) {
-			pendaftar.push(m.sender)
-			fs.writeFileSync('./storage/user/user.json', JSON.stringify(pendaftar))
-		}
-
-		const getLevelingXp = (userId) => {
-			let position = false
-			Object.keys(_level).forEach((i) => {
-				if (_level[i].jid === userId) {
-					position = i
-				}
-			})
-			if (position !== false) {
-				return _level[position].xp
-			}
-		}
-
-		const getLevelingLevel = (userId) => {
-			let position = false
-			Object.keys(_level).forEach((i) => {
-				if (_level[i].jid === userId) {
-					position = i
-				}
-			})
-			if (position !== false) {
-				return _level[position].level
-			}
-		}
-
-		const getLevelingId = (userId) => {
-			let position = false
-			Object.keys(_level).forEach((i) => {
-				if (_level[i].jid === userId) {
-					position = i
-				}
-			})
-			if (position !== false) {
-				return _level[position].jid
-			}
-		}
-
-		const addLevelingXp = (userId, amount) => {
-			let position = false
-			Object.keys(_level).forEach((i) => {
-				if (_level[i].jid === userId) {
-					position = i
-				}
-			})
-			if (position !== false) {
-				_level[position].xp += amount
-				fs.writeFileSync('./database/level.json', JSON.stringify(_level))
-			}
-		}
-
-		const addLevelingLevel = (userId, amount) => {
-			let position = false
-			Object.keys(_level).forEach((i) => {
-				if (_level[i].jid === userId) {
-					position = i
-				}
-			})
-			if (position !== false) {
-				_level[position].level += amount
-				fs.writeFileSync('./database/level.json', JSON.stringify(_level))
-			}
-		}
-
-		const addLevelingId = (userId) => {
-			const obj = {
-				jid: userId,
-				xp: 1,
-				level: 1
-			}
-			_level.push(obj)
-			fs.writeFileSync('./database/level.json', JSON.stringify(_level))
-		}
-
-		const getUserRank = (userId) => {
-			let position = null
-			let found = false
-			_level.sort((a, b) => (a.xp < b.xp) ? 1 : -1)
-			Object.keys(_level).forEach((i) => {
-				if (_level[i].id === userId) {
-					position = i
-					found = true
-				}
-			})
-			if (found === false && position === null) {
-				const obj = {
-					id: userId,
-					xp: 0,
-					level: 1
-				}
-				_level.push(obj)
-				fs.writeFileSync('./database/level.json', JSON.stringify(_level))
-				return 99
-			} else {
-				return position + 1
-			}
-		}
-
-		const xpGain = new Set()
-
-		const isGained = (userId) => {
-			return !!xpGain.has(userId)
-		}
-
-		const addCooldown = (userId) => {
-			xpGain.add(userId)
-			setTimeout(() => {
-				return xpGain.delete(userId)
-			}, 60000) // Every minute
-		}
-
-		var levelRole = getLevelingLevel(m.sender)
-		var role = 'Copper V'
-		if (levelRole <= 5) {
-			role = 'Copper IV'
-		} else if (levelRole <= 10) {
-			role = 'Copper III'
-		} else if (levelRole <= 15) {
-			role = 'Copper II'
-		} else if (levelRole <= 20) {
-			role = 'Copper I'
-		} else if (levelRole <= 25) {
-			role = 'Silver V'
-		} else if (levelRole <= 30) {
-			role = 'Silver IV'
-		} else if (levelRole <= 35) {
-			role = 'Silver III'
-		} else if (levelRole <= 40) {
-			role = 'Silver II'
-		} else if (levelRole <= 45) {
-			role = 'Silver I'
-		} else if (levelRole <= 50) {
-			role = 'Gold V'
-		} else if (levelRole <= 55) {
-			role = 'Gold IV'
-		} else if (levelRole <= 60) {
-			role = 'Gold III'
-		} else if (levelRole <= 65) {
-			role = 'Gold II'
-		} else if (levelRole <= 70) {
-			role = 'Gold I'
-		} else if (levelRole <= 75) {
-			role = 'Platinum V'
-		} else if (levelRole <= 80) {
-			role = 'Platinum IV'
-		} else if (levelRole <= 85) {
-			role = 'Platinum III'
-		} else if (levelRole <= 90) {
-			role = 'Platinum II'
-		} else if (levelRole <= 95) {
-			role = 'Platinum I'
-		} else if (levelRole < 100) {
-			role = 'Exterminator'
-		}
-
-		var levelRoles = getLevelingLevel(m.sender)
-		var roles = 'Cop V'
-		if (levelRoles <= 5) {
-			roles = 'Cop IV'
-		} else if (levelRoles <= 10) {
-			roles = 'Cop III'
-		} else if (levelRoles <= 15) {
-			roles = 'Cop II'
-		} else if (levelRoles <= 20) {
-			roles = 'Cop I'
-		} else if (levelRoles <= 25) {
-			roles = 'Sil V'
-		} else if (levelRoles <= 30) {
-			roles = 'Sil IV'
-		} else if (levelRoles <= 35) {
-			roles = 'Sil III'
-		} else if (levelRoles <= 40) {
-			roles = 'Sil II'
-		} else if (levelRoles <= 45) {
-			roles = 'Sil I'
-		} else if (levelRoles <= 50) {
-			roles = 'Gol V'
-		} else if (levelRoles <= 55) {
-			roles = 'Gol IV'
-		} else if (levelRoles <= 60) {
-			roles = 'Gol III'
-		} else if (levelRoles <= 65) {
-			roles = 'Gol II'
-		} else if (levelRoles <= 70) {
-			roles = 'Gol I'
-		} else if (levelRoles <= 75) {
-			roles = 'Plat V'
-		} else if (levelRoles <= 80) {
-			roles = 'Plat IV'
-		} else if (levelRoles <= 85) {
-			roles = 'Plat III'
-		} else if (levelRoles <= 90) {
-			roles = 'Plat II'
-		} else if (levelRoles <= 95) {
-			roles = 'Plati I'
-		} else if (levelRoles < 100) {
-			roles = 'Exter'
-		}
-
-		if (m.isGroup && isLeveling && isUser && RoseMwol.public) {
-			const currentLevel = getLevelingLevel(m.sender)
-			const checkId = getLevelingId(m.sender)
-			try {
-				addCooldown(m.sender)
-				if (currentLevel === undefined && checkId === undefined) addLevelingId(m.sender)
-				const amountXp = Math.floor(Math.random() * 10) + 200
-				const requiredXp = 200 * (Math.pow(2, currentLevel) - 1)
-				const getLevel = getLevelingLevel(m.sender)
-				addLevelingXp(m.sender, amountXp)
-				if (requiredXp <= getLevelingXp(m.sender)) {
-					addLevelingLevel(m.sender, 1)
-					teks = `*──「 🥳LEVEL UP🥳 」──*\n\n${themeemoji} *Name*:  @${m.sender.split("@")[0]}\n${themeemoji} *XP*: ${getLevelingXp(m.sender)}\n${themeemoji} *Level*: ${getLevel} -> ${getLevelingLevel(m.sender)}\n${themeemoji} *Role*: ${role} \n\nCongrats!! 🎉`
-					RoseMwol.sendMessage(m.chat, {
-						text: teks,
-						mentions: [m.sender]
-					}, {
-						quoted: m
-					})
-				}
-
-			} catch (err) {
-				console.error(err)
-			}
-		}
-		if (prefix && command) {
-			const currentLevel = getLevelingLevel(m.sender)
-			const checkId = getLevelingId(m.sender)
-			try {
-
-				if (currentLevel === undefined && checkId === undefined) addLevelingId(m.sender)
-				const amountXp = Math.floor(Math.random() * 10) + 30
-				const requiredXp = 30 * (Math.pow(2, currentLevel) - 1)
-				const getLevel = getLevelingLevel(m.sender)
-				addLevelingXp(m.sender, amountXp)
-				if (requiredXp <= getLevelingXp(m.sender)) {
-					addLevelingLevel(m.sender, 1)
-				}
-
-			} catch (err) {
-				console.error(err)
-			}
-		}
-
-		if (autoreadsw) {
-			if (from === 'status@broadcast') {
-				RoseMwol.chatRead(from)
-			}
-		}
-
-		if (global.autoreadpmngc) {
-			if (command) {
-				await RoseMwol.sendPresenceUpdate('composing', m.chat)
-				RoseMwol.sendReadReceipt(from, m.sender, [m.key.id])
-			}
-		}
-
-		if (global.autoReadGc) {
-			if (m.isGroup) {
-				RoseMwol.sendReadReceipt(m.chat, m.sender, [m.key.id])
-			}
-		}
-
-		if (global.autoReadAll) {
-			if (m.chat) {
-				RoseMwol.sendReadReceipt(m.chat, m.sender, [m.key.id])
-			}
-		}
-
-		if (global.autoRecord) {
-			if (m.chat) {
-				RoseMwol.sendPresenceUpdate('recording', m.chat)
-			}
-		}
-
-		if (global.autoTyping) {
-			if (m.chat) {
-				RoseMwol.sendPresenceUpdate('composing', m.chat)
-			}
-		}
-
-		if (global.available) {
-			if (m.chat) {
-				RoseMwol.sendPresenceUpdate('available', m.chat)
-			}
-		}
-
-		const hariRaya = new Date('6 1, 2022 00:00:00')
-		const sekarang = new Date().getTime();
-		const Selisih = hariRaya - sekarang;
-		const jhari = Math.floor(Selisih / (1000 * 60 * 60 * 24));
-		const jjam = Math.floor(Selisih % (1000 * 60 * 60 * 24) / (1000 * 60 * 60))
-		const mmmenit = Math.floor(Selisih % (1000 * 60 * 60) / (1000 * 60));
-		const ddetik = Math.floor(Selisih % (1000 * 60) / 1000);
-		const ultah = `${jhari}Day ${jjam}Hour ${mmmenit}Minute ${ddetik}Second`
-
-		async function hitungmundur(bulan, tanggal) {
-			let from = new Date(`${bulan} ${tanggal}, 2022 00:00:00`).getTime();
-			let now = Date.now();
-			let distance = from - now;
-			let days = Math.floor(distance / (1000 * 60 * 60 * 24));
-			let hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-			let minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-			let seconds = Math.floor((distance % (1000 * 60)) / 1000);
-			return days + "Day " + hours + "Hour " + minutes + "Minute " + seconds + "Second"
-		}
-		try {
-			let isNumber = x => typeof x === 'number' && !isNaN(x)
-			let limitUser = isRakyat ? global.limitawal.rakyat : global.limitawal.free
-			let user = global.db.users[m.sender]
-			if (typeof user !== 'object') global.db.users[m.sender] = {}
-			if (user) {
-				if (!isNumber(user.afkTime)) user.afkTime = -1
-				if (!('afkReason' in user)) user.afkReason = ''
-				if (!isNumber(user.limit)) user.limit = limitUser
-			} else global.db.users[m.sender] = {
-				afkTime: -1,
-				afkReason: '',
-				limit: limitUser,
-			}
-			let setting = global.db.data.settings[botNumber]
-			if (typeof setting !== 'object') global.db.data.settings[botNumber] = {}
-			if (setting) {
-				if (!isNumber(setting.status)) setting.status = 0
-				if (!('autobio' in setting)) setting.autobio = false
-				if (!('templateImage' in setting)) setting.templateImage = false
-				if (!('templateGif' in setting)) setting.templateGif = false
-				if (!('templateMsg' in setting)) setting.templateMsg = false
-				if (!('templateDocument' in setting)) setting.templateDocument = true
-			} else global.db.data.settings[botNumber] = {
-				status: 0,
-				autobio: false,
-				templateImage: false,
-				templateGif: false,
-				templateMsg: false,
-				templateDocument: true,
-			}
-		} catch (err) {
-			console.error(err)
-		}
-
-		const sendOrder = async (jid, text, orid, img, itcount, title, sellers, tokens, ammount) => {
-			const order = generateWAMessageFromContent(jid, proto.Message.fromObject({
-				"orderMessage": {
-					"orderId": orid, // Change ID
-					"thumbnail": img, // Change the Image
-					"itemCount": itcount, // Change the Item Count
-					"status": "INQUIRY", // Don't Replace
-					"surface": "CATALOG", // Don't Replace
-					"orderTitle": title, // Change the title
-					"message": text, // Change Message
-					"sellerJid": sellers, // Change the seller
-					"token": tokens, // Change the token
-					"totalAmount1000": ammount, // Change the Total Amount
-					"totalCurrencyCode": "INR", // Up to you
-				}
-			}), {
-				userJid: jid
-			})
-			RoseMwol.relayMessage(jid, order.message, {
-				messageId: order.key.id
-			})
-		}
-
-		const {
-			addInventoriDarah,
-			cekDuluJoinAdaApaKagaDiJson,
-			addDarah,
-			kurangDarah,
-			getDarah
-		} = require('./storage/user/blood.js')
-		const {
-			cekInventoryAdaAtauGak,
-			addInventori,
-			addBesi,
-			addEmas,
-			addEmerald,
-			addUmpan,
-			addPotion,
-			kurangBesi,
-			kurangEmas,
-			kurangEmerald,
-			kurangUmpan,
-			kurangPotion,
-			getBesi,
-			getEmas,
-			getEmerald,
-			getUmpan,
-			getPotion
-		} = require('./storage/user/exchange.js')
-		const {
-			addInventoriMonay,
-			cekDuluJoinAdaApaKagaMonaynyaDiJson,
-			addMonay,
-			kurangMonay,
-			getMonay
-		} = require('./storage/user/money.js')
-		const {
-			addInventoriLimit,
-			cekDuluJoinAdaApaKagaLimitnyaDiJson,
-			addLimit,
-			kurangLimit,
-			getLimit
-		} = require('./storage/user/limit.js')
-		const {
-			cekDuluHasilBuruanNya,
-			addInventoriBuruan,
-			addIkan,
-			addAyam,
-			addKelinci,
-			addDomba,
-			addSapi,
-			addGajah,
-			kurangIkan,
-			kurangAyam,
-			kurangKelinci,
-			kurangDomba,
-			kurangSapi,
-			kurangGajah,
-			getIkan,
-			getAyam,
-			getKelinci,
-			getDomba,
-			getSapi,
-			getGajah
-		} = require('./storage/user/prey.js')
-		let DarahAwal = global.rpg.darahawal
-		const isDarah = cekDuluJoinAdaApaKagaDiJson(m.sender)
-		const isCekDarah = getDarah(m.sender)
-		const isUmpan = getUmpan(m.sender)
-		const isPotion = getPotion(m.sender)
-		const isIkan = getIkan(m.sender)
-		const isAyam = getAyam(m.sender)
-		const isKelinci = getKelinci(m.sender)
-		const isDomba = getDomba(m.sender)
-		const isSapi = getSapi(m.sender)
-		const isGajah = getGajah(m.sender)
-		const isMonay = getMonay(m.sender)
-		const isLimit = getLimit(m.sender)
-		const isBesi = getBesi(m.sender)
-		const isEmas = getEmas(m.sender)
-		const isEmerald = getEmerald(m.sender)
-		const isInventory = cekInventoryAdaAtauGak(m.sender)
-		const isInventoriBuruan = cekDuluHasilBuruanNya(m.sender)
-		const isInventoryLimit = cekDuluJoinAdaApaKagaLimitnyaDiJson(m.sender)
-		const isInventoryMonay = cekDuluJoinAdaApaKagaMonaynyaDiJson(m.sender)
-		const ikan = ['🐟', '🐠', '🐡']
-		let picaks = [flaming, fluming, flarun, flasmurf]
-		let picak = picaks[Math.floor(Math.random() * picaks.length)]
-
-		if (!isRakyat) {
-			rkyt.push(m.sender.split("@")[0])
-		}
-
-		global.hit = {}
-		if (isCmd) {
-			data = await fetchJson('https://api.countapi.xyz/hit/Rose-Mwol-MD/visits')
-			jumlahcmd = `${data.value}`
-			dataa = await fetchJson(`https://api.countapi.xyz/hit/Rose-Mwol-MD${moment.tz('Asia/Kolkata').format('DDMMYYYY')}/visits`)
-			jumlahharian = `${dataa.value}`
-		}
-		let mentionUser = [...new Set([...(m.mentionedJid || []), ...(m.quoted ? [m.quoted.sender] : [])])]
-		for (let jid of mentionUser) {
-			let user = global.db.users[jid]
-			if (!user) continue
-			let afkTime = user.afkTime
-			if (!afkTime || afkTime < 0) continue
-			let reason = user.afkReason || ''
-			reply(`
-Don't tag him!
-He's in AFK ${reason ? 'with reason ' + reason : 'no reason'}
-During ${clockString(new Date - afkTime)}
-`.trim())
-		}
-
-		if (db.users[m.sender].afkTime > -1) {
-			let user = global.db.users[m.sender]
-			reply(`
-He's in AFK/Offline ${user.afkReason ? ' after ' + user.afkReason : ''}
-During ${clockString(new Date - user.afkTime)}
-`.trim())
-			user.afkTime = -1
-			user.afkReason = ''
-		}
-
-		if (m.mtype === 'groupInviteMessage') {
-			teks = `Type .owner to join your whatsapp group`
-			sendOrder(m.chat, teks, "5123658817728409", fs.readFileSync('./Bot Pic/Rose.jpg'), `${watermark}`, `${botname}`, "919744933034@s.whatsapp.net", "AR7zJt8MasFx2Uir/fdxhkhPGDbswfWrAr2gmoyqNZ/0Wg==", "99999999999999999999")
-		}
-		/*const bodyyy = (m.mtype === 'conversation') ? m.message.conversation : (m.mtype == 'imageMessage') ? m.message.imageMessage.caption : (m.mtype == 'videoMessage') ? m.message.videoMessage.caption : (m.mtype == 'extendedTextMessage') ? m.message.extendedTextMessage.text : (m.mtype == 'buttonsResponseMessage') ? m.message.buttonsResponseMessage.selectedButtonId : (m.mtype == 'listResponseMessage') ? m.message.listResponseMessage.singleSelectReply.selectedRowId : (m.mtype == 'templateButtonReplyMessage') ? m.message.templateButtonReplyMessage.selectedId : (m.mtype === 'messageContextInfo') ? (m.message.buttonsResponseMessage?.selectedButtonId || m.message.listResponseMessage?.singleSelectReply.selectedRowId || m.text) : ''
-		if (!isCmd && !m.isGroup && !m.key.fromMe) {
-		const simi = await fetchJson(`https://caliph.my.id/api/simi.php?text=${budy}`)
-		const sami = simi.result
-		await RoseMwol.sendMessage(from, {text:sami}, {quoted:m})
-		}*/
+		// AntiLinkgc
 		if (AntiLink) {
 			linkgce = await RoseMwol.groupInviteCode(from)
 			if (budy.includes(`https://chat.whatsapp.com/${linkgce}`)) {
@@ -1037,6 +719,7 @@ During ${clockString(new Date - user.afkTime)}
 				})
 			} else {}
 		}
+		// Antiwame by rose
 		if (antiWame)
 			if (budy.includes(`wa.me`)) {
 				if (!isBotAdmins) return
@@ -1073,6 +756,7 @@ During ${clockString(new Date - user.afkTime)}
 					quoted: m
 				})
 			} else {}
+		//antivirtex by rose
 		if (antiVirtex) {
 			if (budy.length > 3500) {
 				reply(`Somebody spammed virus!! Mark as read⚠️\n`.repeat(300))
@@ -1081,6 +765,7 @@ During ${clockString(new Date - user.afkTime)}
 				RoseMwol.groupParticipantsUpdate(m.chat, [m.sender], 'remove')
 			}
 		}
+		//anti bad words by rose
 		if (antiToxic)
 			if (bad.includes(messagesD)) {
 				tos = ['Hey, watch your mouth', 'Never been taught how to speak?', 'Stop being toxic my friend🤢', 'Dont be toxic🦄']
@@ -1103,28 +788,7 @@ During ${clockString(new Date - user.afkTime)}
 					})
 				}
 			}
-		if (AntiLink) {
-			if (!isBotAdmins) return
-			linkgce = await RoseMwol.groupInviteCode(from)
-			if (budy.includes(`https://chat.whatsapp.com/${linkgce}`)) {
-				reply(`\`\`\`「 Gc Link Detected 」\`\`\`\n\nYou will not be kicked by a bot because what you send is our group link`)
-			} else if (isUrl(m.text)) {
-				bvl = `\`\`\`「 Gc Link Detected 」\`\`\`\n\nAdmin has sent a group link, admin is free to send any link😇`
-				if (isAdmins) return reply(bvl)
-				if (m.key.fromMe) return reply(bvl)
-				if (isCreator) return reply(bvl)
-				kice = m.sender
-				await RoseMwol.groupParticipantsUpdate(m.chat, [kice], 'remove')
-				RoseMwol.sendMessage(from, {
-					text: `\`\`\`「 Gc Link Detected 」\`\`\`\n\n@${kice.split("@")[0]} Has been kicked because of sending link in this group`,
-					contextInfo: {
-						mentionedJid: [kice]
-					}
-				}, {
-					quoted: m
-				})
-			} else {}
-		}
+		//antilink youtube video by rose
 		if (AntiLinkYoutubeVid)
 			if (budy.includes("https://youtu.be/")) {
 				if (!isBotAdmins) return
@@ -1143,6 +807,7 @@ During ${clockString(new Date - user.afkTime)}
 					quoted: m
 				})
 			} else {}
+		//antilink youtube channel by rose
 		if (AntiLinkYoutubeChannel)
 			if (budy.includes("https://youtube.com/")) {
 				if (!isBotAdmins) return
@@ -1161,6 +826,7 @@ During ${clockString(new Date - user.afkTime)}
 					quoted: m
 				})
 			} else {}
+		//antilink instagram by rose
 		if (AntiLinkInstagram)
 			if (budy.includes("https://www.instagram.com/")) {
 				if (!isBotAdmins) return
@@ -1179,6 +845,7 @@ During ${clockString(new Date - user.afkTime)}
 					quoted: m
 				})
 			} else {}
+		//antilink facebook by rose
 		if (AntiLinkFacebook)
 			if (budy.includes("https://facebook.com/")) {
 				if (!isBotAdmins) return
@@ -1197,6 +864,7 @@ During ${clockString(new Date - user.afkTime)}
 					quoted: m
 				})
 			} else {}
+		//antilink telegram by rose
 		if (AntiLinkTelegram)
 			if (budy.includes("https://t.me/")) {
 				if (AntiLinkTelegram)
@@ -1216,6 +884,7 @@ During ${clockString(new Date - user.afkTime)}
 					quoted: m
 				})
 			} else {}
+		//antilink tiktok by rose
 		if (AntiLinkTiktok)
 			if (budy.includes("https://www.tiktok.com/")) {
 				if (!isBotAdmins) return
@@ -1234,6 +903,7 @@ During ${clockString(new Date - user.afkTime)}
 					quoted: m
 				})
 			} else {}
+		//antilink twitter by rose
 		if (AntiLinkTwitter)
 			if (budy.includes("https://twitter.com/")) {
 				if (!isBotAdmins) return
@@ -1252,6 +922,7 @@ During ${clockString(new Date - user.afkTime)}
 					quoted: m
 				})
 			} else {}
+		//antilink all by rose
 		if (AntiLinkAll)
 			if (budy.includes("https://")) {
 				if (!isBotAdmins) return
@@ -1270,41 +941,175 @@ During ${clockString(new Date - user.afkTime)}
 					quoted: m
 				})
 			} else {}
-		if (m.mtype == 'viewOnceMessage') {
-			if (!db.data.chats[m.chat].antionce) return
-			teks = `「 *Anti ViewOnce Message* 」
-${themeemoji} Name : ${m.pushName}
-${themeemoji} User : @${m.sender.split("@")[0]}
-${themeemoji} Clock : ${moment.tz('Asia/Kolkata').format('HH:mm:ss')} 
-${themeemoji} Date : ${moment.tz('Asia/Kolkata').format('DD/MM/YYYY')}
-${themeemoji} MessageType : ${m.mtype}`
-			RoseMwol.sendTextWithMentions(m.chat, teks, m)
-			await sleep(500)
-			m.copyNForward(m.chat, true, {
-				readViewOnce: true
-			}).catch(_ => reply(`Maybe it's been opened by a bot`))
+
+			if (Autoreply) {
+				for (let Stickers of sticker) {
+					if (budy === Stickers) {
+						result = await getBuffer(`https://raw.githubusercontent.com/Sachu-Settan/Media/main/stickers/${encodeURIComponent(Stickers)}.webp`)
+						await RoseMwol.sendMessage(m.chat, {
+							sticker: result
+						}, {
+							quoted: m
+						})
+					}
+				}
+				for (let vn of voicenote) {
+					if (budy === vn) {
+						result = await getBuffer(`https://raw.githubusercontent.com/Sachu-Settan/Media/main/vn/${encodeURIComponent(vn)}.mp3`)
+						await RoseMwol.sendMessage(m.chat, {
+							audio: result,
+							mimetype: 'audio/mpeg',
+							ptt: true
+						}, {
+							quoted: m
+						})
+					}
+				}
+				for (let imgs of images) {
+					if (budy === imgs) {
+						result = await getBuffer(`https://raw.githubusercontent.com/Sachu-Settan/Media/main/image/${encodeURIComponent(imgs)}.jpg`)
+						await RoseMwol.sendMessage(m.chat, {
+							image: result
+						}, {
+							quoted: m
+						})
+					}
+				}
+				for (let vid of videoss) {
+					if (budy === vid) {
+						result = await getBuffer(`https://raw.githubusercontent.com/Sachu-Settan/Media/main/vid/${encodeURIComponent(vid)}.mp4`)
+						await RoseMwol.sendMessage(m.chat, {
+							video: result
+						}, {
+							quoted: m
+						})
+					}
+				}
+			}
+
+			if (ChatBot === true) {
+				try {
+					let message = budy
+					let unique_id = global.db.data.users[m.sender]
+						let ChatBotReplay = await fetchJson(`http://api.brainshop.ai/get?bid=167415&key=VQkuW1MYBXsNnlpB&uid=${encodeURIComponent(unique_id)}&msg=${encodeURIComponent(message)}`)
+						let textt = ChatBotReplay.cnt
+						await RoseMwol.sendMessage(m.chat, {
+							text: textt,
+							contextInfo: {
+								externalAdReply: {
+									mediaUrl: '',
+									mediaType: 2,
+									description: '',
+									title: `${global.botname}`,
+									thumbnail: fs.readFileSync(`./Bot Pic/Rose-Mwol-MD.jpg`),
+									sourceUrl: `${global.linkz}`
+								}
+							}
+						}, {
+							quoted: m
+						})
+				} catch (err) {
+					reply(`${mess.chatbotmediaerror}`)
+				}
+			}
+
+		const emote = (satu, dua) => {
+			try {
+				const {
+					EmojiAPI
+				} = require("emoji-api");
+				const emoji = new EmojiAPI();
+				emoji.get(satu)
+					.then(emoji => {
+						const buttons = [{
+							buttonId: "y",
+							buttonText: {
+								displayText: satu
+							},
+							type: 1
+						}]
+						const buttonMessage = {
+							image: {
+								url: emoji.images[dua].url
+							},
+							caption: "Here you go!",
+							footerText: `${botname}`,
+							buttons: buttons,
+							headerType: 4
+						}
+						RoseMwol.sendMessage(from, buttonMessage, {
+							quoted: m
+						})
+					})
+			} catch (e) {
+				reply("Emoji Error, Please Enter Another Emoji\nNOTE : Just Enter 1 Emoji")
+			}
 		}
 
-		// Public & Self
-		if (!RoseMwol.public) {
-			if (!m.key.fromMe) return
+		//Mute Chat\\
+		if (db.data.chats[m.chat].mute && !isAdmins && !isCreator) {
+			return
 		}
-		setInterval(() => {
-			fs.writeFileSync('./src/database.json', JSON.stringify(global.db, null, 2))
-		}, 60 * 1000)
 
-		// reset limit every 12 hours
-		let cron = require('node-cron')
-		cron.schedule('00 12 * * *', () => {
-			let user = Object.keys(global.db.users)
-			let limitUser = isRakyat ? global.limitawal.rakyat : global.limitawal.free
-			for (let jid of user) global.db.users[jid].limit = limitUser
-			console.log('Reseted Limit')
-		}, {
-			scheduled: true,
-			timezone: "Asia/Kolkata"
-		})
+		//media detect \\
+		const isQuotedImage = type === 'extendedTextMessage' && content.includes('imageMessage')
+		const isQuotedVideo = type === 'extendedTextMessage' && content.includes('videoMessage')
+		const isQuotedAudio = type === 'extendedTextMessage' && content.includes('audioMessage')
+		const isQuotedSticker = type === 'extendedTextMessage' && content.includes('stickerMessage')
 
+		//Respon Cmd with media\\
+		if (isMedia && m.msg.fileSha256 && (m.msg.fileSha256.toString('base64') in global.db.data.sticker)) {
+			let hash = global.db.data.sticker[m.msg.fileSha256.toString('base64')]
+			let {
+				text,
+				mentionedJid
+			} = hash
+			let messages = await generateWAMessage(m.chat, {
+				text: text,
+				mentions: mentionedJid
+			}, {
+				userJid: RoseMwol.user.id,
+				quoted: m.quoted && m.quoted.fakeObj
+			})
+			messages.key.fromMe = areJidsSameUser(m.sender, RoseMwol.user.id)
+			messages.key.id = m.key.id
+			messages.pushName = m.pushName
+			if (m.isGroup) messages.participant = m.sender
+			let msg = {
+				...chatUpdate,
+				messages: [proto.WebMessageInfo.fromObject(messages)],
+				type: 'append'
+			}
+			RoseMwol.ev.emit('messages.upsert', msg)
+		}
+
+		if (('family100' + m.chat in _family100) && isCmd) {
+			kuis = true
+			let room = _family100['family100' + m.chat]
+			let teks = budy.toLowerCase().replace(/[^\w\s\-]+/, '')
+			let isSurender = /^((me)?give up|surr?ender)$/i.test(m.text)
+			if (!isSurender) {
+				let index = room.jawaban.findIndex(v => v.toLowerCase().replace(/[^\w\s\-]+/, '') === teks)
+				if (room.terjawab[index]) return !0
+				room.terjawab[index] = m.sender
+			}
+			let isWin = room.terjawab.length === room.terjawab.filter(v => v).length
+			let caption = `
+Answer The Following Questions :\n${room.soal}\n\n\nThere Is ${room.jawaban.length} Answer ${room.jawaban.find(v => v.includes(' ')) ? `(Some Answers Have Spaces)` : ''}
+${isWin ? `All Answers Answered` : isSurender ? 'Surrender!' : ''}
+${Array.from(room.jawaban, (jawaban, index) => {
+        return isSurender || room.terjawab[index] ? `(${index + 1}) ${jawaban} ${room.terjawab[index] ? '@' + room.terjawab[index].split('@')[0] : ''}`.trim() : false
+    }).filter(v => v).join('\n')}
+    ${isSurender ? '' : `Perfect Player`}`.trim()
+			RoseMwol.sendText(m.chat, caption, m, {
+				contextInfo: {
+					mentionedJid: parseMention(caption)
+				}
+			}).then(mes => {
+				return _family100['family100' + m.chat].pesan = mesg
+			}).catch(_ => _)
+			if (isWin || isSurender) delete _family100['family100' + m.chat]
+		}
 
 		if (tebaklagu.hasOwnProperty(m.sender.split('@')[0]) && isCmd) {
 			kuis = true
@@ -1316,9 +1121,18 @@ ${themeemoji} MessageType : ${m.mtype}`
 						displayText: 'Guess The Song'
 					},
 					type: 1
-				}], `🎮 Guess The Song 🎮\n\nCorrect answer 🎉\n\nWant to play again? press the button below`, `${global.botname}`, m)
+				}], `🎮 Guess The Music 🎮\n\nCorrect Answer 🎉\n\nWant To Play Again? Press The Button Below`, RoseMwol.user.name, m)
 				delete tebaklagu[m.sender.split('@')[0]]
-			} else reply('*Wrong answer!*')
+			} else reply('*Wrong Answer!*')
+		}
+
+		if (kuismath.hasOwnProperty(m.sender.split('@')[0]) && isCmd) {
+			kuis = true
+			jawaban = kuismath[m.sender.split('@')[0]]
+			if (budy.toLowerCase() == jawaban) {
+				await reply(`🎮 Math Quiz 🎮\n\nCorrect Answer 🎉\n\nWant To Play Again? Send ${prefix}math mode`)
+				delete kuismath[m.sender.split('@')[0]]
+			} else reply('*Wrong Answer!*')
 		}
 
 		if (tebakgambar.hasOwnProperty(m.sender.split('@')[0]) && isCmd) {
@@ -1331,9 +1145,9 @@ ${themeemoji} MessageType : ${m.mtype}`
 						displayText: 'Guess The Picture'
 					},
 					type: 1
-				}], `🎮 Guess The Picture 🎮\n\nCorrect Answer 🎉\n\nWant to play again? press the button below`, `${global.botname}`, m)
+				}], `🎮 Guess The Picture 🎮\n\nCorrect Answer 🎉\n\nWant To Play Again? Press The Button Below`, RoseMwol.user.name, m)
 				delete tebakgambar[m.sender.split('@')[0]]
-			} else reply('*Wrong answer!*')
+			} else reply('*Wrong Answer!*')
 		}
 
 		if (tebakkata.hasOwnProperty(m.sender.split('@')[0]) && isCmd) {
@@ -1346,9 +1160,9 @@ ${themeemoji} MessageType : ${m.mtype}`
 						displayText: 'Guess The Word'
 					},
 					type: 1
-				}], `🎮 Guess The Word 🎮\n\nCorrect Answer 🎉\n\nWant to play again? press the button below`, `${global.botname}`, m)
+				}], `🎮 Guess The Word 🎮\n\nCorrect Answer 🎉\n\nWant To Play Again? Press The Button Below`, RoseMwol.user.name, m)
 				delete tebakkata[m.sender.split('@')[0]]
-			} else reply('*Wrong answer!*')
+			} else reply('*Wrong Answer!*')
 		}
 
 		if (caklontong.hasOwnProperty(m.sender.split('@')[0]) && isCmd) {
@@ -1357,15 +1171,15 @@ ${themeemoji} MessageType : ${m.mtype}`
 			deskripsi = caklontong_desk[m.sender.split('@')[0]]
 			if (budy.toLowerCase() == jawaban) {
 				await RoseMwol.sendButtonText(m.chat, [{
-					buttonId: 'guess saying',
+					buttonId: 'guess blank',
 					buttonText: {
-						displayText: 'Guess The Saying'
+						displayText: 'Guess The Blank'
 					},
 					type: 1
-				}], `🎮 Guess The Saying 🎮\n\nCorrect Answer 🎉\n*${deskripsi}*\n\nWant to play again? press the button below`, `${global.botname}`, m)
+				}], `🎮 Guess The Blank 🎮\n\nCorrect Answer 🎉\n*${deskripsi}*\n\nWant To Play Again? Press The Button Below`, RoseMwol.user.name, m)
 				delete caklontong[m.sender.split('@')[0]]
 				delete caklontong_desk[m.sender.split('@')[0]]
-			} else reply('*Wrong answer!*')
+			} else reply('*Wrong Answer!*')
 		}
 
 		if (tebakkalimat.hasOwnProperty(m.sender.split('@')[0]) && isCmd) {
@@ -1378,9 +1192,9 @@ ${themeemoji} MessageType : ${m.mtype}`
 						displayText: 'Guess The Sentence'
 					},
 					type: 1
-				}], `🎮 Guess The Sentence 🎮\n\nCorrect Answer 🎉\n\nWant to play again? press the button below`, `${global.botname}`, m)
+				}], `🎮 Guess The Sentence 🎮\n\nCorrect Answer 🎉\n\nWant To Play Again? Press The Button Below`, RoseMwol.user.name, m)
 				delete tebakkalimat[m.sender.split('@')[0]]
-			} else reply('*Wrong answer!*')
+			} else reply('*Wrong Answer!*')
 		}
 
 		if (tebaklirik.hasOwnProperty(m.sender.split('@')[0]) && isCmd) {
@@ -1393,9 +1207,9 @@ ${themeemoji} MessageType : ${m.mtype}`
 						displayText: 'Guess The Lyrics'
 					},
 					type: 1
-				}], `🎮 Guess The Lyrics 🎮\n\nCorrect Answer 🎉\n\nWant to play again? press the button below`, `${global.botname}`, m)
+				}], `🎮 Guess The Lyrics 🎮\n\nCorrect Answer 🎉\n\nWant To Play Again? Press The Button Below`, RoseMwol.user.name, m)
 				delete tebaklirik[m.sender.split('@')[0]]
-			} else reply('*Wrong answer!*')
+			} else reply('*Wrong Answer!*')
 		}
 
 		if (tebaktebakan.hasOwnProperty(m.sender.split('@')[0]) && isCmd) {
@@ -1403,52 +1217,94 @@ ${themeemoji} MessageType : ${m.mtype}`
 			jawaban = tebaktebakan[m.sender.split('@')[0]]
 			if (budy.toLowerCase() == jawaban) {
 				await RoseMwol.sendButtonText(m.chat, [{
-					buttonId: 'riddles',
+					buttonId: 'guess riddle',
 					buttonText: {
-						displayText: 'Riddles'
+						displayText: 'Guess The Riddle'
 					},
 					type: 1
-				}], `🎮 Riddles 🎮\n\nCorrect Answer 🎉\n\nWant to play again? press the button below`, `${global.botname}`, m)
+				}], `🎮 Guess The Riddle 🎮\n\nCorrect Answer 🎉\n\nWant To Play Again? Press The Button Below`, RoseMwol.user.name, m)
 				delete tebaktebakan[m.sender.split('@')[0]]
-			} else reply('*Wrong answer!*')
+			} else reply('*Wrong Answer!*')
 		}
 
-		if (('family100' + m.chat in _family100) && isCmd) {
-			kuis = true
-			let room = _family100['family100' + m.chat]
-			let teks = budy.toLowerCase().replace(/[^\w\s\-]+/, '')
-			let isSurender = /^((me)?give up|surr?ender|surrender)$/i.test(m.text)
-			if (!isSurender) {
-				let index = room.jawaban.findIndex(v => v.toLowerCase().replace(/[^\w\s\-]+/, '') === teks)
-				if (room.terjawab[index]) return !0
-				room.terjawab[index] = m.sender
+		//TicTacToe\\
+		this.game = this.game ? this.game : {}
+		let room = Object.values(this.game).find(room => room.id && room.game && room.state && room.id.startsWith('tictactoe') && [room.game.playerX, room.game.playerO].includes(m.sender) && room.state == 'PLAYING')
+		if (room) {
+			let ok
+			let isWin = !1
+			let isTie = !1
+			let isSurrender = !1
+			//reply(`[DEBUG]\n${parseInt(m.text)}`)
+			if (!/^([1-9]|(me)?give up|surr?ender|off|skip)$/i.test(m.text)) return
+			isSurrender = !/^[1-9]$/.test(m.text)
+			if (m.sender !== room.game.currentTurn) {
+				if (!isSurrender) return !0
 			}
-			let isWin = room.terjawab.length === room.terjawab.filter(v => v).length
-			let caption = `
-Answer the following questions :\n${room.soal}\n\n\nThere is ${room.jawaban.length} Answer ${room.jawaban.find(v => v.includes(' ')) ? `(some answers have spaces)` : ''}
-${isWin ? `All Answers Answered` : isSurender ? 'Surrender!' : ''}
-${Array.from(room.jawaban, (jawaban, index) => {
-return isSurender || room.terjawab[index] ? `(${index + 1}) ${jawaban} ${room.terjawab[index] ? '@' + room.terjawab[index].split('@')[0] : ''}`.trim() : false
-}).filter(v => v).join('\n')}
-${isSurender ? '' : `Perfect Player`}`.trim()
-			RoseMwol.sendText(m.chat, caption, m, {
-				contextInfo: {
-					mentionedJid: parseMention(caption)
-				}
-			}).then(mes => {
-				return _family100['family100' + m.chat].pesan = mesg
-			}).catch(_ => _)
-			if (isWin || isSurender) delete _family100['family100' + m.chat]
+			if (!isSurrender && 1 > (ok = room.game.turn(m.sender === room.game.playerO, parseInt(m.text) - 1))) {
+				reply({
+					'-3': 'Game Has Ended',
+					'-2': 'Invalid',
+					'-1': 'Invalid Position',
+					0: 'Invalid Position',
+				} [ok])
+				return !0
+			}
+			if (m.sender === room.game.winner) isWin = true
+			else if (room.game.board === 511) isTie = true
+			let arr = room.game.render().map(v => {
+				return {
+					X: '❌',
+					O: '⭕',
+					1: '1️⃣',
+					2: '2️⃣',
+					3: '3️⃣',
+					4: '4️⃣',
+					5: '5️⃣',
+					6: '6️⃣',
+					7: '7️⃣',
+					8: '8️⃣',
+					9: '9️⃣',
+				} [v]
+			})
+			if (isSurrender) {
+				room.game._currentTurn = m.sender === room.game.playerX
+				isWin = true
+			}
+			let winner = isSurrender ? room.game.currentTurn : room.game.winner
+			let str = `Room ID: ${room.id}
+
+${arr.slice(0, 3).join('')}
+${arr.slice(3, 6).join('')}
+${arr.slice(6).join('')}
+
+${isWin ? `@${winner.split('@')[0]} Won!` : isTie ? `Game Over` : `Turn ${['❌', '⭕'][1 * room.game._currentTurn]} (@${room.game.currentTurn.split('@')[0]})`}
+❌: @${room.game.playerX.split('@')[0]}
+⭕: @${room.game.playerO.split('@')[0]}
+
+Typed *surrender* to surrender and admited defeat`
+			if ((room.game._currentTurn ^ isSurrender ? room.x : room.o) !== m.chat)
+				room[room.game._currentTurn ^ isSurrender ? 'x' : 'o'] = m.chat
+			if (room.x !== room.o) await RoseMwol.sendText(room.x, str, m, {
+				mentions: parseMention(str)
+			})
+			await RoseMwol.sendText(room.o, str, m, {
+				mentions: parseMention(str)
+			})
+			if (isTie || isWin) {
+				delete this.game[room.id]
+			}
 		}
 
+		//Suit PvP\\
 		this.suit = this.suit ? this.suit : {}
 		let roof = Object.values(this.suit).find(roof => roof.id && roof.status && [roof.p, roof.p2].includes(m.sender))
 		if (roof) {
 			let win = ''
 			let tie = false
-			if (m.sender == roof.p2 && /^(acc(ept)?|accept|yes|oke?|reject|dont want|later|no(pe)?can|y)/i.test(m.text) && m.isGroup && roof.status == 'wait') {
-				if (/^(reject|dont want|later|n|no(pe)?can)/i.test(m.text)) {
-					RoseMwol.sendTextWithMentions(m.chat, `@${roof.p2.split`@`[0]} rejected the suit, the suit is canceled`, m)
+			if (m.sender == roof.p2 && /^(acc(ept)?|accept|yes|okay?|reject|no|later|nope(k.)?yes|y)/i.test(m.text) && m.isGroup && roof.status == 'wait') {
+				if (/^(reject|no|later|n|nope(k.)?yes)/i.test(m.text)) {
+					RoseMwol.sendTextWithMentions(m.chat, `@${roof.p2.split`@`[0]} Refuse Suit, Suit Canceled`, m)
 					delete this.suit[roof.id]
 					return !0
 				}
@@ -1456,22 +1312,22 @@ ${isSurender ? '' : `Perfect Player`}`.trim()
 				roof.asal = m.chat
 				clearTimeout(roof.waktu)
 				//delete roof[roof.id].waktu
-				RoseMwol.sendText(m.chat, `Suit has been sent to chat
+				RoseMwol.sendText(m.chat, `Suit Has Been Sent To Chat
 
 @${roof.p.split`@`[0]} dan 
 @${roof.p2.split`@`[0]}
 
-Please choose a suit in the respective chat"
+Please Choose A Suit In The Respective Chat"
 Click https://wa.me/${botNumber.split`@`[0]}`, m, {
 					mentions: [roof.p, roof.p2]
 				})
-				if (!roof.pilih) RoseMwol.sendText(roof.p, `Please select \n\nRock🗿\nPaper📄\nScissors✂️`, m)
-				if (!roof.pilih2) RoseMwol.sendText(roof.p2, `Please select \n\nRock🗿\nPaper📄\nScissors✂️`, m)
+				if (!roof.pilih) RoseMwol.sendText(roof.p, `Please Select \n\Rock🗿\nPaper📄\nScissors✂️`, m)
+				if (!roof.pilih2) RoseMwol.sendText(roof.p2, `Please Select \n\nRock🗿\nPaper📄\nScissors✂️`, m)
 				roof.waktu_milih = setTimeout(() => {
-					if (!roof.pilih && !roof.pilih2) RoseMwol.sendText(m.chat, `Both players don't want to play,\nSuit canceled`)
+					if (!roof.pilih && !roof.pilih2) RoseMwol.sendText(m.chat, `Both Players Don't Want To Play,\nSuit Canceled`)
 					else if (!roof.pilih || !roof.pilih2) {
 						win = !roof.pilih ? roof.p2 : roof.p
-						RoseMwol.sendTextWithMentions(m.chat, `@${(roof.pilih ? roof.p2 : roof.p).split`@`[0]} don't choose suit, game over`, m)
+						RoseMwol.sendTextWithMentions(m.chat, `@${(roof.pilih ? roof.p2 : roof.p).split`@`[0]} Didn't Choose Suit, Game Over!`, m)
 					}
 					delete this.suit[roof.id]
 					return !0
@@ -1486,14 +1342,14 @@ Click https://wa.me/${botNumber.split`@`[0]}`, m, {
 			if (jwb && reg.test(m.text) && !roof.pilih && !m.isGroup) {
 				roof.pilih = reg.exec(m.text.toLowerCase())[0]
 				roof.text = m.text
-				reply(`You have chosen ${m.text} ${!roof.pilih2 ? `\n\nWaiting for the opponent to choose` : ''}`)
-				if (!roof.pilih2) RoseMwol.sendText(roof.p2, '_The opponent has chosen_\nNow it is your turn', 0)
+				reply(`You Have Chosen ${m.text} ${!roof.pilih2 ? `\n\nWaiting For The Opponent To Choose` : ''}`)
+				if (!roof.pilih2) RoseMwol.sendText(roof.p2, '_The Opponent Has Chosen_\nNow It Is Your Turn', 0)
 			}
 			if (jwb2 && reg.test(m.text) && !roof.pilih2 && !m.isGroup) {
 				roof.pilih2 = reg.exec(m.text.toLowerCase())[0]
 				roof.text2 = m.text
-				reply(`You have chosen ${m.text} ${!roof.pilih ? `\n\nWaiting for the opponent to choose` : ''}`)
-				if (!roof.pilih) RoseMwol.sendText(roof.p, '_The opponent has chosen_\nNow it is your turn', 0)
+				reply(`You Have Chosen ${m.text} ${!roof.pilih ? `\n\nWaiting For The Opponent To Choose` : ''}`)
+				if (!roof.pilih) RoseMwol.sendText(roof.p, '_The Opponent Has Chosen_\nNow It Is Your Turn', 0)
 			}
 			let stage = roof.pilih
 			let stage2 = roof.pilih2
@@ -1516,6 +1372,71 @@ Click https://wa.me/${botNumber.split`@`[0]}`, m, {
 				delete this.suit[roof.id]
 			}
 		}
+
+		let mentionUser = [...new Set([...(m.mentionedJid || []), ...(m.quoted ? [m.quoted.sender] : [])])]
+		for (let jid of mentionUser) {
+			let user = global.db.data.users[jid]
+			if (!user) continue
+			let afkTime = user.afkTime
+			if (!afkTime || afkTime < 0) continue
+			let reason = user.afkReason || ''
+			reply(`
+Don't tag him!
+He's in AFK/Offline ${reason ? 'dengan alasan ' + reason : 'no reason'}
+It's been ${clockString(new Date - afkTime)}
+`.trim())
+		}
+
+		if (db.data.users[m.sender].afkTime > -1) {
+			let user = global.db.data.users[m.sender]
+			reply(`
+You Came Back Online From AFK${user.afkReason ? ' after ' + user.afkReason : ''}
+In ${clockString(new Date - user.afkTime)}
+`.trim())
+			user.afkTime = -1
+			user.afkReason = ''
+		}
+
+		const reactionMessage = {
+			react: {
+				text: args[0],
+				key: {
+					remoteJid: m.chat,
+					fromMe: true,
+					id: quoted.id
+				}
+			}
+		}
+
+		const timestampe = speed();
+		const latensie = speed() - timestampe
+		const menulist = `┌─❖
+│「 Hi 👋 」
+└┬❖ 「 ${pushname} 」
+┌┤✑  How Are You? 😄
+│└────────────┈ ⳹
+│
+└─「 𝘽𝙊𝙏 𝙄𝙉𝙁𝙊 」       
+│✑ 𝗦𝗽𝗲𝗲𝗱 : ${latensie.toFixed(4)} miliseconds
+│✑ 𝗥𝘂𝗻𝘁𝗶𝗺𝗲 : ${runtime(process.uptime())}
+│✑ 𝗕𝗼𝘁 𝗡𝗮𝗺𝗲 : ${global.botname}
+│✑ 𝗢𝘄𝗻𝗲𝗿 𝗡𝗮𝗺𝗲 : ${global.ownername}
+│✑ 𝗢𝘄𝗻𝗲𝗿 𝗡𝗼. : ${global.owner}
+│✑ 𝗛𝗼𝘀𝘁 𝗡𝗮𝗺𝗲 : ${os.hostname()}
+│✑ 𝗣𝗹𝗮𝘁𝗳𝗼𝗿𝗺 : ${os.platform()}
+│✑ 𝗧𝗼𝘁𝗮𝗹 𝗨𝘀𝗲𝗿 : ${Object.keys(global.db.data.users).length}
+│✑ 𝗧𝗼𝘁𝗮𝗹 𝗛𝗶𝘁 : ${jumlahcmd}
+│✑ 𝗧𝗼𝘁𝗮𝗹 𝗛𝗶𝘁 𝗧𝗼𝗱𝗮𝘆 : ${jumlahharian}
+└┬────────────┈ ⳹
+ │✑  Please Select
+ │✑  The Button Below
+ └─────────────┈ ⳹`
+
+		function pickRandom(list) {
+			return list[Math.floor(list.length * Math.random())]
+		}
+		let documents = [doc1, doc2, doc3, doc4, doc5, doc6]
+		let docs = pickRandom(documents)
 
 		async function cerpen(category) {
 			return new Promise((resolve, reject) => {
@@ -1545,579 +1466,88 @@ Click https://wa.me/${botNumber.split`@`[0]}`, m, {
 					})
 			})
 		}
-		// Math
-		if (kuismath.hasOwnProperty(m.sender.split('@')[0]) && isCmd) {
-			kuis = true
-			jawaban = kuismath[m.sender.split('@')[0]]
-			if (budy.toLowerCase() == jawaban) {
-				await reply(`🎮 Math Quiz  🎮\n\nCorrect Answer 🎉\n\nWant to play again? send ${prefix}math mode`)
-				delete kuismath[m.sender.split('@')[0]]
-			} else reply('*Wrong answer!*')
-		}
-
-
-		this.game = this.game ? this.game : {}
-		let room = Object.values(this.game).find(room => room.id && room.game && room.state && room.id.startsWith('tictactoe') && [room.game.playerX, room.game.playerO].includes(m.sender) && room.state == 'PLAYING')
-		if (room) {
-			let ok
-			let isWin = !1
-			let isTie = !1
-			let isSurrender = !1
-			// reply(`[DEBUG]\n${parseInt(m.text)}`)
-			if (!/^([1-9]|(me)?giveup|surr?ender|off|skip|surrender)$/i.test(m.text)) return
-			isSurrender = !/^[1-9]$/.test(m.text)
-			if (m.sender !== room.game.currentTurn) { //sender
-				if (!isSurrender) return !0
-			}
-			if (!isSurrender && 1 > (ok = room.game.turn(m.sender === room.game.playerO, parseInt(m.text) - 1))) {
-				reply({
-					'-3': 'Game has ended',
-					'-2': 'Invalid',
-					'-1': 'Invalid Position',
-					0: 'Invalid Position',
-				} [ok])
-				return !0
-			}
-			if (m.sender === room.game.winner) isWin = true
-			else if (room.game.board === 511) isTie = true
-			let arr = room.game.render().map(v => {
-				return {
-					X: '❌',
-					O: '⭕',
-					1: '1️⃣',
-					2: '2️⃣',
-					3: '3️⃣',
-					4: '4️⃣',
-					5: '5️⃣',
-					6: '6️⃣',
-					7: '7️⃣',
-					8: '8️⃣',
-					9: '9️⃣',
-				} [v]
-			})
-			if (isSurrender) {
-				room.game._currentTurn = m.sender === room.game.playerX
-				isWin = true
-			}
-			let winner = isSurrender ? room.game.currentTurn : room.game.winner
-			let str = `     「 Tictactoe Game 」
-Room ID: ${room.id}
-
-${arr.slice(0, 3).join('')}
-${arr.slice(3, 6).join('')}
-${arr.slice(6).join('')}
-
-${isWin ? `@${winner.split('@')[0]} Win!` : isTie ? `Game over` : `Turn ${['❌', '⭕'][1 * room.game._currentTurn]} (@${room.game.currentTurn.split('@')[0]})`}
-❌: @${room.game.playerX.split('@')[0]}
-⭕: @${room.game.playerO.split('@')[0]}
-
-Type *surrender* to surrender and admit defeat`
-			if ((room.game._currentTurn ^ isSurrender ? room.x : room.o) !== m.chat)
-				room[room.game._currentTurn ^ isSurrender ? 'x' : 'o'] = m.chat
-			if (room.x !== room.o) await RoseMwol.sendText(room.x, str, m, {
-				mentions: parseMention(str)
-			})
-			await RoseMwol.sendText(room.o, str, m, {
-				mentions: parseMention(str)
-			})
-			if (isTie || isWin) {
-				delete this.game[room.id]
-			}
-		}
-
-		if (isMedia && m.msg.fileSha256 && (m.msg.fileSha256.toString('base64') in global.db.sticker)) {
-			let hash = global.db.sticker[m.msg.fileSha256.toString('base64')]
-			let {
-				text,
-				mentionedJid
-			} = hash
-			let messages = await generateWAMessage(m.chat, {
-				text: text,
-				mentions: mentionedJid
-			}, {
-				userJid: RoseMwol.user.id,
-				quoted: m.quoted && m.quoted.fakeObj
-			})
-			messages.key.fromMe = areJidsSameUser(m.sender, RoseMwol.user.id)
-			messages.key.id = m.key.id
-			messages.pushName = m.pushName
-			if (m.isGroup) messages.participant = m.sender
-			let msg = {
-				...chatUpdate,
-				messages: [proto.WebMessageInfo.fromObject(messages)],
-				type: 'append'
-			}
-			RoseMwol.ev.emit('messages.upsert', msg)
-		}
-
-		const textImg = (teks) => {
-			RoseMwol.sendMessage(m.chat, {
-				text: teks,
-			}, {
-				quoted: m,
-				thumbnail: fs.readFileSync('./Media/image/wpmobile.png')
-			})
-		}
-
-
-		const fkontak = {
-			key: {
-				participant: `0@s.whatsapp.net`,
-				...(from ? {
-					remoteJid: `919744933034@s.whatsapp.net`
-				} : {})
-			},
-			message: {
-				'contactMessage': {
-					'displayName': `${pushname}`,
-					'vcard': `BEGIN:VCARD\nVERSION:3.0\nN:XL;${pushname},;;;\nFN:${pushname},\nitem1.TEL;waid=${m.sender.split('@')[0]}:${m.sender.split('@')[0]}\nitem1.X-ABLabel:Click to chat\nEND:VCARD`,
-					'jpegThumbnail': thumb,
-					thumbnail: thumb,
-					sendEphemeral: true
-				}
-			}
-		}
-
-		const ftoko = {
-			key: {
-				fromMe: false,
-				participant: `0@s.whatsapp.net`,
-				...(from ? {
-					remoteJid: "16505434800@s.whatsapp.net"
-				} : {})
-			},
-			message: {
-				"productMessage": {
-					"product": {
-						"productImage": {
-							"mimetype": "image/jpeg",
-							"jpegThumbnail": log0 //The picture
-						},
-						"title": `${global.ownername}`,
-						"description": `${global.botname}`,
-						"currencyCode": "USD",
-						"priceAmount1000": "2000",
-						"retailerId": `${global.watermark}`,
-						"productImageCount": 1
-					},
-					"businessOwnerJid": `0@s.whatsapp.net`
-				}
-			}
-		}
-
-		const fgi = {
-			key: {
-				fromMe: false,
-				participant: `0@s.whatsapp.net`,
-				...(from ? {
-					remoteJid: "919744933034@s.whatsapp.net"
-				} : {})
-			},
-			message: {
-				"videoMessage": {
-					"title": `Xeon`,
-					"h": `Xeon`,
-					'duration': '99999',
-					'gifPlayback': 'true',
-					'caption': `Xeon`,
-					'jpegThumbnail': fs.readFileSync('./Media/theme/Rose.mp4')
-				}
-			}
-		}
-
-		const ftroli = {
-			key: {
-				participant: '0@s.whatsapp.net'
-			},
-			message: {
-				orderMessage: {
-					itemCount: 1,
-					status: 1,
-					surface: 1,
-					message: `${global.ownername}`, //
-					orderTitle: `${global.botname}`,
-					thumbnail: log0, //Pic
-					sellerJid: '0@s.whatsapp.net'
-
-				}
-			}
-		}
-
-		const flokasi = {
-			key: {
-				participant: '0@s.whatsapp.net'
-			},
-			message: {
-				locationMessage: {
-					name: `${global.location}`,
-					jpegThumbnail: log0
-				}
-			}
-		}
-
-		const fdocs = {
-			key: {
-				participant: '0@s.whatsapp.net'
-			},
-			message: {
-				documentMessage: {
-					title: `${global.botname}`,
-					jpegThumbnail: log0
-				}
-			}
-		}
-
-		const fvideo = {
-			key: {
-				fromMe: false,
-				participant: `0@s.whatsapp.net`,
-				...(from ? {
-					remoteJid: "919744933034@s.whatsapp.net"
-				} : {})
-			},
-			message: {
-				"videoMessage": {
-					"title": `${global.botname}`,
-					"h": `${global.ownername}`,
-					'seconds': '30',
-					'caption': `${global.watermark}`,
-					'jpegThumbnail': log0
-				}
-			}
-		}
-
-		const fgclink = {
-			"key": {
-				"fromMe": false,
-				"participant": "0@s.whatsapp.net",
-				"remoteJid": "0@s.whatsapp.net"
-			},
-			"message": {
-				"groupInviteMessage": {
-					"groupJid": "919744933034-1616169743@g.us",
-					"inviteCode": `${global.ownername}`,
-					"groupName": `${global.botname}`,
-					"caption": `${global.watermark}`,
-					'jpegThumbnail': log0
-				}
-			}
-		}
-
-		const fgif = {
-			key: {
-				fromMe: false,
-				participant: `0@s.whatsapp.net`,
-				...(from ? {
-					remoteJid: "919744933034@s.whatsapp.net"
-				} : {})
-			},
-			message: {
-				"videoMessage": {
-					"title": `${global.botname}`,
-					"h": `${global.ownername}`,
-					'seconds': "30",
-					'gifPlayback': 'true',
-					'caption': `${global.watermark}`,
-					'jpegThumbnail': log0
-				}
-			}
-		}
-
-		const ftextt = {
-			key: {
-				fromMe: false,
-				participant: `0@s.whatsapp.net`,
-				...(from ? {
-					remoteJid: "919744933034@s.whatsapp.net"
-				} : {})
-			},
-			message: {
-				"extendedTextMessage": {
-					"text": `${global.ownername}`,
-					"title": `${global.botname}`,
-					'jpegThumbnail': log0
-				}
-			}
-		}
-
-		const fvn = {
-			key: {
-				fromMe: false,
-				participant: `0@s.whatsapp.net`,
-				...(from ? {
-					remoteJid: "919744933034@s.whatsapp.net"
-				} : {})
-			},
-			message: {
-				"audioMessage": {
-					"mimetype": "audio/ogg; codecs=opus",
-					"seconds": "9999999999999999",
-					"ptt": "true"
-				}
-			}
-		}
-		l = 1
-		monospace = '```'
-		const timestampe = speed();
-		const latensie = speed() - timestampe
-		const levelMenu = getLevelingLevel(m.sender)
-		const xpMenu = getLevelingXp(m.sender)
-		const uangku = getBalance(m.sender, balance)
-		const reqXp = 200 * (Math.pow(2, getLevelingLevel(m.sender)) - 1)
-		const jumlahUser = pendaftar.length
-		if (!isDarah) {
-			addInventoriDarah(m.sender, DarahAwal)
-		}
-		if (!isInventory) {
-			addInventori(m.sender)
-		}
-		if (!isInventoriBuruan) {
-			addInventoriBuruan(m.sender)
-		}
-
-		const menulist = `┌─❖
-│「 Hi 👋 」
-└┬❖ 「 ${pushname} 」
-┌┤✑  How Are You? 😄
-│└────────────┈ ⳹
-│
-└─「 𝘽𝙊𝙏 𝙄𝙉𝙁𝙊 」       
-│𝗦𝗽𝗲𝗲𝗱 : ${latensie.toFixed(4)} miliseconds
-│𝗥𝘂𝗻𝘁𝗶𝗺𝗲 : ${runtime(process.uptime())}
-│𝗕𝗼𝘁 𝗡𝗮𝗺𝗲 : ${global.botname}
-│𝗢𝘄𝗻𝗲𝗿 𝗡𝗮𝗺𝗲 : ${global.ownername}
-│𝗢𝘄𝗻𝗲𝗿 𝗡𝗼. : ${global.ownernummenu}
-│𝗛𝗼𝘀𝘁 𝗡𝗮𝗺𝗲 : ${os.hostname()}
-│𝗣𝗹𝗮𝘁𝗳𝗼𝗿𝗺 : ${os.platform()}
-│𝗧𝗼𝘁𝗮𝗹 𝗨𝘀𝗲𝗿 : ${Object.keys(global.db.users).length}
-│𝗧𝗼𝘁𝗮𝗹 𝗛𝗶𝘁 : ${jumlahcmd}
-│𝗧𝗼𝘁𝗮𝗹 𝗛𝗶𝘁 𝗧𝗼𝗱𝗮𝘆 : ${jumlahharian}
-│
-└─「 𝙐𝙎𝙀𝙍'𝙎 𝙇𝙀𝙑𝙀𝙇𝙄𝙉𝙂 」
-│𝗬𝗼𝘂𝗿 𝗟𝗲𝘃𝗲𝗹𝗶𝗻𝗴 : ${levelMenu}
-│𝗬𝗼𝘂𝗿 𝗫𝗽 : ${xpMenu}\ ${reqXp}
-│𝗬𝗼𝘂𝗿 𝗥𝗼𝗹𝗲 : ${role}
-│𝗬𝗼𝘂𝗿 𝗠𝗼𝗻𝗲𝘆 : $${uangku}
-│
-└─「 𝙐𝙎𝙀𝙍'𝙎 𝘼𝘿𝙑𝙀𝙉𝙏𝙐𝙍𝙀 」
-│𝗬𝗼𝘂𝗿 𝗜𝗿𝗼𝗻 : ${getBesi(m.sender)}
-│𝗬𝗼𝘂𝗿 𝗚𝗼𝗹𝗱 : ${getEmas(m.sender)}
-│𝗬𝗼𝘂𝗿 𝗘𝗺𝗲𝗿𝗮𝗹𝗱 : ${getEmerald(m.sender)}
-│𝗬𝗼𝘂𝗿 𝗣𝗼𝘁𝗶𝗼𝗻 : ${getPotion(m.sender)}
-└┬────────────┈ ⳹
-   │✑  Please Select
-   │✑  The Button Below
-   └─────────────┈ ⳹`
-		const qtod = m.quoted ? "true" : "false"
-
-
-		function pickRandom(list) {
-			return list[Math.floor(list.length * Math.random())]
-		}
-
-		let documents = [doc1, doc2, doc3, doc4, doc5, doc6]
-		let docs = pickRandom(documents)
-
-		const reactionMessage = {
-			react: {
-				text: args[0],
-				key: {
-					remoteJid: m.chat,
-					fromMe: true,
-					id: quoted.id
-				}
-			}
-		}
 
 		switch (command) {
-			case 'alive':
-			case 'panel':
-			case 'list':
-			case 'menu':
-			case 'help':
-			case '?': {
+
+			case 'banchat': {
 				if (isBan) return reply(mess.ban)
-				if (isBanChat) return reply(mess.banChat)
-				RoseMwol.sendMessage(from, {
-					react: {
-						text: `${global.reactmoji}`,
-						key: m.key
-					}
-				})
-				let btn = [{
-					urlButton: {
-						displayText: 'Bot Web 🍒',
-						url: `${websitex}`
-					}
-				}, {
-					callButton: {
-						displayText: 'Script 🍜',
-						url: `${botscript}`
-					}
-				}, {
-					quickReplyButton: {
-						displayText: 'All Menu 🍱',
-						id: 'allmenu'
-					}
-				}, {
-					quickReplyButton: {
-						displayText: 'List Menu 🍢',
-						id: 'command'
-					}
-				}, {
-					quickReplyButton: {
-						displayText: 'Owner 🤣',
-						id: 'owner'
-					}
-				}]
-				let setbot = db.data.settings[botNumber]
-				if (setbot.templateImage) {
-					RoseMwol.send5ButImg(m.chat, menulist, global.botname, global.thumb, btn, global.thumb)
-				} else if (setbot.templateGif) {
-					RoseMwol.send5ButGif(m.chat, menulist, global.botname, global.vidmenu, btn, global.thumb)
-				} else if (setbot.templateVid) {
-					RoseMwol.send5ButVid(m.chat, menulist, global.botname, global.vidmenu, btn, global.thumb)
-				} else if (setbot.templateMsg) {
-					RoseMwol.send5ButMsg(m.chat, menulist, global.botname, btn)
-				} else if (setbot.templateDocument) {
-					let buttonmenu = [{
-							urlButton: {
-								displayText: `Bot Web 🍒`,
-								url: `${websitex}`
-							}
+				if (!isCreator) return replay(mess.owner)
+				if (args[0] === "on") {
+					if (isBanChat) return replay('Already Banned')
+					banchat.push(from)
+					replay('Success in banning the gc')
+					var groupe = await RoseMwol.groupMetadata(from)
+					var members = groupe['participants']
+					var mems = []
+					members.map(async adm => {
+						mems.push(adm.id.replace('c.us', 's.whatsapp.net'))
+					})
+					RoseMwol.sendMessage(from, {
+						text: `\`\`\`「 ⚠️Warning⚠️ 」\`\`\`\n\nThe bot has been disabled in this group, now no one will able to use the bot in this group!`,
+						contextInfo: {
+							mentionedJid: mems
+						}
+					}, {
+						quoted: m
+					})
+				} else if (args[0] === "off") {
+					if (!isBanChat) return replay('Already Unbanned')
+					let off = banchat.indexOf(from)
+					banchat.splice(off, 1)
+					replay('Success in unbanning the gc')
+				} else {
+					let buttonsntnsfw = [{
+							buttonId: `${command} on`,
+							buttonText: {
+								displayText: 'Ban'
+							},
+							type: 1
 						},
 						{
-							urlButton: {
-								displayText: `Script 🍜`,
-								url: `${botscript}`
-							}
-						},
-						{
-							quickReplyButton: {
-								displayText: `All Menu 🍱`,
-								id: 'allmenu'
-							}
-						},
-						{
-							quickReplyButton: {
-								displayText: `List Menu 🍢`,
-								id: 'command'
-							}
-						},
-						{
-							quickReplyButton: {
-								displayText: `Owner 🤣`,
-								id: 'owner'
-							}
+							buttonId: `${command} off`,
+							buttonText: {
+								displayText: 'Unban'
+							},
+							type: 1
 						}
 					]
-					RoseMwol.sendMessage(m.chat, {
-						caption: menulist,
-						document: fs.readFileSync('./Media/theme/Rose-Mwol.xlsx'),
-						mimetype: `${docs}`,
-						fileName: `${ownername}`,
-						templateButtons: buttonmenu,
-						footer: `${botname}`,
-						mentionedJid: [m.sender]
-					})
+					await RoseMwol.sendButtonText(m.chat, buttonsntnsfw, `Please click the button below\n\nBan to Ban\nUnban to unban`, `${global.botname}`, m)
 				}
 			}
 			break
-		case 'menuxxx':
-		case 'helpxxx':
+
+		case 'ban': {
 			if (isBan) return reply(mess.ban)
 			if (isBanChat) return reply(mess.banChat)
-			RoseMwol.sendMessage(from, {
-				react: {
-					text: `${global.reactmoji}`,
-					key: m.key
-				}
-			})
-			let buttonmenu = [{
-					urlButton: {
-						displayText: `Bot Web 🍒`,
-						url: `${websitex}`
-					}
-				},
-				{
-					urlButton: {
-						displayText: `Script 🍜`,
-						url: `${botscript}`
-					}
-				},
-				{
-					quickReplyButton: {
-						displayText: `All Menu 🍱`,
-						id: 'allmenu'
-					}
-				},
-				{
-					quickReplyButton: {
-						displayText: `List Menu 🍢`,
-						id: 'command'
-					}
-				},
-				{
-					quickReplyButton: {
-						displayText: `Owner 🤣`,
-						id: 'owner'
-					}
-				}
-			]
-			RoseMwol.sendMessage(m.chat, {
-				caption: menulist,
-				document: fs.readFileSync('./Media/theme/Rose-Mwol.xlsx'),
-				mimetype: `${docs}`,
-				fileName: `${ownername}`,
-				templateButtons: buttonmenu,
-				footer: `${botname}`,
-				mentionedJid: [m.sender]
-			})
-			break
-		case 'sc':
-		case 'script':
-		case 'donate':
-		case 'donate':
-		case 'cekupdate':
-		case 'updatebot':
-		case 'cekbot':
-		case 'sourcecode': {
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			teks = `*「 ${global.botname} Script 」*\n\nYouTube: ${global.websitex}\nGitHub: ${global.botscript}\n\nDont forget to donate 🍜`
-			let buttons = [{
-				buttonId: `menu`,
-				buttonText: {
-					displayText: 'Menu 🌺'
-				},
-				type: 1
-			}]
-			let buttonMessage = {
-				image: thum,
-				jpegThumbnail: log0,
-				caption: teks,
-				footer: `${botname}`,
-				buttons: buttons,
-				headerType: 4,
-				contextInfo: {
-					externalAdReply: {
-						title: "I deserve something for my hardwork",
-						body: "Click To Donate",
-						thumbnail: fs.readFileSync("./Bot Pic/Rose.jpg"),
-						mediaType: 1,
-						mediaUrl: 'https://telegra.ph/file/6a02cf1b00855ff80febb.jpg',
-						sourceUrl: "https://telegra.ph/file/6a02cf1b00855ff80febb.jpg"
-					}
-				}
+			if (!isCreator) return replay(mess.owner)
+			if (!args[0]) return replay(`Select add or del(add to ban, del to unban), For Example: Reply *${prefix}ban add* to the user u want to ban`)
+			if (args[1]) {
+				orgnye = args[1] + "@s.whatsapp.net"
+			} else if (m.quoted) {
+				orgnye = m.quoted.sender
 			}
-			RoseMwol.sendMessage(m.chat, buttonMessage, {
-				quoted: m
-			})
+			const isBane = banUser.includes(orgnye)
+			if (args[0] === "add") {
+				if (isBane) return ads('User was already banned')
+				banUser.push(orgnye)
+				replay(`Successfully banned the user`)
+			} else if (args[0] === "del") {
+				if (!isBane) return ads('User was already unbanned')
+				let delbans = banUser.indexOf(orgnye)
+				banUser.splice(delbans, 1)
+				replay(`Successfully unbanned the user`)
+			} else {
+				replay("Error")
+			}
 		}
 		break
-		case 'me':
+
+		case 'inventori':
 		case 'inventory':
 		case 'profile': {
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			if (q.includes('--help')) return reply(examkosong)
 			if (!isDarah) {
 				addInventoriDarah(m.sender, DarahAwal)
 			}
@@ -2128,14 +1558,15 @@ Type *surrender* to surrender and admit defeat`
 				addInventoriBuruan(m.sender)
 			}
 
-			var flob = await getBuffer(picak + 'User Profile')
-			let teksehmazeh = `*── 「 BIO PROFILE 」 ──*\n\n`
+			var RoseMwol = await getBuffer(picak + `User's Inventory`)
+			let teksehmazeh = `_[ 👩🏻‍💼INFO USER👨🏻‍💼 ]_\n\n`
 			teksehmazeh += `*❤️Your Blood* : ${getDarah(m.sender)}\n`
 			teksehmazeh += `*◻️️Your Iron* : ${getBesi(m.sender)}\n`
 			teksehmazeh += `*🌟Your Gold* : ${getEmas(m.sender)}\n`
 			teksehmazeh += `*💎Your Emerald* : ${getEmerald(m.sender)}\n`
+			teksehmazeh += `*⏺️Your Limit* : ${getLimit(m.sender)}\n`
 			teksehmazeh += `*🧪Your Potion* : ${getPotion(m.sender)}\n\n`
-			teksehmazeh += `*── 「 HUNT RESULT 🏹 」 ──*\n`
+			teksehmazeh += `_[ 🐺HUNT RESULT🐺 ]_\n`
 			teksehmazeh += `*🐟Fish* : ${getIkan(m.sender)}\n`
 			teksehmazeh += `*🐔Chicken* : ${getAyam(m.sender)}\n`
 			teksehmazeh += `*🐇Rabbit* : ${getKelinci(m.sender)}\n`
@@ -2143,49 +1574,1735 @@ Type *surrender* to surrender and admit defeat`
 			teksehmazeh += `*🐄Cow* : ${getSapi(m.sender)}\n`
 			teksehmazeh += `*🐘Elephant* : ${getGajah(m.sender)}\n\n`
 			teksehmazeh += `_*${pushname}*_`
-			let butRun = [{
-					urlButton: {
-						displayText: `Bot Web 🍒`,
-						url: `${websitex}`
-					}
-				},
-				{
-					urlButton: {
-						displayText: `Script 🍜`,
-						url: `${botscript}`
-					}
-				},
-				{
-					quickReplyButton: {
-						displayText: `Owner 🤣`,
-						id: 'owner'
-					}
-				},
-				{
-					quickReplyButton: {
-						displayText: `Leaderboard 🎢`,
-						id: 'leaderboard'
-					}
+			await RoseMwol.send5ButImg(from, `` + '' + teksehmazeh, `© ${botname}`, RoseMwol, [{
+				"urlButton": {
+					"displayText": "Bot Web 📍",
+					"url": `${websitex}`
 				}
-			]
-			RoseMwol.sendMessage(m.chat, {
-				caption: teksehmazeh,
-				document: fs.readFileSync('./Media/theme/Rose-Mwol.xlsx'),
-				mimetype: `${docs}`,
-				fileName: `Want to adventure again?`,
-				templateButtons: butRun,
-				footer: `${botname}`,
-				mentions: [m.sender]
+			}])
+		}
+		break
+		case 'userlimit':
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat) 
+			{
+				let txt = `「 *ALL LIMIT USER* 」\n\n`
+				for (let i of _limit) {
+					txt += `➸ *ID :* @${i.id.split("@")[0]}\n➸ *Limit* : ${i.limit}\n`
+				}
+				reply(txt)
+			}
+			break
+		case 'leaderboard':
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat) 
+			{
+				let txt = `「 *LEADERBOARD* 」\n\n`
+				for (let i of _buruan) {
+					txt += `➸ *ID :* ${i.id}\n`
+					txt += `*🐟Fish* : ${i.ikan}\n`
+					txt += `*🐔Chicken* : ${i.ayam}\n`
+					txt += `*🐇Rabbit* : ${i.kelinci}\n`
+					txt += `*🐑Sheep* : ${i.domba}\n`
+					txt += `*🐄Cow* : ${i.sapi}\n`
+					txt += `*🐘Elephant* : ${i.gajah}\n\n`
+				}
+				reply(txt)
+			}
+			break
+		case 'mining':
+		case 'mine': {
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			if (q.includes('--help')) return reply(examkosong)
+			if (!isInventory) {
+				addInventori(m.sender)
+			}
+			if (isCekDarah < 1) return reply(`You're Tired!, Try To Heal Using Potions`)
+			let besi = [1, 2, 5, 0, 3, 0, 1, 1, 4, 1, 5, 0, 0]
+			let emas = [0, 1, 2, 3, 0, 0, 0, 1, 1, 0, 0, 2]
+			let emerald = [0, 0, 1, 0, 0, 1, 0, 2, 1, 0, 0, 1]
+			var besinya = besi[Math.floor(Math.random() * besi.length)]
+			var emasnya = emas[Math.floor(Math.random() * emas.length)]
+			var emeraldnya = emerald[Math.floor(Math.random() * emerald.length)]
+			setTimeout(() => {
+				let caption = `[ MINING RESULT ]\n*Iron* : ${besinya}\n*Gold* : ${emasnya}\n*Emerald* : ${emeraldnya}`
+				let buttons = [{
+					buttonId: `${prefix + command}`,
+					buttonText: {
+						displayText: 'Mine Again⛏️'
+					},
+					type: 1
+				}, ]
+				let buttonMessage = {
+					image: {
+						url: './storage/image/tambang.jpg'
+					},
+					caption: caption,
+					footer: pushname,
+					buttons: buttons,
+					headerType: 4
+				}
+				RoseMwol.sendMessage(from, buttonMessage, {
+					quoted: m
+				})
+
+			}, 7000)
+			setTimeout(() => {
+				reply(`@${m.sender.split("@")[0]} Started Mining🎣`)
+			}, 1500)
+			kurangDarah(m.sender, 10)
+			addBesi(m.sender, besinya)
+			addEmas(m.sended, emasnya)
+			addEmerald(m.sender, emeraldnya)
+		}
+		break
+		//transaction\\
+		case 'beli':
+		case 'buy': {
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			if (q.includes('--help')) return reply(examkosong)
+			if (!isInventoriBuruan) {
+				addInventoriBuruan(m.sender)
+			}
+			if (!isInventoryMonay) {
+				addInventoriMonay(m.sender)
+			}
+			if (!isInventory) {
+				addInventori(m.sender)
+			}
+			if (!q) return reply(`What Do You Want To Buy?\n\n1.potion\n2.baitfood\n3.limit\n\nExample: ${prefix + command} baitfood`)
+			var anu = args[1]
+			if (args[0] === 'potion') {
+				let noh = 100000 * anu
+				if (!args[1]) return reply(`Example : ${prefix + command} potion 2\n 1 Potion = 100000 Money`)
+				if (isMonay < noh) return reply('Your Remaining Money Is Not Sufficient For This Purchase')
+				kurangMonay(m.sender, noh)
+				var apalu = anu * 1
+				addPotion(m.sender, apalu)
+				setTimeout(() => {
+					reply(`Transaction Successful ✔️\n*Your Remaining Money* : ${getMonay(m.sender)}\n*Your Potion* : ${getPotion(m.sender)}`)
+				}, 2000)
+			} else
+			if (args[0] === 'baitfood') {
+				let noh = 5000 * anu
+				if (!args[1]) return reply(`Example : ${prefix + command} baitfood 2\n 1 Bait Food = 2500 Money`)
+				if (isMonay < noh) return reply('Your Remaining Money Is Not Sufficient For This Purchase')
+				kurangMonay(m.sender, noh)
+				var apalu = anu * 1
+				addUmpan(m.sender, apalu)
+				setTimeout(() => {
+					reply(`Transaction Successful ✔️\n*Your Remaining Money* : ${getMonay(m.sender)}\n*Your Bait Food* : ${getUmpan(m.sender)}`)
+				}, 2000)
+			} else
+			if (args[0] === 'limit') {
+				let noh = 35000 * anu
+				if (!args[1]) return reply(`Example : ${prefix + command} limit 2\n 1 Limit = 35000 Money`)
+				if (isMonay < noh) return reply('Your Remaining Money Is Not Sufficient For This Purchase')
+				kurangMonay(m.sender, noh)
+				var apalu = anu * 1
+				addLimit(m.sender, apalu)
+				setTimeout(() => {
+					reply(`Transaction Successful ✔️\n*Your Remaining Money* : ${getMonay(m.sender)}\n*Your Limit* : ${getLimit(m.sender)}`)
+				}, 2000)
+			} else {
+				reply("Incorrect Format!")
+			}
+		}
+		break
+		case 'sel':
+		case 'jual': {
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			if (!q) return reply(`What Do You Want To Sell??\nExample : ${prefix + command} fish 2`)
+			if (!isInventoriBuruan) {
+				addInventoriBuruan(m.sender)
+			}
+			if (!isInventoryMonay) {
+				addInventoriMonay(m.sender)
+			}
+			if (!isInventory) {
+				addInventori(m.sender)
+			}
+			var anu = args[1]
+			if (args[0] === 'fish') {
+				if (isIkan < anu) return reply(`You Don't Have Enough Fish(es) For This Transaction`)
+				if (!args[1]) return reply(`Example : ${prefix + command} fish 2\n 1 Fish = 1500 Money`)
+				kurangIkan(m.sender, anu)
+				let monaynya = 1500 * anu
+				addMonay(m.sender, monaynya)
+				setTimeout(() => {
+					reply(`Transaction Successful ✔️\n*Your Remaining Money* : ${getMonay(m.sender)}\n*Your Remaining Fish(es)* : ${getIkan(m.sender)}`)
+				}, 2000)
+			} else
+			if (args[0] === 'chicken') {
+				if (isAyam < anu) return reply(`You Don't Have Enough Chicken(s) For This Transaction`)
+				if (!args[1]) return reply(`Example : ${prefix + command} chicken 2\n 1 Chicken = 2500 Money`)
+				kurangAyam(m.sender, anu)
+				let monaynya = 2500 * anu
+				addMonay(m.sender, monaynya)
+				setTimeout(() => {
+					reply(`Transaction Successful ✔️\n*Your Remaining Money* : ${getMonay(m.sender)}\n*Your Remaining Chicken* : ${getAyam(m.sender)}`)
+				}, 2000)
+			} else
+			if (args[0] === 'rabbit') {
+				if (isKelinci < anu) return reply(`You Don't Have Enough Rabbit(s) For This Transaction`)
+				if (!args[1]) return reply(`Example : ${prefix + command} rabbit 2\n 1 Rabbit = 3000 Money`)
+				kurangKelinci(m.sender, anu)
+				let monaynya = 3000 * anu
+				addMonay(m.sender, monaynya)
+				setTimeout(() => {
+					reply(`Transaction Successful ✔️\n*Your Remaining Money* : ${getMonay(m.sender)}\n*Your Remaining Rabbit(s)* : ${getKelinci(m.sender)}`)
+				}, 2000)
+			} else
+			if (args[0] === 'sheep') {
+				if (isDomba < anu) return reply(`You Don't Have Enough Sheep(s) For This Transaction`)
+				if (!args[1]) return reply(`Example : ${prefix + command} domba 2\n 1 Sheep = 5000 money`)
+				kurangDomba(m.sender, anu)
+				let monaynya = 5000 * anu
+				addMonay(m.sender, monaynya)
+				setTimeout(() => {
+					reply(`Transaction Successful ✔️\n*Your Remaining Money* : ${getMonay(m.sender)}\n*Your Remaining Sheep(s)* : ${getDomba(m.sender)}`)
+				}, 2000)
+			} else
+			if (args[0] === 'cow') {
+				if (isSapi < anu) return reply(`You Don't Have Enough Cow(s) For This Transaction`)
+				if (!args[1]) return reply(`Example : ${prefix + command} cow 2\n 1 Cow = 10000 Money`)
+				kurangSapi(m.sender, anu)
+				let monaynya = 10000 * anu
+				addMonay(m.sender, monaynya)
+				setTimeout(() => {
+					reply(`Transaction Successful ✔️\n*Your Remaining Money* : ${getMonay(m.sender)}\n*Your Remaining Cow(s)* : ${getSapi(m.sender)}`)
+				}, 2000)
+			} else
+			if (args[0] === 'elephant') {
+				if (isGajah < anu) return reply(`You Don't Have Enough Elephant(s) For This Transaction`)
+				if (!args[1]) return reply(`Example : ${prefix + command} elephant 2\n 1 Elephant = 15000 Money`)
+				kurangGajah(m.sender, anu)
+				let monaynya = 15000 * anu
+				addMonay(m.sender, monaynya)
+				setTimeout(() => {
+					reply(`Transaction Successful ✔️\n*Your Remaining Money* : ${getMonay(m.sender)}\n*Your Remaining Elephant(s)* : ${getGajah(m.sender)}`)
+				}, 2000)
+			} else
+			if (args[0] === 'iron') {
+				if (isBesi < anu) return reply(`You Don't Have Enough Iron(s) For This Transaction`)
+				if (!args[1]) return reply(`Example : ${prefix + command} iron 2\n 1 Iron = 15000 Money`)
+				kurangBesi(m.sender, anu)
+				let monaynya = 16000 * anu
+				addMonay(m.sender, monaynya)
+				setTimeout(() => {
+					reply(`Transaction Successful ✔️\n*Your Remaining Money* : ${getMonay(m.sender)}\n*Your Remaining Iron(s)* : ${getBesi(m.sender)}`)
+				}, 2000)
+			} else
+			if (args[0] === 'gold') {
+				if (isEmas < anu) return reply(`You Don't Have Enough Gold(s) For This Transaction`)
+				if (!args[1]) return reply(`Example : ${prefix + command} gold 2\n 1 Gold = 50000 Money`)
+				kurangEmas(m.sender, anu)
+				let monaynya = 50000 * anu
+				addMonay(m.sender, monaynya)
+				setTimeout(() => {
+					reply(`Transaction Successful ✔️\n*Your Money* : ${getMonay(m.sender)}\n*Your Remaining Gold(s)* : ${getEmas(m.sender)}`)
+				}, 2000)
+			} else
+			if (args[0] === 'emerald') {
+				if (isEmerald < anu) return reply(`You Don't Have Enough Emerald(s) For This Transaction`)
+				if (!args[1]) return reply(`Example : ${prefix + command} emerald 2\n 1 Emerald = 100000 Money`)
+				kurangEmerald(m.sender, anu)
+				let monaynya = 100000 * anu
+				addMonay(m.sender, monaynya)
+				setTimeout(() => {
+					reply(`Transaction Successful ✔️\n*Your Remaining Money* : ${getMonay(m.sender)}\n*You Don't Have Enough Emerald(s) For This Transaction* : ${getEmerald(m.sender)}`)
+				}, 2000)
+			} else {
+				reply("Incorrect Format!")
+			}
+
+		}
+		break
+
+		case 'heal': {
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			if (q.includes('--help')) return reply(examkosong)
+			if (!isCekDarah < 1) return reply('You Can Only Heal When Your Blood Is 0')
+			if (isCekDarah > 100) return reply('Your Blood Is Full')
+			if (isPotion < 1) return reply(`You Don't Have A Potion, Try Buying It This Way #buypotion _amount_`)
+			addDarah(m.sender, 100)
+			kurangPotion(m.sender, 1)
+			reply('Success! Your Bood Is Full')
+		}
+		break
+		case 'hunt':
+		case 'hunting': {
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			if (q.includes('--help')) return reply(examkosong)
+			if (!isDarah) {
+				addInventoriDarah(m.sender, DarahAwal)
+			}
+			if (isCekDarah < 1) return reply('Your Blood Is Gone, Try To Heal Using Potions')
+			if (!isInventoriBuruan) {
+				addInventoriBuruan(m.sender)
+			}
+			let luka = ["Pierced by a thorn while hunting", "Slipped into the abyss while hunting", "Scratched by a wild animal", "Not careful", "Entangled in roots", "Fall while hunting"]
+			let location = ["Jungle", "Amazon forest", "Tropical forest", "Meadow", "African forest", "Mountains"]
+			var ikanmu = Math.ceil(Math.random() * 10)
+			var ayam = Math.ceil(Math.random() * 8)
+			var kelinci = Math.ceil(Math.random() * 7)
+			var dombanya = [3, 0, 4, 0, 5, 4, 6, 0, 1, 0, 2, 3, 0, 3, 0, 1]
+			var sapinya = [2, 0, 3, 0, 4, 0, 5, 0, 1, 0, 2, 0, 3, 0, 1]
+			var gajahnya = [1, 0, 4, 0, 2, 0, 1, 0, 2, 1, 3, 0, 1]
+			var domba = dombanya[Math.floor(Math.random() * dombanya.length)]
+			var sapi = sapinya[Math.floor(Math.random() * sapinya.length)]
+			var gajah = gajahnya[Math.floor(Math.random() * gajahnya.length)]
+			var lukanya = luka[Math.floor(Math.random() * luka.length)]
+			var lokasinya = location[Math.floor(Math.random() * location.length)]
+			if (lokasinya === 'Jungle') {
+				var image = './storage/image/rimba.jpg'
+			} else
+			if (lokasinya === 'Amazon forest') {
+				var image = './storage/image/amazon.jpg'
+			} else
+			if (lokasinya === 'Tropical forest') {
+				var image = './storage/image/tropis.jpg'
+			} else
+			if (lokasinya === 'Meadow') {
+				var image = './storage/image/padang_rumput.jpg'
+			} else
+			if (lokasinya === 'African forest') {
+				var image = './storage/image/afrika.jpg'
+			} else
+			if (lokasinya === 'Mountains') {
+				var image = './storage/image/pegunungan.jpg'
+			}
+			setTimeout(() => {
+				let teksehmazeh = `_[ HUNT RESULT ]_\n`
+				teksehmazeh += `*🐟Fish* : ${ikanmu}\n`
+				teksehmazeh += `*🐔Chicken* : ${ayam}\n`
+				teksehmazeh += `*🐇Rabbit* : ${kelinci}\n`
+				teksehmazeh += `*🐑Sheep* : ${domba}\n`
+				teksehmazeh += `*🐄Cow* : ${sapi}\n`
+				teksehmazeh += `*🐘Elephant* : ${gajah}\n\n`
+				teksehmazeh += `_[ INFO ]_\n`
+				teksehmazeh += `*Location* : ${lokasinya}\n`
+				teksehmazeh += `*Wounded* : ${lukanya}, blood - 10\n`
+				teksehmazeh += `*Remaining blood* : ${getDarah(m.sender)}\n`
+				let buttons = [{
+					buttonId: `${prefix + command}`,
+					buttonText: {
+						displayText: 'Hunt Again️🏹'
+					},
+					type: 1
+				}, ]
+				let buttonMessage = {
+					image: {
+						url: image
+					},
+					caption: teksehmazeh,
+					footer: pushname,
+					buttons: buttons,
+					headerType: 4
+				}
+				RoseMwol.sendMessage(from, buttonMessage, {
+					quoted: m
+				})
+			}, 5000)
+			setTimeout(() => {
+				reply(`@${m.sender.split("@")[0]} Started Hunting In ${lokasinya}`)
+			}, 1000)
+			addIkan(m.sender, ikanmu)
+			addAyam(m.sender, ayam)
+			addKelinci(m.sender, kelinci)
+			addDomba(m.sender, domba)
+			addSapi(m.sender, sapi)
+			addGajah(m.sender, gajah)
+			kurangDarah(m.sender, 10)
+		}
+		break
+		case 'resetlinkgc':
+		case 'resetlinkgroup':
+		case 'resetlinkgrup':
+		case 'revoke':
+		case 'resetlink':
+		case 'resetgrouplink':
+		case 'resetgclink':
+		case 'resetgruplink': {
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			if (!m.isGroup) return replay(mess.group)
+			if (!isBotAdmins) return replay(mess.botAdmin)
+			if (!isAdmins && !isCreator) return replay(mess.admin)
+			RoseMwol.groupRevokeInvite(m.chat)
+		}
+		break
+		case 'afk': {
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			let user = global.db.data.users[m.sender]
+			user.afkTime = +new Date
+			user.afkReason = text
+			reply(`${m.pushName} Has Gone Afk/Offline${text ? ': ' + text : ''}`)
+		}
+		break
+		case 'ttc':
+		case 'ttt':
+		case 'tictactoe': {
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			let TicTacToe = require("./lib/tictactoe")
+			this.game = this.game ? this.game : {}
+			if (Object.values(this.game).find(room => room.id.startsWith('tictactoe') && [room.game.playerX, room.game.playerO].includes(m.sender))) return replay(`You Are Still In The Game`)
+			let room = Object.values(this.game).find(room => room.state === 'WAITING' && (text ? room.name === text : true))
+			if (room) {
+				reply('Partner found!')
+				room.o = m.chat
+				room.game.playerO = m.sender
+				room.state = 'PLAYING'
+				let arr = room.game.render().map(v => {
+					return {
+						X: '❌',
+						O: '⭕',
+						1: '1️⃣',
+						2: '2️⃣',
+						3: '3️⃣',
+						4: '4️⃣',
+						5: '5️⃣',
+						6: '6️⃣',
+						7: '7️⃣',
+						8: '8️⃣',
+						9: '9️⃣',
+					} [v]
+				})
+				let str = `Room ID: ${room.id}
+
+${arr.slice(0, 3).join('')}
+${arr.slice(3, 6).join('')}
+${arr.slice(6).join('')}
+
+Waiting @${room.game.currentTurn.split('@')[0]}
+
+Type *surrender* to surrender and admit defeat`
+				if (room.x !== room.o) await RoseMwol.sendText(room.x, str, m, {
+					mentions: parseMention(str)
+				})
+				await RoseMwol.sendText(room.o, str, m, {
+					mentions: parseMention(str)
+				})
+			} else {
+				room = {
+					id: 'tictactoe-' + (+new Date),
+					x: m.chat,
+					o: '',
+					game: new TicTacToe(m.sender, 'o'),
+					state: 'WAITING'
+				}
+				if (text) room.name = text
+				reply('Waiting For Partner' + (text ? ` Type The Command Below ${prefix}${command} ${text}` : ''))
+				this.game[room.id] = room
+			}
+		}
+		break
+		case 'delttc':
+		case 'delttt': {
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			this.game = this.game ? this.game : {}
+			try {
+				if (this.game) {
+					delete this.game
+					RoseMwol.sendText(m.chat, `Successfully Deleted The TicTacToe Session`, m)
+				} else if (!this.game) {
+					reply(`TicTacToe🎮 Session Does Not Exist`)
+				} else reply('?')
+			} catch (e) {
+				reply('Damaged')
+			}
+		}
+		break
+		case 'suitpvp':
+		case 'suit': {
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			this.suit = this.suit ? this.suit : {}
+			let poin = 10
+			let poin_lose = 10
+			let timeout = 60000
+			if (Object.values(this.suit).find(roof => roof.id.startsWith('suit') && [roof.p, roof.p2].includes(m.sender))) return replay(`Complete Your Previous Suit`)
+			if (m.mentionedJid[0] === m.sender) return reply(`Can't Play With Myself !`)
+			if (!m.mentionedJid[0]) return reply(`_Who Do You Want To Challenge?_\nTag The Person..\n\nExample : ${prefix}suit @${owner[1]}`, m.chat, {
+				mentions: [owner[1] + '@s.whatsapp.net']
+			})
+			if (Object.values(this.suit).find(roof => roof.id.startsWith('suit') && [roof.p, roof.p2].includes(m.mentionedJid[0]))) reply(`The Person You Are Challenging Is Playing Suit With Someone Else :(`)
+			let id = 'suit_' + new Date() * 1
+			let caption = `_*SUIT PvP*_
+
+@${m.sender.split`@`[0]} menantang @${m.mentionedJid[0].split`@`[0]} To Play Suit
+
+Please @${m.mentionedJid[0].split`@`[0]} To Type Accept/Reject`
+			this.suit[id] = {
+				chat: await RoseMwol.sendText(m.chat, caption, m, {
+					mentions: parseMention(caption)
+				}),
+				id: id,
+				p: m.sender,
+				p2: m.mentionedJid[0],
+				status: 'wait',
+				waktu: setTimeout(() => {
+					if (this.suit[id]) RoseMwol.sendText(m.chat, `_Suit Time Out_`, m)
+					delete this.suit[id]
+				}, 60000),
+				poin,
+				poin_lose,
+				timeout
+			}
+		}
+		break
+		case 'chat': {
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			if (!isCreator) return replay(`${mess.owner}`)
+			if (!q) return replay(`Option : 1. mute\n2. unmute\n3. archive\n4. unarchive\n5. read\n6. unread\n7. delete`)
+			if (args[0] === 'mute') {
+				RoseMwol.chatModify({
+					mute: 'Infinity'
+				}, m.chat, []).then((res) => reply(jsonformat(res))).catch((err) => reply(jsonformat(err)))
+			} else if (args[0] === 'unmute') {
+				RoseMwol.chatModify({
+					mute: null
+				}, m.chat, []).then((res) => reply(jsonformat(res))).catch((err) => reply(jsonformat(err)))
+			} else if (args[0] === 'archive') {
+				RoseMwol.chatModify({
+					archive: true
+				}, m.chat, []).then((res) => reply(jsonformat(res))).catch((err) => reply(jsonformat(err)))
+			} else if (args[0] === 'unarchive') {
+				RoseMwol.chatModify({
+					archive: false
+				}, m.chat, []).then((res) => reply(jsonformat(res))).catch((err) => reply(jsonformat(err)))
+			} else if (args[0] === 'read') {
+				RoseMwol.chatModify({
+					markRead: true
+				}, m.chat, []).then((res) => reply(jsonformat(res))).catch((err) => reply(jsonformat(err)))
+			} else if (args[0] === 'unread') {
+				RoseMwol.chatModify({
+					markRead: false
+				}, m.chat, []).then((res) => reply(jsonformat(res))).catch((err) => reply(jsonformat(err)))
+			} else if (args[0] === 'delete') {
+				RoseMwol.chatModify({
+					clear: {
+						message: {
+							id: m.quoted.id,
+							fromMe: true
+						}
+					}
+				}, m.chat, []).then((res) => reply(jsonformat(res))).catch((err) => reply(jsonformat(err)))
+			}
+		}
+		break
+		case 'family100': {
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			if ('family100' + m.chat in _family100) {
+				reply('There Are Still Unfinished Sessions!')
+				reply(false)
+			}
+			let anu = await fetchJson('https://raw.githubusercontent.com/BochilTeam/database/master/games/family100.json')
+			let random = anu[Math.floor(Math.random() * anu.length)]
+			let hasil = `*Answer The Following Questions :*\n${random.soal}\n\nThere Is *${random.jawaban.length}* Answer ${random.jawaban.find(v => v.includes(' ')) ? `(Some Answers Have Spaces)` : ''}`.trim()
+			_family100['family100' + m.chat] = {
+				id: 'family100' + m.chat,
+				pesan: await RoseMwol.sendText(m.chat, hasil, m),
+				...random,
+				terjawab: Array.from(random.jawaban, () => false),
+				hadiah: 6,
+			}
+		}
+		break
+		case 'halah':
+		case 'hilih':
+		case 'huluh':
+		case 'heleh':
+		case 'holoh':
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			if (!m.quoted && !text) return replay(`Send/Reply Text With Caption ${prefix + command}`)
+			ter = command[1].toLowerCase()
+			tex = m.quoted ? m.quoted.text ? m.quoted.text : q ? q : m.text : q ? q : m.text
+			reply(tex.replace(/[aiueo]/g, ter).replace(/[AIUEO]/g, ter.toUpperCase()))
+			break
+		case 'guess': {
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			if (!args.join(" ")) return replay(`Example : ${prefix + command} song\n\nOption : \n1.song\n2. picture\n3. saying\n4. sentence\n5. lyrics\n6.food`)
+			if (args[0] === "song") {
+				if (tebaklagu.hasOwnProperty(m.sender.split('@')[0])) return replay("There are still unfinished sessions!")
+				let anu = await fetchJson('https://fatiharridho.github.io/tebaklagu.json')
+				let result = anu[Math.floor(Math.random() * anu.length)]
+				let msg = await RoseMwol.sendMessage(m.chat, {
+					audio: {
+						url: result.link_song
+					},
+					mimetype: 'audio/mpeg'
+				}, {
+					quoted: m
+				})
+				RoseMwol.sendText(m.chat, `What is the name of this song?\n\nArtist : ${result.artist}\nTime : 60s`, msg).then(() => {
+					tebaklagu[m.sender.split('@')[0]] = result.jawaban.toLowerCase()
+				})
+				await sleep(60000)
+				if (tebaklagu.hasOwnProperty(m.sender.split('@')[0])) {
+					console.log("Answer: " + result.jawaban)
+					RoseMwol.sendButtonText(m.chat, [{
+						buttonId: 'guess song',
+						buttonText: {
+							displayText: 'Guess the song'
+						},
+						type: 1
+					}], `Time has run out\nAnswer:  ${tebaklagu[m.sender.split('@')[0]]}\n\nWant to play? press the button below`, `${global.botname}`, m)
+					delete tebaklagu[m.sender.split('@')[0]]
+				}
+			} else if (args[0] === 'picture') {
+				if (tebakgambar.hasOwnProperty(m.sender.split('@')[0])) return replay("There are still unfinished sessions!")
+				let anu = await fetchJson('https://raw.githubusercontent.com/BochilTeam/database/master/games/tebakgambar.json')
+				let result = anu[Math.floor(Math.random() * anu.length)]
+				RoseMwol.sendImage(m.chat, result.img, `Please answer the question above\n\nDescription : ${result.deskripsi}\nTime : 60s`, m).then(() => {
+					tebakgambar[m.sender.split('@')[0]] = result.jawaban.toLowerCase()
+				})
+				await sleep(60000)
+				if (tebakgambar.hasOwnProperty(m.sender.split('@')[0])) {
+					console.log("Answer: " + result.jawaban)
+					RoseMwol.sendButtonText(m.chat, [{
+						buttonId: 'guess picture',
+						buttonText: {
+							displayText: 'Guess the picture'
+						},
+						type: 1
+					}], `Time has run out\nAnswer:  ${tebakgambar[m.sender.split('@')[0]]}\n\nWant to play? press the button below`, `${global.botname}`, m)
+					delete tebakgambar[m.sender.split('@')[0]]
+				}
+			} else if (args[0] === 'word') {
+				if (tebakkata.hasOwnProperty(m.sender.split('@')[0])) return replay("There are still unfinished sessions!")
+				let anu = await fetchJson('https://raw.githubusercontent.com/Sachu-Settan/Media/main/GuessTheWord.js')
+				let result = anu[Math.floor(Math.random() * anu.length)]
+				RoseMwol.sendText(m.chat, `Please answer the following question\n\n${result.soal}\nTime : 60s`, m).then(() => {
+					tebakkata[m.sender.split('@')[0]] = result.jawaban.toLowerCase()
+				})
+				await sleep(60000)
+				if (tebakkata.hasOwnProperty(m.sender.split('@')[0])) {
+					console.log("Answer: " + result.jawaban)
+					RoseMwol.sendButtonText(m.chat, [{
+						buttonId: 'guess word',
+						buttonText: {
+							displayText: 'Guess The Word'
+						},
+						type: 1
+					}], `Time Out\nAnswer:  ${tebakkata[m.sender.split('@')[0]]}\n\nWant to play? press the button below`, `${global.botname}`, m)
+					delete tebakkata[m.sender.split('@')[0]]
+				}
+			} else if (args[0] === 'sentence') {
+				if (tebakkalimat.hasOwnProperty(m.sender.split('@')[0])) return replay("There are still unfinished sessions!")
+				let anu = await fetchJson('https://raw.githubusercontent.com/Sachu-Settan/Media/main/GuessTheSentence.js')
+				let result = anu[Math.floor(Math.random() * anu.length)]
+				RoseMwol.sendText(m.chat, `Please answer the following question\n\n${result.soal}\nTime : 60s`, m).then(() => {
+					tebakkalimat[m.sender.split('@')[0]] = result.jawaban.toLowerCase()
+				})
+				await sleep(60000)
+				if (tebakkalimat.hasOwnProperty(m.sender.split('@')[0])) {
+					console.log("Answer: " + result.jawaban)
+					RoseMwol.sendButtonText(m.chat, [{
+						buttonId: 'guess sentence',
+						buttonText: {
+							displayText: 'Guess the Sentence'
+						},
+						type: 1
+					}], `Time Out\nAnswer:  ${tebakkalimat[m.sender.split('@')[0]]}\n\nWant to play? press the button below`, `${global.botname}`, m)
+					delete tebakkalimat[m.sender.split('@')[0]]
+				}
+			} else if (args[0] === 'lyrics') {
+				if (tebaklirik.hasOwnProperty(m.sender.split('@')[0])) return replay("There are still unfinished sessions!")
+				let anu = await fetchJson('https://raw.githubusercontent.com/BochilTeam/database/master/games/tebaklirik.json')
+				let result = anu[Math.floor(Math.random() * anu.length)]
+				RoseMwol.sendText(m.chat, `Fill the missing lyrics below : *${result.soal}*?\nTime : 60s`, m).then(() => {
+					tebaklirik[m.sender.split('@')[0]] = result.jawaban.toLowerCase()
+				})
+				await sleep(60000)
+				if (tebaklirik.hasOwnProperty(m.sender.split('@')[0])) {
+					console.log("Answer: " + result.jawaban)
+					RoseMwol.sendButtonText(m.chat, [{
+						buttonId: 'guess lyrics',
+						buttonText: {
+							displayText: 'Guess The Lyrics'
+						},
+						type: 1
+					}], `Time Out\nAnswer:  ${tebaklirik[m.sender.split('@')[0]]}\n\nWant to play? press the button below`, `${global.botname}`, m)
+					delete tebaklirik[m.sender.split('@')[0]]
+				}
+			} else if (args[0] === 'guess saying') {
+				if (caklontong.hasOwnProperty(m.sender.split('@')[0])) return replay("There are still unfinished sessions!")
+				let anu = await fetchJson('https://raw.githubusercontent.com/BochilTeam/database/master/games/caklontong.json')
+				let result = anu[Math.floor(Math.random() * anu.length)]
+				RoseMwol.sendText(m.chat, `*Answer the following questions :*\n${result.soal}*\nTime : 60s`, m).then(() => {
+					caklontong[m.sender.split('@')[0]] = result.jawaban.toLowerCase()
+					caklontong_desk[m.sender.split('@')[0]] = result.deskripsi
+				})
+				await sleep(60000)
+				if (caklontong.hasOwnProperty(m.sender.split('@')[0])) {
+					console.log("Answer: " + result.jawaban)
+					RoseMwol.sendButtonText(m.chat, [{
+						buttonId: 'guess saying',
+						buttonText: {
+							displayText: 'Guess The Saying'
+						},
+						type: 1
+					}], `Time Out\nAnswer:  ${caklontong[m.sender.split('@')[0]]}\nDescription : ${caklontong_desk[m.sender.split('@')[0]]}\n\nWant to play? press the button below`, `${global.botname}`, m)
+					delete caklontong[m.sender.split('@')[0]]
+					delete caklontong_desk[m.sender.split('@')[0]]
+				}
+			}
+		}
+		break
+
+		case 'react': {
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			RoseMwol.sendMessage(m.chat, reactionMessage)
+		}
+		break
+
+
+		case 'kuismath':
+		case 'math': {
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			if (kuismath.hasOwnProperty(m.sender.split('@')[0])) return replay(`There Are Still Unfinished Sessions!`)
+			let {
+				genMath,
+				modes
+			} = require('./lib/math')
+			if (!text) return replay(`Mode: ${Object.keys(modes).join(' | ')}\nFor Examples: ${prefix}math medium`)
+			let result = await genMath(text.toLowerCase())
+			RoseMwol.sendText(m.chat, `*What Is The Result Of: ${result.soal.toLowerCase()}*?\n\nTime: ${(result.waktu / 1000).toFixed(2)} second`, m).then(() => {
+				kuismath[m.sender.split('@')[0]] = result.jawaban
+			})
+			await sleep(result.waktu)
+			if (kuismath.hasOwnProperty(m.sender.split('@')[0])) {
+				console.log("Answer: " + result.jawaban)
+				reply("Time Out\nAnswer: " + kuismath[m.sender.split('@')[0]])
+				delete kuismath[m.sender.split('@')[0]]
+			}
+		}
+		break
+		case 'mysoulmate': {
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			if (!m.isGroup) return replay(`${mess.group}`)
+			let member = participants.map(u => u.id)
+			let me = m.sender
+			let jodoh = member[Math.floor(Math.random() * member.length)]
+			let jawab = `👫Your Match Is
+
+@${me.split('@')[0]} ❤️ @${jodoh.split('@')[0]}`
+			let ments = [me, jodoh]
+			let buttons = [{
+				buttonId: '❤️',
+				buttonText: {
+					displayText: '❤️'
+				},
+				type: 1
+			}]
+			await RoseMwol.sendButtonText(m.chat, buttons, jawab, RoseMwol.user.name, m, {
+				mentions: ments
 			})
 		}
 		break
-		case 'banchat': {
+		case 'couple': {
 			if (isBan) return reply(mess.ban)
-			if (!isCreator) return replay(mess.owner)
+			if (isBanChat) return reply(mess.banChat)
+			if (!m.isGroup) return replay(`${mess.group}`)
+			let member = participants.map(u => u.id)
+			let orang = member[Math.floor(Math.random() * member.length)]
+			let jodoh = member[Math.floor(Math.random() * member.length)]
+			let jawab = `@${orang.split('@')[0]} ❤️ @${jodoh.split('@')[0]}
+Cieeee, What's Going On❤️💖👀`
+			let menst = [orang, jodoh]
+			let buttons = [{
+				buttonId: '❤️',
+				buttonText: {
+					displayText: '❤️'
+				},
+				type: 1
+			}]
+			await RoseMwol.sendButtonText(m.chat, buttons, jawab, RoseMwol.user.name, m, {
+				mentions: menst
+			})
+		}
+		break
+		case 'is':
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			if (!text) return replay(`Use Text, Example : ${prefix + command} he married `)
+			const apa = [`Yes`, `No`, `It Could Be`, `Thats right`]
+			const kah = apa[Math.floor(Math.random() * apa.length)]
+			RoseMwol.sendMessage(from, {
+				text: `Question : Is ${q}\nAnswer : ${kah}`
+			}, {
+				quoted: m
+			})
+
+			break
+		case 'what':
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			if (!text) return replay(`Use Text, Example : ${prefix + command} he married `)
+			const lel = [`Ask Your Gf`, `I Dont Know`, `I Don't Know, Ask Your Father`]
+			const kahk = lel[Math.floor(Math.random() * lel.length)]
+			RoseMwol.sendMessage(from, {
+				text: `Question : What ${q}\nAnswer : ${kahk}`
+			}, {
+				quoted: m
+			})
+
+			break
+		case 'can':
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			if (!text) return replay(`Use Text, Example : ${prefix + command} you fuck her lol `)
+			const bisa = [`Can`, `Can't`, `Cannot`, `Of Course You Can!!!`]
+			const ga = bisa[Math.floor(Math.random() * bisa.length)]
+			RoseMwol.sendMessage(from, {
+				text: `Question : Can ${q}\nAnswer : ${ga}`
+			}, {
+				quoted: m
+			})
+
+			break
+		case 'how':
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			if (!text) return replay(`Use Text, Example : ${prefix + command} is my face`)
+			const gimana = [`It's Okay`, `It's Difficult Bro`, `Sorry Bot Can't Answer`, `Try Searching On Google`, `Holy Cow! Really???`, `Dizzy Ah`, `Ohhh I See:(`, `The Patient, Boss:(`, `How Are You?`]
+			const ya = gimana[Math.floor(Math.random() * gimana.length)]
+			RoseMwol.sendMessage(from, {
+				text: `Question : ${q}\nAnswer : How ${ya}`
+			}, {
+				quoted: m
+			})
+
+			break
+		case 'rate':
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			if (!text) return replay(`Use Text, Example : ${prefix + command} My Dp`)
+			const ra = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30', '31', '32', '33', '34', '35', '36', '37', '38', '39', '40', '41', '42', '43', '44', '45', '46', '47', '48', '49', '50', '51', '52', '53', '54', '55', '56', '57', '58', '59', '60', '61', '62', '63', '64', '65', '66', '67', '68', '69', '70', '71', '72', '73', '74', '75', '76', '77', '78', '79', '80', '81', '82', '83', '84', '85', '86', '87', '88', '89', '90', '91', '92', '93', '94', '95', '96', '97', '98', '99', '100']
+			const te = ra[Math.floor(Math.random() * ra.length)]
+			RoseMwol.sendMessage(from, {
+				text: `Rate : ${q}\nAnswer : *${te}%*`
+			}, {
+				quoted: m
+			})
+
+			break
+		case 'handsomecheck':
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			if (!text) return replay(`Tag Someone, Example : ${prefix + command} @Sachu-Settan`)
+			const gan = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30', '31', '32', '33', '34', '35', '36', '37', '38', '39', '40', '41', '42', '43', '44', '45', '46', '47', '48', '49', '50', '51', '52', '53', '54', '55', '56', '57', '58', '59', '60', '61', '62', '63', '64', '65', '66', '67', '68', '69', '70', '71', '72', '73', '74', '75', '76', '77', '78', '79', '80', '81', '82', '83', '84', '85', '86', '87', '88', '89', '90', '91', '92', '93', '94', '95', '96', '97', '98', '99', '100']
+			const teng = gan[Math.floor(Math.random() * gan.length)]
+			RoseMwol.sendMessage(from, {
+				text: `*${command}*\n\nName : ${q}\nAnswer : *${teng}%*`
+			}, {
+				quoted: m
+			})
+
+			break
+		case 'beautifulcheck':
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			if (!text) return replay(`Tag Someone, Example : ${prefix + command} @Sachu-Settan`)
+			const can = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30', '31', '32', '33', '34', '35', '36', '37', '38', '39', '40', '41', '42', '43', '44', '45', '46', '47', '48', '49', '50', '51', '52', '53', '54', '55', '56', '57', '58', '59', '60', '61', '62', '63', '64', '65', '66', '67', '68', '69', '70', '71', '72', '73', '74', '75', '76', '77', '78', '79', '80', '81', '82', '83', '84', '85', '86', '87', '88', '89', '90', '91', '92', '93', '94', '95', '96', '97', '98', '99', '100']
+			const tik = can[Math.floor(Math.random() * can.length)]
+			RoseMwol.sendMessage(from, {
+				text: `*${command}*\n\nNama : ${q}\nAnswer : *${tik}%*`
+			}, {
+				quoted: m
+			})
+			break
+		case 'charactercheck':
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			if (!text) return replay(`Tag Someone, Example : ${prefix + command} @Sachu-Settan`)
+			const rose = ['Compassionate', 'Generous', 'Grumpy', 'Forgiving', 'Obedient', 'Good', 'Simp', 'Kind-Hearted', 'patient', 'UwU', 'top, anyway', 'Helpful']
+			const taky = rose[Math.floor(Math.random() * rose.length)]
+			RoseMwol.sendMessage(from, {
+				text: `Character Check : ${q}\nAnswer : *${taky}*`
+			}, {
+				quoted: m
+			})
+			break
+		case 'awesomecheck':
+		case 'greatcheck':
+		case 'gaycheck':
+		case 'cutecheck':
+		case 'lesbicheck':
+		case 'lesbiancheck':
+		case 'hornycheck':
+		case 'prettycheck':
+		case 'lovelycheck':
+		case 'uglycheck':
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			if (!text) return replay(`Tag Someone, Example : ${prefix + command} @Sachu-Settan`)
+			const sangeh = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30', '31', '32', '33', '34', '35', '36', '37', '38', '39', '40', '41', '42', '43', '44', '45', '46', '47', '48', '49', '50', '51', '52', '53', '54', '55', '56', '57', '58', '59', '60', '61', '62', '63', '64', '65', '66', '67', '68', '69', '70', '71', '72', '73', '74', '75', '76', '77', '78', '79', '80', '81', '82', '83', '84', '85', '86', '87', '88', '89', '90', '91', '92', '93', '94', '95', '96', '97', '98', '99', '100']
+			const sange = sangeh[Math.floor(Math.random() * sangeh.length)]
+			RoseMwol.sendMessage(from, {
+				text: `*${command}*\n\nName : ${q}\nAnswer : *${sange}%*`
+			}, {
+				quoted: m
+			})
+			break
+		case 'stupid':
+		case 'foolish':
+		case 'smart':
+		case 'idiot':
+		case 'gay':
+		case 'lesbi':
+		case 'bastard':
+		case 'stubble':
+		case 'dog':
+		case 'fuck':
+		case 'ape':
+		case 'noob':
+		case 'great':
+		case 'horny':
+		case 'wibu':
+		case 'asshole':
+		case 'handsome':
+		case 'beautiful':
+		case 'cute':
+		case 'kind':
+		case 'ugly':
+		case 'pretty':
+		case 'lesbian':
+		case 'randi':
+		case 'gandu':
+		case 'madarchod':
+		case 'kala':
+		case 'gora':
+		case 'chutiya':
+		case 'nibba':
+		case 'nibbi':
+		case 'bhosdiwala':
+		case 'chutmarika':
+		case 'bokachoda':
+		case 'suarerbaccha':
+		case 'bolochoda':
+		case 'muthal':
+		case 'muthbaaz':
+		case 'randibaaz':
+		case 'topibaaz':
+		case 'cunt':
+		case 'nerd':
+		case 'behenchod':
+		case 'behnchoda':
+		case 'bhosdika':
+		case 'nerd':
+		case 'mc':
+		case 'bsdk':
+		case 'bhosdk':
+		case 'nigger':
+		case 'loda':
+		case 'laund':
+		case 'nigga':
+		case 'noobra':
+		case 'tharki':
+		case 'nibba':
+		case 'nibbi':
+		case 'mumu':
+		case 'rascal':
+		case 'scumbag':
+		case 'nuts':
+		case 'comrade':
+		case 'fagot':
+		case 'scoundrel':
+		case 'ditch':
+		case 'dope':
+		case 'gucci':
+		case 'lit':
+		case 'dumbass':
+		case 'sexy':
+		case 'crackhead':
+		case 'mf':
+		case 'motherfucker':
+		case 'dogla':
+		case 'bewda':
+		case 'boka':
+		case 'khanki':
+		case 'bal':
+		case 'sucker':
+		case 'fuckboy':
+		case 'playboy':
+		case 'fuckgirl':
+		case 'playgirl':
+		case 'hot': {
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			if (!m.isGroup) return replay(`${mess.group}`)
+			let member = participants.map(u => u.id)
+			let me = m.sender
+			let jodoh = member[Math.floor(Math.random() * member.length)]
+			let jawab = `The Most *${command}* Here Is @${jodoh.split('@')[0]}`
+			let ments = [me, jodoh]
+			let buttons = [{
+				buttonId: '👀',
+				buttonText: {
+					displayText: '👀😂'
+				},
+				type: 1
+			}]
+			await RoseMwol.sendButtonText(m.chat, buttons, jawab, botname, m, {
+				mentions: ments
+			})
+		}
+		break
+		case 'dare':
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			const dare = [
+				"eat 2 tablespoons of rice without any side dishes, if it's dragging you can drink",
+				"spill people who make you pause",
+				"call crush/pickle now and send ss",
+				"drop only emote every time you type on gc/pc for 1 day.",
+				"say Welcome to Who Wants To Be a Millionaire! to all the groups you have",
+				"call ex saying miss",
+				"sing the chorus of the last song you played",
+				"vn your ex/crush/girlfriend, says hi (name), wants to call, just a moment. I miss🥺👉🏼👈🏼",
+				"Bang on the table (which is at home) until you get scolded for being noisy",
+				"Tell random people _I was just told I was your twin first, we separated, then I had plastic surgery. And this is the most ciyusss_ thing",
+				"mention ex's name",
+				"make 1 rhyme for the members!",
+				"send ur whatsapp chat list",
+				"chat random people with gheto language then ss here",
+				"tell your own version of embarrassing things",
+				"tag the person you hate",
+				"Pretending to be possessed, for example: possessed by dog, possessed by grasshoppers, possessed by refrigerator, etc.",
+				"change name to *I AM DONKEY* for 24 hours",
+				"shout *ma chuda ma chuda ma chuda* in front of your house",
+				"snap/post boyfriend photo/crush",
+				"tell me your boyfriend type!",
+				"say *i hv crush on you, do you want to be my girlfriend?* to the opposite sex, the last time you chatted (submit on wa/tele), wait for him to reply, if you have, drop here",
+				"record ur voice that read *titar ke age do titar, titar ke piche do titar*",
+				"prank chat ex and say *i love u, please come back.* without saying dare!",
+				"chat to contact wa in the order according to your battery %, then tell him *i am lucky to hv you!*",
+				"change the name to *I am a child of randi* for 5 hours",
+				"type in bengali 24 hours",
+				"Use selmon bhoi photo for 3 days",
+				"drop a song quote then tag a suitable member for that quote",
+				"send voice note saying can i call u baby?",
+				"ss recent call whatsapp",
+				"Say *YOU ARE SO BEAUTIFUL DON'T LIE* to guys!",
+				"pop to a group member, and say fuck you",
+				"Act like a chicken in front of ur parents",
+				"Pick up a random book and read one page out loud in vn n send it here",
+				"Open your front door and howl like a wolf for 10 seconds",
+				"Take an embarrassing selfie and paste it on your profile picture",
+				"Let the group choose a word and a well known song. You have to sing that song and send it in voice note",
+				"Walk on your elbows and knees for as long as you can",
+				"sing national anthem in voice note",
+				"Breakdance for 30 seconds in the sitting room😂",
+				"Tell the saddest story you know",
+				"make a twerk dance video and put it on status for 5mins",
+				"Eat a raw piece of garlic",
+				"Show the last five people you texted and what the messages said",
+				"put your full name on status for 5hrs",
+				"make a short dance video without any filter just with a music and put it on ur status for 5hrs",
+				"call ur bestie, bitch",
+				"put your photo without filter on ur status for 10mins",
+				"say i love oli london in voice note🤣🤣",
+				"Send a message to your ex and say I still like you",
+				"call Crush/girlfriend/bestie now and screenshot here",
+				"pop to one of the group member personal chat and Say you ugly bustard",
+				"say YOU ARE BEAUTIFUL/HANDSOME to one of person who is in top of ur pinlist or the first person on ur chatlist",
+				"send voice notes and say, can i call u baby, if u r boy tag girl/if girl tag boy",
+				"write i love you (random grup member name, who is online) in personal chat, (if u r boy write girl name/if girl write boy name) take a snap of the pic and send it here",
+				"use any bollywood actor photo as ur pfp for 3 days",
+				"put your crush photo on status with caption, this is my crush",
+				"change name to I AM GAY for 5 hours",
+				"chat to any contact in whatsapp and say i will be ur bf/gf for 5hours",
+				"send voice note says i hv crush on you, want to be my girlfriend/boyfriend or not? to any random person from the grup(if u girl choose boy, if boy choose girl",
+				"slap ur butt hardly send the sound of slap through voice note😂",
+				"state ur gf/bf type and send the photo here with caption, ugliest girl/boy in the world",
+				"shout bravooooooooo and send here through voice note",
+				"snap your face then send it here",
+				"Send your photo with a caption, i am lesbian",
+				"shout using harsh words and send it here through vn",
+				"shout you bastard in front of your mom/papa",
+				"change the name to i am idiot for 24 hours",
+				"slap urself firmly and send the sound of slap through voice note😂",
+				"say i love the bot owner rose through voice note",
+				"send your gf/bf pic here",
+				"make any tiktok dance challenge video and put it on status, u can delete it after 5hrs",
+				"breakup with your best friend for 5hrs without telling him/her that its a dare",
+				"tell one of your frnd that u love him/her and wanna marry him/her, without telling him/her that its a dare",
+				"say i love depak kalal through voice note",
+				"write i am feeling horny and put it on status, u can delete it only after 5hrs",
+				"write i am lesbian and put it on status, u can delete only after 5hrs",
+				"kiss your mommy or papa and say i love you😌",
+				"put your father name on status for 5hrs",
+				"send abusive words in any grup, excepting this grup, and send screenshot proof here"
+			]
+			const rosedare = dare[Math.floor(Math.random() * dare.length)]
+			buffer = await getBuffer(`https://i.ibb.co/305yt26/bf84f20635dedd5dde31e7e5b6983ae9.jpg`)
+			RoseMwol.sendMessage(from, {
+				image: buffer,
+				caption: '_You choose DARE_\n' + rosedare
+			}, {
+				quoted: m
+			})
+			break
+			break
+		case 'truth':
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			const truth = [
+				"Have you ever liked anyone? How long?",
+				"If you can or if you want, which gc/outside gc would you make friends with? (maybe different/same type)",
+				"apa ketakutan terbesar kamu?",
+				"Have you ever liked someone and felt that person likes you too?",
+				"What is the name of your friend's ex-girlfriend that you used to secretly like?",
+				"Have you ever stolen money from your father or mom? The reason?",
+				"What makes you happy when you're sad?",
+				"Ever had a one sided love? if so who? how does it feel bro?",
+				"been someone's mistress?",
+				"the most feared thing",
+				"Who is the most influential person in your life?",
+				"what proud thing did you get this year",
+				"Who is the person who can make you awesome",
+				"Who is the person who has ever made you very happy?",
+				"Who is closest to your ideal type of partner here",
+				"Who do you like to play with??",
+				"Have you ever rejected people? the reason why?",
+				"Mention an incident that made you hurt that you still remember",
+				"What achievements have you got this year??",
+				"What's your worst habit at school??",
+				"What song do you sing most in the shower",
+				"Have you ever had a near-death experience",
+				"When was the last time you were really angry. Why?",
+				"Who is the last person who called you",
+				"Do you have any hidden talents, What are they",
+				"What word do you hate the most?",
+				"What is the last YouTube video you watched?",
+				"What is the last thing you Googled",
+				"Who in this group would you want to swap lives with for a week",
+				"What is the scariest thing thats ever happened to you",
+				"Have you ever farted and blamed it on someone else",
+				"When is the last time you made someone else cry",
+				"Have you ever ghosted a friend",
+				"Have you ever seen a dead body",
+				"Which of your family members annoys you the most and why",
+				"If you had to delete one app from your phone, which one would it be",
+				"What app do you waste the most time on",
+				"Have you ever faked sick to get home from school",
+				"What is the most embarrassing item in your room",
+				"What five items would you bring if you got stuck on a desert island",
+				"Have you ever laughed so hard you peed your pants",
+				"Do you smell your own farts",
+				"have u ever peed on the bed while sleeping ðŸ¤£ðŸ¤£",
+				"What is the biggest mistake you have ever made",
+				"Have you ever cheated in an exam",
+				"What is the worst thing you have ever done",
+				"When was the last time you cried",
+				"whom do you love the most among ur parents",
+				"do u sometimes put ur finger in ur nosetrilðŸ¤£",
+				"who was ur crush during the school days",
+				"tell honestly, do u like any boy in this grup",
+				"have you ever liked anyone? how long?",
+				"do you have gf/bf','what is your biggest fear?",
+				"have you ever liked someone and felt that person likes you too?",
+				"What is the name of your ex boyfriend of your friend that you once liked quietly?",
+				"ever did you steal your mothers money or your fathers money",
+				"what makes you happy when you are sad",
+				"do you like someone who is in this grup? if you then who?",
+				"have you ever been cheated on by people?",
+				"who is the most important person in your life",
+				"what proud things did you get this year",
+				"who is the person who can make you happy when u r sad",
+				"who is the person who ever made you feel uncomfortable",
+				"have you ever lied to your parents",
+				"do you still like ur ex",
+				"who do you like to play together with?",
+				"have you ever stolen big thing in ur life? the reason why?",
+				"Mention the incident that makes you hurt that you still remember",
+				"what achievements have you got this year?",
+				"what was your worst habit at school?",
+				"do you love the bot creator, rose?ðŸ¦„",
+				"have you ever thought of taking revenge from ur teacher?",
+				"do you like current prime minister of ur country",
+				"you non veg or veg",
+				"if you could be invisible, what is the first thing you would do",
+				"what is a secret you kept from your parents",
+				"Who is your secret crush",
+				"whois the last person you creeped on social media",
+				"If a genie granted you three wishes, what would you ask for",
+				"What is your biggest regret",
+				"What animal do you think you most look like",
+				"How many selfies do you take a day",
+				"What was your favorite childhood show",
+				"if you could be a fictional character for a day, who would you choose",
+				"whom do you text the most",
+				"What is the biggest lie you ever told your parents",
+				"Who is your celebrity crush",
+				"Whats the strangest dream you have ever had",
+				"do you play pubg, if you then send ur id number"
+			]
+			const rosetruth = truth[Math.floor(Math.random() * truth.length)]
+			buffer = await getBuffer(`https://i.ibb.co/305yt26/bf84f20635dedd5dde31e7e5b6983ae9.jpg`)
+			RoseMwol.sendMessage(from, {
+				image: buffer,
+				caption: '_You choose TRUTH_\n' + rosetruth
+			}, {
+				quoted: m
+			})
+			break
+		case 'when':
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			if (!text) return replay(`Use Text, Example : ${prefix + command} will i get married `)
+			const kapan = ['5 More Days', '10 More Days', '15 More Days', '20 More Days', '25 More Days', '30 More Days', '35 More Days', '40 More Days', '45 More Days', '50 More Days', '55 More Days', '60 More Days', '65 More Days', '70 More Days', '75 More Days', '80 More Days', '85 More Days', '90 More Days', '100 More Days', '5 Months More', '10 Months More', '15 Months More', '20 Months More', '25 Months More', '30 Months More', '35 Months More', '40 Months More', '45 Months More', '50 Months More', '55 Months More', '60 Months More', '65 Months More', '70 Months More', '75 Months More', '80 Months More', '85 Months More', '90 Months More', '100 Months More', '1 More Year', '2 More Years', '3 More Years', '4 More Years', '5 More Years', 'Tomorrow', 'The Day After Tomorrow', `After This Command, You Too ${q}`]
+			const kapankah = kapan[Math.floor(Math.random() * kapan.length)]
+			RoseMwol.sendMessage(from, {
+				text: `Question : ${q}\nAnswer : *${kapankah}*`
+			}, {
+				quoted: m
+			})
+			break
+		case 'wangy':
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			if (!text) return replay(`Use Text, Example : ${prefix + command} hinata`)
+			qq = q.toUpperCase()
+			awikwok = `${qq} ${qq} ${qq} ❤️ ❤️ ❤️ WANGY WANGY WANGY WANGY HU HA HU HA HU HA, aaah the smell of hair ${qq} smelly i want to smell the fragrance ${qq} AAAAAAAAH ~ Her hair.... aaah i want to stroke her hair too ~~ AAAAAH ${qq} first time out in anime is cute too ❤️ ❤️ ❤️ so AAAAAAAH ${qq} AAAAAA LUCCUUUUUUUUUUUUU............ ${qq} AAAAAAAAAAAAAAAAAAAAGH ❤️ ❤️ ❤️what ? ${qq} it's not real ? Just HELL you say ? no, no no no no no no no no no no no no no no no !! I DON'T CARE ABOUT THE REALITY, I DON'T CARE. ❤️ ❤️ ❤️ ${qq} me ... ${qq} on the laptop watching me, ${qq} .. you believe in me ? aaaaaaaaaaah thanks ${q} I don't want to give up ${qq} aaaaaah ❤️ ❤️ ❤️ YEAAAAAAAAAAAH I STILL HAVE ${qq} ALSO NOT THE SAME AAAAAAAAAAAAAAH`
+			reply(awikwok)
+			break
+		case 'checkdeath':
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			if (!text) return replay(`Use Someone's Name, Example : ${prefix + command} Bot`)
+			predea = await axios.get(`https://api.agify.io/?name=${q}`)
+			reply(`Name : ${predea.data.name}\n*Dead At Age :* ${predea.data.age} Year.\n\n_Quick, Quick, Repent Bro, Because No One Knows About Death_`)
+			break
+		case 'join': {
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			if (!isCreator) return replay(`${mess.owner}`)
+			if (!text) return replay(`Enter The Group Link!`)
+			if (!isUrl(args[0]) && !args[0].includes('whatsapp.com')) return replay(`Invalid Link!`)
+			reply(mess.wait)
+			let result = args[0].split('https://chat.whatsapp.com/')[1]
+			await RoseMwol.groupAcceptInvite(result).then((res) => reply(jsonformat(res))).catch((err) => reply(jsonformat(err)))
+		}
+		break
+		case 'leavegc':
+		case 'leavegroup': {
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			reply(mess.wait)
+			if (!isCreator) return replay(`${mess.owner}`)
+			await RoseMwol.groupLeave(m.chat).then((res) => reply(jsonformat(res))).catch((err) => reply(jsonformat(err)))
+		}
+		break
+		case 'setexif': {
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			if (!isCreator) return replay(`${mess.owner}`)
+			if (!text) return replay(`Example : ${prefix + command} packname|author`)
+			global.packname = text.split("|")[0]
+			global.author = text.split("|")[1]
+			reply(`Exif Has Been Successfully Changed to\n\n${themeemoji} Packname : ${global.packname}\n${themeemoji} Author : ${global.author}`)
+		}
+		break
+		case 'kick': {
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			if (!m.isGroup) return replay(`${mess.group}`)
+			if (!isBotAdmins) return replay(`${mess.botAdmin}`)
+			if (!isAdmins) return replay(`${mess.admin}`)
+			let users = m.mentionedJid[0] ? m.mentionedJid[0] : m.quoted ? m.quoted.sender : text.replace(/[^0-9]/g, '') + '@s.whatsapp.net'
+			await RoseMwol.groupParticipantsUpdate(m.chat, [users], 'remove').then((res) => reply(jsonformat(res))).catch((err) => reply(jsonformat(err)))
+		}
+		break
+		case 'add': {
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			if (!m.isGroup) return replay(`${mess.group}`)
+			if (!isBotAdmins) return replay(`${mess.botAdmin}`)
+			if (!isAdmins) return replay(`${mess.admin}`)
+			let users = m.quoted ? m.quoted.sender : text.replace(/[^0-9]/g, '') + '@s.whatsapp.net'
+			await RoseMwol.groupParticipantsUpdate(m.chat, [users], 'add').then((res) => reply(jsonformat(res))).catch((err) => reply(jsonformat(err)))
+		}
+		break
+		case 'promote': {
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			if (!m.isGroup) return replay(`${mess.group}`)
+			if (!isBotAdmins) return replay(`${mess.botAdmin}`)
+			if (!isAdmins) return replay(`${mess.admin}`)
+			let users = m.mentionedJid[0] ? m.mentionedJid[0] : m.quoted ? m.quoted.sender : text.replace(/[^0-9]/g, '') + '@s.whatsapp.net'
+			await RoseMwol.groupParticipantsUpdate(m.chat, [users], 'promote').then((res) => reply(jsonformat(res))).catch((err) => reply(jsonformat(err)))
+		}
+		break
+		case 'demote': {
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			if (!m.isGroup) return replay(`${mess.group}`)
+			if (!isBotAdmins) return replay(`${mess.botAdmin}`)
+			if (!isAdmins) return replay(`${mess.admin}`)
+			let users = m.mentionedJid[0] ? m.mentionedJid[0] : m.quoted ? m.quoted.sender : text.replace(/[^0-9]/g, '') + '@s.whatsapp.net'
+			await RoseMwol.groupParticipantsUpdate(m.chat, [users], 'demote').then((res) => reply(jsonformat(res))).catch((err) => reply(jsonformat(err)))
+		}
+		break
+		case 'block': {
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			if (!isCreator) return replay(`${mess.owner}`)
+			let users = m.mentionedJid[0] ? m.mentionedJid[0] : m.quoted ? m.quoted.sender : text.replace(/[^0-9]/g, '') + '@s.whatsapp.net'
+			await RoseMwol.updateBlockStatus(users, 'block').then((res) => reply(jsonformat(res))).catch((err) => reply(jsonformat(err)))
+		}
+		break
+		case 'unblock': {
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			if (!isCreator) return replay(`${mess.owner}`)
+			let users = m.mentionedJid[0] ? m.mentionedJid[0] : m.quoted ? m.quoted.sender : text.replace(/[^0-9]/g, '') + '@s.whatsapp.net'
+			await RoseMwol.updateBlockStatus(users, 'unblock').then((res) => reply(jsonformat(res))).catch((err) => reply(jsonformat(err)))
+		}
+		break
+		case 'setname':
+		case 'setgcname':
+		case 'setsubject': {
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			if (!m.isGroup) return replay(`${mess.group}`)
+			if (!isBotAdmins) return replay(`${mess.botAdmin}`)
+			if (!isAdmins) replay(`${mess.admin}`)
+			if (!text) replay(`Where Is The Text?`)
+			await RoseMwol.groupUpdateSubject(m.chat, text).then((res) => reply(mess.success)).catch((err) => reply(jsonformat(err)))
+		}
+		break
+		case 'setdesc':
+		case 'setdescription': {
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			if (!m.isGroup) return replay(`${mess.group}`)
+			if (!isBotAdmins) return replay(`${mess.botAdmin}`)
+			if (!isAdmins) replay(`${mess.admin}`)
+			if (!text) replay(`Where Is The Text?`)
+			await RoseMwol.groupUpdateDescription(m.chat, text).then((res) => reply(mess.success)).catch((err) => reply(jsonformat(err)))
+		}
+		break
+		case 'setbotpp': {
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			if (!isCreator) return replay(`${mess.owner}`)
+			if (!quoted) return replay(`Send/Reply Image With Caption ${prefix + command}`)
+			if (!/image/.test(mime)) return replay(`Send/Reply Image With Caption ${prefix + command}`)
+			if (/webp/.test(mime)) return replay(`Send/Reply Image With Caption ${prefix + command}`)
+			let media = await RoseMwol.downloadAndSaveMediaMessage(quoted)
+			await RoseMwol.updateProfilePicture(botNumber, {
+				url: media
+			}).catch((err) => fs.unlinkSync(media))
+			reply(mess.success)
+		}
+		break
+		case 'setgrouppp':
+		case 'setgruppp':
+		case 'setgcpp': {
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			if (!m.isGroup) return replay(`${mess.group}`)
+			if (!isAdmins) return replay(`${mess.admin}`)
+			if (!quoted) return replay(`Send/Reply Image With Caption ${prefix + command}`)
+			if (!/image/.test(mime)) return replay(`Send/Reply Image With Caption ${prefix + command}`)
+			if (/webp/.test(mime)) return replay(`Send/Reply Image With Caption ${prefix + command}`)
+			let media = await RoseMwol.downloadAndSaveMediaMessage(quoted)
+			await RoseMwol.updateProfilePicture(m.chat, {
+				url: media
+			}).catch((err) => fs.unlinkSync(media))
+			reply(mess.success)
+		}
+		break
+		case 'tagall': {
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			if (!m.isGroup) return replay(`${mess.group}`)
+			if (!isBotAdmins) return replay(`${mess.botAdmin}`)
+			if (!isAdmins) return replay(`${mess.admin}`)
+			let teks = `╚»˙·٠•●♥ Tag All ♥●•٠·˙«╝ 
+ 
+ ➲ *Message : ${q ? q : 'no message'}*\n\n`
+			for (let mem of participants) {
+				teks += `${themeemoji} @${mem.id.split('@')[0]}\n`
+			}
+			RoseMwol.sendMessage(m.chat, {
+				text: teks,
+				mentions: participants.map(a => a.id)
+			}, {
+				quoted: m
+			})
+		}
+		break
+		case 'hidetag': {
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			if (!m.isGroup) return replay(`${mess.group}`)
+			if (!isBotAdmins) return replay(`${mess.botAdmin}`)
+			if (!isAdmins) return replay(`${mess.admin}`)
+			RoseMwol.sendMessage(m.chat, {
+				text: q ? q : '',
+				mentions: participants.map(a => a.id)
+			}, {
+				quoted: m
+			})
+		}
+		break
+		case 'style':
+		case 'styletext': {
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			if (!isPremium && global.db.data.users[m.sender].limit < 1) return reply(mess.endLimit) //wont response when limit runs out\\
+			db.data.users[m.sender].limit -= 1 // -1 limit
+			let {
+				styletext
+			} = require('./lib/scraper')
+			if (!text) return replay(`Enter Query Text!`)
+			let anu = await styletext(text)
+			let teks = `Entered Text ${text}\n\n`
+			for (let i of anu) {
+				teks += `${themeemoji} *${i.name}* : ${i.result}\n\n`
+			}
+			reply(teks)
+		}
+		break
+		case 'vote': {
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			if (!m.isGroup) return replay(`${mess.group}`)
+			if (m.chat in vote) replay(`_There Are Still Votes In This Chat!_\n\n*${prefix}delvote* - To Delete Vote Session`)
+			if (!text) return replay(`Enter Reason For Vote, Example: *${prefix + command} Handsome Owner*`)
+			reply(`Voting Starts!\n\n*${prefix}upvote* - For Upvote\n*${prefix}devote* - For Devote\n*${prefix}checkvote* - To Check The Vote\n*${prefix}delvote* - To Delete Vote Session`)
+			vote[m.chat] = [q, [],
+				[]
+			]
+			await sleep(1000)
+			upvote = vote[m.chat][1]
+			devote = vote[m.chat][2]
+			teks_vote = `*「 VOTE 」*
+
+*Reason:* ${vote[m.chat][0]}
+
+┌〔 UPVOTE 〕
+│ 
+┃╠ Total: ${vote[m.chat][1].length}
+│
+│ 
+└────
+
+┌〔 DEVOTE 〕
+│ 
+┃╠ Total: ${vote[m.chat][2].length}
+│
+│ 
+└────
+
+*${prefix}delvote* - To Delete Vote Session`
+			let buttonsVote = [{
+					buttonId: `${prefix}upvote`,
+					buttonText: {
+						displayText: 'Upvote'
+					},
+					type: 1
+				},
+				{
+					buttonId: `${prefix}devote`,
+					buttonText: {
+						displayText: 'Devote'
+					},
+					type: 1
+				}
+			]
+
+			let buttonMessageVote = {
+				text: teks_vote,
+				footer: RoseMwol.user.name,
+				buttons: buttonsVote,
+				headerType: 1
+			}
+			RoseMwol.sendMessage(m.chat, buttonMessageVote)
+		}
+		break
+		case 'upvote': {
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			if (!m.isGroup) return replay(`${mess.group}`)
+			if (!(m.chat in vote)) return replay(`_*No Voting In This Group!*_\n\n*${prefix}vote* - To Start Voting`)
+			isVote = vote[m.chat][1].concat(vote[m.chat][2])
+			wasVote = isVote.includes(m.sender)
+			if (wasVote) replay(`You've Voted`)
+			vote[m.chat][1].push(m.sender)
+			menvote = vote[m.chat][1].concat(vote[m.chat][2])
+			teks_vote = `*「 VOTE 」*
+
+*Reason:* ${vote[m.chat][0]}
+
+┌〔 UPVOTE 〕
+│ 
+┃╠ Total: ${vote[m.chat][1].length}
+${vote[m.chat][1].map((v, i) => `┃╠ ${i + 1}. @${v.split`@`[0]}`).join('\n')}
+│ 
+└────
+
+┌〔 DEVOTE 〕
+│ 
+┃╠ Total: ${vote[m.chat][2].length}
+${vote[m.chat][2].map((v, i) => `┃╠ ${i + 1}. @${v.split`@`[0]}`).join('\n')}
+│ 
+└────
+
+*${prefix}delvote* - To Delete Vote Session`
+			let buttonsUpvote = [{
+					buttonId: `${prefix}upvote`,
+					buttonText: {
+						displayText: 'Upvote'
+					},
+					type: 1
+				},
+				{
+					buttonId: `${prefix}devote`,
+					buttonText: {
+						displayText: 'Devote'
+					},
+					type: 1
+				}
+			]
+
+			let buttonMessageUpvote = {
+				text: teks_vote,
+				footer: RoseMwol.user.name,
+				buttons: buttonsUpvote,
+				headerType: 1,
+				mentions: menvote
+			}
+			RoseMwol.sendMessage(m.chat, buttonMessageUpvote)
+		}
+		break
+		case 'devote': {
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			if (!m.isGroup) return replay(`${mess.group}`)
+			if (!(m.chat in vote)) return replay(`_*No Voting In This Group!*_\n\n*${prefix}vote* - To Start Voting`)
+			isVote = vote[m.chat][1].concat(vote[m.chat][2])
+			wasVote = isVote.includes(m.sender)
+			if (wasVote) return replay(`You've Voted`)
+			vote[m.chat][2].push(m.sender)
+			menvote = vote[m.chat][1].concat(vote[m.chat][2])
+			teks_vote = `*「 VOTE 」*
+
+*Reason:* ${vote[m.chat][0]}
+
+┌〔 UPVOTE 〕
+│ 
+┃╠ Total: ${vote[m.chat][1].length}
+${vote[m.chat][1].map((v, i) => `┃╠ ${i + 1}. @${v.split`@`[0]}`).join('\n')}
+│ 
+└────
+
+┌〔 DEVOTE 〕
+│ 
+┃╠ Total: ${vote[m.chat][2].length}
+${vote[m.chat][2].map((v, i) => `┃╠ ${i + 1}. @${v.split`@`[0]}`).join('\n')}
+│ 
+└────
+
+*${prefix}delvote* - To Delete Vote Session`
+			let buttonsDevote = [{
+					buttonId: `${prefix}upvote`,
+					buttonText: {
+						displayText: 'Upvote'
+					},
+					type: 1
+				},
+				{
+					buttonId: `${prefix}devote`,
+					buttonText: {
+						displayText: 'Devote'
+					},
+					type: 1
+				}
+			]
+
+			let buttonMessageDevote = {
+				text: teks_vote,
+				footer: RoseMwol.user.name,
+				buttons: buttonsDevote,
+				headerType: 1,
+				mentions: menvote
+			}
+			RoseMwol.sendMessage(m.chat, buttonMessageDevote)
+		}
+		break
+
+		case 'checkvote':
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			if (!m.isGroup) return replay(`${mess.group}`)
+			if (!(m.chat in vote)) return replay(`_*No Voting In This Group!*_\n\n*${prefix}vote* - To Start Voting`)
+			teks_vote = `*「 VOTE 」*
+
+*Reason:* ${vote[m.chat][0]}
+
+┌〔 UPVOTE 〕
+│ 
+┃╠ Total: ${upvote.length}
+${vote[m.chat][1].map((v, i) => `┃╠ ${i + 1}. @${v.split`@`[0]}`).join('\n')}
+│ 
+└────
+
+┌〔 DEVOTE 〕
+│ 
+┃╠ Total: ${devote.length}
+${vote[m.chat][2].map((v, i) => `┃╠ ${i + 1}. @${v.split`@`[0]}`).join('\n')}
+│ 
+└────
+
+*${prefix}delvote* - To Delete Vote Session
+
+
+©${RoseMwol.user.id}
+`
+			RoseMwol.sendTextWithMentions(m.chat, teks_vote, m)
+			break
+		case 'deletevote':
+		case 'delvote':
+		case 'hapusvote': {
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			if (!m.isGroup) return replay(`${mess.group}`)
+			if (!(m.chat in vote)) return replay(`_*No Voting In This Group!*_\n\n*${prefix}vote* - To Start Voting`)
+			delete vote[m.chat]
+			reply('Successfully Deleted The Vote Session In This Group')
+		}
+		break
+		case 'group':
+		case 'grup': {
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			if (!m.isGroup) return replay(`${mess.group}`)
+			if (!isBotAdmins) return replay(`${mess.botAdmin}`)
+			if (!isAdmins) return replay(`${mess.admin}`)
+			if (args[0] === 'close') {
+				await RoseMwol.groupSettingUpdate(m.chat, 'announcement').then((res) => reply(`Successful Closing The Group`)).catch((err) => reply(jsonformat(err)))
+			} else if (args[0] === 'open') {
+				await RoseMwol.groupSettingUpdate(m.chat, 'not_announcement').then((res) => reply(`Successful Opening The Group`)).catch((err) => reply(jsonformat(err)))
+			} else {
+				let buttons = [{
+						buttonId: 'group open',
+						buttonText: {
+							displayText: 'Open'
+						},
+						type: 1
+					},
+					{
+						buttonId: 'group close',
+						buttonText: {
+							displayText: 'Close'
+						},
+						type: 1
+					}
+				]
+				await RoseMwol.sendButtonText(m.chat, buttons, `Group Mode`, RoseMwol.user.name, m)
+
+			}
+		}
+		break
+		case 'editinfo': {
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			if (!m.isGroup) return replay(`${mess.group}`)
+			if (!isBotAdmins) return replay(`${mess.botAdmin}`)
+			if (!isAdmins) return replay(`${mess.admin}`)
+			if (args[0] === 'open') {
+				await RoseMwol.groupSettingUpdate(m.chat, 'unlocked').then((res) => reply(`Successfully Opened Edit Group Info`)).catch((err) => reply(jsonformat(err)))
+			} else if (args[0] === 'close') {
+				await RoseMwol.groupSettingUpdate(m.chat, 'locked').then((res) => reply(`Successfully Closed Edit Group Info`)).catch((err) => reply(jsonformat(err)))
+			} else {
+				let buttons = [{
+						buttonId: 'editinfo open',
+						buttonText: {
+							displayText: 'Open'
+						},
+						type: 1
+					},
+					{
+						buttonId: 'editinfo close',
+						buttonText: {
+							displayText: 'Close'
+						},
+						type: 1
+					}
+				]
+				await RoseMwol.sendButtonText(m.chat, buttons, `Mode Edit Info`, RoseMwol.user.name, m)
+
+			}
+		}
+		break
+		case 'autosticker':
+		case 'autostiker':
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			if (!m.isGroup) return replay(mess.group)
+			if (!isBotAdmins) return reply(mess.botAdmin)
+			if (!isAdmins && !isCreator) return reply(mess.admin)
+			if (args.length < 1) return reply('type auto sticker on to enable\ntype auto sticker off to disable')
+			if (args[0] === 'on') {
+				if (isAutoSticker) return reply(`Already activated`)
+				autosticker.push(from)
+				fs.writeFileSync('./database/autosticker.json', JSON.stringify(autosticker))
+				reply('autosticker activated')
+			} else if (args[0] === 'off') {
+				let anu = autosticker.indexOf(from)
+				autosticker.splice(anu, 1)
+				fs.writeFileSync('./database/autosticker.json', JSON.stringify(autosticker))
+				reply('auto sticker deactivated')
+			}
+			break
+		case 'autostickerpc':
+		case 'autostikerpc':
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			if (!m.isGroup) return replay(mess.group)
+			if (args.length < 1) return reply('type autosticker on to activate\ntype autosticker off to disable')
+			if (args[0] === 'on') {
+				if (isAutoStick) return reply(`Already activated`)
+				_autostick.push(from)
+				fs.writeFileSync('./database/autostickpc.json', JSON.stringify(autosticker))
+				reply('autosticker pc activated')
+			} else if (args[0] === 'off') {
+				let anu = autosticker.indexOf(from)
+				_autostick.splice(anu, 1)
+				fs.writeFileSync('./database/autostickpc.json', JSON.stringify(autosticker))
+				reply('autosticker pc deactivated')
+			}
+			break
+		case 'antilinkgc': {
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			if (!m.isGroup) return replay(mess.group)
+			if (!isBotAdmins) return replay(mess.botAdmin)
+			if (!isAdmins && !isCreator) return replay(mess.admin)
 			if (args[0] === "on") {
-				if (isBanChat) return replay('Already Banned')
-				banchat.push(from)
-				replay('Success in banning the gc')
+				if (AntiLink) return replay('Already activated')
+				ntilink.push(from)
+				replay('Success in turning on group chat antilink in this group')
 				var groupe = await RoseMwol.groupMetadata(from)
 				var members = groupe['participants']
 				var mems = []
@@ -2193,7 +3310,7 @@ Type *surrender* to surrender and admit defeat`
 					mems.push(adm.id.replace('c.us', 's.whatsapp.net'))
 				})
 				RoseMwol.sendMessage(from, {
-					text: `\`\`\`「 ⚠️Warning⚠️ 」\`\`\`\n\nThe bot has been disabled in this group, now no one will able to use the bot in this group!`,
+					text: `\`\`\`「 ⚠️Warning⚠️ 」\`\`\`\n\nIf you're not an admin, don't send the group link in this group or u will be kicked immediately`,
 					contextInfo: {
 						mentionedJid: mems
 					}
@@ -2201,71 +3318,4538 @@ Type *surrender* to surrender and admit defeat`
 					quoted: m
 				})
 			} else if (args[0] === "off") {
-				if (!isBanChat) return replay('Already Unbanned')
-				let off = banchat.indexOf(from)
-				banchat.splice(off, 1)
-				replay('Success in unbanning the gc')
+				if (!AntiLink) return replay('Already deactivated')
+				let off = ntilink.indexOf(from)
+				ntilink.splice(off, 1)
+				replay('Success in turning off group chat antilink in this group')
 			} else {
-				let buttonsntnsfw = [{
+				let buttonsntilink = [{
 						buttonId: `${command} on`,
 						buttonText: {
-							displayText: 'Ban'
+							displayText: 'On'
 						},
 						type: 1
 					},
 					{
 						buttonId: `${command} off`,
 						buttonText: {
-							displayText: 'Unban'
+							displayText: 'Off'
 						},
 						type: 1
 					}
 				]
-				await RoseMwol.sendButtonText(m.chat, buttonsntnsfw, `Please click the button below\n\nBan to Ban\nUnban to unban`, `${global.botname}`, m)
+				await RoseMwol.sendButtonText(m.chat, buttonsntilink, `Please click the button below\n\nOn to enable\nOff to disable`, `${global.botname}`, m)
 			}
 		}
 		break
-		case 'botgrups':
-		case 'botgroups':
-		case 'botgrup':
-		case 'botgroup':
+		case 'antilinkyoutubevideo':
+		case 'antilinkyoutubevid':
+		case 'antilinkytvid': {
 			if (isBan) return reply(mess.ban)
 			if (isBanChat) return reply(mess.banChat)
-			reply(` Don't forget to join yeah!
+			if (!m.isGroup) return replay(mess.group)
+			if (!isBotAdmins) return replay(mess.botAdmin)
+			if (!isAdmins && !isCreator) return replay(mess.admin)
+			if (args[0] === "on") {
+				if (AntiLinkYoutubeVid) return replay('Already activated')
+				ntilinkytvid.push(from)
+				replay('Success in turning on youtube video antilink in this group')
+				var groupe = await RoseMwol.groupMetadata(from)
+				var members = groupe['participants']
+				var mems = []
+				members.map(async adm => {
+					mems.push(adm.id.replace('c.us', 's.whatsapp.net'))
+				})
+				RoseMwol.sendMessage(from, {
+					text: `\`\`\`「 ⚠️Warning⚠️ 」\`\`\`\n\nIf you're not an admin, don't send the youtube video link in this group or u will be kicked immediately!`,
+					contextInfo: {
+						mentionedJid: mems
+					}
+				}, {
+					quoted: m
+				})
+			} else if (args[0] === "off") {
+				if (!AntiLinkYoutubeVid) return replay('Already deactivated')
+				let off = ntilinkytvid.indexOf(from)
+				ntilinkytvid.splice(off, 1)
+				replay('Success in turning off youtube video antilink in this group')
+			} else {
+				let buttonsntilink = [{
+						buttonId: `${command} on`,
+						buttonText: {
+							displayText: 'On'
+						},
+						type: 1
+					},
+					{
+						buttonId: `${command} off`,
+						buttonText: {
+							displayText: 'Off'
+						},
+						type: 1
+					}
+				]
+				await RoseMwol.sendButtonText(m.chat, buttonsntilink, `Please click the button below\n\nOn to enable\nOff to disable`, `${global.botname}`, m)
+			}
+		}
+		break
+		case 'antilinkyoutubech':
+		case 'antilinkyoutubechannel':
+		case 'antilinkytch': {
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			if (!m.isGroup) return replay(mess.group)
+			if (!isBotAdmins) return replay(mess.botAdmin)
+			if (!isAdmins && !isCreator) return replay(mess.admin)
+			if (args[0] === "on") {
+				if (AntiLinkYoutubeChannel) return replay('Already activated')
+				ntilinkytch.push(from)
+				replay('Success in turning on youtube channel antilink in this group')
+				var groupe = await RoseMwol.groupMetadata(from)
+				var members = groupe['participants']
+				var mems = []
+				members.map(async adm => {
+					mems.push(adm.id.replace('c.us', 's.whatsapp.net'))
+				})
+				RoseMwol.sendMessage(from, {
+					text: `\`\`\`「 ⚠️Warning⚠️ 」\`\`\`\n\nIf you're not an admin, don't send the youtube channel link in this group or u will be kicked immediately!`,
+					contextInfo: {
+						mentionedJid: mems
+					}
+				}, {
+					quoted: m
+				})
+			} else if (args[0] === "off") {
+				if (!AntiLinkYoutubeChannel) return replay('Already deactivated')
+				let off = ntilinkytch.indexOf(from)
+				ntilinkytch.splice(off, 1)
+				replay('Success in turning off youtube channel antilink in this group')
+			} else {
+				let buttonsntilink = [{
+						buttonId: `${command} on`,
+						buttonText: {
+							displayText: 'On'
+						},
+						type: 1
+					},
+					{
+						buttonId: `${command} off`,
+						buttonText: {
+							displayText: 'Off'
+						},
+						type: 1
+					}
+				]
+				await RoseMwol.sendButtonText(m.chat, buttonsntilink, `Please click the button below\n\nOn to enable\nOff to disable`, `${global.botname}`, m)
+			}
+		}
+		break
+		case 'antilinkinstagram':
+		case 'antilinkig':
+		case 'antilinkinsta': {
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			if (!m.isGroup) return replay(mess.group)
+			if (!isBotAdmins) return replay(mess.botAdmin)
+			if (!isAdmins && !isCreator) return replay(mess.admin)
+			if (args[0] === "on") {
+				if (AntiLinkInstagram) return replay('Already activated')
+				ntilinkig.push(from)
+				replay('Success in turning on instagram antilink in this group')
+				var groupe = await RoseMwol.groupMetadata(from)
+				var members = groupe['participants']
+				var mems = []
+				members.map(async adm => {
+					mems.push(adm.id.replace('c.us', 's.whatsapp.net'))
+				})
+				RoseMwol.sendMessage(from, {
+					text: `\`\`\`「 ⚠️Warning⚠️ 」\`\`\`\n\nIf you're not an admin, don't send the instagram link in this group or u will be kicked immediately!`,
+					contextInfo: {
+						mentionedJid: mems
+					}
+				}, {
+					quoted: m
+				})
+			} else if (args[0] === "off") {
+				if (!AntiLinkInstagram) return replay('Already deactivated')
+				let off = ntilinkig.indexOf(from)
+				ntilinkig.splice(off, 1)
+				replay('Success in turning off instagram antilink in this group')
+			} else {
+				let buttonsntilink = [{
+						buttonId: `${command} on`,
+						buttonText: {
+							displayText: 'On'
+						},
+						type: 1
+					},
+					{
+						buttonId: `${command} off`,
+						buttonText: {
+							displayText: 'Off'
+						},
+						type: 1
+					}
+				]
+				await RoseMwol.sendButtonText(m.chat, buttonsntilink, `Please click the button below\n\nOn to enable\nOff to disable`, `${global.botname}`, m)
+			}
+		}
+		break
+		case 'antilinkfacebook':
+		case 'antilinkfb': {
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			if (!m.isGroup) return replay(mess.group)
+			if (!isBotAdmins) return replay(mess.botAdmin)
+			if (!isAdmins && !isCreator) return replay(mess.admin)
+			if (args[0] === "on") {
+				if (AntiLinkFacebook) return replay('Already activated')
+				ntilinkfb.push(from)
+				replay('Success in turning on facebook antilink in this group')
+				var groupe = await RoseMwol.groupMetadata(from)
+				var members = groupe['participants']
+				var mems = []
+				members.map(async adm => {
+					mems.push(adm.id.replace('c.us', 's.whatsapp.net'))
+				})
+				RoseMwol.sendMessage(from, {
+					text: `\`\`\`「 ⚠️Warning⚠️ 」\`\`\`\n\nIf you're not an admin, don't send the facebook link in this group or u will be kicked immediately!`,
+					contextInfo: {
+						mentionedJid: mems
+					}
+				}, {
+					quoted: m
+				})
+			} else if (args[0] === "off") {
+				if (!AntiLinkFacebook) return replay('Already deactivated')
+				let off = ntilinkfb.indexOf(from)
+				ntilinkfb.splice(off, 1)
+				replay('Success in turning off facebook antilink in this group')
+			} else {
+				let buttonsntilink = [{
+						buttonId: `${command} on`,
+						buttonText: {
+							displayText: 'On'
+						},
+						type: 1
+					},
+					{
+						buttonId: `${command} off`,
+						buttonText: {
+							displayText: 'Off'
+						},
+						type: 1
+					}
+				]
+				await RoseMwol.sendButtonText(m.chat, buttonsntilink, `Please click the button below\n\nOn to enable\nOff to disable`, `${global.botname}`, m)
+			}
+		}
+		break
+		case 'antilinktelegram':
+		case 'antilinktg': {
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			if (!m.isGroup) return replay(mess.group)
+			if (!isBotAdmins) return replay(mess.botAdmin)
+			if (!isAdmins && !isCreator) return replay(mess.admin)
+			if (args[0] === "on") {
+				if (AntiLinkTelegram) return replay('Already activated')
+				ntilinktg.push(from)
+				replay('Success in turning on telegram antilink in this group')
+				var groupe = await RoseMwol.groupMetadata(from)
+				var members = groupe['participants']
+				var mems = []
+				members.map(async adm => {
+					mems.push(adm.id.replace('c.us', 's.whatsapp.net'))
+				})
+				RoseMwol.sendMessage(from, {
+					text: `\`\`\`「 ⚠️Warning⚠️ 」\`\`\`\n\nIf you're not an admin, don't send the telegram link in this group or u will be kicked immediately!`,
+					contextInfo: {
+						mentionedJid: mems
+					}
+				}, {
+					quoted: m
+				})
+			} else if (args[0] === "off") {
+				if (!AntiLinkTelegram) return replay('Already deactivated')
+				let off = ntilinkig.indexOf(from)
+				ntilinkig.splice(off, 1)
+				replay('Success in turning off telegram antilink in this group')
+			} else {
+				let buttonsntilink = [{
+						buttonId: `${command} on`,
+						buttonText: {
+							displayText: 'On'
+						},
+						type: 1
+					},
+					{
+						buttonId: `${command} off`,
+						buttonText: {
+							displayText: 'Off'
+						},
+						type: 1
+					}
+				]
+				await RoseMwol.sendButtonText(m.chat, buttonsntilink, `Please click the button below\n\nOn to enable\nOff to disable`, `${global.botname}`, m)
+			}
+		}
+		break
+		case 'antilinktiktok':
+		case 'antilinktt': {
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			if (!m.isGroup) return replay(mess.group)
+			if (!isBotAdmins) return replay(mess.botAdmin)
+			if (!isAdmins && !isCreator) return replay(mess.admin)
+			if (args[0] === "on") {
+				if (AntiLinkTiktok) return replay('Already activated')
+				ntilinktt.push(from)
+				replay('Success in turning on tiktok antilink in this group')
+				var groupe = await RoseMwol.groupMetadata(from)
+				var members = groupe['participants']
+				var mems = []
+				members.map(async adm => {
+					mems.push(adm.id.replace('c.us', 's.whatsapp.net'))
+				})
+				RoseMwol.sendMessage(from, {
+					text: `\`\`\`「 ⚠️Warning⚠️ 」\`\`\`\n\nIf you're not an admin, don't send the tiktok link in this group or u will be kicked immediately!`,
+					contextInfo: {
+						mentionedJid: mems
+					}
+				}, {
+					quoted: m
+				})
+			} else if (args[0] === "off") {
+				if (!AntiLinkTiktok) return replay('Already deactivated')
+				let off = ntilinktt.indexOf(from)
+				ntilinktt.splice(off, 1)
+				replay('Success in turning off tiktok antilink in this group')
+			} else {
+				let buttonsntilink = [{
+						buttonId: `${command} on`,
+						buttonText: {
+							displayText: 'On'
+						},
+						type: 1
+					},
+					{
+						buttonId: `${command} off`,
+						buttonText: {
+							displayText: 'Off'
+						},
+						type: 1
+					}
+				]
+				await RoseMwol.sendButtonText(m.chat, buttonsntilink, `Please click the button below\n\nOn to enable\nOff to disable`, `${global.botname}`, m)
+			}
+		}
+		break
+		case 'antilinktwt':
+		case 'antilinktwitter':
+		case 'antilinktwit': {
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			if (!m.isGroup) return replay(mess.group)
+			if (!isBotAdmins) return replay(mess.botAdmin)
+			if (!isAdmins && !isCreator) return replay(mess.admin)
+			if (args[0] === "on") {
+				if (AntiLinkTwitter) return replay('Already activated')
+				ntilinktwt.push(from)
+				replay('Success in turning on twitter antilink in this group')
+				var groupe = await RoseMwol.groupMetadata(from)
+				var members = groupe['participants']
+				var mems = []
+				members.map(async adm => {
+					mems.push(adm.id.replace('c.us', 's.whatsapp.net'))
+				})
+				RoseMwol.sendMessage(from, {
+					text: `\`\`\`「 ⚠️Warning⚠️ 」\`\`\`\n\nIf you're not an admin, don't send the twitter link in this group or u will be kicked immediately!`,
+					contextInfo: {
+						mentionedJid: mems
+					}
+				}, {
+					quoted: m
+				})
+			} else if (args[0] === "off") {
+				if (!AntiLinkTwitter) return replay('Already deactivated')
+				let off = ntilinktwt.indexOf(from)
+				ntilinktwt.splice(off, 1)
+				replay('Success in turning off twitter antilink in this group')
+			} else {
+				let buttonsntilink = [{
+						buttonId: `${command} on`,
+						buttonText: {
+							displayText: 'On'
+						},
+						type: 1
+					},
+					{
+						buttonId: `${command} off`,
+						buttonText: {
+							displayText: 'Off'
+						},
+						type: 1
+					}
+				]
+				await RoseMwol.sendButtonText(m.chat, buttonsntilink, `Please click the button below\n\nOn to enable\nOff to disable`, `${global.botname}`, m)
+			}
+		}
+		break
+		case 'antilinkall': {
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			if (!m.isGroup) return replay(mess.group)
+			if (!isBotAdmins) return replay(mess.botAdmin)
+			if (!isAdmins && !isCreator) return replay(mess.admin)
+			if (args[0] === "on") {
+				if (AntiLinkTwitter) return replay('Already activated')
+				ntilinkall.push(from)
+				replay('Success in turning on all antilink in this group')
+				var groupe = await RoseMwol.groupMetadata(from)
+				var members = groupe['participants']
+				var mems = []
+				members.map(async adm => {
+					mems.push(adm.id.replace('c.us', 's.whatsapp.net'))
+				})
+				RoseMwol.sendMessage(from, {
+					text: `\`\`\`「 ⚠️Warning⚠️ 」\`\`\`\n\nIf you're not an admin, don't send any link in this group or u will be kicked immediately!`,
+					contextInfo: {
+						mentionedJid: mems
+					}
+				}, {
+					quoted: m
+				})
+			} else if (args[0] === "off") {
+				if (!AntiLinkAll) return replay('Already deactivated')
+				let off = ntilinkall.indexOf(from)
+				ntilinkall.splice(off, 1)
+				replay('Success in turning off all antilink in this group')
+			} else {
+				let buttonsntilink = [{
+						buttonId: `${command} on`,
+						buttonText: {
+							displayText: 'On'
+						},
+						type: 1
+					},
+					{
+						buttonId: `${command} off`,
+						buttonText: {
+							displayText: 'Off'
+						},
+						type: 1
+					}
+				]
+				await RoseMwol.sendButtonText(m.chat, buttonsntilink, `Please click the button below\n\nOn to enable\nOff to disable`, `${global.botname}`, m)
+			}
+		}
+		break
+		case 'antivirus':
+		case 'antivirtex': {
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			if (!m.isGroup) return replay(mess.group)
+			if (!isBotAdmins) return replay(mess.botAdmin)
+			if (!isAdmins && !isCreator) return replay(mess.admin)
+			if (args[0] === "on") {
+				if (antiVirtex) return replay('Already activated')
+				ntvirtex.push(from)
+				replay('Success in turning on antivirus in this group')
+				var groupe = await RoseMwol.groupMetadata(from)
+				var members = groupe['participants']
+				var mems = []
+				members.map(async adm => {
+					mems.push(adm.id.replace('c.us', 's.whatsapp.net'))
+				})
+				RoseMwol.sendMessage(from, {
+					text: `\`\`\`「 ⚠️Warning⚠️ 」\`\`\`\n\nNo body is allowed to send virus in this group, member who send will be kicked immediately!`,
+					contextInfo: {
+						mentionedJid: mems
+					}
+				}, {
+					quoted: m
+				})
+			} else if (args[0] === "off") {
+				if (!antiVirtex) return replay('Already deactivated')
+				let off = ntvirtex.indexOf(from)
+				ntvirtex.splice(off, 1)
+				replay('Success in turning off antivirus this group')
+			} else {
+				let buttonsntvirtex = [{
+						buttonId: `${command} on`,
+						buttonText: {
+							displayText: 'On'
+						},
+						type: 1
+					},
+					{
+						buttonId: `${command} off`,
+						buttonText: {
+							displayText: 'Off'
+						},
+						type: 1
+					}
+				]
+				await RoseMwol.sendButtonText(m.chat, buttonsntvirtex, `Please click the button below\n\nOn to enable\nOff to disable`, `${global.botname}`, m)
+			}
+		}
+		break
+		case 'autoreply': {
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			if (!m.isGroup) return replay(mess.group)
+			if (!isBotAdmins) return replay(mess.botAdmin)
+			if (!isAdmins && !isCreator) return replay(mess.admin)
+			if (args[0] === "on") {
+				if (Autoreply) return replay('Already activated')
+				autorep.push(from)
+				replay('Success in turning on the autoreply in this group')
+			} else if (args[0] === "off") {
+				if (!Autoreply) return replay('Already deactivated')
+				let off = autorep.indexOf(from)
+				autorep.splice(off, 1)
+				replay('Success in turning off autoreply in this group')
+			} else {
+				let buttonswlcm = [{
+						buttonId: `${command} on`,
+						buttonText: {
+							displayText: 'On'
+						},
+						type: 1
+					},
+					{
+						buttonId: `${command} off`,
+						buttonText: {
+							displayText: 'Off'
+						},
+						type: 1
+					}
+				]
+				await RoseMwol.sendButtonText(m.chat, buttonswlcm, `Please click the button below\n\nOn to enable\nOff to disable`, `${global.botname}`, m)
+			}
+		}
+		break
+		case 'chatbot': {
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			if (!m.isGroup) return replay(mess.group)
+			if (!isBotAdmins) return replay(mess.botAdmin)
+			if (!isAdmins && !isCreator) return replay(mess.admin)
+			if (args[0] === "on") {
+				if (ChatBot) return replay('Already activated')
+				chattbot.push(from)
+				replay('Success in turning on the Chat Bot in this group')
+			} else if (args[0] === "off") {
+				if (!ChatBot) return replay('Already deactivated')
+				let off = autorep.indexOf(from)
+				chattbot.splice(off, 1)
+				replay('Success in turning off Chat Bot in this group')
+			} else {
+				let buttonswlcm = [{
+						buttonId: `${command} on`,
+						buttonText: {
+							displayText: 'On'
+						},
+						type: 1
+					},
+					{
+						buttonId: `${command} off`,
+						buttonText: {
+							displayText: 'Off'
+						},
+						type: 1
+					}
+				]
+				await RoseMwol.sendButtonText(m.chat, buttonswlcm, `Please click the button below\n\nOn to enable\nOff to disable`, `${global.botname}`, m)
+			}
+		}
+		break
+		case 'antitoxic': {
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			if (!m.isGroup) return replay(mess.group)
+			if (!isBotAdmins) return replay(mess.botAdmin)
+			if (!isAdmins && !isCreator) return replay(mess.admin)
+			if (args[0] === "on") {
+				if (antiToxic) return replay('Already activated')
+				nttoxic.push(from)
+				replay('Success in turning on antitoxic in this group')
+				var groupe = await RoseMwol.groupMetadata(from)
+				var members = groupe['participants']
+				var mems = []
+				members.map(async adm => {
+					mems.push(adm.id.replace('c.us', 's.whatsapp.net'))
+				})
+				RoseMwol.sendMessage(from, {
+					text: `\`\`\`「 ⚠️Warning⚠️ 」\`\`\`\n\nNobody is allowed to use bad words in this group, one who uses will be kicked immediately!`,
+					contextInfo: {
+						mentionedJid: mems
+					}
+				}, {
+					quoted: m
+				})
+			} else if (args[0] === "off") {
+				if (!antiToxic) return replay('Already deactivated')
+				let off = nttoxic.indexOf(from)
+				nttoxic.splice(off, 1)
+				replay('Success in turning off antitoxic in this group')
+			} else {
+				let buttonsnttoxci = [{
+						buttonId: `${command} on`,
+						buttonText: {
+							displayText: 'On'
+						},
+						type: 1
+					},
+					{
+						buttonId: `${command} off`,
+						buttonText: {
+							displayText: 'Off'
+						},
+						type: 1
+					}
+				]
+				await RoseMwol.sendButtonText(m.chat, buttonsnttoxic, `Please click the button below\n\nOn to enable\nOff to disable`, `${global.botname}`, m)
+			}
+		}
+		break
+		case 'antiwame': {
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			if (!m.isGroup) return replay(mess.group)
+			if (!isBotAdmins) return replay(mess.botAdmin)
+			if (!isAdmins && !isCreator) return replay(mess.admin)
+			if (args[0] === "on") {
+				if (antiWame) return replay('Already activated')
+				ntwame.push(from)
+				replay('Success in turning on antiwame in this group')
+				var groupe = await RoseMwol.groupMetadata(from)
+				var members = groupe['participants']
+				var mems = []
+				members.map(async adm => {
+					mems.push(adm.id.replace('c.us', 's.whatsapp.net'))
+				})
+				RoseMwol.sendMessage(from, {
+					text: `\`\`\`「 ⚠️Warning⚠️ 」\`\`\`\n\nNobody is allowed to send wa.me in this group, one who sends will be kicked immediately!`,
+					contextInfo: {
+						mentionedJid: mems
+					}
+				}, {
+					quoted: m
+				})
+			} else if (args[0] === "off") {
+				if (!antiWame) return replay('Already deactivated')
+				let off = nttoxic.indexOf(from)
+				ntwame.splice(off, 1)
+				replay('Success in turning off antiwame in this group')
+			} else {
+				let buttonsntwame = [{
+						buttonId: `${command} on`,
+						buttonText: {
+							displayText: 'On'
+						},
+						type: 1
+					},
+					{
+						buttonId: `${command} off`,
+						buttonText: {
+							displayText: 'Off'
+						},
+						type: 1
+					}
+				]
+				await RoseMwol.sendButtonText(m.chat, buttonsntwame, `Please click the button below\n\nOn to enable\nOff to disable`, `${global.botname}`, m)
+			}
+		}
+		break
+		case 'nsfw': {
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			if (!m.isGroup) return replay(mess.group)
+			if (!isBotAdmins) return replay(mess.botAdmin)
+			if (!isAdmins && !isCreator) return replay(mess.admin)
+			if (args[0] === "on") {
+				if (AntiNsfw) return replay('Already activated')
+				ntnsfw.push(from)
+				replay('Success in turning on nsfw in this group')
+				var groupe = await RoseMwol.groupMetadata(from)
+				var members = groupe['participants']
+				var mems = []
+				members.map(async adm => {
+					mems.push(adm.id.replace('c.us', 's.whatsapp.net'))
+				})
+				RoseMwol.sendMessage(from, {
+					text: `\`\`\`「 ⚠️Warning⚠️ 」\`\`\`\n\nNsfw(not safe for work) feature has been enabled in this group, which means one can access sexual graphics from the bot!`,
+					contextInfo: {
+						mentionedJid: mems
+					}
+				}, {
+					quoted: m
+				})
+			} else if (args[0] === "off") {
+				if (!AntiNsfw) return replay('Already deactivated')
+				let off = ntnsfw.indexOf(from)
+				ntnsfw.splice(off, 1)
+				replay('Success in turning off nsfw in this group')
+			} else {
+				let buttonsntnsfw = [{
+						buttonId: `${command} on`,
+						buttonText: {
+							displayText: 'On'
+						},
+						type: 1
+					},
+					{
+						buttonId: `${command} off`,
+						buttonText: {
+							displayText: 'Off'
+						},
+						type: 1
+					}
+				]
+				await RoseMwol.sendButtonText(m.chat, buttonsntnsfw, `Please click the button below\n\nOn to enable\nOff to disable`, `${global.botname}`, m)
+			}
+		}
+		break
+		case 'mute': {
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			if (!m.isGroup) return replay(`${mess.group}`)
+			if (!isBotAdmins) return replay(`${mess.botAdmin}`)
+			if (!isAdmins) return replay(`${mess.admin}`)
+			if (args[0] === "on") {
+				if (db.data.chats[m.chat].mute) return reply(`Previously Active`)
+				db.data.chats[m.chat].mute = true
+				reply(`${RoseMwol.user.name} Has Been Muted In This Group !`)
+			} else if (args[0] === "off") {
+				if (!db.data.chats[m.chat].mute) return reply(`Previously Inactive`)
+				db.data.chats[m.chat].mute = false
+				reply(`${RoseMwol.user.name} Has Been Unmuted In This Group!`)
+			} else {
+				let buttons = [{
+						buttonId: 'mute on',
+						buttonText: {
+							displayText: 'On'
+						},
+						type: 1
+					},
+					{
+						buttonId: 'mute off',
+						buttonText: {
+							displayText: 'Off'
+						},
+						type: 1
+					}
+				]
+				await RoseMwol.sendButtonText(m.chat, buttons, `Mute Bot`, RoseMwol.user.name, m)
+			}
+		}
+		break
+		case 'setppbot':
+		case 'setbotpp': {
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			if (!isCreator) return replay(mess.owner)
+			if (!quoted) return replay(`Send/Reply Image With Caption ${prefix + command}`)
+			if (!/image/.test(mime)) return replay(`Send/Reply Image With Caption ${prefix + command}`)
+			if (/webp/.test(mime)) return replay(`Send/Reply Image With Caption ${prefix + command}`)
+			let media = await RoseMwol.downloadAndSaveMediaMessage(quoted)
+			await RoseMwol.updateProfilePicture(botNumber, {
+				url: media
+			}).catch((err) => fs.unlinkSync(media))
+			replay(mess.success)
+		}
+		break
+		case 'linkgroup':
+		case 'linkgc':
+		case 'gclink':
+		case 'grouplink': {
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			if (!m.isGroup) return replay(`${mess.group}`)
+			let response = await RoseMwol.groupInviteCode(m.chat)
+			RoseMwol.sendText(m.chat, `https://chat.whatsapp.com/${response}\n\n${groupMetadata.subject} Group Link`, m, {
+				detectLink: true
+			})
+		}
+		break
+		case 'ephemeral': {
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			if (!m.isGroup) replay(`${mess.group}`)
+			if (!isBotAdmins) return replay(`${mess.botAdmin}`)
+			if (!isAdmins) return replay(`${mess.admin}`)
+			if (!text) return replay(`Enter The enable/disable Values`)
+			if (args[0] === 'enable') {
+				await RoseMwol.sendMessage(m.chat, {
+					disappearingMessagesInChat: WA_DEFAULT_EPHEMERAL
+				}).then((res) => reply(jsonformat(res))).catch((err) => reply(jsonformat(err)))
+			} else if (args[0] === 'disable') {
+				await RoseMwol.sendMessage(m.chat, {
+					disappearingMessagesInChat: false
+				}).then((res) => reply(jsonformat(res))).catch((err) => reply(jsonformat(err)))
+			}
+		}
+		break
+		case 'grupsetting':
+		case 'groupsetting': {
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			let sections = []
+			let com = [`group open`, `autosticker on`, `welcome on`, `antilinkgc on`, `antilinktg on`, `antilinktt on`, `antilinkytch on`, `antilinkytvid on`, `antilinkig on`, `antilinkfb on`, `antilinktwit on`, `antilinkall on`, `antiwame on`, `antitoxic on`, `antivirus on`, `autoreply on`, `group open`]
+			let comm = [`group close`, `autosticker off`, `welcome off`, `antilinkgc off`, `antilinktg on`, `antilinktt on`, `antilinkytch on`, `antilinkytvid on`, `antilinkig on`, `antilinkfb on`, `antilinktwit on`, `antilinkall on`, `antiwame on`, `antitoxic on`, `antivirus on`, `autoreply on`, `group close`]
+			let listnya = [`Group open/close`, `Auto-Sticker on/off`, `Welcome/Left on/off`, `Antilink Group on/off`, `Antilink Telegram on/off`, `Antilink Tiktok on/off`, `Antilink Youtube Channel on/off`, `Antilink Youtube Video on/off`, `Antilink Instagram on/off`, `Antilink Facebook on/off`, `Antilink Twitter on/off`, `Antilink All on/off`, `Anti Wame on/off`, `Anti Toxic on/off`, `Anti Virus on/off`, `Auto Reply on/off`, `Group open/close`]
+			let suruh = [`Enable`, `Disable`]
+			let fiturname = [`Group`, `Auto Sticker`, `Welcome`, `Antilink Group`, `Antilink Telegram`, `Antilink Tiktok`, `Antilink Youtube Channel`, `Antilink Youtube Video`, `Antilink Instagram`, `Antilink Facebook`, `Antilink Twitter`, `Antilink All`, `Anti Wame`, `Anti Toxic`, `Anti Virus`, `Auto Reply`, `Group`]
+			let startnum = 0;
+			let startnu = 0;
+			let startn = 0;
+			let start = 0
+			let startnumm = 1
+			for (let x of com) {
+				const yy = {
+					title: `${listnya[startnum++]}`,
+					rows: [{
+						title: `${suruh[0]}`,
+						description: `Activate ${fiturname[startnu++]}`,
+						rowId: `${prefix}${x}`
+					}, {
+						title: `${suruh[1]}`,
+						description: `Deactivate ${fiturname[startn++]}`,
+						rowId: `${prefix}${comm[start++]}`
+					}]
+				}
+				sections.push(yy)
+			}
+			const sendm = RoseMwol.sendMessage(
+				from, {
+					text: "Group Settings",
+					footer: botname,
+					title: "Set your group settings here......",
+					buttonText: "Click Button",
+					sections
+				}, {
+					quoted: m
+				}
+			)
+		}
+		break
 
-*GROUP 1*
-https://chat.whatsapp.com/HYj9wu5Jrv6CROxyeQbHoS
+		case 'delete':
+		case 'del': {
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			if (!m.quoted) reply(false)
+			let {
+				chat,
+				fromMe,
+				id,
+				isBaileys
+			} = m.quoted
+			if (!isBaileys) return replay(`The Message Was Not Sent By A Bot!`)
+			RoseMwol.sendMessage(m.chat, {
+				delete: {
+					remoteJid: m.chat,
+					fromMe: true,
+					id: m.quoted.id,
+					participant: m.quoted.sender
+				}
+			})
+		}
+		break
+		case 'bcgc':
+		case 'bcgroup': {
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			if (!isCreator) return replay(mess.owner)
+			if (!args.join(" ")) return replay(`Where is the text?\n\nExample : ${prefix + command} ${global.ownername}`)
+			let getGroups = await RoseMwol.groupFetchAllParticipating()
+			let groups = Object.entries(getGroups).slice(0).map(entry => entry[1])
+			let anu = groups.map(v => v.id)
+			replay(`Send broadcast to ${anu.length} group chat, time's up ${anu.length * 1.5} second`)
+			for (let i of anu) {
+				await sleep(1500)
+				let btn = [{
+					urlButton: {
+						displayText: 'Bot Web 🍓',
+						url: `${global.websitex}`
+					}
+				}, {
+					urlButton: {
+						displayText: 'Script 🍜',
+						url: `${global.botscript}`
+					}
+				}, {
+					quickReplyButton: {
+						displayText: 'Bot Status 🚀',
+						id: 'ping'
+					}
+				}, {
+					quickReplyButton: {
+						displayText: 'Menu 🐰',
+						id: 'menu'
+					}
+				}, {
+					quickReplyButton: {
+						displayText: 'Owner 😈',
+						id: 'owner'
+					}
+				}]
+				let txt = `*「 ${global.ownername}'s Broadcast」*\n\n${text}`
+				RoseMwol.send5ButImg(i, txt, `${global.botname}`, log0, btn, thum)
+			}
+			replay(`Successfully Sent Broadcast To ${anu.length} Group`)
+		}
+		break
+		case 'bc':
+		case 'broadcast':
+		case 'bcall': {
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			if (!isCreator) return replay(mess.owner)
+			if (!args.join(" ")) return replay(`Where is the text??\n\nExample : ${prefix + command} ${global.ownername}`)
+			let anu = await store.chats.all().map(v => v.id)
+			replay(`Send Broadcast To ${anu.length} Chat\nTime's up ${anu.length * 1.5} second`)
+			for (let yoi of anu) {
+				await sleep(1500)
+				let btn = [{
+					urlButton: {
+						displayText: 'Bot Web 🍓',
+						url: `${global.websitex}`
+					}
+				}, {
+					urlButton: {
+						displayText: 'Script 🍜',
+						url: `${global.botscript}`
+					}
+				}, {
+					quickReplyButton: {
+						displayText: 'Bot Status 🚀',
+						id: 'ping'
+					}
+				}, {
+					quickReplyButton: {
+						displayText: 'Menu 🐰',
+						id: 'menu'
+					}
+				}, {
+					quickReplyButton: {
+						displayText: 'Owner 😈',
+						id: 'owner'
+					}
+				}]
+				let txt = `*「 ${global.ownername}'s Broadcast」*\n\n${text}`
+				RoseMwol.send5ButImg(yoi, txt, `${global.botname}`, log0, btn, thum)
+			}
+			replay('Broadcast Success')
+		}
+		break
+		case 'bcimage':
+		case 'bcvideo':
+		case 'bcaudio': {
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			if (!isCreator) return replay(mess.owner)
+			if (!/video/.test(mime) && !/image/.test(mime) && !/audio/.test(mime)) return reply(`*Send/Reply Video/Audio/Image You Want to Broadcast With Caption* ${prefix + command}`)
+			let anu = await store.chats.all().map(v => v.id)
+			let ftroli = {
+				key: {
+					fromMe: false,
+					"participant": "0@s.whatsapp.net",
+					"remoteJid": "919744933034-1604595598@g.us"
+				},
+				"message": {
+					orderMessage: {
+						itemCount: 999999999,
+						status: 200,
+						thumbnail: fs.readFileSync('./Bot Pic/Rose.jpg'),
+						surface: 200,
+						message: `${ownername}'s Broadcast`,
+						orderTitle: `${botname}`,
+						sellerJid: '0@s.whatsapp.net'
+					}
+				},
+				contextInfo: {
+					"forwardingScore": 999,
+					"isForwarded": true
+				},
+				sendEphemeral: true
+			}
+			reply(`*Send Broadcast To* ${anu.length} *Group Chat, Time ${anu.length * 1.5} secs*`)
+			for (let i of anu) {
+				await sleep(1500)
+				let butoon = [{
+					urlButton: {
+						displayText: 'Bot Web 🍓',
+						url: `${global.websitex}`
+					}
+				}, {
+					urlButton: {
+						displayText: 'Script 🍜',
+						url: `${global.botscript}`
+					}
+				}, {
+					quickReplyButton: {
+						displayText: 'Bot Status 🚀',
+						id: 'ping'
+					}
+				}, {
+					quickReplyButton: {
+						displayText: 'Menu 🐰',
+						id: 'menu'
+					}
+				}, {
+					quickReplyButton: {
+						displayText: 'Owner 😈',
+						id: 'owner'
+					}
+				}]
+				let media = await RoseMwol.downloadAndSaveMediaMessage(quoted)
+				let buffer = fs.readFileSync(media)
+				if (/webp/.test(mime)) {
+					RoseMwol.sendMessage(i, {
+						sticker: {
+							url: media
+						}
+					}, {
+						quoted: ftroli
+					})
+				} else if (/image/.test(mime)) {
+					let Sachu = `*「 ${global.ownername}'s Broadcast」*${text ? '\n\n' + text : ''}`
+					RoseMwol.send5ButImg(i, Sachu, `${global.botname}`, buffer, butoon)
+				} else if (/video/.test(mime)) {
+					let Sachu = `*「 ${global.ownername}'s Broadcast」*${text ? '\n\n' + text : ''}`
+					RoseMwol.sendMessage(i, {
+						video: buffer,
+						caption: `${Sachu}`
+					}, {
+						quoted: ftroli
+					})
+				} else if (/audio/.test(mime)) {
+					RoseMwol.sendMessage(i, {
+						audio: buffer,
+						mimetype: 'audio/mpeg'
+					}, {
+						quoted: ftroli
+					})
+				} else {
+					reply(`*Send/Reply Video/Audio/Image You Want to Broadcast With Caption* ${prefix + command}`)
+				}
+				await fs.unlinkSync(media)
+			}
+			reply(` *Send Broadcast To* ${anu.length} *Chats*`)
+		}
+		break
+		case 'bcloc': {
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			if (!isCreator) return replay(mess.owner)
+			if (!text) return reply(`Use ${prefix}bcloc text\n\nExample : ${prefix + command} attention everybody`)
+			let anu = await store.chats.all().map(v => v.id)
+			let [melo, melo2] = text.split`|`
+			reply(`*Send Broadcast To* ${anu.length} Chat\nTime ${anu.length * 1.5} sec`)
+			for (let yoi of anu) {
+				await sleep(1500)
+				var button = [{
+					buttonId: `${prefix}ho`,
+					buttonText: {
+						displayText: `${melo2}`
+					},
+					type: 1
+				}]
+				RoseMwol.sendMessage(yoi, {
+					caption: `${melo}`,
+					location: {
+						jpegThumbnail: await getBuffer(picak + `${ownername}'s Broadcast`)
+					},
+					buttons: button,
+					footer: `${botname}`,
+					mentions: [m.sender]
+				})
+			}
+		}
+		break
+		case 'chatinfo': {
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			if (!m.quoted) replay('Reply Message')
+			let msg = await m.getQuotedObj()
+			if (!m.quoted.isBaileys) return replay('The message was not sent by a bot!')
+			let teks = ''
+			for (let i of msg.userReceipt) {
+				let read = i.readTimestamp
+				let unread = i.receiptTimestamp
+				let waktu = read ? read : unread
+				teks += `${global.themeemoji} @${i.userJid.split('@')[0]}\n`
+				teks += ` ┗━${global.themeemoji} *Time :* ${moment(waktu * 1000).format('DD/MM/YY HH:mm:ss')} ${global.themeemoji} *Status :* ${read ? 'Read' : 'Sent'}\n\n`
+			}
+			RoseMwol.sendTextWithMentions(m.chat, teks, m)
+		}
+		break
+		case 'q':
+		case 'quoted': {
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			if (!m.quoted) return replay('Reply Message!!')
+			let wokwol = await RoseMwol.serializeM(await m.getQuotedObj())
+			if (!wokwol.quoted) return replay('The message you replied to does not contain a reply')
+			await wokwol.quoted.copyNForward(m.chat, true)
+		}
+		break
+		case 'listpc': {
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			let anu = await store.chats.all().filter(v => v.id.endsWith('.net')).map(v => v)
+			let teks = `     「 Personal Chat List 」\n\nThere are ${anu.length} users using bot in personal chat`
+			for (let i of anu) {
+				teks += `\n\nProfile : @${i.id.split('@')[0]}\nChat : ${i.unreadCount}\nLastchat : ${moment(i.conversationTimestamp * 1000).tz("Asia/Kolkata").format("DD/MM/YYYY HH:mm:ss")}`
+			}
+			RoseMwol.sendTextWithMentions(m.chat, teks, m)
+		}
+		break
+		case 'listgc': {
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			let anu = await store.chats.all().filter(v => v.id.endsWith('@g.us')).map(v => v.id)
+			let teks = `     「 Group Chat 」\n\nThere are ${anu.length} users using bot in group chat`
+			for (let i of anu) {
+				let metadata = await RoseMwol.groupMetadata(i)
+				if (metadata.owner === "undefined") {
+					loldd = false
+				} else {
+					loldd = metadata.owner
+				}
+				teks += `\n\nName : ${metadata.subject ? metadata.subject : "undefined"}\nOwner : ${loldd ? '@' + loldd.split("@")[0] : "undefined"}\nID : ${metadata.id ? metadata.id : "undefined"}\nMade : ${metadata.creation ? moment(metadata.creation * 1000).tz('Asia/Kolkata').format('DD/MM/YYYY HH:mm:ss') : "undefined"}\nMember : ${metadata.participants.length ? metadata.participants.length : "undefined"}`
+			}
+			RoseMwol.sendTextWithMentions(m.chat, teks, m)
+		}
+		break
+		case 'listonline':
+		case 'listaktif': {
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			if (!m.isGroup) return replay(mess.group)
+			let id = args && /\d+\-\d+@g.us/.test(args[0]) ? args[0] : m.chat
+			let online = [...Object.keys(store.presences[id]), botNumber]
+			let liston = 1
+			RoseMwol.sendText(m.chat, '     「 Online List 」\n\n' + online.map(v => `${liston++} . @` + v.replace(/@.+/, '')).join`\n`, m, {
+				mentions: online
+			})
+		}
+		break
+		case 'patrick':
+		case 'patricksticker': {
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			var ano = await fetchJson('https://raw.githubusercontent.com/rashidsiregar28/data/main/patrik')
+			var wifegerak = ano.split('\n')
+			var wifegerakx = wifegerak[Math.floor(Math.random() * wifegerak.length)]
+			encmedia = await RoseMwol.sendImageAsSticker(from, wifegerakx, m, {
+				packname: global.packname,
+				author: global.author,
+			})
+			await fs.unlinkSync(encmedia)
+		}
+		break
+		case 'attp2': {
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			if (!text) return reply(`Example : ${prefix + command} text`)
+			await RoseMwol.sendMedia(m.chat, `https://xteam.xyz/${command}?file&text=${text}`, 'hisoka', 'morou', m, {
+				asSticker: true
+			})
 
-*GROUP 2*
-https://chat.whatsapp.com/LS1Xx3fSqg7FpSYSjKWhL5
+		}
+		break
+		case 'attp': {
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			if (!text) reply(`Use ${prefix}attp hello\n*Example : ${prefix + command} ${ownername}*`)
+			await RoseMwol.sendMedia(m.chat, `https://cililitan.herokuapp.com/api/attp?teks=${text}`, 'Sachu-Settan', 'Op', m, {
+				asSticker: true
+			}).catch((err) => reply(mess.error))
+		}
+		break
+		case 'ttp': {
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			if (!text) return reply(`*Example : ${prefix + command} hello*`)
+			await RoseMwol.sendMedia(m.chat, `https://cililitan.herokuapp.com/api/texttopng2?teks=${text}`, 'A L Y A', 'B O T M D', m, {
+				asSticker: true
+			})
 
-*GROUP 3*
-https://chat.whatsapp.com/EcycNbJFCVT5ZsG9xIGkqd`)
+		}
+		break
+		case 'soundcloud':
+		case 'scdl': {
+			if (!text) return reply(mess.linkm)
+			if (!isUrl(args[0]) && !args[0].includes('soundcloud.com')) return reply(`*Not a soundcloud link*`)
+			xfarr.SoundCloud(`${text}`).then(async (data) => {
+				let txt = `*SOUNDCLOUD DOWNLOADER*\n\n`
+				txt += `*${themeemoji}Title :* ${data.title}\n`
+				txt += `*${themeemoji}Quality :* ${data.medias[0].quality}\n`
+				txt += `*${themeemoji}Type :* ${data.medias[0].extension}\n`
+				txt += `*${themeemoji}Size :* ${data.medias[0].formattedSize}\n`
+				txt += `*${themeemoji}Url Source :* ${data.url}\n\n`
+				txt += `*${botname}*`
+				buf = await getBuffer(data.thumbnail)
+				RoseMwol.sendMessage(m.chat, {
+					image: {
+						url: data.thumbnail
+					},
+					jpegThumbnail: buf,
+					caption: `${txt}`
+				}, {
+					quoted: m
+				}).catch((err) => reply(mess.error))
+				RoseMwol.sendMessage(m.chat, {
+					audio: {
+						url: data.medias[0].url
+					},
+					mimetype: 'audio/mpeg',
+					fileName: data.title + '.m4a'
+				}, {
+					quoted: m
+				})
+			}).catch((err) => {
+				reply(mess.error)
+			})
+		}
+		break
+		case 'dogesticker':
+		case 'dogestick':
+		case 'doge': {
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			var ano = await fetchJson('https://raw.githubusercontent.com/rashidsiregar28/data/main/anjing')
+			var wifegerak = ano.split('\n')
+			var wifegerakx = wifegerak[Math.floor(Math.random() * wifegerak.length)]
+			encmedia = await RoseMwol.sendImageAsSticker(from, wifegerakx, m, {
+				packname: global.packname,
+				author: global.author,
+			})
+			await fs.unlinkSync(encmedia)
+		}
+		break
+		case 'lovesticker':
+		case 'lovestick': {
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			var ano = await fetchJson('https://raw.githubusercontent.com/rashidsiregar28/data/main/bucin')
+			var wifegerak = ano.split('\n')
+			var wifegerakx = wifegerak[Math.floor(Math.random() * wifegerak.length)]
+			encmedia = await RoseMwol.sendImageAsSticker(from, wifegerakx, m, {
+				packname: global.packname,
+				author: global.author,
+			})
+			await fs.unlinkSync(encmedia)
+		}
+		break
+		case 'gura':
+		case 'gurastick': {
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			var ano = await fetchJson('https://raw.githubusercontent.com/rashidsiregar28/data/main/gura')
+			var wifegerak = ano.split('\n')
+			var wifegerakx = wifegerak[Math.floor(Math.random() * wifegerak.length)]
+			encmedia = await RoseMwol.sendImageAsSticker(from, wifegerakx, m, {
+				packname: global.packname,
+				author: global.author,
+			})
+			await fs.unlinkSync(encmedia)
+		}
+		break
+		case 'sticker':
+		case 's':
+		case 'stickergif':
+		case 'sgif': {
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			if (/image/.test(mime)) {
+				let media = await quoted.download()
+				let encmedia = await RoseMwol.sendImageAsSticker(m.chat, media, m, {
+					packname: global.packname,
+					author: global.author
+				})
+				await fs.unlinkSync(encmedia)
+			} else if (/video/.test(mime)) {
+				if ((quoted.msg || quoted).seconds > 11) return reply('Maximum 10 seconds!')
+				let media = await quoted.download()
+				let encmedia = await RoseMwol.sendVideoAsSticker(m.chat, media, m, {
+					packname: global.packname,
+					author: global.author
+				})
+				await fs.unlinkSync(encmedia)
+			} else {
+				reply(`Send Image/Video With Caption ${prefix + command}\nVideo Duration 1-9 Seconds`)
+			}
+		}
+		break
+		case 'swm':
+		case 'take':
+		case 'stickerwm': {
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			if (!args.join(" ")) return reply(`Example :\nswm ${global.author}|${global.packname}`)
+			const swn = args.join(" ")
+			const pcknm = swn.split("|")[0];
+			const atnm = swn.split("|")[1];
+			if (m.quoted.isAnimated === true) {
+				RoseMwol.downloadAndSaveMediaMessage(quoted, "gifee")
+				RoseMwol.sendMessage(from, {
+					sticker: fs.readFileSync("gifee.webp")
+				}, {
+					quoted: m
+				})
+			} else if (/image/.test(mime)) {
+				let media = await quoted.download()
+				let encmedia = await RoseMwol.sendImageAsSticker(m.chat, media, m, {
+					packname: pcknm,
+					author: global.atnm
+				})
+				await fs.unlinkSync(encmedia)
+			} else if (/video/.test(mime)) {
+				if ((quoted.msg || quoted).seconds > 11) return reply('Maximum 10 seconds!')
+				let media = await quoted.download()
+				let encmedia = await RoseMwol.sendVideoAsSticker(m.chat, media, m, {
+					packname: pcknm,
+					author: atnm
+				})
+				await fs.unlinkSync(encmedia)
+			} else {
+				reply(`Send Image/Video With Caption ${prefix + command}\nVideo Duration 1-9 Seconds`)
+			}
+		}
+		break
+		case 'smeme':
+		case 'stickermeme':
+		case 'stickmeme': {
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			let {
+				TelegraPh
+			} = require('./lib/uploader')
+			if (!text) return reply(`Send/Reply Photo With Caption ${prefix + command} *text*`)
+			if (text.includes('|')) return reply(`Send/Reply Photo With Caption ${prefix + command} *text*`)
+			if (!/image/.test(mime)) return reply(`Send/Reply Photo With Caption ${prefix + command} *text*`)
+			reply(mess.wait)
+			mee = await RoseMwol.downloadAndSaveMediaMessage(quoted)
+			mem = await TelegraPh(mee)
+			meme = `https://api.memegen.link/images/custom/-/${text}.png?background=${mem}`
+			memek = await RoseMwol.sendImageAsSticker(m.chat, meme, m, {
+				packname: global.packname,
+				author: global.author
+			})
+			await fs.unlinkSync(memek)
+		}
+		break
+		case 'ebinary': {
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			if (!m.quoted.text && !text) return replay(`Reply Text With Caption ${prefix + command}`)
+			let {
+				eBinary
+			} = require('./lib/binary')
+			let teks = text ? text : m.quoted && m.quoted.text ? m.quoted.text : m.text
+			let eb = await eBinary(teks)
+			reply(eb)
+		}
+		break
+		case 'dbinary': {
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			if (!m.quoted.text && !text) return replay(`Reply Text With Caption ${prefix + command}`)
+			let {
+				dBinary
+			} = require('./lib/binary')
+			let teks = text ? text : m.quoted && m.quoted.text ? m.quoted.text : m.text
+			let db = await dBinary(teks)
+			reply(db)
+		}
+		break
+		case 'bts':
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			teks = `Here you go!`
+			buffer = `https://api.dapuhy.xyz/api/randomimage/batues?apikey=0gly81wDky`
+			RoseMwol.sendMessage(from, {
+				image: {
+					url: buffer
+				},
+				caption: "Here you go!"
+			}, {
+				quoted: m
+			})
 			break
-		case 'getsxvdxcmd': {
+		case 'wallneon':
+		case 'wallrandom':
+		case 'wallcode':
+		case 'wallpubg':
+		case 'wallml':
+			try {
+				if (isBan) return reply(mess.ban)
+				if (isBanChat) return reply(mess.banChat)
+				reply(mess.wait)
+				nyz2 = await fetchJson(`https://myselfff.herokuapp.com/docs/wallpaper/${command}`)
+				nyz3 = await getBuffer(nyz2.list.gambar)
+				RoseMwol.sendMessage(from, {
+					image: nyz3,
+					caption: `By ${global.botname}`
+				}, {
+					quoted: m
+				})
+			} catch (e) {
+				error("Error!")
+			}
+			break
+		case 'woof':
+		case '8ball':
+		case 'goose':
+		case 'gecg':
+		case 'feed':
+		case 'avatar':
+		case 'lizard':
+		case 'meow':
+		case 'tickle':
 			if (isBan) return reply(mess.ban)
 			if (isBanChat) return reply(mess.banChat)
-			RoseMwol.sendMessage(from, {
-				sticker: {
-					url: "https://ZackRoseMwol.github.io/media/menu.webp"
-				}
+			reply(mess.wait)
+			waifudd = await axios.get(`https://nekos.life/api/v2/img/${command}`)
+			var wbuttsss = [{
+				buttonId: `.${command}`,
+				buttonText: {
+					displayText: `Next ✨`
+				},
+				type: 1
+			}, ]
+			let buttonssMessages = {
+				image: {
+					url: waifudd.data.url
+				},
+				caption: `Here you go!`,
+				footer: `${global.botname}`,
+				buttons: wbuttsss,
+				headerType: 4
+			}
+			await RoseMwol.sendMessage(m.chat, buttonssMessages, {
+				quoted: m
+			}).catch(err => {
+				return ('Error!')
+			})
+			break
+		case 'masturbation':
+		case 'jahy':
+		case 'hentai':
+		case 'glasses':
+		case 'gangbang':
+		case 'foot':
+		case 'femdom':
+		case 'cum':
+		case 'ero':
+		case 'cuckold':
+		case 'blowjob':
+		case 'bdsm':
+		case 'ahegao':
+		case 'ass':
+		case 'orgy':
+		case 'panties':
+		case 'pussy':
+		case 'thighs':
+		case 'yuri':
+		case 'tentacles':
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			if (!m.isGroup) return replay(mess.group)
+			if (!AntiNsfw) return reply(mess.nsfw)
+			try {
+				reply(mess.wait)
+				NoHorny = await fetchJson(`https://myselfff.herokuapp.com/docs/nsfw/${command}`)
+				YesHorny = await getBuffer(NoHorny.result)
+				RoseMwol.sendMessage(from, {
+					image: YesHorny
+				}, {
+					quoted: m
+				})
+			} catch (e) {
+				error("Error")
+			}
+			break
+		case 'spank':
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			if (!m.isGroup) return replay(mess.group)
+			if (!AntiNsfw) return reply(mess.nsfw)
+			reply(mess.wait)
+			spankd = await axios.get(`https://nekos.life/api/v2/img/spank`)
+			let spbuff = await getBuffer(spankd.data.url)
+			let spgif = await GIFBufferToVideoBuffer(spbuff)
+			await RoseMwol.sendMessage(m.chat, {
+				video: spgif,
+				gifPlayback: true
+			}, {
+				quoted: m
+			}).catch(err => {
+				return reply('Error!')
+			})
+			break
+		case 'blowjobgif':
+		case 'bj':
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			if (!m.isGroup) return replay(mess.group)
+			if (!AntiNsfw) return reply(mess.nsfw)
+			reply(mess.wait)
+			bjd = await axios.get(`https://api.waifu.pics/nsfw/blowjob`)
+			let bjf = await getBuffer(bjd.data.url)
+			let bjif = await GIFBufferToVideoBuffer(bjf)
+			await RoseMwol.sendMessage(m.chat, {
+				video: bjif,
+				gifPlayback: true
+			}, {
+				quoted: m
+			}).catch(err => {
+				return reply('error..')
+			})
+			break
+		case 'hentaivid':
+		case 'hentaivideo': {
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			if (!m.isGroup) return replay(mess.group)
+			if (!AntiNsfw) return reply(mess.nsfw)
+			reply(mess.wait)
+			anu = await hentai()
+			result912 = anu[Math.floor(Math.random(), anu.length)]
+			RoseMwol.sendMessage(m.chat, {
+				video: {
+					url: result912.video_1
+				},
+				caption: `${themeemoji} Title : ${result912.title}\n${themeemoji} Category : ${result912.category}\n${themeemoji} Mimetype : ${result912.type}\n${themeemoji} Views : ${result912.views_count}\n${themeemoji} Shares : ${result912.share_count}\n${themeemoji} Source : ${result912.link}\n${themeemoji} Media Url : ${result912.video_1}`
 			}, {
 				quoted: m
 			})
+		}
+		break
+		case 'trap':
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			if (!m.isGroup) return replay(mess.group)
+			if (!AntiNsfw) return reply(mess.nsfw)
+			reply(mess.wait)
+			waifudd = await axios.get(`https://waifu.pics/api/nsfw/${command}`)
+			let trapbot = [{
+				buttonId: `trap`,
+				buttonText: {
+					displayText: `Next ⚡`
+				},
+				type: 1
+			}, ]
+			let button2Messages = {
+				image: {
+					url: waifudd.data.url
+				},
+				caption: `Here you go!`,
+				buttons: trapbot,
+				headerType: 1
+			}
+			await RoseMwol.sendMessage(m.chat, button2Messages, {
+				quoted: m
+			}).catch(err => {
+				return ('Error!')
+			})
+			break
+		case 'hentai-neko':
+		case 'hneko':
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			if (!m.isGroup) return replay(mess.group)
+			if (!AntiNsfw) return reply(mess.nsfw)
+			waifudd = await axios.get(`https://waifu.pics/api/nsfw/neko`)
+			let hnekobot = [{
+				buttonId: `.hneko`,
+				buttonText: {
+					displayText: `Next ⚡`
+				},
+				type: 1
+			}, ]
+			let button3Messages = {
+				image: {
+					url: waifudd.data.url
+				},
+				caption: `Here you go!`,
+				buttons: hnekobot,
+				headerType: 1
+			}
+			await RoseMwol.sendMessage(m.chat, button3Messages, {
+				quoted: m
+			}).catch(err => {
+				return ('Error!')
+			})
+			break
+		case 'hentai-waifu':
+		case 'nwaifu':
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			if (!m.isGroup) return replay(mess.group)
+			if (!AntiNsfw) return reply(mess.nsfw)
+			reply(mess.wait)
+			waifudd = await axios.get(`https://waifu.pics/api/nsfw/waifu`)
+			let nwaifubot = [{
+				buttonId: `.hneko`,
+				buttonText: {
+					displayText: `Next ⚡`
+				},
+				type: 1
+			}, ]
+			let button4Messages = {
+				image: {
+					url: waifudd.data.url
+				},
+				caption: `Here you go!`,
+				buttons: nwaifubot,
+				headerType: 1
+			}
+			await RoseMwol.sendMessage(m.chat, button4Messages, {
+				quoted: m
+			}).catch(err => {
+				return ('Error!')
+			})
+			break
+		case 'gasm':
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			if (!AntiNsfw) return reply(mess.nsfw)
+			reply(mess.wait)
+			waifudd = await axios.get(`https://nekos.life/api/v2/img/${command}`)
+			var wbuttsss = [{
+				buttonId: `.${command}`,
+				buttonText: {
+					displayText: `Next ✨`
+				},
+				type: 1
+			}, ]
+			let buttonsssMessages = {
+				image: {
+					url: waifudd.data.url
+				},
+				caption: `Here you go!`,
+				footer: `${global.botname}`,
+				buttons: wbuttsss,
+				headerType: 4
+			}
+			await RoseMwol.sendMessage(m.chat, buttonsssMessages, {
+				quoted: m
+			}).catch(err => {
+				return ('Error!')
+			})
+			break
+		case 'smug2':
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			reply(mess.wait)
+			waifudd = await axios.get(`https://nekos.life/api/v2/img/smug`)
+			var wbuttsss = [{
+				buttonId: `.${command}`,
+				buttonText: {
+					displayText: `Next ✨`
+				},
+				type: 1
+			}, ]
+			let button1ssMessages = {
+				image: {
+					url: waifudd.data.url
+				},
+				caption: `Here you go!`,
+				footer: `${global.botname}`,
+				buttons: wbuttsss,
+				headerType: 4
+			}
+			await RoseMwol.sendMessage(m.chat, button1ssMessages, {
+				quoted: m
+			}).catch(err => {
+				return ('Error!')
+			})
+			break
+		case 'foxgirl':
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			reply(mess.wait)
+			waifudd = await axios.get(`https://nekos.life/api/v2/img/fox_girl`)
+			var wbuttsss = [{
+				buttonId: `.${command}`,
+				buttonText: {
+					displayText: `Next ✨`
+				},
+				type: 1
+			}, ]
+			let button12ssMessages = {
+				image: {
+					url: waifudd.data.url
+				},
+				caption: `Here you go!`,
+				footer: `${global.botname}`,
+				buttons: wbuttsss,
+				headerType: 4
+			}
+			await RoseMwol.sendMessage(m.chat, button12ssMessages, {
+				quoted: m
+			}).catch(err => {
+				return ('Error!')
+			})
+			break
+		case 'animenom':
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			if (!m.isGroup) return replay(mess.group)
+			waifudd = await axios.get(`https://waifu.pics/api/sfw/nom`)
+			let xxhnekobot = [{
+				buttonId: `.nom`,
+				buttonText: {
+					displayText: `Next ⚡`
+				},
+				type: 1
+			}, ]
+			let xx1button3Messages = {
+				image: {
+					url: waifudd.data.url
+				},
+				caption: `Here you go!`,
+				buttons: xxhnekobot,
+				headerType: 1
+			}
+			await RoseMwol.sendMessage(m.chat, xx1button3Messages, {
+				quoted: m
+			}).catch(err => {
+				return ('Error!')
+			})
+			break
+		case 'waifu3':
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			reply(mess.wait)
+			waifudd = await axios.get(`https://nekos.life/api/v2/img/waifu`)
+			var wbuttsss = [{
+				buttonId: `.${command}`,
+				buttonText: {
+					displayText: `Next ✨`
+				},
+				type: 1
+			}, ]
+			let button112ssMessages = {
+				image: {
+					url: waifudd.data.url
+				},
+				caption: `Here you go!`,
+				footer: `${global.botname}`,
+				buttons: wbuttsss,
+				headerType: 4
+			}
+			await RoseMwol.sendMessage(m.chat, button112ssMessages, {
+				quoted: m
+			}).catch(err => {
+				return ('Error!')
+			})
+			break
+		case 'neko2':
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			reply(mess.wait)
+			waifud = await axios.get('https://waifu.pics/api/sfw/neko')
+			var wbutsss = [{
+				buttonId: `.neko`,
+				buttonText: {
+					displayText: `Next ✨`
+				},
+				type: 1
+			}, ]
+			let buttonssMessage = {
+				image: {
+					url: waifud.data.url
+				},
+				caption: `Here you go!`,
+				footer: `${global.botname}`,
+				buttons: wbutsss,
+				headerType: 4
+			}
+			await RoseMwol.sendMessage(m.chat, buttonssMessage, {
+				quoted: m
+			}).catch(err => {
+				return ('Error!')
+			})
+			break
+		case 'animecuddle':
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			reply(mess.wait)
+			waifudd = await axios.get(`https://nekos.life/api/v2/img/cuddle`)
+			var wbuttsss = [{
+				buttonId: `.${command}`,
+				buttonText: {
+					displayText: `Next ✨`
+				},
+				type: 1
+			}, ]
+			let buttonsosMessages = {
+				image: {
+					url: waifudd.data.url
+				},
+				caption: `Here you go!`,
+				footer: `${global.botname}`,
+				buttons: wbuttsss,
+				headerType: 4
+			}
+			await RoseMwol.sendMessage(m.chat, buttonsosMessages, {
+				quoted: m
+			}).catch(err => {
+				return ('Error!')
+			})
+			break
+		case 'animeslap':
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			reply(mess.wait)
+			waifudd = await axios.get(`https://nekos.life/api/v2/img/slap`)
+			var wbuttsss = [{
+				buttonId: `.${command}`,
+				buttonText: {
+					displayText: `Next ✨`
+				},
+				type: 1
+			}, ]
+			let btutttonssMessages = {
+				image: {
+					url: waifudd.data.url
+				},
+				caption: `Here you go!`,
+				footer: `${global.botname}`,
+				buttons: wbuttsss,
+				headerType: 4
+			}
+			await RoseMwol.sendMessage(m.chat, btutttonssMessages, {
+				quoted: m
+			}).catch(err => {
+				return ('Error!')
+			})
+			break
+		case 'animepat':
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			reply(mess.wait)
+			waifudd = await axios.get(`https://nekos.life/api/v2/img/pat`)
+			var wbuttsss = [{
+				buttonId: `.${command}`,
+				buttonText: {
+					displayText: `Next ✨`
+				},
+				type: 1
+			}, ]
+			let xxbuttonssMessages = {
+				image: {
+					url: waifudd.data.url
+				},
+				caption: `Here you go!`,
+				footer: `${global.botname}`,
+				buttons: wbuttsss,
+				headerType: 4
+			}
+			await RoseMwol.sendMessage(m.chat, xxbuttonssMessages, {
+				quoted: m
+			}).catch(err => {
+				return ('Error!')
+			})
+			break
+		case 'animeneko':
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			reply(mess.wait)
+			waifudd = await axios.get(`https://nekos.life/api/v2/img/neko`)
+			var wbuttsss = [{
+				buttonId: `.${command}`,
+				buttonText: {
+					displayText: `Next ✨`
+				},
+				type: 1
+			}, ]
+			let buttonsTsMessages = {
+				image: {
+					url: waifudd.data.url
+				},
+				caption: `Here you go!`,
+				footer: `${global.botname}`,
+				buttons: wbuttsss,
+				headerType: 4
+			}
+			await RoseMwol.sendMessage(m.chat, buttonsTsMessages, {
+				quoted: m
+			}).catch(err => {
+				return ('Error!')
+			})
+			break
+		case 'animehug':
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			reply(mess.wait)
+			waifudd = await axios.get(`https://nekos.life/api/v2/img/hug`)
+			var wbuttsss = [{
+				buttonId: `.${command}`,
+				buttonText: {
+					displayText: `Next ✨`
+				},
+				type: 1
+			}, ]
+			let buttonussMessages = {
+				image: {
+					url: waifudd.data.url
+				},
+				caption: `Here you go!`,
+				footer: `${global.botname}`,
+				buttons: wbuttsss,
+				headerType: 4
+			}
+			await RoseMwol.sendMessage(m.chat, buttonussMessages, {
+				quoted: m
+			}).catch(err => {
+				return ('Error!')
+			})
+			break
+		case 'animekiss':
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			reply(mess.wait)
+			waifudd = await axios.get(`https://nekos.life/api/v2/img/kiss`)
+			var wbuttsss = [{
+				buttonId: `.${command}`,
+				buttonText: {
+					displayText: `Next ✨`
+				},
+				type: 1
+			}, ]
+			let bxxuttonssMessages = {
+				image: {
+					url: waifudd.data.url
+				},
+				caption: `Here you go!`,
+				footer: `${global.botname}`,
+				buttons: wbuttsss,
+				headerType: 4
+			}
+			await RoseMwol.sendMessage(m.chat, bxxuttonssMessages, {
+				quoted: m
+			}).catch(err => {
+				return ('Error!')
+			})
+			break
+		case 'animewlp':
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			reply(mess.wait)
+			waifudd = await axios.get(`https://nekos.life/api/v2/img/wallpaper`)
+			var wbuttsss = [{
+				buttonId: `.${command}`,
+				buttonText: {
+					displayText: `Next ✨`
+				},
+				type: 1
+			}, ]
+			let buttoxnssMessages = {
+				image: {
+					url: waifudd.data.url
+				},
+				caption: `Here you go!`,
+				footer: `${global.botname}`,
+				buttons: wbuttsss,
+				headerType: 4
+			}
+			await RoseMwol.sendMessage(m.chat, buttoxnssMessages, {
+				quoted: m
+			}).catch(err => {
+				return ('Error!')
+			})
+			break
+		case 'animespank':
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			reply(mess.wait)
+			waifudd = await axios.get(`https://nekos.life/api/v2/img/spank`)
+			var wbuttsss = [{
+				buttonId: `.${command}`,
+				buttonText: {
+					displayText: `Next ✨`
+				},
+				type: 1
+			}, ]
+			let buttonssxMessages = {
+				image: {
+					url: waifudd.data.url
+				},
+				caption: `Here you go!`,
+				footer: `${global.botname}`,
+				buttons: wbuttsss,
+				headerType: 4
+			}
+			await RoseMwol.sendMessage(m.chat, buttonssxMessages, {
+				quoted: m
+			}).catch(err => {
+				return ('Error!')
+			})
+			break
+		case 'animecry':
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			reply(mess.wait)
+			waifudd = await axios.get(`https://api.waifu.pics/sfw/cry`)
+			var wbutt1sss = [{
+				buttonId: `.${command}`,
+				buttonText: {
+					displayText: `Next ✨`
+				},
+				type: 1
+			}, ]
+			let button1ssxMessages = {
+				image: {
+					url: waifudd.data.url
+				},
+				caption: `Here you go!`,
+				footer: `${global.botname}`,
+				buttons: wbutt1sss,
+				headerType: 4
+			}
+			await RoseMwol.sendMessage(m.chat, button1ssxMessages, {
+				quoted: m
+			}).catch(err => {
+				return ('Error!')
+			})
+			break
+		case 'animekill':
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			reply(mess.wait)
+			waifudd = await axios.get(`https://api.waifu.pics/sfw/kill`)
+			var wbuttszzss = [{
+				buttonId: `.${command}`,
+				buttonText: {
+					displayText: `Next ✨`
+				},
+				type: 1
+			}, ]
+			let buttonszzsxMessages = {
+				image: {
+					url: waifudd.data.url
+				},
+				caption: `Here you go!`,
+				footer: `${global.botname}`,
+				buttons: wbuttszzss,
+				headerType: 4
+			}
+			await RoseMwol.sendMessage(m.chat, buttonszzsxMessages, {
+				quoted: m
+			}).catch(err => {
+				return ('Error!')
+			})
+			break
+		case 'animelick':
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			reply(mess.wait)
+			waifudd = await axios.get(`https://api.waifu.pics/sfw/lick`)
+			var wbuttszz12ss = [{
+				buttonId: `.${command}`,
+				buttonText: {
+					displayText: `Next ✨`
+				},
+				type: 1
+			}, ]
+			let buttonszzsx12Messages = {
+				image: {
+					url: waifudd.data.url
+				},
+				caption: `Here you go!`,
+				footer: `${global.botname}`,
+				buttons: wbuttszz12ss,
+				headerType: 4
+			}
+			await RoseMwol.sendMessage(m.chat, buttonszzsx12Messages, {
+				quoted: m
+			}).catch(err => {
+				return ('Error!')
+			})
+			break
+		case 'animebite':
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			reply(mess.wait)
+			waifudd = await axios.get(`https://api.waifu.pics/sfw/bite`)
+			var wbuttszz123ss = [{
+				buttonId: `.${command}`,
+				buttonText: {
+					displayText: `Next ✨`
+				},
+				type: 1
+			}, ]
+			let buttonszzsx123Messages = {
+				image: {
+					url: waifudd.data.url
+				},
+				caption: `Here you go!`,
+				footer: `${global.botname}`,
+				buttons: wbuttszz123ss,
+				headerType: 4
+			}
+			await RoseMwol.sendMessage(m.chat, buttonszzsx123Messages, {
+				quoted: m
+			}).catch(err => {
+				return ('Error!')
+			})
+			break
+		case 'animeyeet':
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			reply(mess.wait)
+			waifudd = await axios.get(`https://api.waifu.pics/sfw/yeet`)
+			var wbuttszz124ss = [{
+				buttonId: `.${command}`,
+				buttonText: {
+					displayText: `Next ✨`
+				},
+				type: 1
+			}, ]
+			let buttonszzsx124Messages = {
+				image: {
+					url: waifudd.data.url
+				},
+				caption: `Here you go!`,
+				footer: `${global.botname}`,
+				buttons: wbuttszz124ss,
+				headerType: 4
+			}
+			await RoseMwol.sendMessage(m.chat, buttonszzsx124Messages, {
+				quoted: m
+			}).catch(err => {
+				return ('Error!')
+			})
+			break
+		case 'animebully':
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			reply(mess.wait)
+			waifudd = await axios.get(`https://api.waifu.pics/sfw/lick`)
+			var wbuttszz125ss = [{
+				buttonId: `.${command}`,
+				buttonText: {
+					displayText: `Next ✨`
+				},
+				type: 1
+			}, ]
+			let buttonszzsx125Messages = {
+				image: {
+					url: waifudd.data.url
+				},
+				caption: `Here you go!`,
+				footer: `${global.botname}`,
+				buttons: wbuttszz125ss,
+				headerType: 4
+			}
+			await RoseMwol.sendMessage(m.chat, buttonszzsx125Messages, {
+				quoted: m
+			}).catch(err => {
+				return ('Error!')
+			})
+			break
+		case 'animebonk':
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			reply(mess.wait)
+			waifudd = await axios.get(`https://api.waifu.pics/sfw/bonk`)
+			var wbuttszz126ss = [{
+				buttonId: `.${command}`,
+				buttonText: {
+					displayText: `Next ✨`
+				},
+				type: 1
+			}, ]
+			let buttonszzsx126Messages = {
+				image: {
+					url: waifudd.data.url
+				},
+				caption: `Here you go!`,
+				footer: `${global.botname}`,
+				buttons: wbuttszz126ss,
+				headerType: 4
+			}
+			await RoseMwol.sendMessage(m.chat, buttonszzsx126Messages, {
+				quoted: m
+			}).catch(err => {
+				return ('Error!')
+			})
+			break
+		case 'animewink':
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			reply(mess.wait)
+			waifudd = await axios.get(`https://api.waifu.pics/sfw/wink`)
+			var wbuttszz127ss = [{
+				buttonId: `.${command}`,
+				buttonText: {
+					displayText: `Next ✨`
+				},
+				type: 1
+			}, ]
+			let buttonszzsx127Messages = {
+				image: {
+					url: waifudd.data.url
+				},
+				caption: `Here you go!`,
+				footer: `${global.botname}`,
+				buttons: wbuttszz127ss,
+				headerType: 4
+			}
+			await RoseMwol.sendMessage(m.chat, buttonszzsx127Messages, {
+				quoted: m
+			}).catch(err => {
+				return ('Error!')
+			})
+			break
+		case 'animepoke':
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			reply(mess.wait)
+			waifudd = await axios.get(`https://api.waifu.pics/sfw/poke`)
+			var wbuttszz128ss = [{
+				buttonId: `.${command}`,
+				buttonText: {
+					displayText: `Next ✨`
+				},
+				type: 1
+			}, ]
+			let buttonszzsx128Messages = {
+				image: {
+					url: waifudd.data.url
+				},
+				caption: `Here you go!`,
+				footer: `${global.botname}`,
+				buttons: wbuttszz128ss,
+				headerType: 4
+			}
+			await RoseMwol.sendMessage(m.chat, buttonszzsx128Messages, {
+				quoted: m
+			}).catch(err => {
+				return ('Error!')
+			})
+			break
+		case 'animesmile':
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			reply(mess.wait)
+			waifudd = await axios.get(`https://api.waifu.pics/sfw/smile`)
+			var wbuttszz129ss = [{
+				buttonId: `.${command}`,
+				buttonText: {
+					displayText: `Next ✨`
+				},
+				type: 1
+			}, ]
+			let buttonszzsx129Messages = {
+				image: {
+					url: waifudd.data.url
+				},
+				caption: `Here you go!`,
+				footer: `${global.botname}`,
+				buttons: wbuttszz129ss,
+				headerType: 4
+			}
+			await RoseMwol.sendMessage(m.chat, buttonszzsx129Messages, {
+				quoted: m
+			}).catch(err => {
+				return ('Error!')
+			})
+			break
+		case 'animewave':
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			reply(mess.wait)
+			waifudd = await axios.get(`https://api.waifu.pics/sfw/wave`)
+			var wbuttszz1210ss = [{
+				buttonId: `.${command}`,
+				buttonText: {
+					displayText: `Next ✨`
+				},
+				type: 1
+			}, ]
+			let buttonszzsx1210Messages = {
+				image: {
+					url: waifudd.data.url
+				},
+				caption: `Here you go!`,
+				footer: `${global.botname}`,
+				buttons: wbuttszz1210ss,
+				headerType: 4
+			}
+			await RoseMwol.sendMessage(m.chat, buttonszzsx1210Messages, {
+				quoted: m
+			}).catch(err => {
+				return ('Error!')
+			})
+			break
+		case 'animeawoo':
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			reply(mess.wait)
+			waifudd = await axios.get(`https://api.waifu.pics/sfw/awoo`)
+			var wbuttszz1211ss = [{
+				buttonId: `.${command}`,
+				buttonText: {
+					displayText: `Next ✨`
+				},
+				type: 1
+			}, ]
+			let buttonszzsx1211Messages = {
+				image: {
+					url: waifudd.data.url
+				},
+				caption: `Here you go!`,
+				footer: `${global.botname}`,
+				buttons: wbuttszz1211ss,
+				headerType: 4
+			}
+			await RoseMwol.sendMessage(m.chat, buttonszzsx1211Messages, {
+				quoted: m
+			}).catch(err => {
+				return ('Error!')
+			})
+			break
+		case 'animeblush':
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			reply(mess.wait)
+			waifudd = await axios.get(`https://api.waifu.pics/sfw/blush`)
+			var wbuttszz1212ss = [{
+				buttonId: `.${command}`,
+				buttonText: {
+					displayText: `Next ✨`
+				},
+				type: 1
+			}, ]
+			let buttonszzsx1212Messages = {
+				image: {
+					url: waifudd.data.url
+				},
+				caption: `Here you go!`,
+				footer: `${global.botname}`,
+				buttons: wbuttszz1212ss,
+				headerType: 4
+			}
+			await RoseMwol.sendMessage(m.chat, buttonszzsx1212Messages, {
+				quoted: m
+			}).catch(err => {
+				return ('Error!')
+			})
+			break
+		case 'animesmug':
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			reply(mess.wait)
+			waifudd = await axios.get(`https://api.waifu.pics/sfw/smug`)
+			var wbuttszz1213ss = [{
+				buttonId: `.${command}`,
+				buttonText: {
+					displayText: `Next ✨`
+				},
+				type: 1
+			}, ]
+			let buttonszzsx1213Messages = {
+				image: {
+					url: waifudd.data.url
+				},
+				caption: `Here you go!`,
+				footer: `${global.botname}`,
+				buttons: wbuttszz1213ss,
+				headerType: 4
+			}
+			await RoseMwol.sendMessage(m.chat, buttonszzsx1213Messages, {
+				quoted: m
+			}).catch(err => {
+				return ('Error!')
+			})
+			break
+		case 'animeglomp':
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			reply(mess.wait)
+			waifudd = await axios.get(`https://api.waifu.pics/sfw/glomp`)
+			var wbuttszz1214ss = [{
+				buttonId: `.${command}`,
+				buttonText: {
+					displayText: `Next ✨`
+				},
+				type: 1
+			}, ]
+			let buttonszzsx1214Messages = {
+				image: {
+					url: waifudd.data.url
+				},
+				caption: `Here you go!`,
+				footer: `${global.botname}`,
+				buttons: wbuttszz1214ss,
+				headerType: 4
+			}
+			await RoseMwol.sendMessage(m.chat, buttonszzsx1214Messages, {
+				quoted: m
+			}).catch(err => {
+				return ('Error!')
+			})
+			break
+		case 'animehappy':
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			reply(mess.wait)
+			waifudd = await axios.get(`https://api.waifu.pics/sfw/happy`)
+			var wbuttszz1215ss = [{
+				buttonId: `.${command}`,
+				buttonText: {
+					displayText: `Next ✨`
+				},
+				type: 1
+			}, ]
+			let buttonszzsx1215Messages = {
+				image: {
+					url: waifudd.data.url
+				},
+				caption: `Here you go!`,
+				footer: `${global.botname}`,
+				buttons: wbuttszz1215ss,
+				headerType: 4
+			}
+			await RoseMwol.sendMessage(m.chat, buttonszzsx1215Messages, {
+				quoted: m
+			}).catch(err => {
+				return ('Error!')
+			})
+			break
+		case 'animedance':
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			reply(mess.wait)
+			waifudd = await axios.get(`https://api.waifu.pics/sfw/dance`)
+			var wbuttszz1216ss = [{
+				buttonId: `.${command}`,
+				buttonText: {
+					displayText: `Next ✨`
+				},
+				type: 1
+			}, ]
+			let buttonszzsx1216Messages = {
+				image: {
+					url: waifudd.data.url
+				},
+				caption: `Here you go!`,
+				footer: `${global.botname}`,
+				buttons: wbuttszz1216ss,
+				headerType: 4
+			}
+			await RoseMwol.sendMessage(m.chat, buttonszzsx1216Messages, {
+				quoted: m
+			}).catch(err => {
+				return ('Error!')
+			})
+			break
+		case 'animecringe':
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			reply(mess.wait)
+			waifudd = await axios.get(`https://api.waifu.pics/sfw/cringe`)
+			var wbuttszz1217ss = [{
+				buttonId: `.${command}`,
+				buttonText: {
+					displayText: `Next ✨`
+				},
+				type: 1
+			}, ]
+			let buttonszzsx1217Messages = {
+				image: {
+					url: waifudd.data.url
+				},
+				caption: `Here you go!`,
+				footer: `${global.botname}`,
+				buttons: wbuttszz1217ss,
+				headerType: 4
+			}
+			await RoseMwol.sendMessage(m.chat, buttonszzsx1217Messages, {
+				quoted: m
+			}).catch(err => {
+				return ('Error!')
+			})
+			break
+		case 'animehighfive':
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			reply(mess.wait)
+			waifudd = await axios.get(`https://api.waifu.pics/sfw/highfive`)
+			var wbuttszz1218ss = [{
+				buttonId: `.${command}`,
+				buttonText: {
+					displayText: `Next ✨`
+				},
+				type: 1
+			}, ]
+			let buttonszzsx1218Messages = {
+				image: {
+					url: waifudd.data.url
+				},
+				caption: `Here you go!`,
+				footer: `${global.botname}`,
+				buttons: wbuttszz1218ss,
+				headerType: 4
+			}
+			await RoseMwol.sendMessage(m.chat, buttonszzsx1218Messages, {
+				quoted: m
+			}).catch(err => {
+				return ('Error!')
+			})
+			break
+		case 'animehandhold':
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			reply(mess.wait)
+			waifudd = await axios.get(`https://api.waifu.pics/sfw/handhold`)
+			var wbuttszz1219ss = [{
+				buttonId: `.${command}`,
+				buttonText: {
+					displayText: `Next ✨`
+				},
+				type: 1
+			}, ]
+			let buttonszzsx1219Messages = {
+				image: {
+					url: waifudd.data.url
+				},
+				caption: `Here you go!`,
+				footer: `${global.botname}`,
+				buttons: wbuttszz1219ss,
+				headerType: 4
+			}
+			await RoseMwol.sendMessage(m.chat, buttonszzsx1219Messages, {
+				quoted: m
+			}).catch(err => {
+				return ('Error!')
+			})
+			break
+		case 'animemegumin':
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			reply(mess.wait)
+			waifudd = await axios.get(`https://api.waifu.pics/sfw/megumin`)
+			var wbuttszz1220ss = [{
+				buttonId: `.${command}`,
+				buttonText: {
+					displayText: `Next ✨`
+				},
+				type: 1
+			}, ]
+			let buttonszzsx1220Messages = {
+				image: {
+					url: waifudd.data.url
+				},
+				caption: `Here you go!`,
+				footer: `${global.botname}`,
+				buttons: wbuttszz1220ss,
+				headerType: 4
+			}
+			await RoseMwol.sendMessage(m.chat, buttonszzsx1220Messages, {
+				quoted: m
+			}).catch(err => {
+				return ('Error!')
+			})
+			break
+		case 'shinobu2':
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			reply(mess.wait)
+			ud = await axios.get('https://waifu.pics/api/sfw/shinobu')
+			var wbutsss = [{
+				buttonId: `.shinobu`,
+				buttonText: {
+					displayText: `Next ✨`
+				},
+				type: 1
+			}, ]
+			let buttonsesMessage = {
+				image: {
+					url: ud.data.url
+				},
+				caption: `Here you go!`,
+				footer: `${global.botname}`,
+				buttons: wbutsss,
+				headerType: 4
+			}
+			await RoseMwol.sendMessage(m.chat, buttonsesMessage, {
+				quoted: m
+			}).catch(err => {
+				return ('Error!')
+			})
+			break
+		case 'megumin2':
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			reply(mess.wait)
+			ud = await axios.get('https://waifu.pics/api/sfw/megumin')
+			var wbutsss = [{
+				buttonId: `.megumin`,
+				buttonText: {
+					displayText: `Next ✨`
+				},
+				type: 1
+			}, ]
+			let buttonzMessage = {
+				image: {
+					url: ud.data.url
+				},
+				caption: `Here you go!`,
+				footer: `${global.botname}`,
+				buttons: wbutsss,
+				headerType: 4
+			}
+			await RoseMwol.sendMessage(m.chat, buttonzMessage, {
+				quoted: m
+			}).catch(err => {
+				return ('Error!')
+			})
+			break
+		case 'awoo2':
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			reply(mess.wait)
+			waifudd = await axios.get(`https://waifu.pics/api/sfw/awoo`)
+			var wbuttsss = [{
+				buttonId: `.${command}`,
+				buttonText: {
+					displayText: `Next ✨`
+				},
+				type: 1
+			}, ]
+			let button1Messages = {
+				image: {
+					url: waifudd.data.url
+				},
+				caption: `Here you go!`,
+				footer: `${global.botname}`,
+				buttons: wbuttsss,
+				headerType: 2
+			}
+			await RoseMwol.sendMessage(m.chat, button1Messages, {
+				quoted: m
+			}).catch(err => {
+				return ('Error!')
+			})
+			break
+		case 'animewall2':
+		case 'animewallpaper2':
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			reply(mess.wait)
+			const {
+				AnimeWallpaper
+			} = require("anime-wallpaper")
+			if (!q) return reply('What wallpaper do you want?')
+			const wall = new AnimeWallpaper();
+			const pages = [1, 2, 3, 4];
+			const random = pages[Math.floor(Math.random() * pages.length)]
+			const wallpaper = await wall
+				.getAnimeWall4({
+					title: q,
+					type: "sfw",
+					page: pages
+				})
+				.catch(() => null);
+			const i = Math.floor(Math.random() * wallpaper.length);
+			var walb = [{
+				buttonId: `.${command} ${q}`,
+				buttonText: {
+					displayText: `Next ✨`
+				},
+				type: 1
+			}, ]
+			let wal = {
+				image: {
+					url: wallpaper[i].image
+				},
+				caption: `*Query :* ${q}`,
+				footer: `${global.botname}`,
+				buttons: walb,
+				headerType: 4
+			}
+			await RoseMwol.sendMessage(m.chat, wal, {
+				quoted: m
+			}).catch(err => {
+				return ('Error!')
+			})
+			//RoseMwol.sendMessage(m.chat,{image:{url:wallpaper[i].image},caption:`*Query :* ${q}`})            
+			break
+		case 'cry':
+		case 'kill':
+		case 'hug':
+		case 'pat':
+		case 'lick':
+		case 'kiss':
+		case 'bite':
+		case 'yeet':
+		case 'neko':
+		case 'bully':
+		case 'bonk':
+		case 'wink':
+		case 'poke':
+		case 'nom':
+		case 'slap':
+		case 'smile':
+		case 'wave':
+		case 'awoo':
+		case 'blush':
+		case 'smug':
+		case 'glomp':
+		case 'happy':
+		case 'dance':
+		case 'cringe':
+		case 'cuddle':
+		case 'highfive':
+		case 'shinobu':
+		case 'megumin':
+		case 'handhold':
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			axios.get(`https://api.waifu.pics/sfw/${command}`)
+				.then(({
+					data
+				}) => {
+					RoseMwol.sendImageAsSticker(m.chat, data.url, m, {
+						packname: global.packname,
+						author: global.author
+					})
+				})
+			break
+		case 'waifu':
+		case 'loli':
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			reply(mess.wait)
+			axios.get(`https://api.waifu.pics/sfw/waifu`)
+				.then(({
+					data
+				}) => {
+					RoseMwol.sendImage(m.chat, data.url, mess.success, m)
+				})
+			break
+		case 'naruto':
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			reply(mess.wait)
+			var query = ["naruto hd", "naruto boruto", "naruto sasuke", "naruto aesthetic", "naruto aesthetic"]
+			var data = await pinterest(pickRandom(query))
+			var but = [{
+				buttonId: `naruto`,
+				buttonText: {
+					displayText: "Next➡️"
+				},
+				type: 1
+			}]
 			RoseMwol.sendMessage(from, {
-				sticker: {
-					url: "https://ZackRoseMwol.github.io/media/groupopen.webp"
-				}
+				caption: `Here you go!`,
+				image: {
+					url: pickRandom(data.result)
+				},
+				buttons: but,
+				footer: `${botname}`
 			}, {
 				quoted: m
 			})
+			break
+		case 'yaoi':
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			reply(mess.wait)
+			var query = ["yaoi", "yaoi aesthetic", "yaoi hd", "yaoi ganteng"]
+			var data = await pinterest(pickRandom(query))
+			var but = [{
+				buttonId: `${command}`,
+				buttonText: {
+					displayText: "Next➡️"
+				},
+				type: 1
+			}]
 			RoseMwol.sendMessage(from, {
-				sticker: {
-					url: "https://ZackRoseMwol.github.io/media/groupclose.webp"
-				}
+				caption: "Here you go!",
+				image: {
+					url: pickRandom(data.result)
+				},
+				buttons: but,
+				footer: `${botname}`
 			}, {
 				quoted: m
 			})
+			break
+		case 'coffee':
+		case 'kopi': {
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			let buttons = [{
+				buttonId: `coffe`,
+				buttonText: {
+					displayText: 'Next Image'
+				},
+				type: 1
+			}]
+			let buttonMessage = {
+				image: {
+					url: 'https://coffee.alexflipnote.dev/random'
+				},
+				caption: `Here you go!`,
+				footer: `${botname}`,
+				buttons: buttons,
+				headerType: 4
+			}
+			RoseMwol.sendMessage(m.chat, buttonMessage, {
+				quoted: m
+			})
+		}
+		break
+		case 'zippyshare': {
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			if (!text) return reply(mess.linkm)
+			if (!isUrl(args[0]) && !args[0].includes('zippyshare.com')) return reply(`The link is not a zippyshare link`)
+			anu = await fetchJson(`https://violetics.pw/api/downloader/zippyshare?apikey=df7d-425a-3bc8&url=${text}`)
+			m.reply(`*${util.format(anu)}*`)
+			linkyke = await getBuffer(anu.result.dlink)
+			RoseMwol.sendMessage(m.chat, {
+				document: linkyke,
+				mimetype: 'application/zip',
+				fileName: `${anu.result.filename}`
+			}, {
+				quoted: m
+			}).catch((err) => reply(mess.error))
+		}
+		break
+		case 'savefrom': {
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			if (!text) return m.reply(`Failed to download media and send audio ${prefix + command} url link`)
+			if (!isUrl(args[0]) && !args[0].includes('facebook.com')) return reply(`The link you provided is invalid`)
+			let noh = require('@bochilteam/scraper')
+			noh.savefrom(`${text}`).then(async (data) => {
+				let sections = []
+				for (let i of data.url) {
+					const list = {
+						title: `${i.type}`,
+						rows: [{
+							title: `Quality ${i.subname}`,
+							rowId: `${prefix}get ${text}`,
+							description: `${data.hosting}`
+						}, ]
+					}
+					sections.push(list)
+				}
+				const sendm = RoseMwol.sendMessage(
+					m.chat, {
+						text: `${data.meta.title} *Here is the list of videos, click the button below to choose*`,
+						footer: `${botname}`,
+						title: "*SAVE FROM*",
+						buttonText: "CLICK HERE",
+						sections
+					}, {
+						quoted: m
+					})
+			}).catch((err) => {
+				reply(mess.error)
+			})
+		}
+		break
+		case 'jail':
+		case 'pixelate':
+		case 'blur':
+		case 'imagesketch':
+		case 'triggeredwebp':
+		case 'shit':
+		case 'burn':
+		case 'invert':
+		case 'wanted':
+		case 'rip': {
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			if (!/image/.test(mime)) return reply(`*Send/Reply Image With Caption* ${prefix + command}`)
+			let {
+				UploadFileUgu,
+				webp2mp4File,
+				TelegraPh
+			} = require('./lib/uploader2')
+			let media = await RoseMwol.downloadAndSaveMediaMessage(quoted)
+			let anu = await TelegraPh(media)
+			let buf = await getBuffer(`https://cililitan.herokuapp.com/api/${command}?url=${anu}`)
+			RoseMwol.sendMessage(m.chat, {
+				image: buf,
+				caption: `Made by ${botname}`
+			}, {
+				quoted: m
+			}).catch((err) => reply(mess.error))
+		}
+		break
+		case 'gayeffect': {
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			if (!/image/.test(mime)) return reply(`*Send/Reply Image With Caption* ${prefix + command}`)
+			let {
+				UploadFileUgu,
+				webp2mp4File,
+				TelegraPh
+			} = require('./lib/uploader2')
+			let media = await RoseMwol.downloadAndSaveMediaMessage(quoted)
+			let anu = await TelegraPh(media)
+			let buf = await getBuffer(`https://cililitan.herokuapp.com/api/gay?url=${anu}`)
+			RoseMwol.sendMessage(m.chat, {
+				image: buf,
+				caption: `Made by ${botname}`
+			}, {
+				quoted: m
+			}).catch((err) => reply(mess.error))
+		}
+		break
+		case 'deleteeffect': {
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			if (!/image/.test(mime)) return reply(`*Send/Reply Image With Caption* ${prefix + command}`)
+			let {
+				UploadFileUgu,
+				webp2mp4File,
+				TelegraPh
+			} = require('./lib/uploader2')
+			let media = await RoseMwol.downloadAndSaveMediaMessage(quoted)
+			let anu = await TelegraPh(media)
+			let buf = await getBuffer(`https://cililitan.herokuapp.com/api/delete?url=${anu}`)
+			RoseMwol.sendMessage(m.chat, {
+				image: buf,
+				caption: `Made by ${botname}`
+			}, {
+				quoted: m
+			}).catch((err) => reply(mess.error))
+		}
+		break
+		case 'framed': {
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			if (!/image/.test(mime)) return reply(`*Send/Reply Image With Caption* ${prefix + command}`)
+			let {
+				UploadFileUgu,
+				webp2mp4File,
+				TelegraPh
+			} = require('./lib/uploader2')
+			let media = await RoseMwol.downloadAndSaveMediaMessage(quoted)
+			let anu = await TelegraPh(media)
+			let buf = await getBuffer(`https://cililitan.herokuapp.com/api/fotojatoh?url=${anu}`)
+			RoseMwol.sendMessage(m.chat, {
+				image: buf,
+				caption: `Made by ${botname}`
+			}, {
+				quoted: m
+			}).catch((err) => reply(mess.error))
+		}
+		break
+		case 'beautifuleffect': {
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			if (!/image/.test(mime)) return reply(`*Send/Reply Image With Caption* ${prefix + command}`)
+			let {
+				UploadFileUgu,
+				webp2mp4File,
+				TelegraPh
+			} = require('./lib/uploader2')
+			let media = await RoseMwol.downloadAndSaveMediaMessage(quoted)
+			let anu = await TelegraPh(media)
+			let buf = await getBuffer(`https://cililitan.herokuapp.com/api/beautiful?url=${anu}`)
+			RoseMwol.sendMessage(m.chat, {
+				image: buf,
+				caption: `Made by ${botname}`
+			}, {
+				quoted: m
+			}).catch((err) => reply(mess.error))
+		}
+		break
+		case 'readmore': {
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			if (!text) return reply(`Example : ${prefix + command} halo gaes`)
+			anu = await fetchJson(`https://cililitan.herokuapp.com/api/readmore?teks=${text}`)
+			reply(`${anu.result}`)
+		}
+		break
+		case 'toviewonce':
+		case 'toonce': {
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			if (!quoted) return reply(`Reply image`)
+			if (/image/.test(mime)) {
+				anu = await RoseMwol.downloadAndSaveMediaMessage(quoted)
+				RoseMwol.sendMessage(m.chat, {
+					image: {
+						url: anu
+					},
+					viewOnce: true
+				}, {
+					quoted: m
+				})
+			} else if (/video/.test(mime)) {
+				anu = await RoseMwol.downloadAndSaveMediaMessage(quoted)
+				RoseMwol.sendMessage(m.chat, {
+					video: {
+						url: anu
+					},
+					viewOnce: true
+				}, {
+					quoted: m
+				})
+			}
+		}
+		break
+		case 'tinyurl': {
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			reply(mess.wait)
+			try {
+				anu = await axios.get(`https://tinyurl.com/api-create.php?url=${q}`)
+				reply(`${anu.data} here you go!`)
+			} catch (e) {
+				emror = String(e)
+				reply(`${e}`)
+			}
+		}
+		break
+		case 'fliptext': {
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			if (args.length < 1) return replay(`Example:\n${prefix}fliptext ${ownername}`)
+			quere = args.join(" ")
+			flipe = quere.split('').reverse().join('')
+			replay(`\`\`\`「 FLIP TEXT 」\`\`\`\n*•> Normal :*\n${quere}\n*•> Flip :*\n${flipe}`)
+		}
+		break
+		case 'toletter': {
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			if (!Number(args[0])) return replay(`Example:\n${prefix}toletter 956`)
+			try {
+				quere = args.join(" ")
+				convertes = await toHur(quere)
+				replay(`\`\`\`「 ALPHABET 」\`\`\`\n*•> Number :*\n${quere}\n*•> Alphabet :*\n${convertes}`)
+			} catch {
+				replay(`Error!`)
+			}
+		}
+		break
+		case 'translate':
+		case 'trans': {
+			if (isBan) return reply(mess.ban)
+			if (!args.join(" ")) return replay("The text?")
+			tes = await fetchJson(`https://megayaa.herokuapp.com/api/translate?to=en&kata=${args.join(" ")}`)
+			Infoo = tes.info
+			Detek = tes.translate
+			replay(`🌐Translate : ${Detek}\n📘Results : ${Infoo}`)
+		}
+		break
+		case 'sound1':
+		case 'sound2':
+		case 'sound3':
+		case 'sound4':
+		case 'sound5':
+		case 'sound6':
+		case 'sound7':
+		case 'sound8':
+		case 'sound9':
+		case 'sound10':
+		case 'sound11':
+		case 'sound12':
+		case 'sound13':
+		case 'sound14':
+		case 'sound15':
+		case 'sound16':
+		case 'sound17':
+		case 'sound18':
+		case 'sound19':
+		case 'sound20':
+		case 'sound21':
+		case 'sound22':
+		case 'sound23':
+		case 'sound24':
+		case 'sound25':
+		case 'sound26':
+		case 'sound27':
+		case 'sound28':
+		case 'sound29':
+		case 'sound30':
+		case 'sound31':
+		case 'sound32':
+		case 'sound33':
+		case 'sound34':
+		case 'sound35':
+		case 'sound36':
+		case 'sound37':
+		case 'sound38':
+		case 'sound39':
+		case 'sound40':
+		case 'sound41':
+		case 'sound42':
+		case 'sound43':
+		case 'sound44':
+		case 'sound45':
+		case 'sound46':
+		case 'sound47':
+		case 'sound48':
+		case 'sound49':
+		case 'sound50':
+		case 'sound51':
+		case 'sound52':
+		case 'sound53':
+		case 'sound54':
+		case 'sound55':
+		case 'sound56':
+		case 'sound57':
+		case 'sound58':
+		case 'sound59':
+		case 'sound60':
+		case 'sound61':
+		case 'sound62':
+		case 'sound63':
+		case 'sound64':
+		case 'sound65':
+		case 'sound66':
+		case 'sound67':
+		case 'sound68':
+		case 'sound69':
+		case 'sound70':
+		case 'sound71':
+		case 'sound72':
+		case 'sound73':
+		case 'sound74':
+		case 'sound75':
+		case 'sound76':
+		case 'sound77':
+		case 'sound78':
+		case 'sound79':
+		case 'sound80':
+		case 'sound81':
+		case 'sound82':
+		case 'sound83':
+		case 'sound84':
+		case 'sound85':
+		case 'sound86':
+		case 'sound87':
+		case 'sound88':
+		case 'sound89':
+		case 'sound90':
+		case 'sound91':
+		case 'sound92':
+		case 'sound93':
+		case 'sound94':
+		case 'sound95':
+		case 'sound96':
+		case 'sound97':
+		case 'sound98':
+		case 'sound99':
+		case 'sound100':
+		case 'sound101':
+		case 'sound102':
+		case 'sound103':
+		case 'sound104':
+		case 'sound105':
+		case 'sound106':
+		case 'sound107':
+		case 'sound108':
+		case 'sound109':
+		case 'sound110':
+		case 'sound111':
+		case 'sound112':
+		case 'sound113':
+		case 'sound114':
+		case 'sound115':
+		case 'sound116':
+		case 'sound117':
+		case 'sound118':
+		case 'sound119':
+		case 'sound120':
+		case 'sound121':
+		case 'sound122':
+		case 'sound123':
+		case 'sound124':
+		case 'sound125':
+		case 'sound126':
+		case 'sound127':
+		case 'sound128':
+		case 'sound129':
+		case 'sound130':
+		case 'sound131':
+		case 'sound132':
+		case 'sound133':
+		case 'sound134':
+		case 'sound135':
+		case 'sound136':
+		case 'sound137':
+		case 'sound138':
+		case 'sound139':
+		case 'sound140':
+		case 'sound141':
+		case 'sound142':
+		case 'sound143':
+		case 'sound144':
+		case 'sound145':
+		case 'sound146':
+		case 'sound147':
+		case 'sound148':
+		case 'sound149':
+		case 'sound150':
+		case 'sound151':
+		case 'sound152':
+		case 'sound153':
+		case 'sound154':
+		case 'sound155':
+		case 'sound156':
+		case 'sound157':
+		case 'sound158':
+		case 'sound159':
+		case 'sound160':
+		case 'sound161':
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			buffer = await getBuffer(`https://github.com/Sachu-Settan/Media/raw/master/sounds/${command}.mp3`)
+			await RoseMwol.sendMessage(m.chat, {
+				audio: buffer,
+				mimetype: 'audio/mp4',
+				ptt: true
+			}, {
+				quoted: m
+			})
+			break
+			case 'efx':
+				case 'bgm':
+				case 'bgmidd': {
+					const randomefx = efx[Math.floor(Math.random() * efx.length)]
+					results = await getBuffer(`https://raw.githubusercontent.com/Sachu-Settan/Media/main/efx/${encodeURIComponent(randomefx)}.mp3`)
+					await RoseMwol.sendMessage(m.chat, {
+						audio: results,
+						mimetype: 'audio/mpeg',
+						ptt: true
+					}, {
+						quoted: m
+					})
+				}
+				break
+			case "efx1":
+				case "efx10":
+				case "efx100":
+				case "efx101":
+				case "efx102":
+				case "efx103":
+				case "efx104":
+				case "efx105":
+				case "efx106":
+				case "efx107":
+				case "efx108":
+				case "efx109":
+				case "efx11":
+				case "efx110":
+				case "efx111":
+				case "efx112":
+				case "efx113":
+				case "efx114":
+				case "efx115":
+				case "efx116":
+				case "efx117":
+				case "efx118":
+				case "efx119":
+				case "efx12":
+				case "efx120":
+				case "efx121":
+				case "efx122":
+				case "efx123":
+				case "efx124":
+				case "efx125":
+				case "efx126":
+				case "efx127":
+				case "efx128":
+				case "efx129":
+				case "efx13":
+				case "efx130":
+				case "efx131":
+				case "efx132":
+				case "efx133":
+				case "efx134":
+				case "efx135":
+				case "efx136":
+				case "efx137":
+				case "efx138":
+				case "efx139":
+				case "efx14":
+				case "efx140":
+				case "efx141":
+				case "efx142":
+				case "efx143":
+				case "efx144":
+				case "efx145":
+				case "efx146":
+				case "efx147":
+				case "efx148":
+				case "efx149":
+				case "efx15":
+				case "efx150":
+				case "efx151":
+				case "efx152":
+				case "efx154":
+				case "efx155":
+				case "efx156":
+				case "efx157":
+				case "efx158":
+				case "efx159":
+				case "efx16":
+				case "efx160":
+				case "efx161":
+				case "efx162":
+				case "efx163":
+				case "efx164":
+				case "efx165":
+				case "efx166":
+				case "efx167":
+				case "efx168":
+				case "efx169":
+				case "efx17":
+				case "efx170":
+				case "efx171":
+				case "efx172":
+				case "efx173":
+				case "efx174":
+				case "efx175":
+				case "efx176":
+				case "efx177":
+				case "efx178":
+				case "efx179":
+				case "efx18":
+				case "efx180":
+				case "efx181":
+				case "efx182":
+				case "efx183":
+				case "efx184":
+				case "efx185":
+				case "efx186":
+				case "efx187":
+				case "efx188":
+				case "efx189":
+				case "efx19":
+				case "efx190":
+				case "efx191":
+				case "efx192":
+				case "efx193":
+				case "efx194":
+				case "efx195":
+				case "efx196":
+				case "efx197":
+				case "efx198":
+				case "efx199":
+				case "efx2":
+				case "efx20":
+				case "efx200":
+				case "efx201":
+				case "efx202":
+				case "efx203":
+				case "efx204":
+				case "efx205":
+				case "efx206":
+				case "efx207":
+				case "efx208":
+				case "efx209":
+				case "efx21":
+				case "efx210":
+				case "efx211":
+				case "efx212":
+				case "efx213":
+				case "efx214":
+				case "efx215":
+				case "efx216":
+				case "efx217":
+				case "efx218":
+				case "efx219":
+				case "efx22":
+				case "efx220":
+				case "efx221":
+				case "efx222":
+				case "efx223":
+				case "efx224":
+				case "efx225":
+				case "efx226":
+				case "efx227":
+				case "efx228":
+				case "efx229":
+				case "efx23":
+				case "efx230":
+				case "efx231":
+				case "efx232":
+				case "efx233":
+				case "efx234":
+				case "efx235":
+				case "efx236":
+				case "efx237":
+				case "efx238":
+				case "efx239":
+				case "efx24":
+				case "efx240":
+				case "efx241":
+				case "efx242":
+				case "efx243":
+				case "efx244":
+				case "efx245":
+				case "efx246":
+				case "efx247":
+				case "efx248":
+				case "efx249":
+				case "efx25":
+				case "efx250":
+				case "efx251":
+				case "efx252":
+				case "efx253":
+				case "efx254":
+				case "efx255":
+				case "efx256":
+				case "efx257":
+				case "efx258":
+				case "efx259":
+				case "efx26":
+				case "efx260":
+				case "efx261":
+				case "efx262":
+				case "efx263":
+				case "efx264":
+				case "efx265":
+				case "efx266":
+				case "efx267":
+				case "efx268":
+				case "efx269":
+				case "efx27":
+				case "efx270":
+				case "efx271":
+				case "efx272":
+				case "efx273":
+				case "efx274":
+				case "efx275":
+				case "efx276":
+				case "efx277":
+				case "efx278":
+				case "efx279":
+				case "efx28":
+				case "efx280":
+				case "efx281":
+				case "efx282":
+				case "efx283":
+				case "efx284":
+				case "efx285":
+				case "efx286":
+				case "efx287":
+				case "efx288":
+				case "efx289":
+				case "efx29":
+				case "efx290":
+				case "efx291":
+				case "efx292":
+				case "efx293":
+				case "efx294":
+				case "efx295":
+				case "efx296":
+				case "efx297":
+				case "efx298":
+				case "efx299":
+				case "efx3":
+				case "efx30":
+				case "efx300":
+				case "efx301":
+				case "efx302":
+				case "efx303":
+				case "efx304":
+				case "efx305":
+				case "efx306":
+				case "efx307":
+				case "efx308":
+				case "efx309":
+				case "efx31":
+				case "efx310":
+				case "efx311":
+				case "efx312":
+				case "efx313":
+				case "efx314":
+				case "efx316":
+				case "efx317":
+				case "efx318":
+				case "efx319":
+				case "efx32":
+				case "efx320":
+				case "efx321":
+				case "efx322":
+				case "efx323":
+				case "efx324":
+				case "efx325":
+				case "efx326":
+				case "efx327":
+				case "efx328":
+				case "efx329":
+				case "efx33":
+				case "efx330":
+				case "efx331":
+				case "efx332":
+				case "efx333":
+				case "efx334":
+				case "efx335":
+				case "efx336":
+				case "efx337":
+				case "efx338":
+				case "efx339":
+				case "efx34":
+				case "efx340":
+				case "efx341":
+				case "efx342":
+				case "efx343":
+				case "efx344":
+				case "efx345":
+				case "efx346":
+				case "efx347":
+				case "efx348":
+				case "efx349":
+				case "efx35":
+				case "efx350":
+				case "efx351":
+				case "efx352":
+				case "efx353":
+				case "efx354":
+				case "efx355":
+				case "efx356":
+				case "efx357":
+				case "efx358":
+				case "efx359":
+				case "efx36":
+				case "efx360":
+				case "efx361":
+				case "efx362":
+				case "efx363":
+				case "efx364":
+				case "efx365":
+				case "efx366":
+				case "efx367":
+				case "efx368":
+				case "efx369":
+				case "efx37":
+				case "efx370":
+				case "efx371":
+				case "efx372":
+				case "efx373":
+				case "efx374":
+				case "efx375":
+				case "efx376":
+				case "efx377":
+				case "efx378":
+				case "efx379":
+				case "efx38":
+				case "efx380":
+				case "efx381":
+				case "efx382":
+				case "efx383":
+				case "efx384":
+				case "efx385":
+				case "efx386":
+				case "efx387":
+				case "efx388":
+				case "efx389":
+				case "efx39":
+				case "efx390":
+				case "efx391":
+				case "efx392":
+				case "efx393":
+				case "efx394":
+				case "efx395":
+				case "efx396":
+				case "efx397":
+				case "efx398":
+				case "efx399":
+				case "efx4":
+				case "efx40":
+				case "efx400":
+				case "efx401":
+				case "efx402":
+				case "efx404":
+				case "efx405":
+				case "efx406":
+				case "efx407":
+				case "efx408":
+				case "efx409":
+				case "efx41":
+				case "efx410":
+				case "efx411":
+				case "efx412":
+				case "efx413":
+				case "efx414":
+				case "efx415":
+				case "efx416":
+				case "efx417":
+				case "efx42":
+				case "efx43":
+				case "efx44":
+				case "efx45":
+				case "efx46":
+				case "efx47":
+				case "efx48":
+				case "efx49":
+				case "efx5":
+				case "efx50":
+				case "efx51":
+				case "efx52":
+				case "efx53":
+				case "efx54":
+				case "efx55":
+				case "efx56":
+				case "efx57":
+				case "efx58":
+				case "efx59":
+				case "efx6":
+				case "efx60":
+				case "efx61":
+				case "efx62":
+				case "efx63":
+				case "efx64":
+				case "efx65":
+				case "efx66":
+				case "efx67":
+				case "efx68":
+				case "efx69":
+				case "efx7":
+				case "efx70":
+				case "efx71":
+				case "efx72":
+				case "efx73":
+				case "efx74":
+				case "efx75":
+				case "efx76":
+				case "efx77":
+				case "efx78":
+				case "efx79":
+				case "efx8":
+				case "efx80":
+				case "efx81":
+				case "efx82":
+				case "efx83":
+				case "efx84":
+				case "efx85":
+				case "efx86":
+				case "efx87":
+				case "efx88":
+				case "efx89":
+				case "efx9":
+				case "efx90":
+				case "efx91":
+				case "efx92":
+				case "efx93":
+				case "efx94":
+				case "efx95":
+				case "efx96":
+				case "efx97":
+				case "efx98":
+				case "efx99": {
+					result = await getBuffer(`https://raw.githubusercontent.com/Sachu-Settan/Media/main/efx/${encodeURIComponent(command)}.mp3`)
+					await RoseMwol.sendMessage(m.chat, {
+						audio: result,
+						mimetype: 'audio/mp4',
+						ptt: true
+					}, {
+						quoted: m
+					})
+				}
+			break
+		case 'glitch3':
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			if (!q) return reply(`Use ${prefix + command} text|text`)
+			reply(mess.wait)
+			teks1 = q.split("|")[0]
+			teks2 = q.split("|")[1]
+			maker.textpro("https://textpro.me/create-glitch-text-effect-style-tik-tok-983.html", [
+					`${teks1}`, `${teks2}`
+				])
+				.then((data) => RoseMwol.sendMessage(m.chat, {
+					image: {
+						url: data
+					},
+					caption: `Made by ${global.botname}`
+				}, {
+					quoted: m
+				}))
+				.catch((err) => console.log(err));
+			break
+
+		case '3dbox':
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			if (!q) return reply(`Use ${prefix + command} text`)
+			reply(mess.wait)
+			maker.textpro("https://textpro.me/3d-box-text-effect-online-880.html", [
+					`${q}`,
+				])
+				.then((data) => RoseMwol.sendMessage(m.chat, {
+					image: {
+						url: data
+					},
+					caption: `Made by ${global.botname}`
+				}, {
+					quoted: m
+				}))
+				.catch((err) => console.log(err));
+			break
+
+
+		case 'waterdrop':
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			if (!q) return reply(`Use ${prefix + command} text`)
+			reply(mess.wait)
+			maker.textpro("https://textpro.me/dropwater-text-effect-872.html", [
+					`${q}`,
+				])
+				.then((data) => RoseMwol.sendMessage(m.chat, {
+					image: {
+						url: data
+					},
+					caption: `Made by ${global.botname}`
+				}, {
+					quoted: m
+				}))
+				.catch((err) => console.log(err));
+			break
+
+
+		case 'lion2':
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			if (!q) return reply(`Use ${prefix + command} text`)
+			reply(mess.wait)
+			maker.textpro("https://textpro.me/create-lion-logo-mascot-online-938.html", [
+					`${q}`,
+				])
+				.then((data) => RoseMwol.sendMessage(m.chat, {
+					image: {
+						url: data
+					},
+					caption: `Made by ${global.botname}`
+				}, {
+					quoted: m
+				}))
+				.catch((err) => console.log(err));
+			break
+
+
+		case 'papercut':
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			if (!q) return reply(`Use ${prefix + command} text`)
+			reply(mess.wait)
+			maker.textpro("https://textpro.me/create-art-paper-cut-text-effect-online-1022.html", [
+					`${q}`,
+				])
+				.then((data) => RoseMwol.sendMessage(m.chat, {
+					image: {
+						url: data
+					},
+					caption: `Made by ${global.botname}`
+				}, {
+					quoted: m
+				}))
+				.catch((err) => console.log(err));
+			break
+
+
+		case 'transformer':
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			if (!q) return reply(`Use ${prefix + command} text`)
+			reply(mess.wait)
+			maker.textpro("https://textpro.me/create-a-transformer-text-effect-online-1035.html", [
+					`${q}`,
+				])
+				.then((data) => RoseMwol.sendMessage(m.chat, {
+					image: {
+						url: data
+					},
+					caption: `Made by ${global.botname}`
+				}, {
+					quoted: m
+				}))
+				.catch((err) => console.log(err));
+			break
+
+
+		case 'harrypot':
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			if (!q) return reply(`Use ${prefix + command} text|text`)
+			reply(mess.wait)
+			teks1 = q.split("|")[0]
+			teks2 = q.split("|")[1]
+			maker.textpro("https://textpro.me/create-harry-potter-text-effect-online-1025.html", [
+					`${teks1}`, `${teks2}`
+				])
+				.then((data) => RoseMwol.sendMessage(m.chat, {
+					image: {
+						url: data
+					},
+					caption: `Made by ${global.botname}`
+				}, {
+					quoted: m
+				}))
+				.catch((err) => console.log(err));
+			break
+
+
+		case 'neondevil':
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			if (!q) return reply(`Use ${prefix + command} text`)
+			reply(mess.wait)
+			maker.textpro("https://textpro.me/create-neon-devil-wings-text-effect-online-free-1014.html", [
+					`${q}`,
+				])
+				.then((data) => RoseMwol.sendMessage(m.chat, {
+					image: {
+						url: data
+					},
+					caption: `Made by ${global.botname}`
+				}, {
+					quoted: m
+				}))
+				.catch((err) => console.log(err));
+			break
+
+
+		case '3dstone':
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			if (!q) return reply(`Use ${prefix + command} text`)
+			reply(mess.wait)
+			maker.textpro("https://textpro.me/3d-stone-cracked-cool-text-effect-1029.html", [
+					`${q}`,
+				])
+				.then((data) => RoseMwol.sendMessage(m.chat, {
+					image: {
+						url: data
+					},
+					caption: `Made by ${global.botname}`
+				}, {
+					quoted: m
+				}))
+				.catch((err) => console.log(err));
+			break
+
+
+		case '3davengers':
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			if (!q) return reply(`Use ${prefix + command} text`)
+			reply(mess.wait)
+			maker.textpro("https://textpro.me/create-3d-avengers-logo-online-974.html", [
+					`${q}`,
+				])
+				.then((data) => RoseMwol.sendMessage(m.chat, {
+					image: {
+						url: data
+					},
+					caption: `Made by ${global.botname}`
+				}, {
+					quoted: m
+				}))
+				.catch((err) => console.log(err));
+			break
+
+
+		case 'thunder':
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			if (!q) return reply(`Use ${prefix + command} text`)
+			reply(mess.wait)
+			maker.textpro("https://textpro.me/online-thunder-text-effect-generator-1031.html", [
+					`${q}`,
+				])
+				.then((data) => RoseMwol.sendMessage(m.chat, {
+					image: {
+						url: data
+					},
+					caption: `Made by ${global.botname}`
+				}, {
+					quoted: m
+				}))
+				.catch((err) => console.log(err));
+			break
+
+
+		case 'window':
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			if (!q) return reply(`Use ${prefix + command} text`)
+			reply(mess.wait)
+			maker.textpro("https://textpro.me/write-text-on-foggy-window-online-free-1015.html", [
+					`${q}`,
+				])
+				.then((data) => RoseMwol.sendMessage(m.chat, {
+					image: {
+						url: data
+					},
+					caption: `Made by ${global.botname}`
+				}, {
+					quoted: m
+				}))
+				.catch((err) => console.log(err));
+			break
+		case 'blackpinkneon':
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			if (!q) return reply(`Use ${prefix + command} text`)
+			reply(mess.wait)
+			maker.textpro("https://textpro.me/create-neon-light-blackpink-logo-text-effect-online-1081.html", [
+					`${q}`,
+				])
+				.then((data) => RoseMwol.sendMessage(m.chat, {
+					image: {
+						url: data
+					},
+					caption: `Made by ${global.botname}`
+				}, {
+					quoted: m
+				}))
+				.catch((err) => console.log(err));
+			break
+
+		case 'graffiti':
+		case 'grafiti':
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			if (!q) return reply(`Use ${prefix + command} text|text`)
+			reply(mess.wait)
+			teks1 = q.split("|")[0]
+			teks2 = q.split("|")[1]
+			maker.textpro("https://textpro.me/create-a-cool-graffiti-text-on-the-wall-1010.html", [
+					`${teks1}`, `${teks2}`
+				])
+				.then((data) => RoseMwol.sendMessage(m.chat, {
+					image: {
+						url: data
+					},
+					caption: `Made by ${global.botname}`
+				}, {
+					quoted: m
+				}))
+				.catch((err) => console.log(err));
+			break
+
+
+
+		case 'pornhub2':
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			if (!q) return reply(`Use ${prefix + command} text`)
+			reply(mess.wait)
+			teks1 = q.split("|")[0]
+			teks2 = q.split("|")[1]
+			maker.textpro("https://textpro.me/pornhub-style-logo-online-generator-free-977.html", [
+					`${teks1}`, `${teks2}`
+				])
+				.then((data) => RoseMwol.sendMessage(m.chat, {
+					image: {
+						url: data
+					},
+					caption: `Made by ${global.botname}`
+				}, {
+					quoted: m
+				}))
+				.catch((err) => console.log(err));
+			break
+
+
+
+		case 'blackpink2':
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			if (!q) return reply(`Use ${prefix + command} text`)
+			reply(mess.wait)
+			maker.textpro("https://textpro.me/create-blackpink-logo-style-online-1001.html", [
+					`${q}`,
+				])
+				.then((data) => RoseMwol.sendMessage(m.chat, {
+					image: {
+						url: data
+					},
+					caption: `Made by ${global.botname}`
+				}, {
+					quoted: m
+				}))
+				.catch((err) => console.log(err));
+			break
+
+		case 'glitch':
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			if (!q) return reply(`Use ${prefix + command} text`)
+			reply(mess.wait)
+			maker.textpro("https://textpro.me/create-impressive-glitch-text-effects-online-1027.html", [
+					`${q}`,
+				])
+				.then((data) => RoseMwol.sendMessage(m.chat, {
+					image: {
+						url: data
+					},
+					caption: `Made by ${global.botname}`
+				}, {
+					quoted: m
+				}))
+				.catch((err) => console.log(err));
+			break
+
+
+
+		case 'glitch2':
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			if (!q) return reply(`Use ${prefix + command} text|text`)
+			reply(mess.wait)
+			teks1 = q.split("|")[0]
+			teks2 = q.split("|")[1]
+			maker.textpro("https://textpro.me/create-a-glitch-text-effect-online-free-1026.html", [
+					`${teks1}`, `${teks2}`
+				])
+				.then((data) => RoseMwol.sendMessage(m.chat, {
+					image: {
+						url: data
+					},
+					caption: `Made by ${global.botname}`
+				}, {
+					quoted: m
+				}))
+				.catch((err) => console.log(err));
+			break
+
+
+
+		case 'glitch3':
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			if (!q) return reply(`Use ${prefix + command} text|text`)
+			reply(mess.wait)
+			teks1 = q.split("|")[0]
+			teks2 = q.split("|")[1]
+			maker.textpro("https://textpro.me/create-glitch-text-effect-style-tik-tok-983.html", [
+					`${teks1}`, `${teks2}`
+				])
+				.then((data) => RoseMwol.sendMessage(m.chat, {
+					image: {
+						url: data
+					},
+					caption: `Made by ${global.botname}`
+				}, {
+					quoted: m
+				}))
+				.catch((err) => console.log(err));
+			break
+
+
+
+		case '3dspace':
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			if (!q) return reply(`Use ${prefix + command} text|text`)
+			reply(mess.wait)
+			teks1 = q.split("|")[0]
+			teks2 = q.split("|")[1]
+			maker.textpro("https://textpro.me/create-space-3d-text-effect-online-985.html", [
+					`${teks1}`, `${teks2}`
+				])
+				.then((data) => RoseMwol.sendMessage(m.chat, {
+					image: {
+						url: data
+					},
+					caption: `Made by ${global.botname}`
+				}, {
+					quoted: m
+				}))
+				.catch((err) => console.log(err));
+			break
+
+
+
+		case 'lion':
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			if (!q) return reply(`Use ${prefix + command} text|text`)
+			reply(mess.wait)
+			teks1 = q.split("|")[0]
+			teks2 = q.split("|")[1]
+			maker.textpro("https://textpro.me/create-lion-logo-mascot-online-938.html", [
+					`${teks1}`, `${teks2}`
+				])
+				.then((data) => RoseMwol.sendMessage(m.chat, {
+					image: {
+						url: data
+					},
+					caption: `Made by ${global.botname}`
+				}, {
+					quoted: m
+				}))
+				.catch((err) => console.log(err));
+			break
+
+
+
+		case '3dneon':
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			if (!q) return reply(`Use ${prefix + command} text`)
+			reply(mess.wait)
+			maker.textpro("https://textpro.me/create-3d-neon-light-text-effect-online-1028.html", [
+					`${q}`,
+				])
+				.then((data) => RoseMwol.sendMessage(m.chat, {
+					image: {
+						url: data
+					},
+					caption: `Made by ${global.botname}`
+				}, {
+					quoted: m
+				}))
+				.catch((err) => console.log(err));
+			break
+
+
+
+		case 'neon':
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			if (!q) return reply(`Use ${prefix + command} text`)
+			reply(mess.wait)
+			maker.textpro("https://textpro.me/neon-text-effect-online-879.html", [
+					`${q}`,
+				])
+				.then((data) => RoseMwol.sendMessage(m.chat, {
+					image: {
+						url: data
+					},
+					caption: `Made by ${global.botname}`
+				}, {
+					quoted: m
+				}))
+				.catch((err) => console.log(err));
+			break
+		case 'greenneon':
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			if (!q) return reply(`Use ${prefix + command} text`)
+			reply(mess.wait)
+			maker.textpro("https://textpro.me/green-neon-text-effect-874.html", [
+					`${q}`,
+				])
+				.then((data) => RoseMwol.sendMessage(m.chat, {
+					image: {
+						url: data
+					},
+					caption: `Made by ${global.botname}`
+				}, {
+					quoted: m
+				}))
+				.catch((err) => console.log(err));
+			break
+		case 'bokeh':
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			if (!q) return reply(`Use ${prefix + command} text`)
+			reply(mess.wait)
+			maker.textpro("https://textpro.me/bokeh-text-effect-876.html", [
+					`${q}`,
+				])
+				.then((data) => RoseMwol.sendMessage(m.chat, {
+					image: {
+						url: data
+					},
+					caption: `Made by ${global.botname}`
+				}, {
+					quoted: m
+				}))
+				.catch((err) => console.log(err));
+			break
+		case 'holographic':
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			if (!q) return reply(`Use ${prefix + command} text`)
+			reply(mess.wait)
+			maker.textpro("https://textpro.me/holographic-3d-text-effect-975.html", [
+					`${q}`,
+				])
+				.then((data) => RoseMwol.sendMessage(m.chat, {
+					image: {
+						url: data
+					},
+					caption: `Made by ${global.botname}`
+				}, {
+					quoted: m
+				}))
+				.catch((err) => console.log(err));
+			break
+
+		case 'bear':
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			if (!q) return reply(`Use ${prefix + command} text`)
+			reply(mess.wait)
+			teks1 = q.split("|")[0]
+			teks2 = q.split("|")[1]
+			maker.textpro("https://textpro.me/online-black-and-white-bear-mascot-logo-creation-1012.html", [
+					`${teks1}`, `${teks2}`
+				])
+				.then((data) => RoseMwol.sendMessage(m.chat, {
+					image: {
+						url: data
+					},
+					caption: `Made by ${global.botname}`
+				}, {
+					quoted: m
+				}))
+				.catch((err) => console.log(err));
+			break
+
+		case 'wolf':
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			if (!q) return reply(`Use ${prefix + command} text`)
+			reply(mess.wait)
+			teks1 = q.split("|")[0]
+			teks2 = q.split("|")[1]
+			maker.textpro("https://textpro.me/create-wolf-logo-galaxy-online-936.html", [
+					`${teks1}`, `${teks2}`
+				])
+				.then((data) => RoseMwol.sendMessage(m.chat, {
+					image: {
+						url: data
+					},
+					caption: `Made by ${global.botname}`
+				}, {
+					quoted: m
+				}))
+				.catch((err) => console.log(err));
+			break
+
+		case 'joker':
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			if (!q) return reply(`Use ${prefix + command} text`)
+			reply(mess.wait)
+			maker.textpro("https://textpro.me/create-logo-joker-online-934.html", [
+					`${q}`,
+				])
+				.then((data) => RoseMwol.sendMessage(m.chat, {
+					image: {
+						url: data
+					},
+					caption: `Made by ${global.botname}`
+				}, {
+					quoted: m
+				}))
+				.catch((err) => console.log(err));
+			break
+
+		case 'dropwater2':
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			if (!q) return reply(`Use ${prefix + command} text`)
+			reply(mess.wait)
+			maker.textpro("https://textpro.me/dropwater-text-effect-872.html", [
+					`${q}`,
+				])
+				.then((data) => RoseMwol.sendMessage(m.chat, {
+					image: {
+						url: data
+					},
+					caption: `Made by ${global.botname}`
+				}, {
+					quoted: m
+				}))
+				.catch((err) => console.log(err));
+			break
+
+		case 'summertime':
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			if (!q) return reply(`Use ${prefix + command} text`)
+			reply(mess.wait)
+			maker.textpro("https://textpro.me/create-a-summer-neon-light-text-effect-online-1076.html", [
+					`${q}`,
+				])
+				.then((data) => RoseMwol.sendMessage(m.chat, {
+					image: {
+						url: data
+					},
+					caption: `Made by ${global.botname}`
+				}, {
+					quoted: m
+				}))
+				.catch((err) => console.log(err));
+			break
+
+		case 'neonlight2':
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			if (!q) return reply(`Use ${prefix + command} text`)
+			reply(mess.wait)
+			maker.textpro("https://textpro.me/neon-light-text-effect-with-galaxy-style-981.html", [
+					`${q}`,
+				])
+				.then((data) => RoseMwol.sendMessage(m.chat, {
+					image: {
+						url: data
+					},
+					caption: `Made by ${global.botname}`
+				}, {
+					quoted: m
+				}))
+				.catch((err) => console.log(err));
+			break
+
+		case 'thewall':
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			if (!q) return reply(`Use ${prefix + command} text`)
+			reply(mess.wait)
+			maker.textpro("https://textpro.me/break-wall-text-effect-871.html", [
+					`${q}`,
+				])
+				.then((data) => RoseMwol.sendMessage(m.chat, {
+					image: {
+						url: data
+					},
+					caption: `Made by ${global.botname}`
+				}, {
+					quoted: m
+				}))
+				.catch((err) => console.log(err));
+			break
+
+		case 'natural':
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			if (!q) return reply(`Use ${prefix + command} text`)
+			reply(mess.wait)
+			maker.textpro("https://textpro.me/natural-leaves-text-effect-931.html", [
+					`${q}`,
+				])
+				.then((data) => RoseMwol.sendMessage(m.chat, {
+					image: {
+						url: data
+					},
+					caption: `Made by ${global.botname}`
+				}, {
+					quoted: m
+				}))
+				.catch((err) => console.log(err));
+			break
+
+		case 'carbon':
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			if (!q) return reply(`Use ${prefix + command} text`)
+			reply(mess.wait)
+			maker.textpro("https://textpro.me/carbon-text-effect-833.html", [
+					`${q}`,
+				])
+				.then((data) => RoseMwol.sendMessage(m.chat, {
+					image: {
+						url: data
+					},
+					caption: `Made by ${global.botname}`
+				}, {
+					quoted: m
+				}))
+				.catch((err) => console.log(err));
+			break
+
+		case 'pencil':
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			if (!q) return reply(`Use ${prefix + command} text`)
+			reply(mess.wait)
+			maker.textpro("https://textpro.me/create-a-sketch-text-effect-online-1044.html", [
+					`${q}`,
+				])
+				.then((data) => RoseMwol.sendMessage(m.chat, {
+					image: {
+						url: data
+					},
+					caption: `Made by ${global.botname}`
+				}, {
+					quoted: m
+				}))
+				.catch((err) => console.log(err));
+			break
+
+		case 'candy':
+		case 'christmas':
+		case '3dchristmas':
+		case 'sparklechristmas':
+		case 'deepsea':
+		case 'scifi':
+		case 'rainbow2':
+		case 'waterpipe':
+		case 'spooky':
+		case 'pencil':
+		case 'circuit':
+		case 'discovery':
+		case 'metalic':
+		case 'fiction':
+		case 'demon':
+		case 'transformer':
+		case 'berry':
+		case 'thunder':
+		case '.':
+		case '3dstone2':
+		case 'neonlight':
+		case 'glitch':
+		case 'harrypotter':
+		case 'brokenglass':
+		case 'papercut':
+		case 'watercolor':
+		case 'multicolor':
+		case 'neondevil':
+		case 'underwater':
+		case 'graffitibike':
+		case 'snow':
+		case 'cloud':
+		case 'honey':
+		case 'ice':
+		case 'fruitjuice':
+		case 'biscuit':
+		case 'wood':
+		case 'chocolate':
+		case 'strawberry':
+		case 'matrix':
+		case 'blood':
+		case 'dropwater':
+		case 'toxic':
+		case 'lava':
+		case 'rock':
+		case 'bloodglas':
+		case 'halloween':
+		case 'darkgold':
+		case 'joker':
+		case 'wicker':
+		case 'firework':
+		case 'skeleton':
+		case 'blackpink':
+		case 'sand':
+		case 'glue':
+		case '1917':
+		case 'leaves':
+		case 'demon': {
+			if (!q) return reply(`Example : ${prefix + command} ${global.ownername}`)
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			reply(mess.wait)
+			let link
+			if (/candy/.test(command)) link = 'https://textpro.me/create-christmas-candy-cane-text-effect-1056.html'
+			if (/christmas/.test(command)) link = 'https://textpro.me/christmas-tree-text-effect-online-free-1057.html'
+			if (/3dchristmas/.test(command)) link = 'https://textpro.me/3d-christmas-text-effect-by-name-1055.html'
+			if (/sparklechristmas/.test(command)) link = 'https://textpro.me/sparkles-merry-christmas-text-effect-1054.html'
+			if (/deepsea/.test(command)) link = 'https://textpro.me/create-3d-deep-sea-metal-text-effect-online-1053.html'
+			if (/scifi/.test(command)) link = 'https://textpro.me/create-3d-sci-fi-text-effect-online-1050.html'
+			if (/rainbow/.test(command)) link = 'https://textpro.me/3d-rainbow-color-calligraphy-text-effect-1049.html'
+			if (/waterpipe/.test(command)) link = 'https://textpro.me/create-3d-water-pipe-text-effects-online-1048.html'
+			if (/spooky/.test(command)) link = 'https://textpro.me/create-halloween-skeleton-text-effect-online-1047.html'
+			if (/pencil/.test(command)) link = 'https://textpro.me/create-a-sketch-text-effect-online-1044.html'
+			if (/circuit/.test(command)) link = 'https://textpro.me/create-blue-circuit-style-text-effect-online-1043.html'
+			if (/discovery/.test(command)) link = 'https://textpro.me/create-space-text-effects-online-free-1042.html'
+			if (/metalic/.test(command)) link = 'https://textpro.me/creat-glossy-metalic-text-effect-free-online-1040.html'
+			if (/fiction/.test(command)) link = 'https://textpro.me/create-science-fiction-text-effect-online-free-1038.html'
+			if (/demon/.test(command)) link = 'https://textpro.me/create-green-horror-style-text-effect-online-1036.html'
+			if (/transformer/.test(command)) link = 'https://textpro.me/create-a-transformer-text-effect-online-1035.html'
+			if (/berry/.test(command)) link = 'https://textpro.me/create-berry-text-effect-online-free-1033.html'
+			if (/thunder/.test(command)) link = 'https://textpro.me/online-thunder-text-effect-generator-1031.html'
+			if (/magma/.test(command)) link = 'https://textpro.me/create-a-magma-hot-text-effect-online-1030.html'
+			if (/3dstone2/.test(command)) link = 'https://textpro.me/create-a-3d-stone-text-effect-online-for-free-1073.html'
+			if (/neonlight/.test(command)) link = 'https://textpro.me/create-3d-neon-light-text-effect-online-1028.html'
+			if (/glitch/.test(command)) link = 'https://textpro.me/create-impressive-glitch-text-effects-online-1027.html'
+			if (/harrypotter/.test(command)) link = 'https://textpro.me/create-harry-potter-text-effect-online-1025.html'
+			if (/brokenglass/.test(command)) link = 'https://textpro.me/broken-glass-text-effect-free-online-1023.html'
+			if (/papercut/.test(command)) link = 'https://textpro.me/create-art-paper-cut-text-effect-online-1022.html'
+			if (/watercolor/.test(command)) link = 'https://textpro.me/create-a-free-online-watercolor-text-effect-1017.html'
+			if (/multicolor/.test(command)) link = 'https://textpro.me/online-multicolor-3d-paper-cut-text-effect-1016.html'
+			if (/neondevil/.test(command)) link = 'https://textpro.me/create-neon-devil-wings-text-effect-online-free-1014.html'
+			if (/underwater/.test(command)) link = 'https://textpro.me/3d-underwater-text-effect-generator-online-1013.html'
+			if (/graffitibike/.test(command)) link = 'https://textpro.me/create-wonderful-graffiti-art-text-effect-1011.html'
+			if (/snow/.test(command)) link = 'https://textpro.me/create-snow-text-effects-for-winter-holidays-1005.html'
+			if (/cloud/.test(command)) link = 'https://textpro.me/create-a-cloud-text-effect-on-the-sky-online-1004.html'
+			if (/honey/.test(command)) link = 'https://textpro.me/honey-text-effect-868.html'
+			if (/ice/.test(command)) link = 'https://textpro.me/ice-cold-text-effect-862.html'
+			if (/fruitjuice/.test(command)) link = 'https://textpro.me/fruit-juice-text-effect-861.html'
+			if (/biscuit/.test(command)) link = 'https://textpro.me/biscuit-text-effect-858.html'
+			if (/wood/.test(command)) link = 'https://textpro.me/wood-text-effect-856.html'
+			if (/chocolate/.test(command)) link = 'https://textpro.me/chocolate-cake-text-effect-890.html'
+			if (/strawberry/.test(command)) link = 'https://textpro.me/strawberry-text-effect-online-889.html'
+			if (/matrix/.test(command)) link = 'https://textpro.me/matrix-style-text-effect-online-884.html'
+			if (/blood/.test(command)) link = 'https://textpro.me/horror-blood-text-effect-online-883.html'
+			if (/dropwater/.test(command)) link = 'https://textpro.me/dropwater-text-effect-872.html'
+			if (/toxic/.test(command)) link = 'https://textpro.me/toxic-text-effect-online-901.html'
+			if (/lava/.test(command)) link = 'https://textpro.me/lava-text-effect-online-914.html'
+			if (/rock/.test(command)) link = 'https://textpro.me/rock-text-effect-online-915.html'
+			if (/bloodglas/.test(command)) link = 'https://textpro.me/blood-text-on-the-frosted-glass-941.html'
+			if (/halloween/.test(command)) link = 'https://textpro.me/halloween-fire-text-effect-940.html'
+			if (/darkgold/.test(command)) link = 'https://textpro.me/metal-dark-gold-text-effect-online-939.html'
+			if (/joker/.test(command)) link = 'https://textpro.me/create-logo-joker-online-934.html'
+			if (/wicker/.test(command)) link = 'https://textpro.me/wicker-text-effect-online-932.html'
+			if (/firework/.test(command)) link = 'https://textpro.me/firework-sparkle-text-effect-930.html'
+			if (/skeleton/.test(command)) link = 'https://textpro.me/skeleton-text-effect-online-929.html'
+			if (/blackpink/.test(command)) link = 'https://textpro.me/create-blackpink-logo-style-online-1001.html'
+			if (/sand/.test(command)) link = 'https://textpro.me/write-in-sand-summer-beach-free-online-991.html'
+			if (/glue/.test(command)) link = 'https://textpro.me/create-3d-glue-text-effect-with-realistic-style-986.html'
+			if (/1917/.test(command)) link = 'https://textpro.me/1917-style-text-effect-online-980.html'
+			if (/leaves/.test(command)) link = 'https://textpro.me/natural-leaves-text-effect-931.html'
+			let anu = await maker.textpro(link, q)
+			RoseMwol.sendMessage(m.chat, {
+				image: {
+					url: anu
+				},
+				caption: `Made by ${global.botname}`
+			}, {
+				quoted: m
+			})
+		}
+		break
+
+		case 'textmaker': {
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			if (args.length < 1) return reply(`Example :\n${prefix + command} <name>`)
+			if (args[0] === 'glitch') {
+				if (args.length < 2) return reply(`Example :\n${prefix + command + ' ' + args[0]} ${global.ownername}`)
+				let teds = await thiccysapi.textpro("https://textpro.me/create-impressive-glitch-text-effects-online-1027.html", [args[1]])
+				RoseMwol.sendMessage(from, {
+					image: {
+						url: teds
+					},
+					caption: "Done!"
+				}, {
+					quoted: m
+				})
+			} else if (args[0] === 'glow') {
+				if (args.length < 2) return reply(`Example :\n${prefix + command + ' ' + args[0]} ${global.ownername}`)
+				let teds = await thiccysapi.textpro("https://textpro.me/create-light-glow-sliced-text-effect-online-1068.html", [args[1]])
+				RoseMwol.sendMessage(from, {
+					image: {
+						url: teds
+					},
+					caption: "Done!"
+				}, {
+					quoted: m
+				})
+			} else {
+				reply(`*Text Maker List :*\n•> glitch\n•> glow`)
+			}
 		}
 		break
 		//logo maker
@@ -2388,23 +7972,7 @@ https://chat.whatsapp.com/EcycNbJFCVT5ZsG9xIGkqd`)
 			})
 		}
 		break
-		case 'joker': {
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			let link = `https://textpro.me/create-logo-joker-online-934.html`
-			let anui = await textpro(link, q)
-			reply(`Wait a moment while making the logo about 1 minute`)
-			console.log(anui)
-			RoseMwol.sendMessage(from, {
-				image: {
-					url: anui
-				},
-				caption: "Here you go!"
-			}, {
-				quoted: m
-			})
-		}
-		break
+
 		case 'magma': {
 			if (isBan) return reply(mess.ban)
 			if (isBanChat) return reply(mess.banChat)
@@ -3050,4438 +8618,6 @@ https://chat.whatsapp.com/EcycNbJFCVT5ZsG9xIGkqd`)
 			})
 		}
 		break
-		case 'textmaker': {
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			if (args.length < 1) return reply(`Example :\n${prefix + command} <name>`)
-			if (args[0] === 'glitch') {
-				if (args.length < 2) return reply(`Example :\n${prefix + command + ' ' + args[0]} ${ownername}`)
-				let teds = await thiccysapi.textpro("https://textpro.me/create-impressive-glitch-text-effects-online-1027.html", [args[1]])
-				RoseMwol.sendMessage(from, {
-					image: {
-						url: teds
-					},
-					caption: "Here you go!"
-				}, {
-					quoted: m
-				})
-			} else if (args[0] === 'glow') {
-				if (args.length < 2) return reply(`Example :\n${prefix + command + ' ' + args[0]} ${ownername}`)
-				let teds = await thiccysapi.textpro("https://textpro.me/create-light-glow-sliced-text-effect-online-1068.html", [args[1]])
-				RoseMwol.sendMessage(from, {
-					image: {
-						url: teds
-					},
-					caption: "Here you go!"
-				}, {
-					quoted: m
-				})
-			} else {
-				reply(`*Text Maker List :*\n•> glitch\n•> glow`)
-			}
-		}
-		break
-		case 'limituser':
-		case 'userlimit':
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat) 
-			{
-				let txt = `「 *ALL USER LIMIT* 」\n\n`
-				for (let i of _limit) {
-					txt += `➸ *ID :* @${i.id.split("@")[0]}\n➸ *Limit* : ${i.limit}\n`
-				}
-				reply(txt)
-			}
-			break
-		case 'leaderboard':
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat) 
-			{
-				let txt = `「 *LEADERBOARD* 」\n\n`
-				for (let i of _buruan) {
-					txt += `➸ *ID :* ${i.id}\n`
-					txt += `*🐟Fish* : ${i.ikan}\n`
-					txt += `*🐔Chicken* : ${i.ayam}\n`
-					txt += `*🐇Rabbit* : ${i.kelinci}\n`
-					txt += `*🐑Sheep* : ${i.domba}\n`
-					txt += `*🐄Cow* : ${i.sapi}\n`
-					txt += `*🐘Elephant* : ${i.gajah}\n\n`
-				}
-				reply(txt)
-			}
-			break
-		case 'fishing':
-		case 'fishing': {
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			if (!isInventoriBuruan) {
-				addInventoriBuruan(m.sender)
-			}
-			if (isUmpan < 1) return reply('Your bait is running out!, try hunting and turning the meat into bait')
-			reply("1 bait used")
-			var ikannya = ikan[Math.floor(Math.random() * ikan.length)]
-			var ditangkap = Math.ceil(Math.random() * 20)
-			setTimeout(() => {
-				let caption = `Catch : ${ikannya}\n> Number of catches : ${ditangkap}`
-				let buttons = [{
-					buttonId: `${prefix + command}`,
-					buttonText: {
-						displayText: 'Fish Again🎣'
-					},
-					type: 1
-				}, ]
-				let buttonMessage = {
-					image: {
-						url: './storage/image/fishing.jpg'
-					},
-					caption: caption,
-					footer: botname,
-					buttons: buttons,
-					headerType: 4
-				}
-				RoseMwol.sendMessage(from, buttonMessage, {
-					quoted: m
-				})
-
-			}, 7000)
-			setTimeout(() => {
-				reply(`@${m.sender.split("@")[0]} Started fishing🎣`)
-			}, 1500)
-			kurangUmpan(m.sender, 1)
-			addIkan(m.sender, ditangkap)
-		}
-		break
-		case 'blood': {
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			if (!isDarah) {
-				addInventoriDarah(m.sender, DarahAwal)
-			}
-			let dapat = getDarah(m.sender)
-			reply(`${dapat}`)
-		}
-		break
-		case 'stab': {
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			if (isCekDarah < 1) return reply('Your blood is gone')
-			kurangDarah(m.sender, 7)
-			reply('Already stabbed')
-		}
-		break
-		case 'mining':
-		case 'mine': {
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			if (!isInventory) {
-				addInventori(m.sender)
-			}
-			if (isCekDarah < 1) return reply(`You're exhausted!, try healing using potions`)
-			let besi = [1, 2, 5, 0, 3, 0, 1, 1, 4, 1, 5, 0, 0]
-			let emas = [0, 1, 2, 3, 0, 0, 0, 1, 1, 0, 0, 2]
-			let emerald = [0, 0, 1, 0, 0, 1, 0, 2, 1, 0, 0, 1]
-			var besinya = besi[Math.floor(Math.random() * besi.length)]
-			var emasnya = emas[Math.floor(Math.random() * emas.length)]
-			var emeraldnya = emerald[Math.floor(Math.random() * emerald.length)]
-			setTimeout(() => {
-				let caption = `[ MINING RESULT ]\n*Iron* : ${besinya}\n*Gold* : ${emasnya}\n*Emerald* : ${emeraldnya}`
-				let buttons = [{
-					buttonId: `${prefix + command}`,
-					buttonText: {
-						displayText: 'Mine again⛏️'
-					},
-					type: 1
-				}, ]
-				let buttonMessage = {
-					image: {
-						url: './storage/image/mine.jpg'
-					},
-					caption: caption,
-					footer: pushname,
-					buttons: buttons,
-					headerType: 4
-				}
-				RoseMwol.sendMessage(from, buttonMessage, {
-					quoted: m
-				})
-
-			}, 7000)
-			setTimeout(() => {
-				reply(`*${pushname}* Started mining🎣`)
-			}, 1500)
-			kurangDarah(m.sender, 10)
-			addBesi(m.sender, besinya)
-			addEmas(m.sended, emasnya)
-			addEmerald(m.sender, emeraldnya)
-		}
-		break
-		case 'beli':
-		case 'buy': {
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			if (!isInventoriBuruan) {
-				addInventoriBuruan(m.sender)
-			}
-			if (!isInventoryMonay) {
-				addInventoriMonay(m.sender)
-			}
-			if (!isInventory) {
-				addInventori(m.sender)
-			}
-			if (!q) return reply('What do you want to buy?')
-			var anu = args[1]
-			if (args[0] === 'potion') {
-				let noh = 100000 * anu
-				if (!args[1]) return reply(`Example : ${prefix + command} potion 2\n 1 potion = 100000 money`)
-				if (isMonay < noh) return reply('Your remaining money is not sufficient for this purchase')
-				kurangMonay(m.sender, noh)
-				var apalu = anu * 1
-				addPotion(m.sender, apalu)
-				setTimeout(() => {
-					reply(`Transaction successful ✔️\n*The rest of your money* : ${getMonay(m.sender)}\n*Your potion* : ${getPotion(m.sender)}`)
-				}, 2000)
-			} else
-			if (args[0] === 'bait') {
-				let noh = 5000 * anu
-				if (!args[1]) return reply(`Example : ${prefix + command} bait 2\n 1 bait = 2500 money`)
-				if (isMonay < noh) return reply('Your remaining money is not sufficient for this purchase')
-				kurangMonay(m.sender, noh)
-				var apalu = anu * 1
-				addUmpan(m.sender, apalu)
-				setTimeout(() => {
-					reply(`Transaction successful ✔️\n*The rest of your money* : ${getMonay(m.sender)}\n*Your bait* : ${getUmpan(m.sender)}`)
-				}, 2000)
-			} else
-			if (args[0] === 'limit') {
-				let noh = 35000 * anu
-				if (!args[1]) return reply(`Example : ${prefix + command} limit 2\n 1 limit = 35000 money`)
-				if (isMonay < noh) return reply('Your remaining money is not sufficient for this purchase')
-				kurangMonay(m.sender, noh)
-				var apalu = anu * 1
-				addLimit(m.sender, apalu)
-				setTimeout(() => {
-					reply(`Transaction successful ✔️\n*The rest of your money* : ${getMonay(m.sender)}\n*Your limit* : ${getLimit(m.sender)}`)
-				}, 2000)
-			} else {
-				reply("Incorrect format!")
-			}
-		}
-		break
-		case 'sell':
-		case 'jual': {
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			if (!q) return reply(`What do you want to sell??\nExample : ${prefix + command} fish 2`)
-			if (!isInventoriBuruan) {
-				addInventoriBuruan(m.sender)
-			}
-			if (!isInventoryMonay) {
-				addInventoriMonay(m.sender)
-			}
-			if (!isInventory) {
-				addInventori(m.sender)
-			}
-			var anu = args[1]
-			if (args[0] === 'fish') {
-				if (isIkan < anu) return reply('Your fish is not enough for this transaction')
-				if (!args[1]) return reply(`Example : ${prefix + command} fish 2\n 1 fish = 1500 money`)
-				kurangIkan(m.sender, anu)
-				let monaynya = 1500 * anu
-				addMonay(m.sender, monaynya)
-				setTimeout(() => {
-					reply(`Transaction successful ✔️\n*Your money* : ${getMonay(m.sender)}\n*Your leftover fish* : ${getIkan(m.sender)}`)
-				}, 2000)
-			} else
-			if (args[0] === 'chicken') {
-				if (isAyam < anu) return reply('Your chicken is not enough for this transaction')
-				if (!args[1]) return reply(`Example : ${prefix + command} chicken 2\n 1 chicken = 2500 money`)
-				kurangAyam(m.sender, anu)
-				let monaynya = 2500 * anu
-				addMonay(m.sender, monaynya)
-				setTimeout(() => {
-					reply(`Transaction successful ✔️\n*Your money* : ${getMonay(m.sender)}\n*Leftover Chicken* : ${getAyam(m.sender)}`)
-				}, 2000)
-			} else
-			if (args[0] === 'rabbit') {
-				if (isKelinci < anu) return reply('Your rabbit is not enough for this transaction')
-				if (!args[1]) return reply(`Example : ${prefix + command} rabbit 2\n 1 rabbit = 3000 money`)
-				kurangKelinci(m.sender, anu)
-				let monaynya = 3000 * anu
-				addMonay(m.sender, monaynya)
-				setTimeout(() => {
-					reply(`Transaction successful ✔️\n*Your money* : ${getMonay(m.sender)}\n*The rest of your rabbit* : ${getKelinci(m.sender)}`)
-				}, 2000)
-			} else
-			if (args[0] === 'sheep') {
-				if (isDomba < anu) return reply(`You don't have enough sheep for this transaction`)
-				if (!args[1]) return reply(`Example : ${prefix + command} domba 2\n 1 sheep = 5000 money`)
-				kurangDomba(m.sender, anu)
-				let monaynya = 5000 * anu
-				addMonay(m.sender, monaynya)
-				setTimeout(() => {
-					reply(`Transaction successful ✔️\n*Your money* : ${getMonay(m.sender)}\n*Leftover Sheep* : ${getDomba(m.sender)}`)
-				}, 2000)
-			} else
-			if (args[0] === 'cow') {
-				if (isSapi < anu) return reply('Your cow is not enough for this transaction')
-				if (!args[1]) return reply(`Example : ${prefix + command} cow 2\n 1 cow = 10000 money`)
-				kurangSapi(m.sender, anu)
-				let monaynya = 10000 * anu
-				addMonay(m.sender, monaynya)
-				setTimeout(() => {
-					reply(`Transaction successful ✔️\n*Your monay* : ${getMonay(m.sender)}\n*The rest of your cow* : ${getSapi(m.sender)}`)
-				}, 2000)
-			} else
-			if (args[0] === 'elephant') {
-				if (isGajah < anu) return reply('Your elephant is not enough for this transaction')
-				if (!args[1]) return reply(`Example : ${prefix + command} elephant 2\n 1 elephant = 15000 money`)
-				kurangGajah(m.sender, anu)
-				let monaynya = 15000 * anu
-				addMonay(m.sender, monaynya)
-				setTimeout(() => {
-					reply(`Transaction successful ✔️\n*Your money* : ${getMonay(m.sender)}\n*The rest of your elephant* : ${getGajah(m.sender)}`)
-				}, 2000)
-			} else
-			if (args[0] === 'iron') {
-				if (isBesi < anu) return reply('Your iron is not enough for this transaction')
-				if (!args[1]) return reply(`Example : ${prefix + command} iron 2\n 1 iron = 15000 money`)
-				kurangBesi(m.sender, anu)
-				let monaynya = 16000 * anu
-				addMonay(m.sender, monaynya)
-				setTimeout(() => {
-					reply(`Transaction successful ✔️\n*Your money* : ${getMonay(m.sender)}\n*Your remaining iron* : ${getBesi(m.sender)}`)
-				}, 2000)
-			} else
-			if (args[0] === 'gold') {
-				if (isEmas < anu) return reply('Your iron is not enough for this transaction')
-				if (!args[1]) return reply(`Example : ${prefix + command} gold 2\n 1 gold = 50000 money`)
-				kurangEmas(m.sender, anu)
-				let monaynya = 50000 * anu
-				addMonay(m.sender, monaynya)
-				setTimeout(() => {
-					reply(`Transaction successful ✔️\n*Your money* : ${getMonay(m.sender)}\n*Your remaining gold* : ${getEmas(m.sender)}`)
-				}, 2000)
-			} else
-			if (args[0] === 'emerald') {
-				if (isEmerald < anu) return reply('Your iron is not enough for this transaction')
-				if (!args[1]) return reply(`Example : ${prefix + command} emerald 2\n 1 emerald = 100000 money`)
-				kurangEmerald(m.sender, anu)
-				let monaynya = 100000 * anu
-				addMonay(m.sender, monaynya)
-				setTimeout(() => {
-					reply(`Transaction successful ✔️\n*Your money* : ${getMonay(m.sender)}\n*The rest of your emerald* : ${getEmerald(m.sender)}`)
-				}, 2000)
-			} else {
-				reply("Incorrect format!")
-			}
-
-		}
-		break
-
-		case 'heal': {
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			if (!isCekDarah < 1) return reply('You can only heal when your blood is 0')
-			if (isCekDarah > 100) return reply('Your blood is full')
-			if (isPotion < 1) return reply('You have no potions, try to buy by #buy potion _amount_')
-			addDarah(m.sender, 100)
-			kurangPotion(m.sender, 1)
-			reply('It worked, your blood is full')
-		}
-		break
-		case 'hunt':
-		case 'hunting': {
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			if (!isDarah) {
-				addInventoriDarah(m.sender, DarahAwal)
-			}
-			if (isCekDarah < 1) return reply('Your blood runs out, try to heal using potions')
-			if (!isInventoriBuruan) {
-				addInventoriBuruan(m.sender)
-			}
-			let luka = ["Pierced by a thorn while hunting", "Slipped into the abyss while hunting", "Scratched by a wild animal", "Not careful", "Entangled in roots", "Fall while hunting"]
-			let location = ["Jungle", "Amazon Forest", "Tropical Forest", "Meadow", "African Forest", "Mountains"]
-			var ikanmu = Math.ceil(Math.random() * 10)
-			var ayam = Math.ceil(Math.random() * 8)
-			var kelinci = Math.ceil(Math.random() * 7)
-			var dombanya = [3, 0, 4, 0, 5, 4, 6, 0, 1, 0, 2, 3, 0, 3, 0, 1]
-			var sapinya = [2, 0, 3, 0, 4, 0, 5, 0, 1, 0, 2, 0, 3, 0, 1]
-			var gajahnya = [1, 0, 4, 0, 2, 0, 1, 0, 2, 1, 3, 0, 1]
-			var domba = dombanya[Math.floor(Math.random() * dombanya.length)]
-			var sapi = sapinya[Math.floor(Math.random() * sapinya.length)]
-			var gajah = gajahnya[Math.floor(Math.random() * gajahnya.length)]
-			var lukanya = luka[Math.floor(Math.random() * luka.length)]
-			var lokasinya = location[Math.floor(Math.random() * location.length)]
-			if (lokasinya === 'Jungle') {
-				var image = './storage/image/jungle.jpg'
-			} else
-			if (lokasinya === 'Amazon Forest') {
-				var image = './storage/image/amazon.jpg'
-			} else
-			if (lokasinya === 'Tropical Forest') {
-				var image = './storage/image/tropical.jpg'
-			} else
-			if (lokasinya === 'Meadow') {
-				var image = './storage/image/meadow.jpg'
-			} else
-			if (lokasinya === 'African Forest') {
-				var image = './storage/image/africa.jpg'
-			} else
-			if (lokasinya === 'Mountains') {
-				var image = './storage/image/mountain.jpg'
-			}
-			setTimeout(() => {
-				let teksehmazeh = `_[ HUNT RESULT ]_\n`
-				teksehmazeh += `*🐟Fish* : ${ikanmu}\n`
-				teksehmazeh += `*🐔Chicken* : ${ayam}\n`
-				teksehmazeh += `*🐇Rabbit* : ${kelinci}\n`
-				teksehmazeh += `*🐑Sheep* : ${domba}\n`
-				teksehmazeh += `*🐄Cow* : ${sapi}\n`
-				teksehmazeh += `*🐘Elephant* : ${gajah}\n\n`
-				teksehmazeh += `_[ INFO ]_\n`
-				teksehmazeh += `*Location* : ${lokasinya}\n`
-				teksehmazeh += `*Wounded* : ${lukanya}, darah - 10\n`
-				teksehmazeh += `*Remaining blood* : ${getDarah(m.sender)}\n`
-				let buttons = [{
-					buttonId: `${prefix + command}`,
-					buttonText: {
-						displayText: 'Hunt Again🏹'
-					},
-					type: 1
-				}, ]
-				let buttonMessage = {
-					image: {
-						url: image
-					},
-					caption: teksehmazeh,
-					footer: pushname,
-					buttons: buttons,
-					headerType: 4
-				}
-				RoseMwol.sendMessage(from, buttonMessage, {
-					quoted: m
-				})
-			}, 5000)
-			setTimeout(() => {
-				reply(`@${m.sender.split("@")[0]} Started hunting in ${lokasinya}`)
-			}, 1000)
-			addIkan(m.sender, ikanmu)
-			addAyam(m.sender, ayam)
-			addKelinci(m.sender, kelinci)
-			addDomba(m.sender, domba)
-			addSapi(m.sender, sapi)
-			addGajah(m.sender, gajah)
-			kurangDarah(m.sender, 10)
-		}
-		break
-		case 'ringtone': {
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			if (!args.join(" ")) return reply(`Example:\n${prefix + command} black over`)
-			let {
-				ringtone
-			} = require('./lib/scraper')
-			let anu = await ringtone(text)
-			let result = anu[Math.floor(Math.random() * anu.length)]
-			RoseMwol.sendMessage(m.chat, {
-				audio: {
-					url: result.audio
-				},
-				fileName: result.title + '.mp3',
-				mimetype: 'audio/mpeg'
-			}, {
-				quoted: m
-			})
-		}
-		break
-		case 'film':
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			reply(mess.wait)
-			if (!q) return reply(`What film you wanna search?\nExample: ${prefix}film Spiderman`)
-			xeonkey.Film(q)
-				.then(data => {
-					console.log(data)
-					let krl = `*❒「  Film ${q} 」*\n*🌿 Author* : ${data[0].author}\n\n`
-					for (let i of data) {
-						krl += (`\n────────────────────\n\n *📍Title :* ${i.judul}\n *📟 Quality :* ${i.quality}\n *🖥️ Type : ${i.type}*\n *⌛ Uploaded :* ${i.upload}\n *🌍 Source :* ${i.link}`)
-					}
-					RoseMwol.sendMessage(from, {
-						image: {
-							url: data[0].thumb
-						},
-						caption: krl
-					}, {
-						quoted: fdocs
-					})
-				});
-			break
-		case 'wallpaper':
-		case 'animewallpaper':
-		case 'animewall': {
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			if (!args.join(" ")) return reply("What picture are you looking for??")
-			let {
-				wallpaper
-			} = require('./lib/scraper')
-			anu = await wallpaper(args)
-			result = anu[Math.floor(Math.random() * anu.length)]
-			let buttons = [{
-				buttonId: `.wallpaper ${args.join(" ")}`,
-				buttonText: {
-					displayText: 'Next Image'
-				},
-				type: 1
-			}]
-			let buttonMessage = {
-				image: {
-					url: result.image[0]
-				},
-				caption: `Title : ${result.title}\nCategory : ${result.type}\nDetail : ${result.source}\nMedia Url : ${result.image[2] || result.image[1] || result.image[0]}`,
-				footer: `${botname}`,
-				buttons: buttons,
-				headerType: 4
-			}
-			RoseMwol.sendMessage(m.chat, buttonMessage, {
-				quoted: m
-			})
-		}
-		break
-		case 'wikimedia': {
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			if (!args.join(" ")) return reply("What picture are you looking for??")
-			let {
-				wikimedia
-			} = require('./lib/scraper')
-			anu = await wikimedia(args)
-			result = anu[Math.floor(Math.random() * anu.length)]
-			let buttons = [{
-				buttonId: `wikimedia ${args.join(" ")}`,
-				buttonText: {
-					displayText: 'Next Image'
-				},
-				type: 1
-			}]
-			let buttonMessage = {
-				image: {
-					url: result.image
-				},
-				caption: `${themeemoji} Title : ${result.title}\n${themeemoji} Source : ${result.source}\n${themeemoji} Media Url : ${result.image}`,
-				footer: `${botname}`,
-				buttons: buttons,
-				headerType: 4
-			}
-			RoseMwol.sendMessage(m.chat, buttonMessage, {
-				quoted: m
-			})
-		}
-		break
-		case 'quotesimagexxx':
-		case 'qoutesimagexxx':
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			let cok = await fetchJson(`http://api.lolhuman.xyz/api/random/quotesimage?apikey=${lolkey}`)
-			reply(mess.wait)
-			RoseMwol.sendMessage(m.chat, {
-				image: {
-					url: cok
-				},
-				caption: 'Done'
-			}, {
-				quoted: m
-			})
-			break
-		case 'quotesanime':
-		case 'quoteanime': {
-			let {
-				quotesAnime
-			} = require('./lib/scraper')
-			let anu = await quotesAnime()
-			result = anu[Math.floor(Math.random() * anu.length)]
-			let buttons = [{
-				buttonId: `quotesanime`,
-				buttonText: {
-					displayText: 'Next'
-				},
-				type: 1
-			}]
-			let buttonMessage = {
-				text: `~_${result.quotes}_\n\nBy '${result.karakter}', ${result.anime}\n\n- ${result.up_at}`,
-				footer: 'Press The Button Below',
-				buttons: buttons,
-				headerType: 2
-			}
-			RoseMwol.sendMessage(m.chat, buttonMessage, {
-				quoted: m
-			})
-		}
-		break
-		case 'animestory': {
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			reply(mess.wait)
-			await fetchJson(`https://api.jikan.moe/v4/anime?q=${q}`)
-				.then((res) => {
-					console.log(res)
-					let sections = []
-					for (let i of res.data) {
-						const list = {
-							title: `${i.title}`,
-							rows: [{
-								title: `${i.title}\n\n`,
-								rowId: `${prefix}animesearch ${i.mal_id}`,
-								description: `${i.synopsis}`
-							}, ]
-						}
-						sections.push(list)
-					}
-					const sendm = RoseMwol.sendMessage(
-						from, {
-							text: "Anime Search",
-							footer: botname,
-							title: ownername,
-							buttonText: "Click and see search results➡️",
-							sections
-						}, {
-							quoted: m
-						}
-					)
-				})
-		}
-		break
-		case 'grupsetting':
-		case 'groupsetting': {
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			let sections = []
-			let com = [`group open`, `leveling on`, `autosticker on`, `welcome on`, `antilinkgc on`, `antilinktg on`, `antilinktt on`, `antilinkytch on`, `antilinkytvid on`, `antilinkig on`, `antilinkfb on`, `antilinktwit on`, `antilinkall on`, `antiwame on`, `antitoxic on`, `antivirus on`, `autorevoke on`, `autoreply on`]
-			let comm = [`group close`, `leveling off`, `autosticker off`, `welcome off`, `antilinkgc off`, `antilinktg on`, `antilinktt on`, `antilinkytch on`, `antilinkytvid on`, `antilinkig on`, `antilinkfb on`, `antilinktwit on`, `antilinkall on`, `antiwame on`, `antitoxic on`, `antivirus on`, `autorevoke on`, `autoreply on`]
-			let listnya = [`Group open/close`, `Leveling on/off`, `Auto-Sticker on/off`, `Welcome/Left on/off`, `Antilink Group on/off`, `Antilink Telegram on/off`, `Antilink Tiktok on/off`, `Antilink Youtube Channel on/off`, `Antilink Youtube Video on/off`, `Antilink Instagram on/off`, `Antilink Facebook on/off`, `Antilink Twitter on/off`, `Antilink All on/off`, `Anti Wame on/off`, `Anti Toxic on/off`, `Anti Virus on/off`, `Auto Revoke on/off`, `Auto Reply on/off`]
-			let suruh = [`Enable`, `Disable`]
-			let fiturname = [`Group`, `Leveling`, `Auto Sticker`, `Welcome`, `Antilink Group`, `Antilink Telegram`, `Antilink Tiktok`, `Antilink Youtube Channel`, `Antilink Youtube Video`, `Antilink Instagram`, `Antilink Facebook`, `Antilink Twitter`, `Antilink All`, `Anti Wame`, `Anti Toxic`, `Anti Virus`, `Auto Revoke`, `Auto Reply`]
-			let startnum = 0;
-			let startnu = 0;
-			let startn = 0;
-			let start = 0
-			let startnumm = 1
-			for (let x of com) {
-				const yy = {
-					title: `${listnya[startnum++]}`,
-					rows: [{
-						title: `${suruh[0]}`,
-						description: `Activate ${fiturname[startnu++]}`,
-						rowId: `${prefix}${x}`
-					}, {
-						title: `${suruh[1]}`,
-						description: `Deactivate ${fiturname[startn++]}`,
-						rowId: `${prefix}${comm[start++]}`
-					}]
-				}
-				sections.push(yy)
-			}
-			const sendm = RoseMwol.sendMessage(
-				from, {
-					text: "Group Settings",
-					footer: botname,
-					title: "Set your group settings here......",
-					buttonText: "Click Button",
-					sections
-				}, {
-					quoted: m
-				}
-			)
-		}
-		break
-		case 'animesearchxxx': {
-			await fetchJson(`https://api.jikan.moe/v4/anime/${q}`)
-				.then((res) => {
-					let txt = `     Anime Search      \n\n*Title:* *${res.data.title}*\n*English:* *${res.data.title_english}*\n*Japanese:* *${res.data.title_japanese}*\n*Anime Type:* *${res.data.type}*\n*Adaptation:* *${res.data.source}*\n*Total Episode:* *${res.data.episodes}*\n*Status:* *${res.data.status}*\n*Ongoing:* *${res.data.airing ? 'Yes' : 'No'}*\n*Aired:* *${res.data.aired.string}*\n*Duration:* *${res.data.duration}*\n*Rating:* *${res.data.rating}*\n*Score:* *${res.data.score}*\n*Rank:* *${res.data.rank}*\n*Main Producer:* *${res.data.producers.name}*\n*Studio:* *${res.data.studios[0].name}* `
-					RoseMwol.sendMessage(from, {
-						image: {
-							url: res.data.images.jpg.image_url
-						},
-						caption: txt
-					}, {
-						quoted: m
-					})
-				})
-		}
-		break
-		case 'coffee':
-		case 'kopi': {
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			let buttons = [{
-				buttonId: `coffe`,
-				buttonText: {
-					displayText: 'Next Image'
-				},
-				type: 1
-			}]
-			let buttonMessage = {
-				image: {
-					url: 'https://coffee.alexflipnote.dev/random'
-				},
-				caption: `Here you go!`,
-				footer: `${botname}`,
-				buttons: buttons,
-				headerType: 4
-			}
-			RoseMwol.sendMessage(m.chat, buttonMessage, {
-				quoted: m
-			})
-		}
-		break
-		case 'glitch3':
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			if (!q) return reply(`Use ${prefix + command} text|text`)
-			reply(mess.wait)
-			teks1 = q.split("|")[0]
-			teks2 = q.split("|")[1]
-			maker.textpro("https://textpro.me/create-glitch-text-effect-style-tik-tok-983.html", [
-					`${teks1}`, `${teks2}`
-				])
-				.then((data) => RoseMwol.sendMessage(m.chat, {
-					image: {
-						url: data
-					},
-					caption: `Made by ${global.botname}`
-				}, {
-					quoted: m
-				}))
-				.catch((err) => console.log(err));
-			break
-
-		case '3dbox':
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			if (!q) return reply(`Use ${prefix + command} text`)
-			reply(mess.wait)
-			maker.textpro("https://textpro.me/3d-box-text-effect-online-880.html", [
-					`${q}`,
-				])
-				.then((data) => RoseMwol.sendMessage(m.chat, {
-					image: {
-						url: data
-					},
-					caption: `Made by ${global.botname}`
-				}, {
-					quoted: m
-				}))
-				.catch((err) => console.log(err));
-			break
-
-
-		case 'waterdrop':
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			if (!q) return reply(`Use ${prefix + command} text`)
-			reply(mess.wait)
-			maker.textpro("https://textpro.me/dropwater-text-effect-872.html", [
-					`${q}`,
-				])
-				.then((data) => RoseMwol.sendMessage(m.chat, {
-					image: {
-						url: data
-					},
-					caption: `Made by ${global.botname}`
-				}, {
-					quoted: m
-				}))
-				.catch((err) => console.log(err));
-			break
-
-
-		case 'lion2':
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			if (!q) return reply(`Use ${prefix + command} text`)
-			reply(mess.wait)
-			maker.textpro("https://textpro.me/create-lion-logo-mascot-online-938.html", [
-					`${q}`,
-				])
-				.then((data) => RoseMwol.sendMessage(m.chat, {
-					image: {
-						url: data
-					},
-					caption: `Made by ${global.botname}`
-				}, {
-					quoted: m
-				}))
-				.catch((err) => console.log(err));
-			break
-
-
-		case 'papercut':
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			if (!q) return reply(`Use ${prefix + command} text`)
-			reply(mess.wait)
-			maker.textpro("https://textpro.me/create-art-paper-cut-text-effect-online-1022.html", [
-					`${q}`,
-				])
-				.then((data) => RoseMwol.sendMessage(m.chat, {
-					image: {
-						url: data
-					},
-					caption: `Made by ${global.botname}`
-				}, {
-					quoted: m
-				}))
-				.catch((err) => console.log(err));
-			break
-
-
-		case 'transformer':
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			if (!q) return reply(`Use ${prefix + command} text`)
-			reply(mess.wait)
-			maker.textpro("https://textpro.me/create-a-transformer-text-effect-online-1035.html", [
-					`${q}`,
-				])
-				.then((data) => RoseMwol.sendMessage(m.chat, {
-					image: {
-						url: data
-					},
-					caption: `Made by ${global.botname}`
-				}, {
-					quoted: m
-				}))
-				.catch((err) => console.log(err));
-			break
-
-
-		case 'harrypot':
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			if (!q) return reply(`Use ${prefix + command} text|text`)
-			reply(mess.wait)
-			teks1 = q.split("|")[0]
-			teks2 = q.split("|")[1]
-			maker.textpro("https://textpro.me/create-harry-potter-text-effect-online-1025.html", [
-					`${teks1}`, `${teks2}`
-				])
-				.then((data) => RoseMwol.sendMessage(m.chat, {
-					image: {
-						url: data
-					},
-					caption: `Made by ${global.botname}`
-				}, {
-					quoted: m
-				}))
-				.catch((err) => console.log(err));
-			break
-
-
-		case 'neondevil':
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			if (!q) return reply(`Use ${prefix + command} text`)
-			reply(mess.wait)
-			maker.textpro("https://textpro.me/create-neon-devil-wings-text-effect-online-free-1014.html", [
-					`${q}`,
-				])
-				.then((data) => RoseMwol.sendMessage(m.chat, {
-					image: {
-						url: data
-					},
-					caption: `Made by ${global.botname}`
-				}, {
-					quoted: m
-				}))
-				.catch((err) => console.log(err));
-			break
-
-
-		case '3dstone':
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			if (!q) return reply(`Use ${prefix + command} text`)
-			reply(mess.wait)
-			maker.textpro("https://textpro.me/3d-stone-cracked-cool-text-effect-1029.html", [
-					`${q}`,
-				])
-				.then((data) => RoseMwol.sendMessage(m.chat, {
-					image: {
-						url: data
-					},
-					caption: `Made by ${global.botname}`
-				}, {
-					quoted: m
-				}))
-				.catch((err) => console.log(err));
-			break
-
-
-		case '3davengers':
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			if (!q) return reply(`Use ${prefix + command} text`)
-			reply(mess.wait)
-			maker.textpro("https://textpro.me/create-3d-avengers-logo-online-974.html", [
-					`${q}`,
-				])
-				.then((data) => RoseMwol.sendMessage(m.chat, {
-					image: {
-						url: data
-					},
-					caption: `Made by ${global.botname}`
-				}, {
-					quoted: m
-				}))
-				.catch((err) => console.log(err));
-			break
-
-
-		case 'thunder':
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			if (!q) return reply(`Use ${prefix + command} text`)
-			reply(mess.wait)
-			maker.textpro("https://textpro.me/online-thunder-text-effect-generator-1031.html", [
-					`${q}`,
-				])
-				.then((data) => RoseMwol.sendMessage(m.chat, {
-					image: {
-						url: data
-					},
-					caption: `Made by ${global.botname}`
-				}, {
-					quoted: m
-				}))
-				.catch((err) => console.log(err));
-			break
-
-
-		case 'window':
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			if (!q) return reply(`Use ${prefix + command} text`)
-			reply(mess.wait)
-			maker.textpro("https://textpro.me/write-text-on-foggy-window-online-free-1015.html", [
-					`${q}`,
-				])
-				.then((data) => RoseMwol.sendMessage(m.chat, {
-					image: {
-						url: data
-					},
-					caption: `Made by ${global.botname}`
-				}, {
-					quoted: m
-				}))
-				.catch((err) => console.log(err));
-			break
-		case 'blackpinkneon':
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			if (!q) return reply(`Use ${prefix + command} text`)
-			reply(mess.wait)
-			maker.textpro("https://textpro.me/create-neon-light-blackpink-logo-text-effect-online-1081.html", [
-					`${q}`,
-				])
-				.then((data) => RoseMwol.sendMessage(m.chat, {
-					image: {
-						url: data
-					},
-					caption: `Made by ${global.botname}`
-				}, {
-					quoted: m
-				}))
-				.catch((err) => console.log(err));
-			break
-
-		case 'graffiti':
-		case 'grafiti':
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			if (!q) return reply(`Use ${prefix + command} text|text`)
-			reply(mess.wait)
-			teks1 = q.split("|")[0]
-			teks2 = q.split("|")[1]
-			maker.textpro("https://textpro.me/create-a-cool-graffiti-text-on-the-wall-1010.html", [
-					`${teks1}`, `${teks2}`
-				])
-				.then((data) => RoseMwol.sendMessage(m.chat, {
-					image: {
-						url: data
-					},
-					caption: `Made by ${global.botname}`
-				}, {
-					quoted: m
-				}))
-				.catch((err) => console.log(err));
-			break
-
-
-
-		case 'pornhub2':
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			if (!q) return reply(`Use ${prefix + command} text`)
-			reply(mess.wait)
-			teks1 = q.split("|")[0]
-			teks2 = q.split("|")[1]
-			maker.textpro("https://textpro.me/pornhub-style-logo-online-generator-free-977.html", [
-					`${teks1}`, `${teks2}`
-				])
-				.then((data) => RoseMwol.sendMessage(m.chat, {
-					image: {
-						url: data
-					},
-					caption: `Made by ${global.botname}`
-				}, {
-					quoted: m
-				}))
-				.catch((err) => console.log(err));
-			break
-
-
-
-		case 'blackpink2':
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			if (!q) return reply(`Use ${prefix + command} text`)
-			reply(mess.wait)
-			maker.textpro("https://textpro.me/create-blackpink-logo-style-online-1001.html", [
-					`${q}`,
-				])
-				.then((data) => RoseMwol.sendMessage(m.chat, {
-					image: {
-						url: data
-					},
-					caption: `Made by ${global.botname}`
-				}, {
-					quoted: m
-				}))
-				.catch((err) => console.log(err));
-			break
-
-		case 'glitch':
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			if (!q) return reply(`Use ${prefix + command} text`)
-			reply(mess.wait)
-			maker.textpro("https://textpro.me/create-impressive-glitch-text-effects-online-1027.html", [
-					`${q}`,
-				])
-				.then((data) => RoseMwol.sendMessage(m.chat, {
-					image: {
-						url: data
-					},
-					caption: `Made by ${global.botname}`
-				}, {
-					quoted: m
-				}))
-				.catch((err) => console.log(err));
-			break
-
-
-
-		case 'glitch2':
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			if (!q) return reply(`Use ${prefix + command} text|text`)
-			reply(mess.wait)
-			teks1 = q.split("|")[0]
-			teks2 = q.split("|")[1]
-			maker.textpro("https://textpro.me/create-a-glitch-text-effect-online-free-1026.html", [
-					`${teks1}`, `${teks2}`
-				])
-				.then((data) => RoseMwol.sendMessage(m.chat, {
-					image: {
-						url: data
-					},
-					caption: `Made by ${global.botname}`
-				}, {
-					quoted: m
-				}))
-				.catch((err) => console.log(err));
-			break
-
-
-
-		case 'glitch3':
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			if (!q) return reply(`Use ${prefix + command} text|text`)
-			reply(mess.wait)
-			teks1 = q.split("|")[0]
-			teks2 = q.split("|")[1]
-			maker.textpro("https://textpro.me/create-glitch-text-effect-style-tik-tok-983.html", [
-					`${teks1}`, `${teks2}`
-				])
-				.then((data) => RoseMwol.sendMessage(m.chat, {
-					image: {
-						url: data
-					},
-					caption: `Made by ${global.botname}`
-				}, {
-					quoted: m
-				}))
-				.catch((err) => console.log(err));
-			break
-
-
-
-		case '3dspace':
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			if (!q) return reply(`Use ${prefix + command} text|text`)
-			reply(mess.wait)
-			teks1 = q.split("|")[0]
-			teks2 = q.split("|")[1]
-			maker.textpro("https://textpro.me/create-space-3d-text-effect-online-985.html", [
-					`${teks1}`, `${teks2}`
-				])
-				.then((data) => RoseMwol.sendMessage(m.chat, {
-					image: {
-						url: data
-					},
-					caption: `Made by ${global.botname}`
-				}, {
-					quoted: m
-				}))
-				.catch((err) => console.log(err));
-			break
-
-
-
-		case 'lion':
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			if (!q) return reply(`Use ${prefix + command} text|text`)
-			reply(mess.wait)
-			teks1 = q.split("|")[0]
-			teks2 = q.split("|")[1]
-			maker.textpro("https://textpro.me/create-lion-logo-mascot-online-938.html", [
-					`${teks1}`, `${teks2}`
-				])
-				.then((data) => RoseMwol.sendMessage(m.chat, {
-					image: {
-						url: data
-					},
-					caption: `Made by ${global.botname}`
-				}, {
-					quoted: m
-				}))
-				.catch((err) => console.log(err));
-			break
-
-
-
-		case '3dneon':
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			if (!q) return reply(`Use ${prefix + command} text`)
-			reply(mess.wait)
-			maker.textpro("https://textpro.me/create-3d-neon-light-text-effect-online-1028.html", [
-					`${q}`,
-				])
-				.then((data) => RoseMwol.sendMessage(m.chat, {
-					image: {
-						url: data
-					},
-					caption: `Made by ${global.botname}`
-				}, {
-					quoted: m
-				}))
-				.catch((err) => console.log(err));
-			break
-
-
-
-		case 'neon':
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			if (!q) return reply(`Use ${prefix + command} text`)
-			reply(mess.wait)
-			maker.textpro("https://textpro.me/neon-text-effect-online-879.html", [
-					`${q}`,
-				])
-				.then((data) => RoseMwol.sendMessage(m.chat, {
-					image: {
-						url: data
-					},
-					caption: `Made by ${global.botname}`
-				}, {
-					quoted: m
-				}))
-				.catch((err) => console.log(err));
-			break
-
-
-
-		case 'greenneon':
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			if (!q) return reply(`Use ${prefix + command} text`)
-			reply(mess.wait)
-			maker.textpro("https://textpro.me/green-neon-text-effect-874.html", [
-					`${q}`,
-				])
-				.then((data) => RoseMwol.sendMessage(m.chat, {
-					image: {
-						url: data
-					},
-					caption: `Made by ${global.botname}`
-				}, {
-					quoted: m
-				}))
-				.catch((err) => console.log(err));
-			break
-
-
-
-		case 'bokeh':
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			if (!q) return reply(`Use ${prefix + command} text`)
-			reply(mess.wait)
-			maker.textpro("https://textpro.me/bokeh-text-effect-876.html", [
-					`${q}`,
-				])
-				.then((data) => RoseMwol.sendMessage(m.chat, {
-					image: {
-						url: data
-					},
-					caption: `Made by ${global.botname}`
-				}, {
-					quoted: m
-				}))
-				.catch((err) => console.log(err));
-			break
-
-
-
-		case 'holographic':
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			if (!q) return reply(`Use ${prefix + command} text`)
-			reply(mess.wait)
-			maker.textpro("https://textpro.me/holographic-3d-text-effect-975.html", [
-					`${q}`,
-				])
-				.then((data) => RoseMwol.sendMessage(m.chat, {
-					image: {
-						url: data
-					},
-					caption: `Made by ${global.botname}`
-				}, {
-					quoted: m
-				}))
-				.catch((err) => console.log(err));
-			break
-
-
-
-		case 'bear':
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			if (!q) return reply(`Use ${prefix + command} text`)
-			reply(mess.wait)
-			teks1 = q.split("|")[0]
-			teks2 = q.split("|")[1]
-			maker.textpro("https://textpro.me/online-black-and-white-bear-mascot-logo-creation-1012.html", [
-					`${teks1}`, `${teks2}`
-				])
-				.then((data) => RoseMwol.sendMessage(m.chat, {
-					image: {
-						url: data
-					},
-					caption: `Made by ${global.botname}`
-				}, {
-					quoted: m
-				}))
-				.catch((err) => console.log(err));
-			break
-
-
-
-		case 'wolf':
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			if (!q) return reply(`Use ${prefix + command} text`)
-			reply(mess.wait)
-			teks1 = q.split("|")[0]
-			teks2 = q.split("|")[1]
-			maker.textpro("https://textpro.me/create-wolf-logo-galaxy-online-936.html", [
-					`${teks1}`, `${teks2}`
-				])
-				.then((data) => RoseMwol.sendMessage(m.chat, {
-					image: {
-						url: data
-					},
-					caption: `Made by ${global.botname}`
-				}, {
-					quoted: m
-				}))
-				.catch((err) => console.log(err));
-			break
-
-
-
-
-		case 'joker':
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			if (!q) return reply(`Use ${prefix + command} text`)
-			reply(mess.wait)
-			maker.textpro("https://textpro.me/create-logo-joker-online-934.html", [
-					`${q}`,
-				])
-				.then((data) => RoseMwol.sendMessage(m.chat, {
-					image: {
-						url: data
-					},
-					caption: `Made by ${global.botname}`
-				}, {
-					quoted: m
-				}))
-				.catch((err) => console.log(err));
-			break
-
-
-		case 'dropwater2':
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			if (!q) return reply(`Use ${prefix + command} text`)
-			reply(mess.wait)
-			maker.textpro("https://textpro.me/dropwater-text-effect-872.html", [
-					`${q}`,
-				])
-				.then((data) => RoseMwol.sendMessage(m.chat, {
-					image: {
-						url: data
-					},
-					caption: `Made by ${global.botname}`
-				}, {
-					quoted: m
-				}))
-				.catch((err) => console.log(err));
-			break
-
-		case 'summertime':
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			if (!q) return reply(`Use ${prefix + command} text`)
-			reply(mess.wait)
-			maker.textpro("https://textpro.me/create-a-summer-neon-light-text-effect-online-1076.html", [
-					`${q}`,
-				])
-				.then((data) => RoseMwol.sendMessage(m.chat, {
-					image: {
-						url: data
-					},
-					caption: `Made by ${global.botname}`
-				}, {
-					quoted: m
-				}))
-				.catch((err) => console.log(err));
-			break
-
-		case 'neonlight2':
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			if (!q) return reply(`Use ${prefix + command} text`)
-			reply(mess.wait)
-			maker.textpro("https://textpro.me/neon-light-text-effect-with-galaxy-style-981.html", [
-					`${q}`,
-				])
-				.then((data) => RoseMwol.sendMessage(m.chat, {
-					image: {
-						url: data
-					},
-					caption: `Made by ${global.botname}`
-				}, {
-					quoted: m
-				}))
-				.catch((err) => console.log(err));
-			break
-
-		case 'thewall':
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			if (!q) return reply(`Use ${prefix + command} text`)
-			reply(mess.wait)
-			maker.textpro("https://textpro.me/break-wall-text-effect-871.html", [
-					`${q}`,
-				])
-				.then((data) => RoseMwol.sendMessage(m.chat, {
-					image: {
-						url: data
-					},
-					caption: `Made by ${global.botname}`
-				}, {
-					quoted: m
-				}))
-				.catch((err) => console.log(err));
-			break
-
-		case 'natural':
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			if (!q) return reply(`Use ${prefix + command} text`)
-			reply(mess.wait)
-			maker.textpro("https://textpro.me/natural-leaves-text-effect-931.html", [
-					`${q}`,
-				])
-				.then((data) => RoseMwol.sendMessage(m.chat, {
-					image: {
-						url: data
-					},
-					caption: `Made by ${global.botname}`
-				}, {
-					quoted: m
-				}))
-				.catch((err) => console.log(err));
-			break
-
-		case 'carbon':
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			if (!q) return reply(`Use ${prefix + command} text`)
-			reply(mess.wait)
-			maker.textpro("https://textpro.me/carbon-text-effect-833.html", [
-					`${q}`,
-				])
-				.then((data) => RoseMwol.sendMessage(m.chat, {
-					image: {
-						url: data
-					},
-					caption: `Made by ${global.botname}`
-				}, {
-					quoted: m
-				}))
-				.catch((err) => console.log(err));
-			break
-
-		case 'pencil':
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			if (!q) return reply(`Use ${prefix + command} text`)
-			reply(mess.wait)
-			maker.textpro("https://textpro.me/create-a-sketch-text-effect-online-1044.html", [
-					`${q}`,
-				])
-				.then((data) => RoseMwol.sendMessage(m.chat, {
-					image: {
-						url: data
-					},
-					caption: `Made by ${global.botname}`
-				}, {
-					quoted: m
-				}))
-				.catch((err) => console.log(err));
-			break
-
-		case 'candy':
-		case 'christmas':
-		case '3dchristmas':
-		case 'sparklechristmas':
-		case 'deepsea':
-		case 'scifi':
-		case 'rainbow2':
-		case 'waterpipe':
-		case 'spooky':
-		case 'pencil':
-		case 'circuit':
-		case 'discovery':
-		case 'metalic':
-		case 'fiction':
-		case 'demon':
-		case 'transformer':
-		case 'berry':
-		case 'thunder':
-		case '.':
-		case '3dstone2':
-		case 'neonlight':
-		case 'glitch':
-		case 'harrypotter':
-		case 'brokenglass':
-		case 'papercut':
-		case 'watercolor':
-		case 'multicolor':
-		case 'neondevil':
-		case 'underwater':
-		case 'graffitibike':
-		case 'snow':
-		case 'cloud':
-		case 'honey':
-		case 'ice':
-		case 'fruitjuice':
-		case 'biscuit':
-		case 'wood':
-		case 'chocolate':
-		case 'strawberry':
-		case 'matrix':
-		case 'blood':
-		case 'dropwater':
-		case 'toxic':
-		case 'lava':
-		case 'rock':
-		case 'bloodglas':
-		case 'halloween':
-		case 'darkgold':
-		case 'joker':
-		case 'wicker':
-		case 'firework':
-		case 'skeleton':
-		case 'blackpink':
-		case 'sand':
-		case 'glue':
-		case '1917':
-		case 'leaves':
-		case 'demon': {
-			if (!q) return reply(`Example : ${prefix + command} ${global.ownername}`)
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			reply(mess.wait)
-			let link
-			if (/candy/.test(command)) link = 'https://textpro.me/create-christmas-candy-cane-text-effect-1056.html'
-			if (/christmas/.test(command)) link = 'https://textpro.me/christmas-tree-text-effect-online-free-1057.html'
-			if (/3dchristmas/.test(command)) link = 'https://textpro.me/3d-christmas-text-effect-by-name-1055.html'
-			if (/sparklechristmas/.test(command)) link = 'https://textpro.me/sparkles-merry-christmas-text-effect-1054.html'
-			if (/deepsea/.test(command)) link = 'https://textpro.me/create-3d-deep-sea-metal-text-effect-online-1053.html'
-			if (/scifi/.test(command)) link = 'https://textpro.me/create-3d-sci-fi-text-effect-online-1050.html'
-			if (/rainbow/.test(command)) link = 'https://textpro.me/3d-rainbow-color-calligraphy-text-effect-1049.html'
-			if (/waterpipe/.test(command)) link = 'https://textpro.me/create-3d-water-pipe-text-effects-online-1048.html'
-			if (/spooky/.test(command)) link = 'https://textpro.me/create-halloween-skeleton-text-effect-online-1047.html'
-			if (/pencil/.test(command)) link = 'https://textpro.me/create-a-sketch-text-effect-online-1044.html'
-			if (/circuit/.test(command)) link = 'https://textpro.me/create-blue-circuit-style-text-effect-online-1043.html'
-			if (/discovery/.test(command)) link = 'https://textpro.me/create-space-text-effects-online-free-1042.html'
-			if (/metalic/.test(command)) link = 'https://textpro.me/creat-glossy-metalic-text-effect-free-online-1040.html'
-			if (/fiction/.test(command)) link = 'https://textpro.me/create-science-fiction-text-effect-online-free-1038.html'
-			if (/demon/.test(command)) link = 'https://textpro.me/create-green-horror-style-text-effect-online-1036.html'
-			if (/transformer/.test(command)) link = 'https://textpro.me/create-a-transformer-text-effect-online-1035.html'
-			if (/berry/.test(command)) link = 'https://textpro.me/create-berry-text-effect-online-free-1033.html'
-			if (/thunder/.test(command)) link = 'https://textpro.me/online-thunder-text-effect-generator-1031.html'
-			if (/magma/.test(command)) link = 'https://textpro.me/create-a-magma-hot-text-effect-online-1030.html'
-			if (/3dstone2/.test(command)) link = 'https://textpro.me/create-a-3d-stone-text-effect-online-for-free-1073.html'
-			if (/neonlight/.test(command)) link = 'https://textpro.me/create-3d-neon-light-text-effect-online-1028.html'
-			if (/glitch/.test(command)) link = 'https://textpro.me/create-impressive-glitch-text-effects-online-1027.html'
-			if (/harrypotter/.test(command)) link = 'https://textpro.me/create-harry-potter-text-effect-online-1025.html'
-			if (/brokenglass/.test(command)) link = 'https://textpro.me/broken-glass-text-effect-free-online-1023.html'
-			if (/papercut/.test(command)) link = 'https://textpro.me/create-art-paper-cut-text-effect-online-1022.html'
-			if (/watercolor/.test(command)) link = 'https://textpro.me/create-a-free-online-watercolor-text-effect-1017.html'
-			if (/multicolor/.test(command)) link = 'https://textpro.me/online-multicolor-3d-paper-cut-text-effect-1016.html'
-			if (/neondevil/.test(command)) link = 'https://textpro.me/create-neon-devil-wings-text-effect-online-free-1014.html'
-			if (/underwater/.test(command)) link = 'https://textpro.me/3d-underwater-text-effect-generator-online-1013.html'
-			if (/graffitibike/.test(command)) link = 'https://textpro.me/create-wonderful-graffiti-art-text-effect-1011.html'
-			if (/snow/.test(command)) link = 'https://textpro.me/create-snow-text-effects-for-winter-holidays-1005.html'
-			if (/cloud/.test(command)) link = 'https://textpro.me/create-a-cloud-text-effect-on-the-sky-online-1004.html'
-			if (/honey/.test(command)) link = 'https://textpro.me/honey-text-effect-868.html'
-			if (/ice/.test(command)) link = 'https://textpro.me/ice-cold-text-effect-862.html'
-			if (/fruitjuice/.test(command)) link = 'https://textpro.me/fruit-juice-text-effect-861.html'
-			if (/biscuit/.test(command)) link = 'https://textpro.me/biscuit-text-effect-858.html'
-			if (/wood/.test(command)) link = 'https://textpro.me/wood-text-effect-856.html'
-			if (/chocolate/.test(command)) link = 'https://textpro.me/chocolate-cake-text-effect-890.html'
-			if (/strawberry/.test(command)) link = 'https://textpro.me/strawberry-text-effect-online-889.html'
-			if (/matrix/.test(command)) link = 'https://textpro.me/matrix-style-text-effect-online-884.html'
-			if (/blood/.test(command)) link = 'https://textpro.me/horror-blood-text-effect-online-883.html'
-			if (/dropwater/.test(command)) link = 'https://textpro.me/dropwater-text-effect-872.html'
-			if (/toxic/.test(command)) link = 'https://textpro.me/toxic-text-effect-online-901.html'
-			if (/lava/.test(command)) link = 'https://textpro.me/lava-text-effect-online-914.html'
-			if (/rock/.test(command)) link = 'https://textpro.me/rock-text-effect-online-915.html'
-			if (/bloodglas/.test(command)) link = 'https://textpro.me/blood-text-on-the-frosted-glass-941.html'
-			if (/halloween/.test(command)) link = 'https://textpro.me/halloween-fire-text-effect-940.html'
-			if (/darkgold/.test(command)) link = 'https://textpro.me/metal-dark-gold-text-effect-online-939.html'
-			if (/joker/.test(command)) link = 'https://textpro.me/create-logo-joker-online-934.html'
-			if (/wicker/.test(command)) link = 'https://textpro.me/wicker-text-effect-online-932.html'
-			if (/firework/.test(command)) link = 'https://textpro.me/firework-sparkle-text-effect-930.html'
-			if (/skeleton/.test(command)) link = 'https://textpro.me/skeleton-text-effect-online-929.html'
-			if (/blackpink/.test(command)) link = 'https://textpro.me/create-blackpink-logo-style-online-1001.html'
-			if (/sand/.test(command)) link = 'https://textpro.me/write-in-sand-summer-beach-free-online-991.html'
-			if (/glue/.test(command)) link = 'https://textpro.me/create-3d-glue-text-effect-with-realistic-style-986.html'
-			if (/1917/.test(command)) link = 'https://textpro.me/1917-style-text-effect-online-980.html'
-			if (/leaves/.test(command)) link = 'https://textpro.me/natural-leaves-text-effect-931.html'
-			let anu = await maker.textpro(link, q)
-			RoseMwol.sendMessage(m.chat, {
-				image: {
-					url: anu
-				},
-				caption: `Made by ${global.botname}`
-			}, {
-				quoted: m
-			})
-		}
-		break
-
-		case 'getcase':
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			if (m.isGroup) reply(mess.private)
-			if (!isCreator) return reply(mess.owner)
-			const getCase = (cases) => {
-				return "case" + `'${cases}'` + fs.readFileSync("Rose-Mwol-MD.js").toString().split('case \'' + cases + '\'')[1].split("break")[0] + "break"
-			}
-			replay(`${getCase(q)}`)
-			break
-		case 'textmaker2': {
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			if (args.length < 1) return reply(`Example :\n${prefix + command} <name>`)
-			if (args[0] === 'glitch') {
-				if (args.length < 2) return reply(`Example :\n${prefix + command + ' ' + args[0]} ${global.ownername}`)
-				let teds = await thiccysapi.textpro("https://textpro.me/create-impressive-glitch-text-effects-online-1027.html", [args[1]])
-				RoseMwol.sendMessage(from, {
-					image: {
-						url: teds
-					},
-					caption: "Done!"
-				}, {
-					quoted: m
-				})
-			} else if (args[0] === 'glow') {
-				if (args.length < 2) return reply(`Example :\n${prefix + command + ' ' + args[0]} ${global.ownername}`)
-				let teds = await thiccysapi.textpro("https://textpro.me/create-light-glow-sliced-text-effect-online-1068.html", [args[1]])
-				RoseMwol.sendMessage(from, {
-					image: {
-						url: teds
-					},
-					caption: "Done!"
-				}, {
-					quoted: m
-				})
-			} else {
-				reply(`*Text Maker List :*\n•> glitch\n•> glow`)
-			}
-		}
-		break
-		case 'suitpvp':
-		case 'suit': {
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			this.suit = this.suit ? this.suit : {}
-			let poin = 10
-			let poin_lose = 10
-			let timeout = 60000
-			if (Object.values(this.suit).find(roof => roof.id.startsWith('suit') && [roof.p, roof.p2].includes(m.sender))) replay(`Complete your previous suit`)
-			if (m.mentionedJid[0] === m.sender) return replay(`Can't play with myself!`)
-			if (!m.mentionedJid[0]) return replay(`_Who do you want to challenge?_\nTag the person..\n\Example : ${prefix}suit @${owner[1]}`, m.chat, {
-				mentions: [owner[1] + '@s.whatsapp.net']
-			})
-			if (Object.values(this.suit).find(roof => roof.id.startsWith('suit') && [roof.p, roof.p2].includes(m.mentionedJid[0]))) throw `The person you are challenging is playing suit with someone else :(`
-			let id = 'suit_' + new Date() * 1
-			let caption = `_*SUIT PvP*_
-
-@${m.sender.split`@`[0]} menantang @${m.mentionedJid[0].split`@`[0]} untuk bermain suit
-
-Please @${m.mentionedJid[0].split`@`[0]} to type accept/reject`
-			this.suit[id] = {
-				chat: await RoseMwol.sendText(m.chat, caption, m, {
-					mentions: parseMention(caption)
-				}),
-				id: id,
-				p: m.sender,
-				p2: m.mentionedJid[0],
-				status: 'wait',
-				waktu: setTimeout(() => {
-					if (this.suit[id]) RoseMwol.sendText(m.chat, `_Suit time out_`, m)
-					delete this.suit[id]
-				}, 60000),
-				poin,
-				poin_lose,
-				timeout
-			}
-		}
-		break
-		case 'areaoftriangle':
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			reply(mess.wait)
-			if (!q) return reply(`to find the result of the area of ​​a triangle\nUse ${prefix}areaoftriangle side1 side 2 side 3\nexample: ${prefix}areaoftriangle 1 2 7`)
-			if (!isInventoryLimit) {
-				addInventoriLimit(m.sender)
-			}
-			try {
-				const luasseg = bdr.datar.luas.segitiga(args[0], args[1], false)
-				const caraluas = bdr.datar.luas.segitiga(args[0], args[1], true)
-				reply(`*Results:* ${luasseg}\n${caraluas}`)
-			} catch (err) {
-				reply('The format of the message is wrong')
-			}
-			break
-		case 'perimeteroftriangle':
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			reply(mess.wait)
-			if (!q) return reply(`To find the result of the perimeter of a triangle\nUse ${prefix}perimeteroftriangle side1 side2 side3\nExample: ${prefix}perimeteroftriangle 32 10 8`)
-			if (!isInventoryLimit) {
-				addInventoriLimit(m.sender)
-			}
-			if (isLimit < 1) return reply("Your limit has run out ಥ╭╮ಥ, please buy by #buy limit _amount_")
-			kurangLimit(m.sender, 1)
-			reply(`One limit is used ಥ‿ಥ\nYour remaining limit : ${getLimit(m.sender)}`)
-			try {
-				const kelsegitiga = bdr.datar.keliling.segitiga(args[0], args[1], args[2], false)
-				const carakel = bdr.datar.keliling.segitiga(args[0], args[1], args[2], true)
-				reply(`*Results:* ${kelsegitiga}\n*Formula:* ${carakel}`)
-			} catch (err) {
-				reply('The format of the message is wrong')
-			}
-			break
-		case 'areaofsquare':
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			reply(mess.wait)
-			if (!q) return reply(`To find the result of the area of ​​a square\nUse ${prefix}areaofsquare number\nExample: ${prefix}areaofsquare 32`)
-			try {
-				const luaspersegi = bdr.datar.luas.persegi(q, false)
-				const luaspersegis = bdr.datar.luas.persegi(q, true)
-				reply(`*Results:* ${luaspersegi}\n*Formula:* ${luaspersegis}`)
-			} catch (err) {
-				reply('The format of the message is wrong')
-			}
-			break
-		case 'pythagoras':
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			reply(mess.wait)
-			if (!q) return reply(`To find the Pythagorean result\nUse ${prefix}pythagoras option number1 number2\nExample: ${prefix}pythagoras crooked 8 6`)
-			try {
-				const pytha = bdr.rdb.pythagoras(args[0], args[1], args[2], false)
-				const rumuspytha = bdr.rdb.pythagoras(args[0], args[1], args[2], true)
-				reply(`*Results:* ${pytha}\n*Formula:* ${rumuspytha}`)
-			} catch (err) {
-				reply('The format of the message is wrong')
-			}
-			break
-		case 'multiply':
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			reply(mess.wait)
-			if (!q) return reply(`To find the result of multiplication\nUse ${prefix}multiply multiplication number multiplication number\nExample: ${prefix}multiply 5 15`)
-			try {
-				const perkal = bdr.rdb.perkalian(args[0], args[1])
-				reply(`*Results:* ${perkal}\n*Formula:* ${rumusperkal}`)
-			} catch (err) {
-				reply('The format of the message is wrong')
-			}
-			break
-		case 'perimeterofsquare':
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			reply(mess.wait)
-			if (!q) return reply(`To find the result of the perimeter of a square\nUse ${prefix}perimeterofsquare number\nExample: ${prefix}perimeterofsquare 78`)
-			try {
-				const persegi = bdr.datar.keliling.persegi(q, false)
-				const caraPersegi = bdr.datar.keliling.persegi(q, true)
-				reply(`*Results:* ${persegi}\n*Formula:* ${caraPersegi}`)
-			} catch (err) {
-				reply('The format of the message is wrong')
-			}
-			break
-		case 'square':
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			reply(mess.wait)
-			if (!q) return reply(`To find a Squared Result\nUse ${prefix}square number\nExample: ${prefix}square 6`)
-			try {
-				const kuadrat = bdr.rdb.kuadrat(q)
-				reply(`*Results:* ${kuadrat}`)
-			} catch (err) {
-				reply('The format of the message is wrong')
-			}
-			break
-		case 'cubic':
-			if (!q) return reply(`Untuk mencari sebuah Hasil Kubik\nUse ${prefix}cubic number\nExample: ${prefix}cubic 9`)
-			try {
-				const kubik = bdr.rdb.kubik(q)
-				reply(`*Results:* ${kubik}`)
-			} catch (err) {
-				reply('The format of the message is wrong')
-			}
-			break
-		case 'family100': {
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			if ('family100' + m.chat in _family100) {
-				replay('There are still unfinished sessions!')
-				throw false
-			}
-			let anu = await fetchJson('https://raw.githubusercontent.com/BochilTeam/database/master/games/family100.json')
-			let random = anu[Math.floor(Math.random() * anu.length)]
-			let hasil = `*Answer the following questions :*\n${random.soal}\n\nThere is *${random.jawaban.length}* Answer ${random.jawaban.find(v => v.includes(' ')) ? `(some answers have spaces)` : ''}`.trim()
-			_family100['family100' + m.chat] = {
-				id: 'family100' + m.chat,
-				pesan: await RoseMwol.sendText(m.chat, hasil, m),
-				...random,
-				terjawab: Array.from(random.jawaban, () => false),
-				hadiah: 6,
-			}
-		}
-		break
-		case 'guess': {
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			if (!args.join(" ")) return replay(`Example : ${prefix + command} song\n\nOption : \n1.song\n2. picture\n3. saying\n4. sentence\n5. lyrics\n6.food`)
-			if (args[0] === "song") {
-				if (tebaklagu.hasOwnProperty(m.sender.split('@')[0])) return replay("There are still unfinished sessions!")
-				let anu = await fetchJson('https://fatiharridho.github.io/tebaklagu.json')
-				let result = anu[Math.floor(Math.random() * anu.length)]
-				let msg = await RoseMwol.sendMessage(m.chat, {
-					audio: {
-						url: result.link_song
-					},
-					mimetype: 'audio/mpeg'
-				}, {
-					quoted: m
-				})
-				RoseMwol.sendText(m.chat, `What is the name of this song?\n\nArtist : ${result.artist}\nTime : 60s`, msg).then(() => {
-					tebaklagu[m.sender.split('@')[0]] = result.jawaban.toLowerCase()
-				})
-				await sleep(60000)
-				if (tebaklagu.hasOwnProperty(m.sender.split('@')[0])) {
-					console.log("Answer: " + result.jawaban)
-					RoseMwol.sendButtonText(m.chat, [{
-						buttonId: 'guess song',
-						buttonText: {
-							displayText: 'Guess the song'
-						},
-						type: 1
-					}], `Time has run out\nAnswer:  ${tebaklagu[m.sender.split('@')[0]]}\n\nWant to play? press the button below`, `${global.botname}`, m)
-					delete tebaklagu[m.sender.split('@')[0]]
-				}
-			} else if (args[0] === 'picture') {
-				if (tebakgambar.hasOwnProperty(m.sender.split('@')[0])) return replay("There are still unfinished sessions!")
-				let anu = await fetchJson('https://raw.githubusercontent.com/BochilTeam/database/master/games/tebakgambar.json')
-				let result = anu[Math.floor(Math.random() * anu.length)]
-				RoseMwol.sendImage(m.chat, result.img, `Please answer the question above\n\nDescription : ${result.deskripsi}\nTime : 60s`, m).then(() => {
-					tebakgambar[m.sender.split('@')[0]] = result.jawaban.toLowerCase()
-				})
-				await sleep(60000)
-				if (tebakgambar.hasOwnProperty(m.sender.split('@')[0])) {
-					console.log("Answer: " + result.jawaban)
-					RoseMwol.sendButtonText(m.chat, [{
-						buttonId: 'guess picture',
-						buttonText: {
-							displayText: 'Guess the picture'
-						},
-						type: 1
-					}], `Time has run out\nAnswer:  ${tebakgambar[m.sender.split('@')[0]]}\n\nWant to play? press the button below`, `${global.botname}`, m)
-					delete tebakgambar[m.sender.split('@')[0]]
-				}
-			} else if (args[0] === 'word') {
-				if (tebakkata.hasOwnProperty(m.sender.split('@')[0])) return replay("There are still unfinished sessions!")
-				let anu = await fetchJson('https://raw.githubusercontent.com/Sachu-Settan/Media/main/GuessTheWord.js')
-				let result = anu[Math.floor(Math.random() * anu.length)]
-				RoseMwol.sendText(m.chat, `Please answer the following question\n\n${result.soal}\nTime : 60s`, m).then(() => {
-					tebakkata[m.sender.split('@')[0]] = result.jawaban.toLowerCase()
-				})
-				await sleep(60000)
-				if (tebakkata.hasOwnProperty(m.sender.split('@')[0])) {
-					console.log("Answer: " + result.jawaban)
-					RoseMwol.sendButtonText(m.chat, [{
-						buttonId: 'guess word',
-						buttonText: {
-							displayText: 'Guess The Word'
-						},
-						type: 1
-					}], `Time Out\nAnswer:  ${tebakkata[m.sender.split('@')[0]]}\n\nWant to play? press the button below`, `${global.botname}`, m)
-					delete tebakkata[m.sender.split('@')[0]]
-				}
-			} else if (args[0] === 'sentence') {
-				if (tebakkalimat.hasOwnProperty(m.sender.split('@')[0])) return replay("There are still unfinished sessions!")
-				let anu = await fetchJson('https://raw.githubusercontent.com/Sachu-Settan/Media/main/GuessTheSentence.js')
-				let result = anu[Math.floor(Math.random() * anu.length)]
-				RoseMwol.sendText(m.chat, `Please answer the following question\n\n${result.soal}\nTime : 60s`, m).then(() => {
-					tebakkalimat[m.sender.split('@')[0]] = result.jawaban.toLowerCase()
-				})
-				await sleep(60000)
-				if (tebakkalimat.hasOwnProperty(m.sender.split('@')[0])) {
-					console.log("Answer: " + result.jawaban)
-					RoseMwol.sendButtonText(m.chat, [{
-						buttonId: 'guess sentence',
-						buttonText: {
-							displayText: 'Guess the Sentence'
-						},
-						type: 1
-					}], `Time Out\nAnswer:  ${tebakkalimat[m.sender.split('@')[0]]}\n\nWant to play? press the button below`, `${global.botname}`, m)
-					delete tebakkalimat[m.sender.split('@')[0]]
-				}
-			} else if (args[0] === 'lyrics') {
-				if (tebaklirik.hasOwnProperty(m.sender.split('@')[0])) return replay("There are still unfinished sessions!")
-				let anu = await fetchJson('https://raw.githubusercontent.com/BochilTeam/database/master/games/tebaklirik.json')
-				let result = anu[Math.floor(Math.random() * anu.length)]
-				RoseMwol.sendText(m.chat, `Fill the missing lyrics below : *${result.soal}*?\nTime : 60s`, m).then(() => {
-					tebaklirik[m.sender.split('@')[0]] = result.jawaban.toLowerCase()
-				})
-				await sleep(60000)
-				if (tebaklirik.hasOwnProperty(m.sender.split('@')[0])) {
-					console.log("Answer: " + result.jawaban)
-					RoseMwol.sendButtonText(m.chat, [{
-						buttonId: 'guess lyrics',
-						buttonText: {
-							displayText: 'Guess The Lyrics'
-						},
-						type: 1
-					}], `Time Out\nAnswer:  ${tebaklirik[m.sender.split('@')[0]]}\n\nWant to play? press the button below`, `${global.botname}`, m)
-					delete tebaklirik[m.sender.split('@')[0]]
-				}
-			} else if (args[0] === 'guess saying') {
-				if (caklontong.hasOwnProperty(m.sender.split('@')[0])) return replay("There are still unfinished sessions!")
-				let anu = await fetchJson('https://raw.githubusercontent.com/BochilTeam/database/master/games/caklontong.json')
-				let result = anu[Math.floor(Math.random() * anu.length)]
-				RoseMwol.sendText(m.chat, `*Answer the following questions :*\n${result.soal}*\nTime : 60s`, m).then(() => {
-					caklontong[m.sender.split('@')[0]] = result.jawaban.toLowerCase()
-					caklontong_desk[m.sender.split('@')[0]] = result.deskripsi
-				})
-				await sleep(60000)
-				if (caklontong.hasOwnProperty(m.sender.split('@')[0])) {
-					console.log("Answer: " + result.jawaban)
-					RoseMwol.sendButtonText(m.chat, [{
-						buttonId: 'guess saying',
-						buttonText: {
-							displayText: 'Guess The Saying'
-						},
-						type: 1
-					}], `Time Out\nAnswer:  ${caklontong[m.sender.split('@')[0]]}\nDescription : ${caklontong_desk[m.sender.split('@')[0]]}\n\nWant to play? press the button below`, `${global.botname}`, m)
-					delete caklontong[m.sender.split('@')[0]]
-					delete caklontong_desk[m.sender.split('@')[0]]
-				}
-			}
-		}
-		break
-		case 'ttc':
-		case 'ttt':
-		case 'tictactoe': {
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			let TicTacToe = require("./lib/tictactoe")
-			this.game = this.game ? this.game : {}
-			if (Object.values(this.game).find(room => room.id.startsWith('tictactoe') && [room.game.playerX, room.game.playerO].includes(m.sender))) return replay('You are still in the game')
-			let room = Object.values(this.game).find(room => room.state === 'WAITING' && (args.join(" ") ? room.name === args.join(" ") : true))
-			if (room) {
-				replay('Partner found!')
-				room.o = m.chat
-				room.game.playerO = m.sender
-				room.state = 'PLAYING'
-				let arr = room.game.render().map(v => {
-					return {
-						X: '❌',
-						O: '⭕',
-						1: '1️⃣',
-						2: '2️⃣',
-						3: '3️⃣',
-						4: '4️⃣',
-						5: '5️⃣',
-						6: '6️⃣',
-						7: '7️⃣',
-						8: '8️⃣',
-						9: '9️⃣',
-					} [v]
-				})
-				let str = `Room ID: ${room.id}
-
-${arr.slice(0, 3).join('')}
-${arr.slice(3, 6).join('')}
-${arr.slice(6).join('')}
-
-Waiting @${room.game.currentTurn.split('@')[0]}
-
-Type *surrender* to surrender and admit defeat`
-				if (room.x !== room.o) await RoseMwol.sendText(room.x, str, m, {
-					mentions: parseMention(str)
-				})
-				await RoseMwol.sendText(room.o, str, m, {
-					mentions: parseMention(str)
-				})
-			} else {
-				room = {
-					id: 'tictactoe-' + (+new Date),
-					x: m.chat,
-					o: '',
-					game: new TicTacToe(m.sender, 'o'),
-					state: 'WAITING'
-				}
-				if (args.join(" ")) room.name = args.join(" ")
-				replay('Waiting for partner' + (args.join(" ") ? ` type the command below ${prefix}${command} ${args.join(" ")}` : ''))
-				this.game[room.id] = room
-			}
-		}
-		break
-		case 'delttc':
-		case 'delttt': {
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			this.game = this.game ? this.game : {}
-			try {
-				if (this.game) {
-					delete this.game
-					RoseMwol.sendText(m.chat, `Successfully deleted the TicTacToe session`, m)
-				} else if (!this.game) {
-					replay(`Session TicTacToe🎮 does not exist`)
-				} else throw '?'
-			} catch (e) {
-				replay('error!')
-			}
-		}
-		break
-		case 'kuismath':
-		case 'math': {
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			if (kuismath.hasOwnProperty(m.sender.split('@')[0])) return replay("There are still unfinished sessions!")
-			let {
-				genMath,
-				modes
-			} = require('./src/math')
-			if (!args.join(" ")) return replay(`Mode: ${Object.keys(modes).join(' | ')}\nUsage examples: ${prefix}math medium`)
-			let result = await genMath(text.toLowerCase())
-			RoseMwol.sendText(m.chat, `*What is the result of: ${result.soal.toLowerCase()}*?\n\nTime: ${(result.waktu / 1000).toFixed(2)} second`, m).then(() => {
-				kuismath[m.sender.split('@')[0]] = result.jawaban
-			})
-			await sleep(result.waktu)
-			if (kuismath.hasOwnProperty(m.sender.split('@')[0])) {
-				console.log("Answer: " + result.jawaban)
-				replay("Time Out\nAnswer: " + kuismath[m.sender.split('@')[0]])
-				delete kuismath[m.sender.split('@')[0]]
-			}
-		}
-		break
-		case 'delete':
-		case 'del': {
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			if (!m.quoted) return
-			let {
-				chat,
-				fromMe,
-				id,
-				isBaileys
-			} = m.quoted
-			if (!isBaileys) return replay('The message was not sent by a bot!')
-			RoseMwol.sendMessage(m.chat, {
-				delete: {
-					remoteJid: m.chat,
-					fromMe: true,
-					id: m.quoted.id,
-					participant: m.quoted.sender
-				}
-			})
-		}
-		break
-		case 'halahx':
-		case 'hilihx':
-		case 'huluhx':
-		case 'helehx':
-		case 'holohx': {
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			if (!m.quoted && !args.join(" ")) return replay(`Send/reply text with caption ${prefix + command}`)
-			ter = command[1].toLowerCase()
-			tex = m.quoted ? m.quoted.text ? m.quoted.text : args.join(" ") ? args.join(" ") : m.text : args.join(" ") ? args.join(" ") : m.text
-			replay(tex.replace(/[aiueo]/g, ter).replace(/[AIUEO]/g, ter.toUpperCase()))
-		}
-		break
-		case 'vote': {
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			if (!m.isGroup) return replay(mess.group)
-			if (m.chat in vote) return replay(`_There are still votes in this chat!_\n\n*${prefix}deletevote* - to delete vote sesssion`)
-			if (!args.join(" ")) return replay(`Enter Reason for Vote, Example: *${prefix + command} ${global.ownername} is handsome or not, vote!*`)
-			replay(`Voting starts!\n\n*${prefix}upvote* - to upvote\n*${prefix}devote* - for not\n*${prefix}checkvote* - to check the vote\n*${prefix}deletevote* - to delete vote`)
-			vote[m.chat] = [args.join(" "), [],
-				[]
-			]
-			await sleep(1000)
-			upvote = vote[m.chat][1]
-			devote = vote[m.chat][2]
-			teks_vote = `*「 VOTE 」*
-
-*Reason:* ${vote[m.chat][0]}
-
-┌〔 UPVOTE 〕
-│ 
-├ Total: ${vote[m.chat][1].length}
-│
-│ 
-└────
-
-┌〔 DEVOTE 〕
-│ 
-├ Total: ${vote[m.chat][2].length}
-│
-│ 
-└────
-
-*${prefix}deletevote* - to delete vote session`
-			let buttonsVote = [{
-					buttonId: `${prefix}upvote`,
-					buttonText: {
-						displayText: 'Upvote'
-					},
-					type: 1
-				},
-				{
-					buttonId: `${prefix}devote`,
-					buttonText: {
-						displayText: 'Devote'
-					},
-					type: 1
-				}
-			]
-
-			let buttonMessageVote = {
-				image: log0,
-				jpegThumbnail: thum,
-				caption: teks_vote,
-				footer: `${global.botname}`,
-				buttons: buttonsVote,
-				headerType: 1
-			}
-			RoseMwol.sendMessage(m.chat, buttonMessageVote)
-		}
-		break
-		case 'upvote': {
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			if (!m.isGroup) return replay(mess.group)
-			if (!(m.chat in vote)) return replay(`_*no voting in this group!*_\n\n*${prefix}vote* - to start voting`)
-			isVote = vote[m.chat][1].concat(vote[m.chat][2])
-			wasVote = isVote.includes(m.sender)
-			if (wasVote) return replay(`You've voted ready`)
-			vote[m.chat][1].push(m.sender)
-			menvote = vote[m.chat][1].concat(vote[m.chat][2])
-			teks_vote = `*「 VOTE 」*
-
-*Reason:* ${vote[m.chat][0]}
-
-┌〔 UPVOTE 〕
-│ 
-├ Total: ${vote[m.chat][1].length}
-${vote[m.chat][1].map((v, i) => `├ ${i + 1}. @${v.split`@`[0]}`).join('\n')}
-│ 
-└────
-
-┌〔 DEVOTE 〕
-│ 
-├ Total: ${vote[m.chat][2].length}
-${vote[m.chat][2].map((v, i) => `├ ${i + 1}. @${v.split`@`[0]}`).join('\n')}
-│ 
-└────
-
-*${prefix}deletevote* - to delete vote session`
-			let buttonsUpvote = [{
-					buttonId: `${prefix}upvote`,
-					buttonText: {
-						displayText: 'Upvote'
-					},
-					type: 1
-				},
-				{
-					buttonId: `${prefix}devote`,
-					buttonText: {
-						displayText: 'Devote'
-					},
-					type: 1
-				}
-			]
-
-			let buttonMessageUpvote = {
-				image: log0,
-				jpegThumbnail: thum,
-				caption: teks_vote,
-				footer: `${global.botname}`,
-				buttons: buttonsUpvote,
-				headerType: 1,
-				mentions: menvote
-			}
-			RoseMwol.sendMessage(m.chat, buttonMessageUpvote)
-		}
-		break
-		case 'devote': {
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			if (!m.isGroup) return replay(mess.group)
-			if (!(m.chat in vote)) return replay(`_*no voting in this group!*_\n\n*${prefix}vote* - to start voting`)
-			isVote = vote[m.chat][1].concat(vote[m.chat][2])
-			wasVote = isVote.includes(m.sender)
-			if (wasVote) return replay(`You've voted already`)
-			vote[m.chat][2].push(m.sender)
-			menvote = vote[m.chat][1].concat(vote[m.chat][2])
-			teks_vote = `*「 VOTE 」*
-
-*Reason:* ${vote[m.chat][0]}
-
-┌〔 UPVOTE 〕
-│ 
-├ Total: ${vote[m.chat][1].length}
-${vote[m.chat][1].map((v, i) => `├ ${i + 1}. @${v.split`@`[0]}`).join('\n')}
-│ 
-└────
-
-┌〔 DEVOTE 〕
-│ 
-├ Total: ${vote[m.chat][2].length}
-${vote[m.chat][2].map((v, i) => `├ ${i + 1}. @${v.split`@`[0]}`).join('\n')}
-│ 
-└────
-
-*${prefix}deletevote* - to delete vote`
-			let buttonsDevote = [{
-					buttonId: `${prefix}upvote`,
-					buttonText: {
-						displayText: 'Upvote'
-					},
-					type: 1
-				},
-				{
-					buttonId: `${prefix}devote`,
-					buttonText: {
-						displayText: 'Devote'
-					},
-					type: 1
-				}
-			]
-
-			let buttonMessageDevote = {
-				image: log0,
-				jpegThumbnail: thum,
-				caption: teks_vote,
-				footer: `${global.botname}`,
-				buttons: buttonsDevote,
-				headerType: 1,
-				mentions: menvote
-			}
-			RoseMwol.sendMessage(m.chat, buttonMessageDevote)
-		}
-		break
-		case 'cekvote':
-		case 'checkvote': {
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			if (!m.isGroup) return replay(mess.group)
-			if (!(m.chat in vote)) return replay(`_*no voting in this group!*_\n\n*${prefix}vote* - to start voting`)
-			teks_vote = `*「 VOTE 」*
-
-*Reason:* ${vote[m.chat][0]}
-
-┌〔 UPVOTE 〕
-│ 
-├ Total: ${upvote.length}
-${vote[m.chat][1].map((v, i) => `├ ${i + 1}. @${v.split`@`[0]}`).join('\n')}
-│ 
-└────
-
-┌〔 DEVOTE 〕
-│ 
-├ Total: ${devote.length}
-${vote[m.chat][2].map((v, i) => `├ ${i + 1}. @${v.split`@`[0]}`).join('\n')}
-│ 
-└────
-
-*${prefix}deletevote* - to delete vote session
-
-
-©${RoseMwol.user.id}
-`
-			RoseMwol.sendTextWithMentions(m.chat, teks_vote, m)
-		}
-		break
-		case 'deletevote':
-		case 'delvote':
-		case 'hapusvote': {
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			if (!m.isGroup) return replay(mess.group)
-			if (!(m.chat in vote)) return replay(`_*no voting in this group!*_\n\n*${prefix}vote* - to start voting`)
-			delete vote[m.chat]
-			replay('Successfully deleted vote session in this group')
-		}
-		break
-		case 'listpc': {
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			let anu = await store.chats.all().filter(v => v.id.endsWith('.net')).map(v => v)
-			let teks = `     「 Personal Chat List 」\n\nThere are ${anu.length} users using bot in personal chat`
-			for (let i of anu) {
-				teks += `\n\nProfile : @${i.id.split('@')[0]}\nChat : ${i.unreadCount}\nLastchat : ${moment(i.conversationTimestamp * 1000).tz("Asia/Kolkata").format("DD/MM/YYYY HH:mm:ss")}`
-			}
-			RoseMwol.sendTextWithMentions(m.chat, teks, m)
-		}
-		break
-		case 'listgc': {
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			let anu = await store.chats.all().filter(v => v.id.endsWith('@g.us')).map(v => v.id)
-			let teks = `     「 Group Chat 」\n\nThere are ${anu.length} users using bot in group chat`
-			for (let i of anu) {
-				let metadata = await RoseMwol.groupMetadata(i)
-				if (metadata.owner === "undefined") {
-					loldd = false
-				} else {
-					loldd = metadata.owner
-				}
-				teks += `\n\nName : ${metadata.subject ? metadata.subject : "undefined"}\nOwner : ${loldd ? '@' + loldd.split("@")[0] : "undefined"}\nID : ${metadata.id ? metadata.id : "undefined"}\nMade : ${metadata.creation ? moment(metadata.creation * 1000).tz('Asia/Kolkata').format('DD/MM/YYYY HH:mm:ss') : "undefined"}\nMember : ${metadata.participants.length ? metadata.participants.length : "undefined"}`
-			}
-			RoseMwol.sendTextWithMentions(m.chat, teks, m)
-		}
-		break
-		case 'afk': {
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			let user = global.db.users[m.sender]
-			user.afkTime = +new Date
-			user.afkReason = args.join(" ")
-			replay(`${m.pushName} has gone afk\nReason : ${args.join(" ") ? args.join(" ") : ''}`)
-		}
-		break
-		case 'setcmd':
-		case 'addcmd': {
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			if (!m.quoted) return replay('Reply Message!')
-			if (!m.quoted.fileSha256) return replay('SHA256 Hash Missing')
-			if (!args.join(" ")) return replay(`For What Command?`)
-			let hash = m.quoted.fileSha256.toString('base64')
-			if (global.db.sticker[hash] && global.db.sticker[hash].locked) return replay('You have no permission to change this sticker command')
-			global.db.sticker[hash] = {
-				text,
-				mentionedJid: m.mentionedJid,
-				creator: m.sender,
-				at: +new Date,
-				locked: false,
-			}
-			replay(mess.success)
-		}
-		break
-		case 'delcmd': {
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			let hash = m.quoted.fileSha256.toString('base64')
-			if (!hash) return replay(`No hashes`)
-			if (global.db.sticker[hash] && global.db.sticker[hash].locked) return replay('You have no permission to delete this sticker command')
-			delete global.db.sticker[hash]
-			replay(mess.success)
-		}
-		break
-		case 'listcmd': {
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			let teks = `
-*Hash List*
-Info: *bold* hash is Locked
-${Object.entries(global.db.sticker).map(([key, value], index) => `${index + 1}. ${value.locked ? `*${key}*` : key} : ${value.text}`).join('\n')}
-`.trim()
-			RoseMwol.sendText(m.chat, teks, m, {
-				mentions: Object.values(global.db.sticker).map(x => x.mentionedJid).reduce((a, b) => [...a, ...b], [])
-			})
-		}
-		break
-		case 'lockcmd': {
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			if (!isCreator) return replay(mess.owner)
-			if (!m.quoted) return replay('Reply Message!')
-			if (!m.quoted.fileSha256) return replay('SHA256 Hash Missing')
-			let hash = m.quoted.fileSha256.toString('base64')
-			if (!(hash in global.db.sticker)) return replay('Hash not found in database')
-			global.db.sticker[hash].locked = !/^un/i.test(command)
-			replay(mess.success)
-		}
-		break
-		case 'addmsg': {
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			if (!m.quoted) return replay(`Reply message you want to save in database`)
-			if (!args.join(" ")) return replay(`Example : ${prefix + command} file name`)
-			let msgs = global.db.database
-			if (text.toLowerCase() in msgs) return replay(`'${args.join(" ")}' has been saved in the message list`)
-			msgs[text.toLowerCase()] = quoted.fakeObj
-			replay(`Successfully added message in message list as '${args.join(" ")}'
-    
-Access with ${prefix}getmsg ${args.join(" ")}
-
-View list of messages with ${prefix}listmsg`)
-		}
-		break
-		case 'getmsg': {
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			if (!args.join(" ")) return replay(`Example : ${prefix + command} file name\n\nView message list with ${prefix}listmsg`)
-			let msgs = global.db.database
-			if (!(text.toLowerCase() in msgs)) return replay(`'${args.join(" ")}' not listed in the message list`)
-			RoseMwol.copyNForward(m.chat, msgs[text.toLowerCase()], true)
-		}
-		break
-		case 'listmsg': {
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			let msgs = JSON.parse(fs.readFileSync('./src/database.json'))
-			let seplit = Object.entries(global.db.database).map(([nama, isi]) => {
-				return {
-					nama,
-					...isi
-				}
-			})
-			let teks = '「 LIST DATABASE 」\n\n'
-			for (let i of seplit) {
-				teks += `⬡ *Name :* ${i.nama}\n⬡ *Type :* ${getContentType(i.message).replace(/Message/i, '')}\n────────────────────────\n\n`
-			}
-			replay(teks)
-		}
-		break
-		case 'delmsg':
-		case 'deletemsg': {
-			let msgs = JSON.parse(fs.readFileSync('./src/database.json'))
-			if (!(text.toLowerCase() in msgs)) return reply(`'${text}' not listed in the message list`)
-			delete msgs[text.toLowerCase()]
-			fs.writeFileSync('./src/database.json', JSON.stringify(msgs))
-			reply(`Deleted successfully '${text}' from the message list`)
-		}
-		break
-		case 'fliptext': {
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			if (args.length < 1) return replay(`Example:\n${prefix}fliptext ${ownername}`)
-			quere = args.join(" ")
-			flipe = quere.split('').reverse().join('')
-			replay(`\`\`\`「 FLIP TEXT 」\`\`\`\n*•> Normal :*\n${quere}\n*•> Flip :*\n${flipe}`)
-		}
-		break
-		case 'toletter': {
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			if (!Number(args[0])) return replay(`Example:\n${prefix}toletter 956`)
-			try {
-				quere = args.join(" ")
-				convertes = await toHur(quere)
-				replay(`\`\`\`「 ALPHABET 」\`\`\`\n*•> Number :*\n${quere}\n*•> Alphabet :*\n${convertes}`)
-			} catch {
-				replay(`Error!`)
-			}
-		}
-		break
-		case 'ghfollowing':
-		case 'followinggh':
-			anu = await fetchJson(`https://api.github.com/users/${q}/following`)
-			teks = `*Following Github: ${q}\n\n`
-			buffer = await getBuffer(anu[0].avatar_url)
-			teks = `*Username:* ${anu.login}\n*Link:* ${anu.html_url}\n                            \n`
-			RoseMwol.sendMessage(from, {
-				image: {
-					url: buffer
-				},
-				caption: teks
-			}, {
-				quoted: m
-			})
-			break
-		case 'welcome': {
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			if (!m.isGroup) return replay(mess.group)
-			if (!isBotAdmins) return replay(mess.botAdmin)
-			if (!isAdmins && !isCreator) return replay(mess.admin)
-			if (args[0] === "on") {
-				if (welcm) return replay('Already activated')
-				wlcm.push(from)
-				replay('Success in turning on the welcome/left msg in this group')
-			} else if (args[0] === "off") {
-				if (!welcm) return replay('Already deactivated')
-				let off = wlcm.indexOf(from)
-				wlcm.splice(off, 1)
-				replay('Success in turning off welcome/left msg in this group')
-			} else {
-				let buttonswlcm = [{
-						buttonId: `${command} on`,
-						buttonText: {
-							displayText: 'On'
-						},
-						type: 1
-					},
-					{
-						buttonId: `${command} off`,
-						buttonText: {
-							displayText: 'Off'
-						},
-						type: 1
-					}
-				]
-				await RoseMwol.sendButtonText(m.chat, buttonswlcm, `Please click the button below\n\nOn to enable\nOff to disable`, `${global.botname}`, m)
-			}
-		}
-		break
-		case 'autoreply': {
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			if (!isBotAdmins) return replay(mess.botAdmin)
-			if (!isAdmins && !isCreator) return replay(mess.admin)
-			if (args[0] === "on") {
-				if (Autoreply) return replay('Already activated')
-				autorep.push(from)
-				replay('Success in turning on the autoreply in this group')
-			} else if (args[0] === "off") {
-				if (!Autoreply) return replay('Already deactivated')
-				let off = autorep.indexOf(from)
-				autorep.splice(off, 1)
-				replay('Success in turning off autoreply in this group')
-			} else {
-				let buttonswlcm = [{
-						buttonId: `${command} on`,
-						buttonText: {
-							displayText: 'On'
-						},
-						type: 1
-					},
-					{
-						buttonId: `${command} off`,
-						buttonText: {
-							displayText: 'Off'
-						},
-						type: 1
-					}
-				]
-				await RoseMwol.sendButtonText(m.chat, buttonswlcm, `Please click the button below\n\nOn to enable\nOff to disable`, `${global.botname}`, m)
-			}
-		}
-		break
-		case 'autorevoke': {
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			if (!m.isGroup) return replay(mess.group)
-			if (!isBotAdmins) return replay(mess.botAdmin)
-			if (!isAdmins && !isCreator) return replay(mess.admin)
-			if (args[0] === "on") {
-				if (GcRvk) return replay('Already activated')
-				gcrevoke.push(from)
-				replay('Success in turning on autorevoke in this group')
-			} else if (args[0] === "off") {
-				if (!GcRvk) return replay('Already deactivated')
-				let off = wlcm.indexOf(from)
-				gcrevoke.splice(off, 1)
-				replay('Success in turning off autorevoke in this group')
-			} else {
-				let buttonsrvk = [{
-						buttonId: `${command} on`,
-						buttonText: {
-							displayText: 'On'
-						},
-						type: 1
-					},
-					{
-						buttonId: `${command} off`,
-						buttonText: {
-							displayText: 'Off'
-						},
-						type: 1
-					}
-				]
-				await RoseMwol.sendButtonText(m.chat, buttonsrvk, `Please click the button below\n\nOn to enable\nOff to disable`, `${global.botname}`, m)
-			}
-		}
-		break
-		break
-		case 'leveling':
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			if (!m.isGroup) return replay(mess.group)
-			if (!isAdmins && !isCreator) return reply(mess.admin)
-			if (args.length < 1) return reply('type on to enable\ntype off to disable')
-			if (args[0] === 'on') {
-				if (isLeveling) return reply(`Already activated`)
-				_leveling.push(from)
-				fs.writeFileSync('./database/leveling.json', JSON.stringify(_leveling))
-				reply('Leveling activated')
-			} else if (args[0] === 'off') {
-				let anu = _leveling.indexOf(from)
-				_leveling.splice(anu, 1)
-				fs.writeFileSync('./database/leveling.json', JSON.stringify(_leveling))
-				reply('Leveling deactivated')
-			}
-			break
-		case 'autosticker':
-		case 'autostiker':
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			if (!m.isGroup) return replay(mess.group)
-			if (!isBotAdmins) return reply(mess.botAdmin)
-			if (!isAdmins && !isCreator) return reply(mess.admin)
-			if (args.length < 1) return reply('type auto sticker on to enable\ntype auto sticker off to disable')
-			if (args[0] === 'on') {
-				if (isAutoSticker) return reply(`Already activated`)
-				autosticker.push(from)
-				fs.writeFileSync('./database/autosticker.json', JSON.stringify(autosticker))
-				reply('autosticker activated')
-			} else if (args[0] === 'off') {
-				let anu = autosticker.indexOf(from)
-				autosticker.splice(anu, 1)
-				fs.writeFileSync('./database/autosticker.json', JSON.stringify(autosticker))
-				reply('auto sticker deactivated')
-			}
-			break
-		case 'autostickerpc':
-		case 'autostikerpc':
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			if (!m.isGroup) return replay(mess.group)
-			if (args.length < 1) return reply('type autosticker on to activate\ntype autosticker off to disable')
-			if (args[0] === 'on') {
-				if (isAutoStick) return reply(`Already activated`)
-				_autostick.push(from)
-				fs.writeFileSync('./database/autostickpc.json', JSON.stringify(autosticker))
-				reply('autosticker pc activated')
-			} else if (args[0] === 'disable') {
-				let anu = autosticker.indexOf(from)
-				_autostick.splice(anu, 1)
-				fs.writeFileSync('./database/autostickpc.json', JSON.stringify(autosticker))
-				reply('autosticker pc deactivated')
-			}
-			break
-		case 'rentbot':
-			if (!q) return reply(`Use :\n*${prefix}sewa* add/del time`)
-			if (args[0] === 'add') {
-				_sewa.addSewaGroup(from, args[1], sewa)
-				reply(`Success`)
-			} else if (args[0].toLowerCase() === 'del') {
-				sewa.splice(_sewa.getSewaPosition(from, sewa), 1)
-				fs.writeFileSync('./database/sewa.json', JSON.stringify(sewa))
-				reply(mess.success)
-			} else {
-				reply(`Use :\n*${prefix}sewa* add/del time`)
-			}
-			break
-		case 'rentlist':
-		case 'rentallist':
-			let txtnyee = `Rental List\nAmount : ${sewa.length}\n\n`
-			for (let i of sewa) {
-				let cekvippsewa = ms(i.expired - Date.now())
-				txtnyee += `*ID :* ${i.id} \n*Expire :* ${cekvippsewa.days} day(s) ${cekvippsewa.hours} hour(s) ${cekvippsewa.minutes} minute(s) ${cekvipp.seconds} second(s)\n\n`
-			}
-			reply(txtnyee)
-			break
-		case 'rentcheck':
-		case 'checkrent':
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			if (!m.isGroup) return replay(mess.group)
-			if (!isSewa) return reply(`This group is not listed on the rentbot list. Type ${prefix}rentbot for more information`)
-			let cekvipsewa = ms(_sewa.getSewaExpired(from, sewa) - Date.now())
-			let sewanya = `*「 RENT EXPIRE 」*\n\n➸ *ID*: ${from}\n➸ *Expired :* ${cekvipsewa.days} day(s) ${cekvipsewa.hours} hour(s) ${cekvipsewa.minutes} minute(s)`
-			reply(sewanya)
-			break
-		case 'antilinkgc': {
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			if (!m.isGroup) return replay(mess.group)
-			if (!isBotAdmins) return replay(mess.botAdmin)
-			if (!isAdmins && !isCreator) return replay(mess.admin)
-			if (args[0] === "on") {
-				if (AntiLink) return replay('Already activated')
-				ntilink.push(from)
-				replay('Success in turning on group chat antilink in this group')
-				var groupe = await RoseMwol.groupMetadata(from)
-				var members = groupe['participants']
-				var mems = []
-				members.map(async adm => {
-					mems.push(adm.id.replace('c.us', 's.whatsapp.net'))
-				})
-				RoseMwol.sendMessage(from, {
-					text: `\`\`\`「 ⚠️Warning⚠️ 」\`\`\`\n\nIf you're not an admin, don't send the group link in this group or u will be kicked immediately`,
-					contextInfo: {
-						mentionedJid: mems
-					}
-				}, {
-					quoted: m
-				})
-			} else if (args[0] === "off") {
-				if (!AntiLink) return replay('Already deactivated')
-				let off = ntilink.indexOf(from)
-				ntilink.splice(off, 1)
-				replay('Success in turning off group chat antilink in this group')
-			} else {
-				let buttonsntilink = [{
-						buttonId: `${command} on`,
-						buttonText: {
-							displayText: 'On'
-						},
-						type: 1
-					},
-					{
-						buttonId: `${command} off`,
-						buttonText: {
-							displayText: 'Off'
-						},
-						type: 1
-					}
-				]
-				await RoseMwol.sendButtonText(m.chat, buttonsntilink, `Please click the button below\n\nOn to enable\nOff to disable`, `${global.botname}`, m)
-			}
-		}
-		break
-		case 'antilinkyoutubevideo':
-		case 'antilinkyoutubevid':
-		case 'antilinkytvid': {
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			if (!m.isGroup) return replay(mess.group)
-			if (!isBotAdmins) return replay(mess.botAdmin)
-			if (!isAdmins && !isCreator) return replay(mess.admin)
-			if (args[0] === "on") {
-				if (AntiLinkYoutubeVid) return replay('Already activated')
-				ntilinkytvid.push(from)
-				replay('Success in turning on youtube video antilink in this group')
-				var groupe = await RoseMwol.groupMetadata(from)
-				var members = groupe['participants']
-				var mems = []
-				members.map(async adm => {
-					mems.push(adm.id.replace('c.us', 's.whatsapp.net'))
-				})
-				RoseMwol.sendMessage(from, {
-					text: `\`\`\`「 ⚠️Warning⚠️ 」\`\`\`\n\nIf you're not an admin, don't send the youtube video link in this group or u will be kicked immediately!`,
-					contextInfo: {
-						mentionedJid: mems
-					}
-				}, {
-					quoted: m
-				})
-			} else if (args[0] === "off") {
-				if (!AntiLinkYoutubeVid) return replay('Already deactivated')
-				let off = ntilinkytvid.indexOf(from)
-				ntilinkytvid.splice(off, 1)
-				replay('Success in turning off youtube video antilink in this group')
-			} else {
-				let buttonsntilink = [{
-						buttonId: `${command} on`,
-						buttonText: {
-							displayText: 'On'
-						},
-						type: 1
-					},
-					{
-						buttonId: `${command} off`,
-						buttonText: {
-							displayText: 'Off'
-						},
-						type: 1
-					}
-				]
-				await RoseMwol.sendButtonText(m.chat, buttonsntilink, `Please click the button below\n\nOn to enable\nOff to disable`, `${global.botname}`, m)
-			}
-		}
-		break
-		case 'antilinkyoutubech':
-		case 'antilinkyoutubechannel':
-		case 'antilinkytch': {
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			if (!m.isGroup) return replay(mess.group)
-			if (!isBotAdmins) return replay(mess.botAdmin)
-			if (!isAdmins && !isCreator) return replay(mess.admin)
-			if (args[0] === "on") {
-				if (AntiLinkYoutubeChannel) return replay('Already activated')
-				ntilinkytch.push(from)
-				replay('Success in turning on youtube channel antilink in this group')
-				var groupe = await RoseMwol.groupMetadata(from)
-				var members = groupe['participants']
-				var mems = []
-				members.map(async adm => {
-					mems.push(adm.id.replace('c.us', 's.whatsapp.net'))
-				})
-				RoseMwol.sendMessage(from, {
-					text: `\`\`\`「 ⚠️Warning⚠️ 」\`\`\`\n\nIf you're not an admin, don't send the youtube channel link in this group or u will be kicked immediately!`,
-					contextInfo: {
-						mentionedJid: mems
-					}
-				}, {
-					quoted: m
-				})
-			} else if (args[0] === "off") {
-				if (!AntiLinkYoutubeChannel) return replay('Already deactivated')
-				let off = ntilinkytch.indexOf(from)
-				ntilinkytch.splice(off, 1)
-				replay('Success in turning off youtube channel antilink in this group')
-			} else {
-				let buttonsntilink = [{
-						buttonId: `${command} on`,
-						buttonText: {
-							displayText: 'On'
-						},
-						type: 1
-					},
-					{
-						buttonId: `${command} off`,
-						buttonText: {
-							displayText: 'Off'
-						},
-						type: 1
-					}
-				]
-				await RoseMwol.sendButtonText(m.chat, buttonsntilink, `Please click the button below\n\nOn to enable\nOff to disable`, `${global.botname}`, m)
-			}
-		}
-		break
-		case 'antilinkinstagram':
-		case 'antilinkig':
-		case 'antilinkinsta': {
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			if (!m.isGroup) return replay(mess.group)
-			if (!isBotAdmins) return replay(mess.botAdmin)
-			if (!isAdmins && !isCreator) return replay(mess.admin)
-			if (args[0] === "on") {
-				if (AntiLinkInstagram) return replay('Already activated')
-				ntilinkig.push(from)
-				replay('Success in turning on instagram antilink in this group')
-				var groupe = await RoseMwol.groupMetadata(from)
-				var members = groupe['participants']
-				var mems = []
-				members.map(async adm => {
-					mems.push(adm.id.replace('c.us', 's.whatsapp.net'))
-				})
-				RoseMwol.sendMessage(from, {
-					text: `\`\`\`「 ⚠️Warning⚠️ 」\`\`\`\n\nIf you're not an admin, don't send the instagram link in this group or u will be kicked immediately!`,
-					contextInfo: {
-						mentionedJid: mems
-					}
-				}, {
-					quoted: m
-				})
-			} else if (args[0] === "off") {
-				if (!AntiLinkInstagram) return replay('Already deactivated')
-				let off = ntilinkig.indexOf(from)
-				ntilinkig.splice(off, 1)
-				replay('Success in turning off instagram antilink in this group')
-			} else {
-				let buttonsntilink = [{
-						buttonId: `${command} on`,
-						buttonText: {
-							displayText: 'On'
-						},
-						type: 1
-					},
-					{
-						buttonId: `${command} off`,
-						buttonText: {
-							displayText: 'Off'
-						},
-						type: 1
-					}
-				]
-				await RoseMwol.sendButtonText(m.chat, buttonsntilink, `Please click the button below\n\nOn to enable\nOff to disable`, `${global.botname}`, m)
-			}
-		}
-		break
-		case 'antilinkfacebook':
-		case 'antilinkfb': {
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			if (!m.isGroup) return replay(mess.group)
-			if (!isBotAdmins) return replay(mess.botAdmin)
-			if (!isAdmins && !isCreator) return replay(mess.admin)
-			if (args[0] === "on") {
-				if (AntiLinkFacebook) return replay('Already activated')
-				ntilinkfb.push(from)
-				replay('Success in turning on facebook antilink in this group')
-				var groupe = await RoseMwol.groupMetadata(from)
-				var members = groupe['participants']
-				var mems = []
-				members.map(async adm => {
-					mems.push(adm.id.replace('c.us', 's.whatsapp.net'))
-				})
-				RoseMwol.sendMessage(from, {
-					text: `\`\`\`「 ⚠️Warning⚠️ 」\`\`\`\n\nIf you're not an admin, don't send the facebook link in this group or u will be kicked immediately!`,
-					contextInfo: {
-						mentionedJid: mems
-					}
-				}, {
-					quoted: m
-				})
-			} else if (args[0] === "off") {
-				if (!AntiLinkFacebook) return replay('Already deactivated')
-				let off = ntilinkfb.indexOf(from)
-				ntilinkfb.splice(off, 1)
-				replay('Success in turning off facebook antilink in this group')
-			} else {
-				let buttonsntilink = [{
-						buttonId: `${command} on`,
-						buttonText: {
-							displayText: 'On'
-						},
-						type: 1
-					},
-					{
-						buttonId: `${command} off`,
-						buttonText: {
-							displayText: 'Off'
-						},
-						type: 1
-					}
-				]
-				await RoseMwol.sendButtonText(m.chat, buttonsntilink, `Please click the button below\n\nOn to enable\nOff to disable`, `${global.botname}`, m)
-			}
-		}
-		break
-		case 'antilinktelegram':
-		case 'antilinktg': {
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			if (!m.isGroup) return replay(mess.group)
-			if (!isBotAdmins) return replay(mess.botAdmin)
-			if (!isAdmins && !isCreator) return replay(mess.admin)
-			if (args[0] === "on") {
-				if (AntiLinkTelegram) return replay('Already activated')
-				ntilinktg.push(from)
-				replay('Success in turning on telegram antilink in this group')
-				var groupe = await RoseMwol.groupMetadata(from)
-				var members = groupe['participants']
-				var mems = []
-				members.map(async adm => {
-					mems.push(adm.id.replace('c.us', 's.whatsapp.net'))
-				})
-				RoseMwol.sendMessage(from, {
-					text: `\`\`\`「 ⚠️Warning⚠️ 」\`\`\`\n\nIf you're not an admin, don't send the telegram link in this group or u will be kicked immediately!`,
-					contextInfo: {
-						mentionedJid: mems
-					}
-				}, {
-					quoted: m
-				})
-			} else if (args[0] === "off") {
-				if (!AntiLinkTelegram) return replay('Already deactivated')
-				let off = ntilinkig.indexOf(from)
-				ntilinkig.splice(off, 1)
-				replay('Success in turning off telegram antilink in this group')
-			} else {
-				let buttonsntilink = [{
-						buttonId: `${command} on`,
-						buttonText: {
-							displayText: 'On'
-						},
-						type: 1
-					},
-					{
-						buttonId: `${command} off`,
-						buttonText: {
-							displayText: 'Off'
-						},
-						type: 1
-					}
-				]
-				await RoseMwol.sendButtonText(m.chat, buttonsntilink, `Please click the button below\n\nOn to enable\nOff to disable`, `${global.botname}`, m)
-			}
-		}
-		break
-		case 'antilinktiktok':
-		case 'antilinktt': {
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			if (!m.isGroup) return replay(mess.group)
-			if (!isBotAdmins) return replay(mess.botAdmin)
-			if (!isAdmins && !isCreator) return replay(mess.admin)
-			if (args[0] === "on") {
-				if (AntiLinkTiktok) return replay('Already activated')
-				ntilinktt.push(from)
-				replay('Success in turning on tiktok antilink in this group')
-				var groupe = await RoseMwol.groupMetadata(from)
-				var members = groupe['participants']
-				var mems = []
-				members.map(async adm => {
-					mems.push(adm.id.replace('c.us', 's.whatsapp.net'))
-				})
-				RoseMwol.sendMessage(from, {
-					text: `\`\`\`「 ⚠️Warning⚠️ 」\`\`\`\n\nIf you're not an admin, don't send the tiktok link in this group or u will be kicked immediately!`,
-					contextInfo: {
-						mentionedJid: mems
-					}
-				}, {
-					quoted: m
-				})
-			} else if (args[0] === "off") {
-				if (!AntiLinkTiktok) return replay('Already deactivated')
-				let off = ntilinktt.indexOf(from)
-				ntilinktt.splice(off, 1)
-				replay('Success in turning off tiktok antilink in this group')
-			} else {
-				let buttonsntilink = [{
-						buttonId: `${command} on`,
-						buttonText: {
-							displayText: 'On'
-						},
-						type: 1
-					},
-					{
-						buttonId: `${command} off`,
-						buttonText: {
-							displayText: 'Off'
-						},
-						type: 1
-					}
-				]
-				await RoseMwol.sendButtonText(m.chat, buttonsntilink, `Please click the button below\n\nOn to enable\nOff to disable`, `${global.botname}`, m)
-			}
-		}
-		break
-		case 'antilinktwt':
-		case 'antilinktwitter':
-		case 'antilinktwit': {
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			if (!m.isGroup) return replay(mess.group)
-			if (!isBotAdmins) return replay(mess.botAdmin)
-			if (!isAdmins && !isCreator) return replay(mess.admin)
-			if (args[0] === "on") {
-				if (AntiLinkTwitter) return replay('Already activated')
-				ntilinktwt.push(from)
-				replay('Success in turning on twitter antilink in this group')
-				var groupe = await RoseMwol.groupMetadata(from)
-				var members = groupe['participants']
-				var mems = []
-				members.map(async adm => {
-					mems.push(adm.id.replace('c.us', 's.whatsapp.net'))
-				})
-				RoseMwol.sendMessage(from, {
-					text: `\`\`\`「 ⚠️Warning⚠️ 」\`\`\`\n\nIf you're not an admin, don't send the twitter link in this group or u will be kicked immediately!`,
-					contextInfo: {
-						mentionedJid: mems
-					}
-				}, {
-					quoted: m
-				})
-			} else if (args[0] === "off") {
-				if (!AntiLinkTwitter) return replay('Already deactivated')
-				let off = ntilinktwt.indexOf(from)
-				ntilinktwt.splice(off, 1)
-				replay('Success in turning off twitter antilink in this group')
-			} else {
-				let buttonsntilink = [{
-						buttonId: `${command} on`,
-						buttonText: {
-							displayText: 'On'
-						},
-						type: 1
-					},
-					{
-						buttonId: `${command} off`,
-						buttonText: {
-							displayText: 'Off'
-						},
-						type: 1
-					}
-				]
-				await RoseMwol.sendButtonText(m.chat, buttonsntilink, `Please click the button below\n\nOn to enable\nOff to disable`, `${global.botname}`, m)
-			}
-		}
-		break
-		case 'antilinkall': {
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			if (!m.isGroup) return replay(mess.group)
-			if (!isBotAdmins) return replay(mess.botAdmin)
-			if (!isAdmins && !isCreator) return replay(mess.admin)
-			if (args[0] === "on") {
-				if (AntiLinkTwitter) return replay('Already activated')
-				ntilinkall.push(from)
-				replay('Success in turning on all antilink in this group')
-				var groupe = await RoseMwol.groupMetadata(from)
-				var members = groupe['participants']
-				var mems = []
-				members.map(async adm => {
-					mems.push(adm.id.replace('c.us', 's.whatsapp.net'))
-				})
-				RoseMwol.sendMessage(from, {
-					text: `\`\`\`「 ⚠️Warning⚠️ 」\`\`\`\n\nIf you're not an admin, don't send any link in this group or u will be kicked immediately!`,
-					contextInfo: {
-						mentionedJid: mems
-					}
-				}, {
-					quoted: m
-				})
-			} else if (args[0] === "off") {
-				if (!AntiLinkAll) return replay('Already deactivated')
-				let off = ntilinkall.indexOf(from)
-				ntilinkall.splice(off, 1)
-				replay('Success in turning off all antilink in this group')
-			} else {
-				let buttonsntilink = [{
-						buttonId: `${command} on`,
-						buttonText: {
-							displayText: 'On'
-						},
-						type: 1
-					},
-					{
-						buttonId: `${command} off`,
-						buttonText: {
-							displayText: 'Off'
-						},
-						type: 1
-					}
-				]
-				await RoseMwol.sendButtonText(m.chat, buttonsntilink, `Please click the button below\n\nOn to enable\nOff to disable`, `${global.botname}`, m)
-			}
-		}
-		break
-		case 'antivirus':
-		case 'antivirtex': {
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			if (!m.isGroup) return replay(mess.group)
-			if (!isBotAdmins) return replay(mess.botAdmin)
-			if (!isAdmins && !isCreator) return replay(mess.admin)
-			if (args[0] === "on") {
-				if (antiVirtex) return replay('Already activated')
-				ntvirtex.push(from)
-				replay('Success in turning on antivirus in this group')
-				var groupe = await RoseMwol.groupMetadata(from)
-				var members = groupe['participants']
-				var mems = []
-				members.map(async adm => {
-					mems.push(adm.id.replace('c.us', 's.whatsapp.net'))
-				})
-				RoseMwol.sendMessage(from, {
-					text: `\`\`\`「 ⚠️Warning⚠️ 」\`\`\`\n\nNo body is allowed to send virus in this group, member who send will be kicked immediately!`,
-					contextInfo: {
-						mentionedJid: mems
-					}
-				}, {
-					quoted: m
-				})
-			} else if (args[0] === "off") {
-				if (!antiVirtex) return replay('Already deactivated')
-				let off = ntvirtex.indexOf(from)
-				ntvirtex.splice(off, 1)
-				replay('Success in turning off antivirus this group')
-			} else {
-				let buttonsntvirtex = [{
-						buttonId: `${command} on`,
-						buttonText: {
-							displayText: 'On'
-						},
-						type: 1
-					},
-					{
-						buttonId: `${command} off`,
-						buttonText: {
-							displayText: 'Off'
-						},
-						type: 1
-					}
-				]
-				await RoseMwol.sendButtonText(m.chat, buttonsntvirtex, `Please click the button below\n\nOn to enable\nOff to disable`, `${global.botname}`, m)
-			}
-		}
-		break
-		case 'antitoxic': {
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			if (!m.isGroup) return replay(mess.group)
-			if (!isBotAdmins) return replay(mess.botAdmin)
-			if (!isAdmins && !isCreator) return replay(mess.admin)
-			if (args[0] === "on") {
-				if (antiToxic) return replay('Already activated')
-				nttoxic.push(from)
-				replay('Success in turning on antitoxic in this group')
-				var groupe = await RoseMwol.groupMetadata(from)
-				var members = groupe['participants']
-				var mems = []
-				members.map(async adm => {
-					mems.push(adm.id.replace('c.us', 's.whatsapp.net'))
-				})
-				RoseMwol.sendMessage(from, {
-					text: `\`\`\`「 ⚠️Warning⚠️ 」\`\`\`\n\nNobody is allowed to use bad words in this group, one who uses will be kicked immediately!`,
-					contextInfo: {
-						mentionedJid: mems
-					}
-				}, {
-					quoted: m
-				})
-			} else if (args[0] === "off") {
-				if (!antiToxic) return replay('Already deactivated')
-				let off = nttoxic.indexOf(from)
-				nttoxic.splice(off, 1)
-				replay('Success in turning off antitoxic in this group')
-			} else {
-				let buttonsnttoxci = [{
-						buttonId: `${command} on`,
-						buttonText: {
-							displayText: 'On'
-						},
-						type: 1
-					},
-					{
-						buttonId: `${command} off`,
-						buttonText: {
-							displayText: 'Off'
-						},
-						type: 1
-					}
-				]
-				await RoseMwol.sendButtonText(m.chat, buttonsnttoxic, `Please click the button below\n\nOn to enable\nOff to disable`, `${global.botname}`, m)
-			}
-		}
-		break
-		case 'antiwame': {
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			if (!m.isGroup) return replay(mess.group)
-			if (!isBotAdmins) return replay(mess.botAdmin)
-			if (!isAdmins && !isCreator) return replay(mess.admin)
-			if (args[0] === "on") {
-				if (antiWame) return replay('Already activated')
-				ntwame.push(from)
-				replay('Success in turning on antiwame in this group')
-				var groupe = await RoseMwol.groupMetadata(from)
-				var members = groupe['participants']
-				var mems = []
-				members.map(async adm => {
-					mems.push(adm.id.replace('c.us', 's.whatsapp.net'))
-				})
-				RoseMwol.sendMessage(from, {
-					text: `\`\`\`「 ⚠️Warning⚠️ 」\`\`\`\n\nNobody is allowed to send wa.me in this group, one who sends will be kicked immediately!`,
-					contextInfo: {
-						mentionedJid: mems
-					}
-				}, {
-					quoted: m
-				})
-			} else if (args[0] === "off") {
-				if (!antiWame) return replay('Already deactivated')
-				let off = nttoxic.indexOf(from)
-				ntwame.splice(off, 1)
-				replay('Success in turning off antiwame in this group')
-			} else {
-				let buttonsntwame = [{
-						buttonId: `${command} on`,
-						buttonText: {
-							displayText: 'On'
-						},
-						type: 1
-					},
-					{
-						buttonId: `${command} off`,
-						buttonText: {
-							displayText: 'Off'
-						},
-						type: 1
-					}
-				]
-				await RoseMwol.sendButtonText(m.chat, buttonsntwame, `Please click the button below\n\nOn to enable\nOff to disable`, `${global.botname}`, m)
-			}
-		}
-		break
-		case 'nsfw': {
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			if (!m.isGroup) return replay(mess.group)
-			if (!isBotAdmins) return replay(mess.botAdmin)
-			if (!isAdmins && !isCreator) return replay(mess.admin)
-			if (args[0] === "on") {
-				if (AntiNsfw) return replay('Already activated')
-				ntnsfw.push(from)
-				replay('Success in turning on nsfw in this group')
-				var groupe = await RoseMwol.groupMetadata(from)
-				var members = groupe['participants']
-				var mems = []
-				members.map(async adm => {
-					mems.push(adm.id.replace('c.us', 's.whatsapp.net'))
-				})
-				RoseMwol.sendMessage(from, {
-					text: `\`\`\`「 ⚠️Warning⚠️ 」\`\`\`\n\nNsfw(not safe for work) feature has been enabled in this group, which means one can access sexual graphics from the bot!`,
-					contextInfo: {
-						mentionedJid: mems
-					}
-				}, {
-					quoted: m
-				})
-			} else if (args[0] === "off") {
-				if (!AntiNsfw) return replay('Already deactivated')
-				let off = ntnsfw.indexOf(from)
-				ntnsfw.splice(off, 1)
-				replay('Success in turning off nsfw in this group')
-			} else {
-				let buttonsntnsfw = [{
-						buttonId: `${command} on`,
-						buttonText: {
-							displayText: 'On'
-						},
-						type: 1
-					},
-					{
-						buttonId: `${command} off`,
-						buttonText: {
-							displayText: 'Off'
-						},
-						type: 1
-					}
-				]
-				await RoseMwol.sendButtonText(m.chat, buttonsntnsfw, `Please click the button below\n\nOn to enable\nOff to disable`, `${global.botname}`, m)
-			}
-		}
-		break
-		case 'ban': {
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			if (!isCreator) return replay(mess.owner)
-			if (!args[0]) return replay(`Select add or del(add to ban, del to unban), For Example: Reply *${prefix}ban add* to the user u want to ban`)
-			if (args[1]) {
-				orgnye = args[1] + "@s.whatsapp.net"
-			} else if (m.quoted) {
-				orgnye = m.quoted.sender
-			}
-			const isBane = banUser.includes(orgnye)
-			if (args[0] === "add") {
-				if (isBane) return ads('User was already banned')
-				banUser.push(orgnye)
-				replay(`Successfully banned the user`)
-			} else if (args[0] === "del") {
-				if (!isBane) return ads('User was already unbanned')
-				let delbans = banUser.indexOf(orgnye)
-				banUser.splice(delbans, 1)
-				replay(`Successfully unbanned the user`)
-			} else {
-				replay("Error")
-			}
-		}
-		break
-		case 'listonline':
-		case 'listaktif': {
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			if (!m.isGroup) return replay(mess.group)
-			let id = args && /\d+\-\d+@g.us/.test(args[0]) ? args[0] : m.chat
-			let online = [...Object.keys(store.presences[id]), botNumber]
-			let liston = 1
-			RoseMwol.sendText(m.chat, '     「 Online List 」\n\n' + online.map(v => `${liston++} . @` + v.replace(/@.+/, '')).join`\n`, m, {
-				mentions: online
-			})
-		}
-		break
-		case 'chat': {
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			if (!isCreator) return reply(mess.owner)
-			if (!args.join(" ")) return reply(`Example :\n${prefix + command} 916909xxxxxx|Hi`)
-			const cpes = args.join(" ")
-			const nony = cpes.split("|")[0];
-			const pesny = cpes.split("|")[1];
-			lolh = `*| CHAT |*
-
-Message from owner of bot
-Number : @${m.sender.split("@")[0]}
-Message : ${pesny}`
-			RoseMwol.sendMessage(nony + "@s.whatsapp.net", {
-				text: lolh,
-				mentions: [m.sender]
-			}, {
-				quoted: m
-			})
-		}
-		await reply("Success")
-		break
-		case 'cowner': {
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			if (!isCreator) return reply(mess.owner)
-			if (!args[0]) return reply(`Select add or delete`)
-			if (args[1]) {
-				orgnye = args[1]
-			} else if (m.quoted) {
-				orgnye = m.quoted.sender.split("@")[0]
-			}
-			const isCwner = owner.includes(orgnye)
-			if (args[0] === "add") {
-				if (isCwner) return reply('The user is already the owner')
-				owner.push(orgnye)
-				reply(`Success in adding owner`)
-			} else if (args[0] === "del") {
-				if (!isCwner) return reply('User is not owner')
-				let delcwner = owner.indexOf(orgnye)
-				owner.splice(delcwner, 1)
-				reply(`Success in deleting owner`)
-			} else {
-				reply("Error")
-			}
-		}
-		break
-		case 'ban': {
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			if (!isCreator) return replay(mess.owner)
-			if (!args[0]) return replay(`Select add or del(add to ban, del to unban), For Example: Reply *${prefix}ban add* to the user u want to ban`)
-			if (args[1]) {
-				orgnye = args[1] + "@s.whatsapp.net"
-			} else if (m.quoted) {
-				orgnye = m.quoted.sender
-			}
-			const isBane = banUser.includes(orgnye)
-			if (args[0] === "add") {
-				if (isBane) return ads('User was already banned')
-				banUser.push(orgnye)
-				replay(`Successfully banned the user`)
-			} else if (args[0] === "del") {
-				if (!isBane) return ads('User was already unbanned')
-				let delbans = banUser.indexOf(orgnye)
-				banUser.splice(delbans, 1)
-				replay(`Successfully unbanned the user`)
-			} else {
-				replay("Error")
-			}
-		}
-		break
-		case 'request': {
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			if (!args.join(" ")) return replay(`Example : ${prefix + command} hello dev please add a downloader feature`)
-			teks = `*| REQUEST |*`
-			teks1 = `\n\nNumber : @${m.sender.split("@")[0]}\nRequest : ${args.join(" ")}`
-			teks2 = `\n\nSuccessfully sent to owner`
-			for (let i of owner) {
-				RoseMwol.sendMessage(i + "919744933034@s.whatsapp.net", {
-					text: teks + teks1,
-					mentions: [m.sender]
-				}, {
-					quoted: m
-				})
-			}
-			RoseMwol.sendMessage(m.chat, {
-				text: teks + teks2 + teks1,
-				mentions: [m.sender]
-			}, {
-				quoted: m
-			})
-		}
-		break
-		case 'report': {
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			if (!args.join(" ")) return replay(`Example : \n- ${prefix + command} fitur ig error min\n- ${prefix + command} hey dev this user is spamming`)
-			teks = `*| REPORT |*`
-			teks1 = `\n\nNumber : @${m.sender.split("@")[0]}\nReport : ${args.join(" ")}`
-			teks2 = `\n\nSuccessfully sent to owner`
-			for (let i of owner) {
-				RoseMwol.sendMessage(i + "919744933034@s.whatsapp.net", {
-					text: teks + teks1,
-					mentions: [m.sender]
-				}, {
-					quoted: m
-				})
-			}
-			RoseMwol.sendMessage(m.chat, {
-				text: teks + teks2 + teks1,
-				mentions: [m.sender]
-			}, {
-				quoted: m
-			})
-		}
-		break
-		case 'mcserver':
-		case 'mcquery': {
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			if (!args.join(" ")) return replay(`Example : \n${prefix + command} ip|port\nUses : \n${prefix + command} play.sachu-settan.com|19132`)
-			const Query = require("minecraft-query");
-
-			const qury = args.join(" ")
-			const iphost = qury.split("|")[0];
-			const portnya = qury.split("|")[1];
-
-			if (!iphost) return replay(`Where's your ip?`)
-			if (!portnya) return replay(`Where's the port??`)
-
-			const q = new Query({
-				host: iphost,
-				port: portnya,
-				timeout: 7500
-			});
-
-			q.fullStat()
-				.then(success => {
-					replay(jsonformat(success));
-					return q.basicStat()
-				})
-				.then(success => {
-					replay(jsonformat(success));
-					q.close();
-				})
-		}
-		break
-		case 'mcpedl': {
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			if (!args.join(" ")) return replay(`Example : ${prefix + command} shader`)
-			yogipw.mcpedl(args.join(" ")).then(async (res) => {
-				teks = `*| MCPEDL SEARCH |*`
-				for (let i of res) {
-					teks += `\n\nName : ${i.name}\nCategory : ${i.category}\nDate : ${i.date}\nDesc : ${i.desc}\nLink : ${i.link}`
-				}
-				let buttons = [{
-					buttonId: `menu`,
-					buttonText: {
-						displayText: 'Menu🥀'
-					},
-					type: 1
-				}]
-				let buttonMessage = {
-					image: log0,
-					jpegThumbnail: thum,
-					caption: teks,
-					footer: `${global.botname}`,
-					buttons: buttons,
-					headerType: 4
-				}
-				RoseMwol.sendMessage(m.chat, buttonMessage, {
-					quoted: m
-				})
-			})
-		}
-		break
-		case 'happymod': {
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			if (!args.join(" ")) return replay(`Example : ${prefix + command} mobile legend`)
-			yogipw.happymod(args.join(" ")).then(async (res) => {
-				teks = '```「 HappyMod Search 」```'
-				for (let i of res) {
-					teks += `\n\n${i.name}\n`
-					teks += `${i.link}`
-				}
-				let buttons = [{
-					buttonId: `menu`,
-					buttonText: {
-						displayText: 'Menu🥀'
-					},
-					type: 1
-				}]
-				let buttonMessage = {
-					image: {
-						url: res[0].icon
-					},
-					jpegThumbnail: thum,
-					caption: teks,
-					footer: `${global.botname}`,
-					buttons: buttons,
-					headerType: 4
-				}
-				RoseMwol.sendMessage(m.chat, buttonMessage, {
-					quoted: m
-				})
-			})
-		}
-		break
-		case 'searchgc': {
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			if (args.length < 1) return replay(`Example :\n${prefix}searchgc Classy Editor`)
-			nae = args.join(" ")
-			hx.linkwa(nae).then(res => {
-				teks = '```「 Search Group 」```'
-				for (let i of res) {
-					teks += `\n\n•> Group Whatsapp :\n`
-					teks += `${i.link}\n`
-					teks += `${i.nama}`
-				}
-				let buttons = [{
-					buttonId: `menu`,
-					buttonText: {
-						displayText: 'Menu🥀'
-					},
-					type: 1
-				}]
-				let buttonMessage = {
-					image: log0,
-					jpegThumbnail: thum,
-					caption: teks,
-					footer: `${global.botname}`,
-					buttons: buttons,
-					headerType: 4
-				}
-				RoseMwol.sendMessage(m.chat, buttonMessage, {
-					quoted: m
-				})
-			})
-		}
-		break
-		case 'servermc': {
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			yogipw.servermc().then(async (res) => {
-				let teks = '*| MINECRAFT SERVER |*\n\nhttps://minecraftpocket-servers.com/country/indonesia/\n\n'
-				let no = 1
-				for (let i of res) {
-					teks += `${themeemoji} Server To ${no++}\nip : ${i.ip}\nport : ${i.port}\nversi : ${i.versi}\nplayer : ${i.player}\n\n`
-				}
-				let buttons = [{
-					buttonId: `menu`,
-					buttonText: {
-						displayText: 'Menu🥀'
-					},
-					type: 1
-				}]
-				let buttonMessage = {
-					image: log0,
-					jpegThumbnail: thum,
-					caption: teks,
-					footer: `${global.botname}`,
-					buttons: buttons,
-					headerType: 4
-				}
-				RoseMwol.sendMessage(m.chat, buttonMessage, {
-					quoted: m
-				})
-			})
-		}
-		break
-		case 'antitag': {
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			if (!isCreator) return
-			if (args.length < 1) return replay(`Type on to enable\nType off to disable`)
-			if (args[0] === 'on') {
-				if (antitags === true) return
-				global.antitags = true
-				replay(`Successfully activated antitag!`)
-			} else if (args[0] === 'off') {
-				if (antitags === false) return
-				global.antitags = false
-				replay(`Successfully deactivated antitag!`)
-			} else {
-				replay('Choose on or off')
-			}
-		}
-		break
-		case 'chatinfo': {
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			if (!m.quoted) replay('Reply Message')
-			let msg = await m.getQuotedObj()
-			if (!m.quoted.isBaileys) return replay('The message was not sent by a bot!')
-			let teks = ''
-			for (let i of msg.userReceipt) {
-				let read = i.readTimestamp
-				let unread = i.receiptTimestamp
-				let waktu = read ? read : unread
-				teks += `${global.themeemoji} @${i.userJid.split('@')[0]}\n`
-				teks += ` ┗━${global.themeemoji} *Time :* ${moment(waktu * 1000).format('DD/MM/YY HH:mm:ss')} ${global.themeemoji} *Status :* ${read ? 'Read' : 'Sent'}\n\n`
-			}
-			RoseMwol.sendTextWithMentions(m.chat, teks, m)
-		}
-		break
-		case 'setname':
-		case 'setsubject': {
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			if (!m.isGroup) return replay(mess.group)
-			if (!isBotAdmins) return replay(mess.botAdmin)
-			if (!isAdmins && !isCreator) return replay(mess.admin)
-			if (!text) return replay('Text ?')
-			await RoseMwol.groupUpdateSubject(m.chat, text).then((res) => replay(mess.success)).catch((err) => replay(jsonformat(err)))
-		}
-		break
-		case 'block': {
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			if (!isCreator) return reply(mess.owner)
-			let users = m.mentionedJid[0] ? m.mentionedJid[0] : m.quoted ? m.quoted.sender : text.replace(/[^0-9]/g, '') + '@s.whatsapp.net'
-			await RoseMwol.updateBlockStatus(users, 'block').then((res) => reply(jsonformat(res))).catch((err) => reply(jsonformat(err)))
-		}
-		break
-		case 'unblock': {
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			if (!isCreator) return reply(mess.owner)
-			let users = m.mentionedJid[0] ? m.mentionedJid[0] : m.quoted ? m.quoted.sender : text.replace(/[^0-9]/g, '') + '@s.whatsapp.net'
-			await RoseMwol.updateBlockStatus(users, 'unblock').then((res) => reply(jsonformat(res))).catch((err) => reply(jsonformat(err)))
-		}
-		break
-		case 'setdesc':
-		case 'setdesk': {
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			if (!m.isGroup) return replay(mess.group)
-			if (!isBotAdmins) return replay(mess.botAdmin)
-			if (!isAdmins && !isCreator) return replay(mess.admin)
-			if (!text) return replay('Where is the text?')
-			await RoseMwol.groupUpdateDescription(m.chat, text).then((res) => replay(mess.success)).catch((err) => replay(jsonformat(err)))
-		}
-		break
-		case 'setppbot': {
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			if (!isCreator) return replay(mess.owner)
-			if (!quoted) return replay(`Send/Reply Image With Caption ${prefix + command}`)
-			if (!/image/.test(mime)) return replay(`Send/Reply Image With Caption ${prefix + command}`)
-			if (/webp/.test(mime)) return replay(`Send/Reply Image With Caption ${prefix + command}`)
-			let media = await RoseMwol.downloadAndSaveMediaMessage(quoted)
-			await RoseMwol.updateProfilePicture(botNumber, {
-				url: media
-			}).catch((err) => fs.unlinkSync(media))
-			replay(mess.success)
-		}
-		break
-		case 'setgrouppp':
-		case 'setgruppp':
-		case 'setgcpp': {
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			if (!m.isGroup) return replay(mess.group)
-			if (!isAdmins && !isCreator) return replay(mess.admin)
-			if (!quoted) return replay(`Send/Reply Image With Caption ${prefix + command}`)
-			if (!/image/.test(mime)) return replay(`Send/Reply Image With Caption ${prefix + command}`)
-			if (/webp/.test(mime)) return replay(`Send/Reply Image With Caption ${prefix + command}`)
-			let media = await RoseMwol.downloadAndSaveMediaMessage(quoted)
-			await RoseMwol.updateProfilePicture(m.chat, {
-				url: media
-			}).catch((err) => fs.unlinkSync(media))
-			replay(mess.success)
-		}
-		break
-		case 'tag':
-		case 'tagall': {
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			if (!m.isGroup) return replay(mess.group)
-			if (!isAdmins && !isCreator) return replay(mess.admin)
-			let teks = `╚»˙·٠•●♥ Tag All ♥●•٠·˙«╝
- 
- 🌹 *Message : ${args.join(" ") ? args.join(" ") : 'no message'}*\n\n`
-			for (let mem of participants) {
-				teks += `${global.themeemoji} @${mem.id.split('@')[0]}\n`
-			}
-			RoseMwol.sendMessage(m.chat, {
-				text: teks,
-				mentions: participants.map(a => a.id)
-			}, {
-				quoted: m
-			})
-		}
-		break
-		case 'hidetag': {
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			if (!m.isGroup) return replay(mess.group)
-			if (!isAdmins && !isCreator) return replay(mess.admin)
-			RoseMwol.sendMessage(m.chat, {
-				text: args.join(" ") ? args.join(" ") : '',
-				mentions: participants.map(a => a.id)
-			}, {
-				quoted: m
-			})
-		}
-		break
-		case 'virtex': {
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			if (!isCreator) return reply(mess.admin)
-			RoseMwol.sendMessage(m.chat, {
-				text: `${require('./storage/virtex.js').virtexfax(prefix, l, pushname)}`,
-				mentions: participants.map(a => a.id)
-			}, {
-				quoted: m
-			})
-			RoseMwol.sendMessage(m.chat, {
-				text: `${require('./storage/virtex.js').virtexfax(prefix, l, pushname)}`,
-				mentions: participants.map(a => a.id)
-			}, {
-				quoted: m
-			})
-			RoseMwol.sendMessage(m.chat, {
-				text: `${require('./storage/virtex.js').virtexfax(prefix, l, pushname)}`,
-				mentions: participants.map(a => a.id)
-			}, {
-				quoted: m
-			})
-			RoseMwol.sendMessage(m.chat, {
-				text: `${require('./storage/virtex.js').virtexfax(prefix, l, pushname)}`,
-				mentions: participants.map(a => a.id)
-			}, {
-				quoted: m
-			})
-			RoseMwol.sendMessage(m.chat, {
-				text: `${require('./storage/virtex.js').virtexfax(prefix, l, pushname)}`,
-				mentions: participants.map(a => a.id)
-			}, {
-				quoted: m
-			})
-		}
-		break
-		case 'autoreadsw':
-		case 'autoreadstatus':
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			if (!isCreator) return reply(mess.owner)
-			if (args[0] == 'on') {
-				if (autoreadsw) return reply('*Already activated!*')
-				autoreadsw = true
-				reply('*Successfully activate auto read status*')
-			} else if (args[0] == 'off') {
-				if (!autoreadsw) return reply('*Already deactivated!*')
-				autoreadsw = false
-				reply('*Successfully turn off auto read status*')
-			} else {
-				reply('Choose on or off!')
-			}
-			break
-		case 'grouplink':
-		case 'gclink': {
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			if (!m.isGroup) return replay(mess.group)
-			if (!isAdmins && !isCreator) return replay(mess.admin)
-			let response = await RoseMwol.groupInviteCode(m.chat)
-			RoseMwol.sendMessage(m.chat, {
-				text: `${groupMetadata.subject} Group Link : \nhttps://chat.whatsapp.com/${response}l`,
-				"contextInfo": {
-					mimetype: "image/jpeg",
-					text: `${global.ownername}`,
-					"forwardingScore": 1000000000,
-					isForwarded: true,
-					sendEphemeral: true,
-					"externalAdReply": {
-						"title": `${global.botname}`,
-						"body": `${global.watermark}`,
-						"previewType": "PHOTO",
-						"thumbnailUrl": thum,
-						"thumbnail": thum,
-						"sourceUrl": `${global.websitex}`
-					}
-				}
-			}, {
-				quoted: m,
-				detectLink: true
-			})
-		}
-		break
-		case 'resetlinkgc':
-		case 'resetlinkgroup':
-		case 'resetlinkgrup':
-		case 'revoke':
-		case 'resetlink':
-		case 'resetgrouplink':
-		case 'resetgclink':
-		case 'resetgruplink': {
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			if (!m.isGroup) return replay(mess.group)
-			if (!isBotAdmins) return replay(mess.botAdmin)
-			if (!isAdmins && !isCreator) return replay(mess.admin)
-			RoseMwol.groupRevokeInvite(m.chat)
-		}
-		break
-		case 'ephemeral': {
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			if (!m.isGroup) return replay(mess.group)
-			if (!isBotAdmins) return replay(mess.botAdmin)
-			if (!isAdmins && !isCreator) return replay(mess.admin)
-			if (!args[0]) return replay('Enter the enable/disable values')
-			if (args[0] === 'enable') {
-				await RoseMwol.sendMessage(m.chat, {
-					disappearingMessagesInChat: WA_DEFAULT_EPHEMERAL
-				}).then((res) => replay(jsonformat(res))).catch((err) => replay(jsonformat(err)))
-			} else if (args[0] === 'disable') {
-				await RoseMwol.sendMessage(m.chat, {
-					disappearingMessagesInChat: false
-				}).then((res) => replay(jsonformat(res))).catch((err) => replay(jsonformat(err)))
-			}
-		}
-		break
-		case 'editinfo': {
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			if (!m.isGroup) return replay(mess.group)
-			if (!isBotAdmins) return replay(mess.botAdmin)
-			if (!isAdmins && !isCreator) return replay(mess.admin)
-			if (args[0] === 'open') {
-				await RoseMwol.groupSettingUpdate(m.chat, 'unlocked').then((res) => replay(`Successful in enabling the group info edit`)).catch((err) => replay(jsonformat(err)))
-			} else if (args[0] === 'close') {
-				await RoseMwol.groupSettingUpdate(m.chat, 'locked').then((res) => replay(`Successful in disabling the group info edit`)).catch((err) => replay(jsonformat(err)))
-			} else {
-				let buttons = [{
-						buttonId: 'editinfo open',
-						buttonText: {
-							displayText: 'Open'
-						},
-						type: 1
-					},
-					{
-						buttonId: 'editinfo close',
-						buttonText: {
-							displayText: 'Close'
-						},
-						type: 1
-					}
-				]
-				let buttonMessage = {
-					image: log0,
-					jpegThumbnail: thum,
-					caption: `*「 ${global.botname} 」*\n\nChange Info, Select Open Or Close`,
-					footer: `${botname}`,
-					buttons: buttons,
-					headerType: 4
-				}
-				RoseMwol.sendMessage(m.chat, buttonMessage, {
-					quoted: m
-				})
-			}
-		}
-		break
-		case 'group':
-		case 'grup': {
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			if (!m.isGroup) return replay(mess.group)
-			if (!isBotAdmins) return replay(mess.botAdmin)
-			if (!isAdmins && !isCreator) return replay(mess.admin)
-			if (args[0] === 'close') {
-				await RoseMwol.groupSettingUpdate(m.chat, 'announcement').then((res) => replay(`Successful in closing the gc`)).catch((err) => replay(jsonformat(err)))
-			} else if (args[0] === 'open') {
-				await RoseMwol.groupSettingUpdate(m.chat, 'not_announcement').then((res) => replay(`Successful in opening the gc`)).catch((err) => replay(jsonformat(err)))
-			} else {
-				let buttons = [{
-						buttonId: 'group open',
-						buttonText: {
-							displayText: 'Open'
-						},
-						type: 1
-					},
-					{
-						buttonId: 'group close',
-						buttonText: {
-							displayText: 'Close'
-						},
-						type: 1
-					}
-				]
-				let buttonMessage = {
-					image: log0,
-					jpegThumbnail: thum,
-					caption: `*「 ${global.botname} 」*\n\nChange Group Setting, Select Open Or Close`,
-					footer: `${botname}`,
-					buttons: buttons,
-					headerType: 4
-				}
-				RoseMwol.sendMessage(m.chat, buttonMessage, {
-					quoted: m
-				})
-			}
-		}
-		break
-		case 'promote': {
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			if (!m.isGroup) return replay(mess.group)
-			if (!isBotAdmins) return replay(mess.botAdmin)
-			if (!isAdmins && !isCreator) return replay(mess.admin)
-			let users = m.mentionedJid[0] ? m.mentionedJid[0] : m.quoted ? m.quoted.sender : text.replace(/[^0-9]/g, '') + '@s.whatsapp.net'
-			await RoseMwol.groupParticipantsUpdate(m.chat, [users], 'promote').then((res) => replay(jsonformat(res))).catch((err) => replay(jsonformat(err)))
-		}
-		break
-		case 'demote': {
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			if (!m.isGroup) return replay(mess.group)
-			if (!isBotAdmins) return replay(mess.botAdmin)
-			if (!isAdmins && !isCreator) return replay(mess.admin)
-			let users = m.mentionedJid[0] ? m.mentionedJid[0] : m.quoted ? m.quoted.sender : text.replace(/[^0-9]/g, '') + '@s.whatsapp.net'
-			await RoseMwol.groupParticipantsUpdate(m.chat, [users], 'demote').then((res) => replay(jsonformat(res))).catch((err) => replay(jsonformat(err)))
-		}
-		break
-		case 'kick': {
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			if (!m.isGroup) return replay(mess.group)
-			if (!isBotAdmins) return replay(mess.botAdmin)
-			if (!isAdmins && !isCreator) return replay(mess.admin)
-			let users = m.mentionedJid[0] ? m.mentionedJid[0] : m.quoted ? m.quoted.sender : text.replace(/[^0-9]/g, '') + '@s.whatsapp.net'
-			await RoseMwol.groupParticipantsUpdate(m.chat, [users], 'remove')
-		}
-		break
-		case 'add': {
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			if (!m.isGroup) return replay(mess.group)
-			if (!isBotAdmins) return replay(mess.botAdmin)
-			if (!isAdmins && !isCreator) return replay(mess.admin)
-			let _participants = participants.map(user => user.id)
-			let users = (await Promise.all(
-				text.split(',')
-				.map(v => v.replace(/[^0-9]/g, ''))
-				.filter(v => v.length > 4 && v.length < 20 && !_participants.includes(v + '@s.whatsapp.net'))
-				.map(async v => [
-					v,
-					await RoseMwol.onWhatsApp(v + '@s.whatsapp.net')
-				])
-			)).filter(v => v[1][0]?.exists).map(v => v[0] + '@c.us')
-			const response = await RoseMwol.query({
-				tag: 'iq',
-				attrs: {
-					type: 'set',
-					xmlns: 'w:g2',
-					to: m.chat,
-				},
-				content: users.map(jid => ({
-					tag: 'add',
-					attrs: {},
-					content: [{
-						tag: 'participant',
-						attrs: {
-							jid
-						}
-					}]
-				}))
-			})
-		}
-
-		break
-		case 'inspect':
-		case 'inspectgclink':
-		case 'inspectgrouplink': {
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			if (!args[0]) return reply("Where is the link?")
-			let linkRegex = args.join(" ")
-			let coded = linkRegex.split("https://chat.whatsapp.com/")[1]
-			if (!coded) return reply("Link Invalid")
-			RoseMwol.query({
-				tag: "iq",
-				attrs: {
-					type: "get",
-					xmlns: "w:g2",
-					to: "@g.us"
-				},
-				content: [{
-					tag: "invite",
-					attrs: {
-						code: coded
-					}
-				}]
-			}).then(async (res) => {
-				tekse = `     「 Group Link Inspector 」
-${themeemoji} ID : ${res.content[0].attrs.id ? res.content[0].attrs.id : "undefined"}
-${themeemoji} Subject : ${res.content[0].attrs.subject ? res.content[0].attrs.subject : "undefined"}
-${themeemoji} Subject update by : ${res.content[0].attrs.s_o.split("@")[0] ? "@" + res.content[0].attrs.s_o.split("@")[0] : "undefined"}
-${themeemoji} Subject update at : ${res.content[0].attrs.s_t ? moment(res.content[0].attrs.s_t *1000).tz("Asia/Kolkata").format("DD-MM-YYYY, HH:mm:ss") : "undefined"}
-${themeemoji} Create by : ${res.content[0].attrs.creator ? "@" + res.content[0].attrs.creator.split("@")[0] : "undefined"}
-${themeemoji} Create at : ${res.content[0].attrs.creation ? moment(res.content[0].attrs.creation * 1000).tz("Asia/Kolkata").format("DD-MM-YYYY, HH:mm:ss") : "undefined"}
-${themeemoji} Total Members : ${res.content[0].attrs.size ? res.content[0].attrs.size : "undefined"} Members
-${themeemoji} Desc update by : ${res.content[0].content[0].attrs.participant ? "@" + res.content[0].content[0].attrs.participant.split("@")[0] : "undefined"}
-${themeemoji} Desc update at : ${res.content[0].content[0].attrs.t ? moment(res.content[0].content[0].attrs.t * 1000).tz("Asia/Kolkata").format("DD-MM-YYYY, HH:mm:ss") : "undefined"}
-${themeemoji} Desc id : ${res.content[0].content[0].attrs.id ? res.content[0].content[0].attrs.id : "undefined"}
-${themeemoji} Description : ${res.content[0].content[0].content[0].content ? res.content[0].content[0].content[0].content.toString() : "No Description"}
-`
-				try {
-					pp = await RoseMwol.profilePictureUrl(res.content[0].attrs.id + "@g.us", "image")
-				} catch {
-					pp = "https://tse2.mm.bing.net/th?id=OIP.n1C1oxOvYLLyDIavrBFoNQHaHa&pid=Api&P=0&w=153&h=153"
-				}
-				RoseMwol.sendFile(m.chat, pp, "", m, {
-					caption: tekse,
-					mentions: await RoseMwol.parseMention(tekse)
-				})
-			})
-		}
-		break
-		case 'inspect':
-		case 'inspectgclink': {
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			if (!args[0]) return replay("The link?")
-			let linkRegex = args.join(" ")
-			let coded = linkRegex.split("https://chat.whatsapp.com/")[1]
-			if (!coded) return replay("Link Invalid")
-			RoseMwol.query({
-				tag: "iq",
-				attrs: {
-					type: "get",
-					xmlns: "w:g2",
-					to: "@g.us"
-				},
-				content: [{
-					tag: "invite",
-					attrs: {
-						code: coded
-					}
-				}]
-			}).then(async (res) => {
-				tekse = `     「 Group Link Inspector 」
-▸ ID : ${res.content[0].attrs.id ? res.content[0].attrs.id : "undefined"}
-▸ Subject : ${res.content[0].attrs.subject ? res.content[0].attrs.subject : "undefined"}
-▸ Subject update by : ${res.content[0].attrs.s_o.split("@")[0] ? "@" + res.content[0].attrs.s_o.split("@")[0] : "undefined"}
-▸ Subject update at : ${res.content[0].attrs.s_t ? moment(res.content[0].attrs.s_t *1000).tz("Asia/Kolkata").format("DD-MM-YYYY, HH:mm:ss") : "undefined"}
-▸ Create by : ${res.content[0].attrs.creator ? "@" + res.content[0].attrs.creator.split("@")[0] : "undefined"}
-▸ Create on : ${res.content[0].attrs.creation ? moment(res.content[0].attrs.creation * 1000).tz("Asia/Kolkata").format("DD-MM-YYYY, HH:mm:ss") : "undefined"}
-▸ Total Members : ${res.content[0].attrs.size ? res.content[0].attrs.size : "undefined"} Members
-▸ Desc update by : ${res.content[0].content[0].attrs.participant ? "@" + res.content[0].content[0].attrs.participant.split("@")[0] : "undefined"}
-▸ Desc update at : ${res.content[0].content[0].attrs.t ? moment(res.content[0].content[0].attrs.t * 1000).tz("Asia/Kolkata").format("DD-MM-YYYY, HH:mm:ss") : "undefined"}
-▸ Desc id : ${res.content[0].content[0].attrs.id ? res.content[0].content[0].attrs.id : "undefined"}
-▸ Description : ${res.content[0].content[0].content[0].content ? res.content[0].content[0].content[0].content.toString() : "No Description"}
-`
-				try {
-					pp = await RoseMwol.profilePictureUrl(res.content[0].attrs.id + "@g.us", "image")
-				} catch {
-					pp = "https://tse2.mm.bing.net/th?id=OIP.n1C1oxOvYLLyDIavrBFoNQHaHa&pid=Api&P=0&w=153&h=153"
-				}
-				RoseMwol.sendFile(m.chat, pp, "", m, {
-					caption: tekse,
-					mentions: await RoseMwol.parseMention(tekse)
-				})
-			})
-		}
-		break
-		case 'join': {
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			if (!args[0]) return replay(`Where's the link?`)
-			vdd = args[0]
-			let vcc = vdd.split("https://chat.whatsapp.com/")[1]
-			if (!vcc) return replay("Link invalid!")
-			if (isCreator) {
-				await RoseMwol.groupAcceptInvite(vcc).then(async (res) => replay(jsonformat(res))).catch(_ => _)
-				replay("Succes!")
-			} else {
-				RoseMwol.query({
-					tag: "iq",
-					attrs: {
-						type: "get",
-						xmlns: "w:g2",
-						to: "@g.us"
-					},
-					content: [{
-						tag: "invite",
-						attrs: {
-							code: vcc
-						}
-					}]
-				}).then(async (res) => {
-					sizny = res.content[0].attrs.size
-					if (sizny < 50) {
-						teks = `Sorry, your group members are less than 50, at least for a bot to join you must have more than 50 members`
-						sendOrder(m.chat, teks, "667140254502463", fs.readFileSync('./Bot Pic/Rose.jpg'), `${global.watermark}`, `${global.botname}`, "919744933034@s.whatsapp.net", "AR6NCY8euY5cbS8Ybg5Ca55R8HFSuLO3qZqrIYCT7hQp0g==", "99999999999999999999")
-					} else if (sizny > 50) {
-						await RoseMwol.groupAcceptInvite(vcc).then(async (res) => replay(jsonformat(res))).catch(_ => _)
-						replay("Succes!")
-					} else {
-						replay("Error")
-					}
-				}).catch(_ => _)
-			}
-		}
-		break
-		case 'volume': {
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			if (!args.join(" ")) return reply(`Example: ${prefix + command} 10`)
-			media = await RoseMwol.downloadAndSaveMediaMessage(quoted, "volume")
-			if (isQuotedAudio) {
-				rname = getRandom('.mp3')
-				exec(`ffmpeg -i ${media} -filter:a volume=${args[0]} ${rname}`, (err, stderr, stdout) => {
-					fs.unlinkSync(media)
-					if (err) return reply('Error!')
-					jadie = fs.readFileSync(rname)
-					RoseMwol.sendMessage(from, {
-						audio: jadie,
-						mimetype: 'audio/mp4',
-						ptt: true
-					}, {
-						quoted: m
-					})
-					fs.unlinkSync(rname)
-				})
-			} else if (isQuotedVideo) {
-				rname = getRandom('.mp4')
-				exec(`ffmpeg -i ${media} -filter:a volume=${args[0]} ${rname}`, (err, stderr, stdout) => {
-					fs.unlinkSync(media)
-					if (err) return reply('Error!')
-					jadie = fs.readFileSync(rname)
-					RoseMwol.sendMessage(from, {
-						video: jadie,
-						mimetype: 'video/mp4'
-					}, {
-						quoted: m
-					})
-					fs.unlinkSync(rname)
-				})
-			} else {
-				reply("Send video/audio")
-			}
-		}
-		break
-		case 'tempo': {
-			if (isBan) return reply(mess.ban)
-			if (!args.join(" ")) return reply(`Example: ${prefix + command} 10`)
-			var req = args.join(' ')
-			media = await RoseMwol.downloadAndSaveMediaMessage(quoted, "tempo")
-			if (isQuotedAudio) {
-				ran = getRandom('.mp3')
-				exec(`ffmpeg -i ${media} -filter:a "atempo=1.0,asetrate=${req}" ${ran}`, (err, stderr, stdout) => {
-					fs.unlinkSync(media)
-					if (err) return reply('Error!')
-					hah = fs.readFileSync(ran)
-					RoseMwol.sendMessage(from, {
-						audio: hah,
-						mimetype: 'audio/mp4',
-						ptt: true
-					}, {
-						quoted: m
-					})
-					fs.unlinkSync(ran)
-				})
-			} else if (isQuotedVideo) {
-				ran = getRandom('.mp4')
-				exec(`ffmpeg -i ${media} -filter:a "atempo=1.0,asetrate=${req}" ${ran}`, (err, stderr, stdout) => {
-					fs.unlinkSync(media)
-					if (err) return reply('Error!')
-					hah = fs.readFileSync(ran)
-					RoseMwol.sendMessage(from, {
-						video: hah,
-						mimetype: 'video/mp4'
-					}, {
-						quoted: m
-					})
-					fs.unlinkSync(ran)
-				})
-			} else {
-				reply("Send video/audio")
-			}
-		}
-		break
-		case 'bass':
-		case 'blown':
-		case 'deep':
-		case 'earrape':
-		case 'fast':
-		case 'fat':
-		case 'nightcore':
-		case 'reverse':
-		case 'robot':
-		case 'slow':
-		case 'smooth':
-		case 'tupai':
-			try {
-				let set
-				if(/bass/.test(command)) set = '-af equalizer=f=54:width_type=o:width=2:g=20'
-				if (/blown/.test(command)) set = '-af acrusher=.1:1:64:0:log'
-				if (/deep/.test(command)) set = '-af atempo=4/4,asetrate=44500*2/3'
-				if (/earrape/.test(command)) set = '-af volume=12'
-				if (/fast/.test(command)) set = '-filter:a "atempo=1.63,asetrate=44100"'
-				if (/fat/.test(command)) set = '-filter:a "atempo=1.6,asetrate=22100"'
-				if (/nightcore/.test(command)) set = '-filter:a atempo=1.06,asetrate=44100*1.25'
-				if (/reverse/.test(command)) set = '-filter_complex "areverse"'
-				if (/robot/.test(command)) set = '-filter_complex "afftfilt=real=\'hypot(re,im)*sin(0)\':imag=\'hypot(re,im)*cos(0)\':win_size=512:overlap=0.75"'
-				if (/slow/.test(command)) set = '-filter:a "atempo=0.7,asetrate=44100"'
-				if (/smooth/.test(command)) set = '-filter:v "minterpolate=\'mi_mode=mci:mc_mode=aobmc:vsbmc=1:fps=120\'"'
-				if (/tupai/.test(command)) set = '-filter:a "atempo=0.5,asetrate=65100"'
-				if (/audio/.test(mime)) {
-					reply(mess.wait)
-					let media = await RoseMwol.downloadAndSaveMediaMessage(quoted)
-					let ran = getRandom('.mp3')
-					exec(`ffmpeg -i ${media} ${set} ${ran}`, (err, stderr, stdout) => {
-						fs.unlinkSync(media)
-						if (err) return reply(err)
-						let buff = fs.readFileSync(ran)
-						RoseMwol.sendMessage(m.chat, {
-							audio: buff,
-							mimetype: 'audio/mpeg'
-						}, {
-							quoted: m
-						})
-						fs.unlinkSync(ran)
-					})
-				} else reply(`Reply to the audio you want to change with a caption *${prefix + command}*`)
-			} catch (e) {
-				reply(e)
-			}
-			break
-		case 'write': {
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			if (args.length < 1) return reply(`Example :\n${prefix}nulis Aldi|91|#ff020a|Manusia terganteng adalah salman alfarizi`)
-			const nls = args.join(" ")
-			const nams = "Name : " + nls.split("|")[0];
-			const kels = "Class : " + nls.split("|")[1];
-			const menlise = nls.split("|")[3];
-			const codewarn = nls.split("|")[2];
-			await reply('Writing')
-			const jangkale = menlise.replace(/(\S+\s*){1,10}/g, '$&\n')
-			const jangbare = jangkale.split('\n').slice(0, 30).join('\n')
-			const jangnam = nams.replace(/(\S+\s*){1,10}/g, '$&\n')
-			const jangkel = kels.replace(/(\S+\s*){1,10}/g, '$&\n')
-			if (kels.length > 12) return reply("Maximum number of class texts 4")
-			if (nams.length > 34) return reply("The maximum number of text is 27")
-			if (codewarn.length > 7) return reply("Maximum number of color text 7")
-			console.log('「 WRITING 」is in process')
-			spawn('convert', [
-					'./Media/image/magernulis.jpg',
-					'-fill',
-					codewarn,
-					'-font',
-					'./Media/font/nulis.ttf',
-					'-size',
-					'1024x784',
-					'-pointsize',
-					'20',
-					'-interline-spacing',
-					'1',
-					'-annotate',
-					'+806+78',
-					janghar,
-					'-size',
-					'1024x784',
-					'-pointsize',
-					'18',
-					'-interline-spacing',
-					'1',
-					'-annotate',
-					'+806+102',
-					jangwak,
-					'-size',
-					'1024x784',
-					'-pointsize',
-					'21',
-					'-interline-spacing',
-					'1',
-					'-annotate',
-					'+285+90',
-					jangnam,
-					'-size',
-					'1024x784',
-					'-pointsize',
-					'21',
-					'-interline-spacing',
-					'1',
-					'-annotate',
-					'+285+110',
-					jangkel,
-					'-size',
-					'1024x784',
-					'-pointsize',
-					'20',
-					'-interline-spacing',
-					'-7.5',
-					'-annotate',
-					'+344+146',
-					jangbare,
-					'./storage/hasilnulis.jpg'
-				])
-				.on('error', () => reply('Error'))
-				.on('exit', () => {
-					RoseMwol.sendMessage(from, {
-						image: fs.readFileSync('./storage/hasilnulis.jpg'),
-						caption: 'Succes'
-					}, {
-						quoted: m
-					}).catch(() => reply('```「 FAIL 」An error occurred sending the file```'))
-				})
-			exec(`npm i marker`)
-		}
-		break
-		case 'calculator':
-		case 'cal': {
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			if (args.length < 1) return reply(`*Example :*\n${prefix}calculator 2 * 5\n\n*List of Numbers :*\n•> Time : *\n•> For : /\n•> Plus : +\n•> Not enough : -`)
-			let qsd = args.join(" ")
-			if (typeof mathjs.evaluate(qsd) !== 'number') {
-				reply('Error')
-			} else {
-				reply(`\`\`\`「 Calculator 」\`\`\`\n\n*•> Count :* ${qsd}\n*•> Results :* ${mathjs.evaluate(qsd.replace(/×/g, "*").replace(/x/g, "*").replace(/÷/g, "/"))}`)
-			}
-		}
-		break
-		case 'public': {
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			if (!isCreator) return reply(mess.owner)
-			RoseMwol.public = true
-			reply('Success In Chaing To Public Usage')
-			RoseMwol.setStatus(`Mode : Public`)
-		}
-		break
-		case 'setstatuts':
-		case 'setbio':
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			if (!q) return reply('Send orders *#setbio text*')
-			RoseMwol.setStatus(`${q}`)
-			reply(mess.success)
-			break
-		case 'self': {
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			if (!isCreator) return reply(mess.owner)
-			RoseMwol.public = false
-			reply('Successful Change To Self Usage')
-			RoseMwol.setStatus(`Mode : Self`)
-		}
-		break
-		case 'speed':
-		case 'p':
-		case 'ping':
-		case 'botstatus':
-		case 'statusbot': {
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			const used = process.memoryUsage()
-			const cpus = os.cpus().map(cpu => {
-				cpu.total = Object.keys(cpu.times).reduce((last, type) => last + cpu.times[type], 0)
-				return cpu
-			})
-			const cpu = cpus.reduce((last, cpu, _, {
-				length
-			}) => {
-				last.total += cpu.total
-				last.speed += cpu.speed / length
-				last.times.user += cpu.times.user
-				last.times.nice += cpu.times.nice
-				last.times.sys += cpu.times.sys
-				last.times.idle += cpu.times.idle
-				last.times.irq += cpu.times.irq
-				return last
-			}, {
-				speed: 0,
-				total: 0,
-				times: {
-					user: 0,
-					nice: 0,
-					sys: 0,
-					idle: 0,
-					irq: 0
-				}
-			})
-			let timestamp = speed()
-			let latensi = speed() - timestamp
-			neww = performance.now()
-			oldd = performance.now()
-			respon = `
-Response Speed ${latensi.toFixed(4)} _Second_ \n ${oldd - neww} _miliseconds_\n\nRuntime : ${runtime(process.uptime())}
-
-💻 Info Server
-RAM: ${formatp(os.totalmem() - os.freemem())} / ${formatp(os.totalmem())}
-
-_NodeJS Memory Usaage_
-${Object.keys(used).map((key, _, arr) => `${key.padEnd(Math.max(...arr.map(v=>v.length)),' ')}: ${formatp(used[key])}`).join('\n')}
-
-${cpus[0] ? `_Total CPU Usage_
-${cpus[0].model.trim()} (${cpu.speed} MHZ)\n${Object.keys(cpu.times).map(type => `- *${(type + '*').padEnd(6)}: ${(100 * cpu.times[type] / cpu.total).toFixed(2)}%`).join('\n')}
-_CPU Core(s) Usage (${cpus.length} Core CPU)_
-${cpus.map((cpu, i) => `${i + 1}. ${cpu.model.trim()} (${cpu.speed} MHZ)\n${Object.keys(cpu.times).map(type => `- *${(type + '*').padEnd(6)}: ${(100 * cpu.times[type] / cpu.total).toFixed(2)}%`).join('\n')}`).join('\n\n')}` : ''}
-`.trim()
-			reply(respon)
-		}
-		break
-		case 'emojimix': {
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			if (!q) reply(`*Example :* ${prefix + command} 🦄+🤣`)
-			let [emoji1, emoji2] = q.split`+`
-			let kuntuh = await fetchJson(`https://tenor.googleapis.com/v2/featured?key=AIzaSyAyimkuYQYF_FXVALexPuGQctUWRURdCYQ&contentfilter=high&media_filter=png_transparent&component=proactive&collection=emoji_kitchen_v5&q=${encodeURIComponent(emoji1)}_${encodeURIComponent(emoji2)}`)
-			for (let res of kuntuh.results) {
-				let encmedia = await RoseMwol.sendImageAsSticker(from, res.url, m, {
-					packname: global.packname,
-					author: global.author,
-					categories: res.tags
-				})
-				await fs.unlinkSync(encmedia)
-			}
-		}
-		break
 		case 'emoji': {
 			if (isBan) return reply(mess.ban)
 			if (isBanChat) return reply(mess.banChat)
@@ -7503,32 +8639,107 @@ ${cpus.map((cpu, i) => `${i + 1}. ${cpu.model.trim()} (${cpu.speed} MHZ)\n${Obje
 			})
 		}
 		break
-		case 'emoji2':
-		case 'emojimix2':
-		case 'emojisticker': {
+
+		case 'igemoji':
+		case 'instagramemoji':
 			if (isBan) return reply(mess.ban)
 			if (isBanChat) return reply(mess.banChat)
-			if (!text) return reply(`Example : ${prefix + command} 😅`)
-			let anu = await fetchJson(`https://tenor.googleapis.com/v2/featured?key=AIzaSyAyimkuYQYF_FXVALexPuGQctUWRURdCYQ&contentfilter=high&media_filter=png_transparent&component=proactive&collection=emoji_kitchen_v5&q=${encodeURIComponent(text)}`)
-			for (let res of anu.results) {
-				let encmedia = await RoseMwol.sendImageAsSticker(m.chat, res.url, m, {
+			if (!q) return reply("Enter emoji, maximum 1 emoji, eg?" + ` ${prefix + command} 😀`)
+			reply(mess.wait)
+			emote(q, "11")
+			break
+		case 'iphoneemoji':
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			if (!q) return reply("Enter emoji, max 1 emoji, eg?" + ` ${prefix + command} 😀`)
+			reply(mess.wait)
+			emote(q, "0")
+			break
+		case 'googleemoji':
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			if (!q) return reply("Enter emoji, max 1 emoji, eg?" + ` ${prefix + command} 😀`)
+			reply(mess.wait)
+			emote(q, "1")
+			break
+		case 'samsungemoji':
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			if (!q) return reply("Enter emoji, max 1 emoji, eg?" + ` ${prefix + command} 😀`)
+			reply(mess.wait)
+			emote(q, "2")
+			break
+		case 'microsoftemoji':
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			if (!q) return reply("Enter emoji, max 1 emoji, eg?" + ` ${prefix + command} 😀`)
+			reply(mess.wait)
+			emote(q, "3")
+			break
+		case 'whatsappemoji':
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			if (!q) return reply("Enter emoji, max 1 emoji, eg?" + ` ${prefix + command} 😀`)
+			reply(mess.wait)
+			emote(q, "4")
+			break
+		case 'twitteremoji':
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			if (!q) return reply("Enter emoji, max 1 emoji, eg?" + ` ${prefix + command} 😀`)
+			reply(mess.wait)
+			emote(q, "5")
+			break
+		case 'facebookemoji':
+		case 'fbemoji':
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			if (!q) return reply("Enter emoji, max 1 emoji, eg?" + ` ${prefix + command} 😀`)
+			reply(mess.wait)
+			emote(q, "6")
+			break
+		case 'skypeemoji':
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			if (!q) return reply("Enter emoji, max 1 emoji, eg?" + ` ${prefix + command} 😀`)
+			reply(mess.wait)
+			emote(q, "7")
+			break
+		case 'joyemoji':
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			if (!q) return reply("Enter emoji, max 1 emoji, eg?" + ` ${prefix + command} 😀`)
+			reply(mess.wait)
+			emote(q, "8")
+			break
+		case 'mojiemoji':
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			if (!q) return reply("Enter emoji, max 1 emoji, eg?" + ` ${prefix + command} 😀`)
+			reply(mess.wait)
+			emote(q, "9")
+		case 'pediaemoji':
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			if (!q) return reply("Enter emoji, max 1 emoji, eg?" + ` ${prefix + command} 😀`)
+			reply(mess.wait)
+			emote(q, "10")
+			break
+
+		case 'emojimix': {
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			if (!q) reply(`*Example :* ${prefix + command} 🦄+🤣`)
+			let [emoji1, emoji2] = q.split`+`
+			let kuntuh = await fetchJson(`https://tenor.googleapis.com/v2/featured?key=AIzaSyAyimkuYQYF_FXVALexPuGQctUWRURdCYQ&contentfilter=high&media_filter=png_transparent&component=proactive&collection=emoji_kitchen_v5&q=${encodeURIComponent(emoji1)}_${encodeURIComponent(emoji2)}`)
+			for (let res of kuntuh.results) {
+				let encmedia = await RoseMwol.sendImageAsSticker(from, res.url, m, {
 					packname: global.packname,
 					author: global.author,
 					categories: res.tags
 				})
-			await fs.unlinkSync(encmedia)
+				await fs.unlinkSync(encmedia)
 			}
-		}
-		break
-		case 'attp':
-		case 'ttp': {
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			if (!text) return reply(`Example : ${prefix + command} text`)
-			await RoseMwol.sendMedia(m.chat, `https://xteam.xyz/${command}?file&text=${text}`, 'hisoka', 'morou', m, {
-				asSticker: true
-			})
-
 		}
 		break
 		case 'toimage':
@@ -7576,68 +8787,6 @@ ${cpus.map((cpu, i) => `${i + 1}. ${cpu.model.trim()} (${cpu.speed} MHZ)\n${Obje
 			await fs.unlinkSync(media)
 		}
 		break
-		case 'toaud':
-		case 'toaudio': {
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			if (!/video/.test(mime) && !/audio/.test(mime)) return reply(`Send/Reply Video/Audio You Want To Use As Audio With Caption ${prefix + command}`)
-			if (!m.quoted) return reply(`Send/Reply Video/Audio You Want To Use As Audio With Caption ${prefix + command}`)
-			reply(mess.wait)
-			let media = await quoted.download()
-			let {
-				toAudio
-			} = require('./lib/converter')
-			let audio = await toAudio(media, 'mp4')
-			RoseMwol.sendMessage(m.chat, {
-				audio: audio,
-				mimetype: 'audio/mpeg'
-			}, {
-				quoted: m
-			})
-		}
-		break
-		case 'tomp3': {
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			if (/document/.test(mime)) return reply(`Send/Reply Video/Audio You Want To Convert Into MP3 With Caption ${prefix + command}`)
-			if (!/video/.test(mime) && !/audio/.test(mime)) return reply(`Send/Reply Video/Audio You Want To Convert Into MP3 With Caption ${prefix + command}`)
-			if (!m.quoted) return reply(`Send/Reply Video/Audio You Want To Convert Into MP3 With Caption ${prefix + command}`)
-			reply(mess.wait)
-			let media = await quoted.download()
-			let {
-				toAudio
-			} = require('./lib/converter')
-			let audio = await toAudio(media, 'mp4')
-			RoseMwol.sendMessage(m.chat, {
-				document: audio,
-				mimetype: 'audio/mpeg',
-				fileName: `Converted By ${RoseMwol.user.name} (${m.id}).mp3`
-			}, {
-				quoted: m
-			})
-		}
-		break
-		case 'tovn':
-		case 'toptt': {
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			if (!/video/.test(mime) && !/audio/.test(mime)) return reply(`Reply Video/Audio That You Want To Be VN With Caption ${prefix + command}`)
-			if (!m.quoted) return reply(`Reply Video/Audio That You Want To Be VN With Caption ${prefix + command}`)
-			reply(mess.wait)
-			let media = await quoted.download()
-			let {
-				toPTT
-			} = require('./lib/converter')
-			let audio = await toPTT(media, 'mp4')
-			RoseMwol.sendMessage(m.chat, {
-				audio: audio,
-				mimetype: 'audio/mpeg',
-				ptt: true
-			}, {
-				quoted: m
-			})
-		}
-		break
 		case 'togif': {
 			if (isBan) return reply(mess.ban)
 			if (isBanChat) return reply(mess.banChat)
@@ -7661,129 +8810,6 @@ ${cpus.map((cpu, i) => `${i + 1}. ${cpu.model.trim()} (${cpu.speed} MHZ)\n${Obje
 			await fs.unlinkSync(media)
 		}
 		break
-		case 'antiviewonce':
-		case 'antionce':
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			if (!m.key.fromMe && !isCreator) return reply(mess.owner)
-			if (args[0] === "on") {
-				if (global.db.data.chats[m.chat].antionce) return reply(`Already activated`)
-				global.db.data.chats[m.chat].antionce = true
-				reply(`${command} Successfully Activated !`)
-			} else if (args[0] === "off") {
-				if (!global.db.data.chats[m.chat].antionce) return reply(`Already deactivated`)
-				global.db.data.chats[m.chat].antionce = false
-				reply(`${command} Successfully Deactivated !`)
-			} else {
-				let buttonsntilink = [{
-						buttonId: `${command} on`,
-						buttonText: {
-							displayText: 'On'
-						},
-						type: 1
-					},
-					{
-						buttonId: `${command} off`,
-						buttonText: {
-							displayText: 'Off'
-						},
-						type: 1
-					}
-				]
-				await RoseMwol.sendButtonText(m.chat, buttonsntilink, `Please click the button below\n\nOn to enable\nOff to disable`, `${global.botname}`, m)
-			}
-			break
-		case 'lovesticker':
-		case 'lovestick': {
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			var ano = await fetchJson('https://raw.githubusercontent.com/rashidsiregar28/data/main/bucin')
-			var wifegerak = ano.split('\n')
-			var wifegerakx = wifegerak[Math.floor(Math.random() * wifegerak.length)]
-			encmedia = await RoseMwol.sendImageAsSticker(from, wifegerakx, m, {
-				packname: global.packname,
-				author: global.author,
-			})
-			await fs.unlinkSync(encmedia)
-		}
-		break
-		case 'gura':
-		case 'gurastick': {
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			var ano = await fetchJson('https://raw.githubusercontent.com/rashidsiregar28/data/main/gura')
-			var wifegerak = ano.split('\n')
-			var wifegerakx = wifegerak[Math.floor(Math.random() * wifegerak.length)]
-			encmedia = await RoseMwol.sendImageAsSticker(from, wifegerakx, m, {
-				packname: global.packname,
-				author: global.author,
-			})
-			await fs.unlinkSync(encmedia)
-		}
-		break
-		case 'dogesticker':
-		case 'dogestick': {
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			var ano = await fetchJson('https://raw.githubusercontent.com/rashidsiregar28/data/main/anjing')
-			var wifegerak = ano.split('\n')
-			var wifegerakx = wifegerak[Math.floor(Math.random() * wifegerak.length)]
-			encmedia = await RoseMwol.sendImageAsSticker(from, wifegerakx, m, {
-				packname: global.packname,
-				author: global.author,
-			})
-			await fs.unlinkSync(encmedia)
-		}
-		break
-		case 'patrick':
-		case 'patricksticker': {
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			var ano = await fetchJson('https://raw.githubusercontent.com/rashidsiregar28/data/main/patrik')
-			var wifegerak = ano.split('\n')
-			var wifegerakx = wifegerak[Math.floor(Math.random() * wifegerak.length)]
-			encmedia = await RoseMwol.sendImageAsSticker(from, wifegerakx, m, {
-				packname: global.packname,
-				author: global.author,
-			})
-			await fs.unlinkSync(encmedia)
-		}
-		break
-		case 'loveshortstory': {
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			let cerpe = await cerpen(`Cinta segitiga`)
-			reply(`${themeemoji} _*Title :*_ ${cerpe.title}\n${themeemoji} _*Author :*_ ${cerpe.author}\n${themeemoji} _*Category :*_ ${cerpe.kategori}\n${themeemoji} _*Pass Moderation :*_ ${cerpe.lolos}\n${themeemoji} _*Story :*_\n${cerpe.cerita}`)
-		}
-		break
-		case 'islamicshortstory': {
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			let cerpe = await cerpen(`Cinta segitiga`)
-			reply(`${themeemoji} _*Title :*_ ${cerpe.title}\n${themeemoji} _*Author :*_ ${cerpe.author}\n${themeemoji} _*Category :*_ ${cerpe.kategori}\n${themeemoji} _*Pass Moderation :*_ ${cerpe.lolos}\n${themeemoji} _*Story :*_\n${cerpe.cerita}`)
-		}
-		break
-		case 'disturbingshorystory': {
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			let cerpe = await cerpen(`galau`)
-			reply(`${themeemoji} _*Title :*_ ${cerpe.title}\n${themeemoji} _*Author :*_ ${cerpe.author}\n${themeemoji} _*Category :*_ ${cerpe.kategori}\n${themeemoji} _*Pass Moderation :*_ ${cerpe.lolos}\n${themeemoji} _*Story :*_\n${cerpe.cerita}`)
-		}
-		break
-		case 'friendshipshortstory': {
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			let cerpe = await cerpen(`persahabatan`)
-			reply(`${themeemoji} _*Title :*_ ${cerpe.title}\n${themeemoji} _*Author :*_ ${cerpe.author}\n${themeemoji} _*Category :*_ ${cerpe.kategori}\n${themeemoji} _*Pass Moderation :*_ ${cerpe.lolos}\n${themeemoji} _*Story :*_\n${cerpe.cerita}`)
-		}
-		break
-		case 'sacrificeshortstory': {
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			let cerpe = await cerpen(`Pengorbanan`)
-			reply(`${themeemoji} _*Title :*_ ${cerpe.title}\n${themeemoji} _*Author :*_ ${cerpe.author}\n${themeemoji} _*Category :*_ ${cerpe.kategori}\n${themeemoji} _*Pass Moderation :*_ ${cerpe.lolos}\n${themeemoji} _*Story :*_\n${cerpe.cerita}`)
-		}
-		break
 		case 'tourl': {
 			if (isBan) return reply(mess.ban)
 			if (isBanChat) return reply(mess.banChat)
@@ -7804,83 +8830,74 @@ ${cpus.map((cpu, i) => `${i + 1}. ${cpu.model.trim()} (${cpu.speed} MHZ)\n${Obje
 			await fs.unlinkSync(media)
 		}
 		break
-		case 'q':
-		case 'quoted': {
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			if (!m.quoted) return replay('Reply Message!!')
-			let wokwol = await RoseMwol.serializeM(await m.getQuotedObj())
-			if (!wokwol.quoted) return replay('The message you replied to does not contain a reply')
-			await wokwol.quoted.copyNForward(m.chat, true)
-		}
-		break
-		case 'getname': {
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			if (qtod === "true") {
-				namenye = await RoseMwol.getName(m.quoted.sender)
-				replay(namenye)
-			} else if (qtod === "false") {
-				RoseMwol.sendMessage(from, {
-					text: "Reply person"
-				}, {
-					quoted: m
-				})
-			}
-		}
-		break
-		case 'getpic':
-		case 'getpp': {
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			if (qtod === "true") {
-				try {
-					pporg = await RoseMwol.profilePictureUrl(m.quoted.sender, 'image')
-				} catch {
-					pporg = 'https://i0.wp.com/www.gambarunik.id/wp-content/uploads/2019/06/Top-Gambar-Foto-Profil-Kosong-Lucu-Tergokil-.jpg'
-				}
+		case 'imagenobg':
+		case 'removebg':
+		case 'remove-bg': {
+			if (!quoted) return replay(`Send/Reply Image With Caption ${prefix + command}`)
+			if (!/image/.test(mime)) return replay(`Send/Reply Image With Caption ${prefix + command}`)
+			if (/webp/.test(mime)) return replay(`Send/Reply Image With Caption ${prefix + command}`)
+			let remobg = require('remove.bg')
+			let apirnobg = ['q61faXzzR5zNU6cvcrwtUkRU', 'S258diZhcuFJooAtHTaPEn4T', '5LjfCVAp4vVNYiTjq9mXJWHF', 'aT7ibfUsGSwFyjaPZ9eoJc61', 'BY63t7Vx2tS68YZFY6AJ4HHF', '5Gdq1sSWSeyZzPMHqz7ENfi8', '86h6d6u4AXrst4BVMD9dzdGZ', 'xp8pSDavAgfE5XScqXo9UKHF', 'dWbCoCb3TacCP93imNEcPxcL']
+			let apinobg = apirnobg[Math.floor(Math.random() * apirnobg.length)]
+			hmm = await './src/remobg-' + getRandom('')
+			localFile = await RoseMwol.downloadAndSaveMediaMessage(quoted, hmm)
+			outputFile = await './src/hremo-' + getRandom('.png')
+			reply(mess.wait)
+			remobg.removeBackgroundFromImageFile({
+				path: localFile,
+				apiKey: apinobg,
+				size: "regular",
+				type: "auto",
+				scale: "100%",
+				outputFile
+			}).then(async result => {
 				RoseMwol.sendMessage(m.chat, {
-					image: {
-						url: pporg
-					},
-					caption: `Done!`
+					image: fs.readFileSync(outputFile),
+					caption: mess.success
 				}, {
 					quoted: m
 				})
-			} else if (qtod === "false") {
-				try {
-					pporgs = await RoseMwol.profilePictureUrl(from, 'image')
-				} catch {
-					pporgs = 'https://i0.wp.com/www.gambarunik.id/wp-content/uploads/2019/06/Top-Gambar-Foto-Profil-Kosong-Lucu-Tergokil-.jpg'
-				}
-				RoseMwol.sendMessage(m.chat, {
-					image: {
-						url: pporgs
-					},
-					caption: `Done!`
-				}, {
-					quoted: m
-				})
-			}
+				await fs.unlinkSync(localFile)
+				await fs.unlinkSync(outputFile)
+			})
 		}
 		break
-		case 'owner':
-		case 'creator': {
-			RoseMwol.sendContact(m.chat, global.owner, m)
+		/*
+		case 'yts': case 'ytsearch': {
+		if (isBan) return reply(mess.ban)	 			
+		if (isBanChat) return reply(mess.banChat)
+		if (!args.join(" ")) return replay(`Example : ${prefix + command} stay jb`)
+		let yts = require("yt-search")
+		let search = await yts(args.join(" "))
+		let teks = '*| YOUTUBE SEARCH |*\n\n Result From '+text+'\n\n'
+		let no = 1
+		for (let i of search.all) {
+		teks += `${global.themeemoji} No : ${no++}\n${global.themeemoji} Type : ${i.type}\n${global.themeemoji} Video ID : ${i.videoId}\n${global.themeemoji} Title : ${i.title}\n${global.themeemoji} Views : ${i.views}\n${global.themeemoji} Duration : ${i.timestamp}\n${global.themeemoji} Uploaded : ${i.ago}\n${global.themeemoji} Author : ${i.author.name}\n${global.themeemoji} Url : ${i.url}\n\n─────────────────\n\n`
+		}
+		RoseMwol.sendMessage(m.chat, { image: { url: search.all[0].thumbnail },  caption: teks }, { quoted: m })
 		}
 		break
-		case 'translate':
-		case 'trans': {
+		*/
+		case 'google': {
 			if (isBan) return reply(mess.ban)
-			if (!args.join(" ")) return replay("The text?")
-			tes = await fetchJson(`https://megayaa.herokuapp.com/api/translate?to=en&kata=${args.join(" ")}`)
-			Infoo = tes.info
-			Detek = tes.translate
-			replay(`🌐Translate : ${Detek}\n📘Results : ${Infoo}`)
+			if (isBanChat) return reply(mess.banChat)
+			if (!args[0]) return reply(`Example: ${prefix + command} <query>\nUses : ${prefix + command} apa arti cinta`)
+			let google = require('google-it')
+			google({
+				'query': args.join(" ")
+			}).then(res => {
+				let teks = `Google Search From : ${text}\n\n`
+				for (let g of res) {
+					teks += `${global.themeemoji} *Title* : ${g.title}\n`
+					teks += `${global.themeemoji} *Description* : ${g.snippet}\n`
+					teks += `${global.themeemoji} *Link* : ${g.link}\n\n────────────────────────\n\n`
+				}
+				reply(teks)
+			})
 		}
 		break
 		case 'gimage':
-		case 'gig': {
+		case 'googleimage': {
 			if (isBan) return reply(mess.ban)
 			if (isBanChat) return reply(mess.banChat)
 			if (!args[0]) return reply("What picture are you looking for??")
@@ -7923,43 +8940,11 @@ ${global.themeemoji} Media Url : ${images}`,
 			})
 		}
 		break
-		case 'google': {
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			if (!args[0]) return reply(`Example: ${prefix + command} <query>\nUses : ${prefix + command} apa arti cinta`)
-			let google = require('google-it')
-			google({
-				'query': args.join(" ")
-			}).then(res => {
-				let teks = `Google Search From : ${text}\n\n`
-				for (let g of res) {
-					teks += `${global.themeemoji} *Title* : ${g.title}\n`
-					teks += `${global.themeemoji} *Description* : ${g.snippet}\n`
-					teks += `${global.themeemoji} *Link* : ${g.link}\n\n────────────────────────\n\n`
-				}
-				reply(teks)
-			})
-		}
-		break
-		case 'efx':
-		case 'bgm':
-		case 'bgmidd': {
-			const randomefx = efx[Math.floor(Math.random() * efx.length)]
-			results = await getBuffer(`https://raw.githubusercontent.com/Sachu-Settan/Media/main/efx/${encodeURIComponent(randomefx)}.mp3`)
-			await RoseMwol.sendMessage(m.chat, {
-				audio: results,
-				mimetype: 'audio/mp4',
-				ptt: true
-			}, {
-				quoted: m
-			})
-		}
-		break
 		case 'igstory':
 		case 'instagramstory': {
 			if (isBan) return reply(mess.ban)
 			if (isBanChat) return reply(mess.banChat)
-			if (!args[0]) return reply(`Example :\n${prefix + command} *User Name*`)
+			if (!args[0]) return reply(`Example :\n${prefix + command} sachu.modder`)
 			try {
 				hx.igstory(args[0]).then(async (resed) => {
 					ini_anu = []
@@ -8006,7 +8991,7 @@ ${global.themeemoji} Media Url : ${images}`,
 		case 'instagramstory2': {
 			if (isBan) return reply(mess.ban)
 			if (isBanChat) return reply(mess.banChat)
-			if (!text) return reply(`Where is the Username?\nExample: ${prefix}igstory *User Name*`)
+			if (!text) return reply(`Where is the username?\nExample: ${prefix}igstory sachu.modder`)
 			let urlnya = text
 			hx.igstory(urlnya)
 				.then(async (result) => {
@@ -8044,9 +9029,9 @@ ${global.themeemoji} Media Url : ${images}`,
 				}).catch((err) => reply(`Sorry username ${text} was not found or maybe he/she has no story uploaded in her id`))
 		}
 		break
-		case 'ig3':
-		case 'igdl3':
-		case 'instagram3': {
+		case 'ig2':
+		case 'igdl2':
+		case 'instagram2': {
 			if (isBan) return reply(mess.ban)
 			if (isBanChat) return reply(mess.banChat)
 			if (!text) return reply(`Where is the link bro`)
@@ -8088,11 +9073,13 @@ ${global.themeemoji} Media Url : ${images}`,
 				}).catch((err) => reply(mess.error))
 		}
 		break
+		case 'igdl':
+		case 'instagram':
 		case 'instagramreels':
 		case 'igreels': {
 			if (isBan) return reply(mess.ban)
 			if (isBanChat) return reply(mess.banChat)
-			if (!args[0]) return reply(`Example :\n${prefix + command} https://www.instagram.com/p/CcvJGuxh9VI/?igshid=YmMyMTA2M2Y=`)
+			if (!args[0]) return reply(`Example :\n${prefix + command} https://www.instagram.com/`)
 			try {
 				hx.igdl(args[0]).then(async (resed) => {
 					ini_anu = []
@@ -8134,297 +9121,33 @@ ${global.themeemoji} Media Url : ${images}`,
 			}
 		}
 		break
-		/* For BackUp InCase 
-		 * .ig 
-		 * .insta 
-		 * .instagram 
-		 * .ig2 
-		 * .insta2 
-		 * .instagram2 
-		 * Did Not Give The Out File [ Video ]
-		 */
-		case 'igvid':
-		case 'instavid':
-		case 'instagramvid': {
+		case 'ig': {
 			if (isBan) return reply(mess.ban)
 			if (isBanChat) return reply(mess.banChat)
-			if (!text) return reply(`Example : ${prefix + command} https://instagram.com/`)
-			if (!/https?:\/\/www\.instagram\.com\/(reel|tv|p)\//.test(text)) return reply(`${mess.linkerror}`)
-			let Sachu = await igscraper.instagramdl(args[0])
-			reply(mess.wait)
-			for (let i = 0; i < Sachu.length; i++) {
-				RoseMwol.sendMessage(m.chat, {
+			if (args[0] === "mp4") {
+				RoseMwol.sendMessage(from, {
 					video: {
-						url: Sachu[i].url
+						url: args[1]
 					},
-					caption: `${design} Downloaded from Instagram ${design}`
+					caption: 'Done!',
+					mimetype: 'video/mp4'
 				}, {
 					quoted: m
 				})
-			}
-		}
-		break
-		/* For BackUp InCase 
-		 * .ig 
-		 * .insta 
-		 * .instagram 
-		 * .ig2 
-		 * .insta2 
-		 * .instagram2 
-		 * Did Not Give The Out File [ Image ]
-		 */
-		case 'igpic':
-		case 'instapic':
-		case 'instagrampic': {
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			if (!text) return reply(`Example : ${prefix + command} https://instagram.com/`)
-			if (!/https?:\/\/www\.instagram\.com\/(reel|tv|p)\//.test(text)) return reply(`${mess.linkerror}`)
-			let Sachu = await igscraper.instagramdl(args[0])
-			reply(mess.wait)
-			for (let i = 0; i < Sachu.length; i++) {
-				RoseMwol.sendMessage(m.chat, {
+			} else if (args[0] === "jpg") {
+				RoseMwol.sendMessage(from, {
 					image: {
-						url: Sachu[i].url
+						url: args[1]
 					},
-					caption: `${design} Downloaded from Instagram ${design}`
+					caption: 'Done!'
 				}, {
 					quoted: m
 				})
+			} else {
+				reply("Error! ")
 			}
 		}
 		break
-		case 'ig':
-		case 'insta':
-		case 'instagram': {
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			if (!text) return reply(`Example : ${prefix + command} https://instagram.com/`)
-			if (!/https?:\/\/www\.instagram\.com\/(reel|tv|p)\//.test(text)) return reply(`${mess.linkerror}`)
-			try {
-				let Sachu = await igscraper.instagramdl(args[0])
-				reply(mess.wait)
-				for (let i = 0; i < Sachu.length; i++) {
-					if (Sachu[i].type == 'image') {
-						RoseMwol.sendMessage(m.chat, {
-							image: {
-								url: Sachu[i].url
-							},
-							caption: `${design} Downloaded from Instagram ${design}`
-						}, {
-							quoted: m
-						})
-					} else {
-						RoseMwol.sendMessage(m.chat, {
-							video: {
-								url: Sachu[i].url
-							},
-							caption: `${design} Downloaded from Instagram ${design}`
-						}, {
-							quoted: m
-						})
-					}
-				}
-			} catch (err) {
-				reply(`${mess.servererror}`)
-			}
-		}
-		break
-		case 'ig2':
-		case 'insta2':
-		case 'instagram2': {
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			if (!text) return reply(`Example : ${prefix + command} https://instagram.com/`)
-			if (!/https?:\/\/www\.instagram\.com\/(reel|tv|p)\//.test(text)) return reply(`${mess.linkerror}`)
-			try {
-				let Sachu = await igscraper.instagramdlv3(args[0])
-				reply(mess.wait)
-				for (let i = 0; i < Sachu.length; i++) {
-					if (Sachu[i].type == 'image') {
-						RoseMwol.sendMessage(m.chat, {
-							image: {
-								url: Sachu[i].url
-							},
-							caption: `${design} Downloaded from Instagram ${design}`
-						}, {
-							quoted: m
-						})
-					} else {
-						RoseMwol.sendMessage(m.chat, {
-							video: {
-								url: Sachu[i].url
-							},
-							caption: `${design} Downloaded from Instagram ${design}`
-						}, {
-							quoted: m
-						})
-					}
-				}
-			} catch (err) {
-				reply(err)
-			}
-		}
-		break
-
-		/* Download Raw Images From Direct Link */
-
-		case 'downimg': {
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			if (!text) return reply(`Example : ${prefix + command} *Raw Download Link*`)
-			try {
-				let link = text
-				reply(mess.wait)
-				RoseMwol.sendMessage(m.chat, {
-					image: {
-						url: link
-					},
-				}, {
-					quoted: m
-				})
-			} catch (err) {
-				reply(`${mess.downerror}`)
-			}
-		}
-		break
-
-		/* Download Raw Videos From Direct Link */
-
-		case 'downmp4': {
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			if (!text) return reply(`Example : ${prefix + command} *Raw Download Link*`)
-			try {
-				let link = text
-				reply(mess.wait)
-				RoseMwol.sendMessage(m.chat, {
-					video: {
-						url: link
-					},
-				}, {
-					quoted: m
-				})
-			} catch (err) {
-				reply(`${mess.downerror}`)
-			}
-		}
-		break
-
-		/* Download Raw Audios From Direct Link */
-
-		case 'downmp3': {
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			if (!text) return reply(`Example : ${prefix + command} *Raw Download Link*`)
-			try {
-				let link = text
-				reply(mess.wait)
-				RoseMwol.sendMessage(m.chat, {
-					audio: {
-						url: link
-					},
-					mimetype: 'audio/mpeg',
-					ptt: true
-				}, {
-					quoted: m
-				})
-			} catch (err) {
-				reply(`${mess.downerror}`)
-			}
-		}
-		break
-
-		/* 
-		 * Fixed .play And .ytplay By Sachu [ Only For Railway Deploys ] 
-		 * Not Deploying On Railway ??
-		 * Use The One With YT-SEARCH Plugin 
-		 * Dont Forget To Add Plugin In Package.json
-		 */
-		/*
-		case 'play': 
-		case 'song': 
-		case 'ytplay': {
-		if (!text) return reply(`Example : ${prefix + command} Stay`)
-		let yts = require("yt-search")
-		let search = await yts(text)
-		let anu = search.videos[Math.floor(Math.random() * search.videos.length)]
-		let buttons = [
-			{buttonId: `ytmp3 ${anu.url}`, buttonText: {displayText: '🎶Audio🎶'}, type: 1},
-			{buttonId: `ytmp4 ${anu.url}`, buttonText: {displayText: '📽️Video📽️'}, type: 1}
-		]
-		let buttonMessage = {
-			image: { url: anu.thumbnail },
-			caption: `
-		${global.design} Title : ${anu.title}
-		${global.design} Ext : Search
-		${global.design} ID : ${anu.videoId}
-		${global.design} Duration : ${anu.timestamp}
-		${global.design} Viewes : ${anu.views}
-		${global.design} Uploaded On : ${anu.ago}
-		${global.design} Author : ${anu.author.name}
-		${global.design} Channel : ${anu.author.url}
-		${global.design} Description : ${anu.description}
-		${global.design} Url : ${anu.url}`,
-			footer: RoseMwol.user.name,
-			buttons: buttons,
-			headerType: 4
-		}
-		RoseMwol.sendMessage(m.chat, buttonMessage, { quoted: m })
-		}
-		break
-		*/
-
-		case 'play':
-		case 'ytplay': {
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			if (!text) return reply(`No Query Title`)
-			reply(mess.wait)
-			let query = args[0]
-			try {
-				let {
-					title,
-					thumb,
-					video,
-					filesize_video,
-					audio,
-					filesize_audio
-				} = await fetchJson(`https://tyz-api.herokuapp.com/downloader/play?query=${encodeURIComponent(query)}`)
-				let buttons = [{
-					buttonId: `downmp4 ${video}`,
-					buttonText: {
-						displayText: `${design} Video ${design}`
-					},
-					type: 1
-				}, {
-					buttonId: `downmp3 ${audio}`,
-					buttonText: {
-						displayText: `${design} Music ${design}`
-					},
-					type: 1
-				}]
-				let buttonMessage = {
-					image: {
-						url: `${thumb}`
-					},
-					caption: `
-${global.design} Title : ${title} \n
-${global.design} Audio Size : ${filesize_audio} 
-${global.design} Video Size : ${filesize_video} `,
-					footer: `Reqested By : ` + RoseMwol.user.name,
-					buttons: buttons,
-					headerType: 4
-				}
-				await RoseMwol.sendMessage(m.chat, buttonMessage, {
-					quoted: m
-				})
-			} catch (err) {
-				reply `${mess.error}`
-			}
-		}
-		break
-
 		case 'mp4': {
 			if (isBan) return reply(mess.ban)
 			if (isBanChat) return reply(mess.banChat)
@@ -8484,7 +9207,7 @@ ${global.design} Video Size : ${filesize_video} `,
 		case 'igtv': {
 			if (isBan) return reply(mess.ban)
 			if (isBanChat) return reply(mess.banChat)
-			if (!text) return reply(`Where is the link boss?`)
+			if (!text) return reply(`Where is the link ?`)
 			const {
 				instagramdl,
 				instagramdlv2,
@@ -8514,7 +9237,7 @@ ${global.design} Video Size : ${filesize_video} `,
 			if (isBanChat) return reply(mess.banChat)
 			if (!text) return reply(`Where is the link?`)
 			if (!isUrl(args[0]) && !args[0].includes('twitter.com')) return reply(`The link you provided is not valid`)
-			xeonkey.Twitter(`${text}`).then(async (data) => {
+			xfarr.Twitter(`${text}`).then(async (data) => {
 				let txt = `*TWITTER DOWNLOADER*\n\n`
 				txt += `*${themeemoji}TITLE :* ${data.title}\n`
 				txt += `*${themeemoji}QUALITY :* ${data.medias[1].quality}\n`
@@ -8555,7 +9278,7 @@ ${global.design} Video Size : ${filesize_video} `,
 			if (isBanChat) return reply(mess.banChat)
 			if (!text) return reply(`Where is the link?`)
 			if (!isUrl(args[0]) && !args[0].includes('twitter.com')) return reply(`*The link you provided is not valid*`)
-			xeonkey.Twitter(`${text}`).then(async (data) => {
+			xfarr.Twitter(`${text}`).then(async (data) => {
 				RoseMwol.sendMessage(m.chat, {
 					audio: {
 						url: data.medias[1].url
@@ -8569,9 +9292,9 @@ ${global.design} Video Size : ${filesize_video} `,
 			})
 		}
 		break
-		case 'twitterxx':
-		case 'twdlxx':
-		case 'twmp4xx': {
+		case 'twitter':
+		case 'twdl':
+		case 'twmp4': {
 			if (isBan) return reply(mess.ban)
 			if (isBanChat) return reply(mess.banChat)
 			if (!args[0]) return reply(`Example :\n${prefix + command} https://twitter.com/cinema21/status/1517754155644821504?t=rUnbyqwh4vAE1QXMXlsVeQ&s=19`)
@@ -8809,573 +9532,7 @@ _For HD quality you can click the button below_`
 			})
 		}
 		break
-		case 'tiktok': {
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			if (!q) return reply('Where is the link?')
-			reply(mess.wait)
-			if (!q.includes('tiktok')) return reply(`That's not a tiktok link!`)
-			const musim_rambutan = await RoseMwolTiktok(`${q}`).catch(e => {
-				reply(mess.error)
-			})
-			console.log(musim_rambutan)
-			const xeontiktokop = musim_rambutan.result.watermark
-			texttk = `Wanna download no watermark or audio?
-_Please choose the button below_`
-			let buttons = [{
-					buttonId: `ttnowm ${q}`,
-					buttonText: {
-						displayText: 'No Watermark ❌'
-					},
-					type: 1
-				},
-				{
-					buttonId: `ttaud ${q}`,
-					buttonText: {
-						displayText: 'Audio 🎶'
-					},
-					type: 1
-				}
-			]
-			let buttonMessage = {
-				video: {
-					url: xeontiktokop
-				},
-				caption: texttk,
-				footer: `${botname}`,
-				buttons: buttons,
-				headerType: 4,
-				contextInfo: {
-					externalAdReply: {
-						title: `${ownername}`,
-						body: `${pushname}`,
-						thumbnail: log0,
-						mediaType: 1,
-						mediaUrl: q,
-						sourceUrl: q
-					}
-				}
-			}
-			RoseMwol.sendMessage(from, buttonMessage, {
-				quoted: m
-			})
-		}
-		break
-		case 'tiktoknowm':
-		case 'ttnowm': {
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			if (!q) return reply('Where is the link?')
-			reply(mess.wait)
-			if (!q.includes('tiktok')) return reply(`That's not a tiktok link!`)
-			const musim_rambutan = await RoseMwolTiktok(`${q}`).catch(e => {
-				reply(mess.error)
-			})
-			console.log(musim_rambutan)
-			const sachuzztiktoknowm = musim_rambutan.result.nowatermark
-			RoseMwol.sendMessage(from, {
-				video: {
-					url: sachuzztiktoknowm
-				},
-				caption: "Here you go!"
-			}, {
-				quoted: m
-			})
-		}
-		break
-		case 'tiktokaudio':
-		case 'tiktokmusic':
-		case 'ttaud': {
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			if (!q) return reply('Where is the audio?')
-			if (!q.includes('tiktok')) return reply(`That's not a tiktok link!`)
-			const musim_rambutan = await RoseMwolTiktok(`${q}`).catch(e => {
-				reply(mess.error)
-			})
-			console.log(musim_rambutan)
-			const sachuzztiktokaudio = musim_rambutan.result.nowatermark
-			RoseMwol.sendMessage(from, {
-				audio: {
-					url: sachuzztiktokaudio
-				},
-				mimetype: 'audio/mp4'
-			}, {
-				quoted: m
-			})
-		}
-		break
-
-		case 'ytdl2':
-		case 'yt2':
-		case 'youtube2': {
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			reply(mess.wait)
-			if (!args[0]) return reply(mess.linkm)
-			try {
-				hx.youtube(args[0]).then(async (res) => {
-					textyt = `*── 「 YOUTUBE DOWNLOAD 」 ──*
-
-${themeemoji} Title : ${res.title}
-${themeemoji} Size : ${res.size}
-${themeemoji} Quality : ${res.quality}
-
-_Select video or audio and wait a while_`
-					let buttons = [{
-							buttonId: `.ytmp4 ${res.link}`,
-							buttonText: {
-								displayText: 'VIDEO'
-							},
-							type: 1
-						},
-						{
-							buttonId: `.ytmp3 ${res.link}`,
-							buttonText: {
-								displayText: 'AUDIO'
-							},
-							type: 1
-						}
-					]
-					let buttonMessage = {
-						image: {
-							url: res.thumb
-						},
-						caption: textyt,
-						footer: botname,
-						buttons: buttons,
-						headerType: 4,
-						contextInfo: {
-							externalAdReply: {
-								title: res.title,
-								body: ownername,
-								thumbnail: {
-									url: res.thumb
-								},
-								mediaType: 2,
-								mediaUrl: args[0],
-								sourceUrl: args[0]
-							}
-						}
-					}
-					RoseMwol.sendMessage(from, buttonMessage, {
-						quoted: m
-					})
-				}).catch(_ => _)
-			} catch {
-				reply("Error link!")
-			}
-		}
-		break
-		case 'music':
-		case 'play':
-		case 'song':
-		case 'ytplay': {}
-
-		case 'getmusic':
-		case 'getvideo':
-		case 'yt':
-		case 'youtube':
-		case 'ytvideo':
-		case 'ytmp3':
-		case 'ytmp4':
-		case 'ytmusic': {
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			if (!args[0]) return reply(mess.linkm)
-			try {
-				hx.youtube(args[0]).then(async (res) => {
-					textyt = `*| YOUTUBE DOWNLOADER |*
-
-${global.themeemoji} Title : ${res.title}
-${global.themeemoji} Size : ${res.size}
-${global.themeemoji} Quality : ${res.quality}
-
-_Select video or audio and wait a while_`
-					let buttons = [{
-							buttonId: `ytvid ${res.link}`,
-							buttonText: {
-								displayText: '► Video'
-							},
-							type: 1
-						},
-						{
-							buttonId: `ytaud ${res.mp3}`,
-							buttonText: {
-								displayText: '♫ Audio'
-							},
-							type: 1
-						}
-					]
-					let buttonMessage = {
-						image: {
-							url: res.thumb
-						},
-						caption: textyt,
-						footer: `${botname}`,
-						buttons: buttons,
-						headerType: 4,
-						contextInfo: {
-							externalAdReply: {
-								title: res.title,
-								body: `${global.ownername}`,
-								thumbnail: {
-									url: res.thumb
-								},
-								mediaType: 2,
-								mediaUrl: args[0],
-								sourceUrl: args[0]
-							}
-						}
-					}
-					RoseMwol.sendMessage(from, buttonMessage, {
-						quoted: m
-					})
-				}).catch(_ => _)
-			} catch {
-				reply("Link error!")
-			}
-		}
-		break
-		case 'ytvd': {
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			RoseMwol.sendMessage(from, {
-				video: {
-					url: args[0]
-				},
-				mimetype: "video/mp4",
-				caption: "Success",
-				contextInfo: {
-					externalAdReply: {
-						title: `${global.botname}`,
-						body: `${global.botname}`,
-						thumbnail: log0,
-						mediaType: 2,
-						mediaUrl: `${global.websitex}`,
-						sourceUrl: `${global.websitex}`
-					}
-				}
-			}, {
-				quoted: m
-			})
-		}
-		break
-		case 'ytaud': {
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			RoseMwol.sendMessage(from, {
-				audio: {
-					url: args[0]
-				},
-				mimetype: "audio/mp4",
-				ptt: true,
-				contextInfo: {
-					externalAdReply: {
-						title: `${global.botname}`,
-						body: `${global.botname}`,
-						thumbnail: log0,
-						mediaType: 2,
-						mediaUrl: `${global.websitex}`,
-						sourceUrl: `${global.websitex}`
-					}
-				}
-			}, {
-				quoted: m
-			})
-		}
-		break
-		case 'ytshorts':
-		case 'shorts': {
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			if (!text) return reply(`*Use ${prefix + command} put yt shorts link*`)
-			if (!isUrl(args[0]) && !args[0].includes('youtube')) return reply(`The link you provided is not valid`)
-			xeonkey.Youtube(`${text}`).then(async (data) => {
-				if (data.medias[0].formattedSize.split('MB')[0] >= 999) return reply('*File Over Limit* ' + util.format(data))
-				cap = `
-*YOUTUBE SHORTS*
-
-*${themeemoji}TITLE:* ${data.title}\n*${themeemoji}QUALITY:* ${data.medias[0].quality}\n*${themeemoji}SIZE:* ${data.medias[0].formattedSize}\n*${themeemoji}DURATION* ${data.duration}\n*${themeemoji}ID:* ${data.medias[0].cached}\n*${themeemoji}LINK:* ${data.url}\n\n*${botname}*`
-				buf = await getBuffer(data.thumbnail)
-				RoseMwol.sendMessage(m.chat, {
-					image: {
-						url: data.thumbnail
-					},
-					jpegThumbnail: buf,
-					caption: `${cap}`
-				}, {
-					quoted: m
-				})
-				RoseMwol.sendMessage(m.chat, {
-					video: {
-						url: data.medias[0].url
-					},
-					jpegThumbnail: buf,
-					caption: `*${themeemoji}TITLE:* ${data.title}\n*${themeemoji}QUALITY:* ${data.medias[0].quality}\n*${themeemoji}SIZE:* ${data.medias[0].formattedSize}`
-				}, {
-					quoted: m
-				})
-			}).catch((err) => {
-				reply(mess.reply)
-			})
-		}
-		break
-		case 'couplepp':
-		case 'ppcouple': {
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			reply(mess.wait)
-			let anu = await fetchJson('https://raw.githubusercontent.com/iamriz7/kopel_/main/kopel.json')
-			let random = anu[Math.floor(Math.random() * anu.length)]
-			RoseMwol.sendMessage(m.chat, {
-				image: {
-					url: random.male
-				},
-				caption: `Couple Male🙎🏻‍♂️`
-			}, {
-				quoted: m
-			})
-			RoseMwol.sendMessage(m.chat, {
-				image: {
-					url: random.female
-				},
-				caption: `Couple Female🙎🏻‍♀️`
-			}, {
-				quoted: m
-			})
-		}
-		break
-		case 'ytmp3x':
-		case 'ytmusicx': {
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			let {
-				yta
-			} = require('./lib/y2mate')
-			if (!text) return reply(`Example : ${prefix + command} https://youtube.com/watch?v=PtFMh6Tccag%27 128kbps`)
-			if (!isUrl(args[0]) && !args[0].includes('youtube.com')) return reply(`The link you provided is invalid`)
-			let quality = args[1] ? args[1] : '128kbps'
-			let media = await yta(text, quality)
-			if (media.filesize >= 999999) return reply('*File Over Limit* ' + util.format(media))
-			let caption = `*YOUTUBE MUSIC*\n\n*${themeemoji}Title :* ${media.title}\n*${themeemoji}File size :* ${media.filesizeF}\n*${themeemoji}Url :* ${isUrl(text)}\n*${themeemoji}Ext :* MP3\n*${themeemoji}Resolution :* ${args[1] || '128kbps'}`
-			buf = await getBuffer(media.thumb)
-			RoseMwol.sendMessage(m.chat, {
-				image: {
-					url: media.thumb
-				},
-				jpegThumbnail: buf,
-				caption: `${caption}`
-			}, {
-				quoted: m
-			}).catch((err) => reply(mess.error))
-			RoseMwol.sendMessage(m.chat, {
-				audio: {
-					url: media.dl_link
-				},
-				mimetype: "audio/mpeg",
-				fileName: `${media.title}.mp3`,
-				quoted: m,
-				contextInfo: {
-					externalAdReply: {
-						title: media.title,
-						body: "YOUTUBE MP3",
-						mediaType: "2",
-						thumbnail: buf,
-						mediaUrl: `${text}`
-					}
-				}
-			}).catch((err) => reply(mess.error))
-		}
-		break
-		case 'ytmp4x':
-		case 'ytvideox': {
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			let {
-				ytv
-			} = require('./lib/y2mate')
-			if (!text) return reply(`Example : ${prefix + command} https://youtube.com/watch?v=RNa4thokVJ4 360p`)
-			if (!isUrl(args[0]) && !args[0].includes('youtube.com')) return reply(`The link you provided is invalid!`)
-			let quality = args[1] ? args[1] : '360p'
-			let media = await ytv(text, quality)
-			if (media.filesize >= 999999) return reply('*File Over Limit* ' + util.format(media))
-			var capti = `*YOUTUBE VIDEO*\n\n*${themeemoji}Title* : ${media.title}\n*${themeemoji}File size* : ${media.filesizeF}\n*${themeemoji}Url* : ${isUrl(text)}\n*${themeemoji}Ext* : Mp4\n*${themeemoji}Resoultion* : ${args[1] || '360p'}`
-			var buf = await getBuffer(media.thumb)
-			RoseMwol.sendMessage(m.chat, {
-				image: {
-					url: media.thumb
-				},
-				jpegThumbnail: buf,
-				caption: `${capti}`
-			}, {
-				quoted: m
-			})
-			RoseMwol.sendMessage(m.chat, {
-				video: {
-					url: media.dl_link
-				},
-				jpegThumbnail: buf,
-				mimetype: 'video/mp4',
-				fileName: `${media.title}.mp4`,
-				caption: `Here you go!`
-			}, {
-				quoted: m
-			}).catch((err) => reply(mess.error))
-		}
-		break
-		case 'ytdl': {
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			if (!text) return reply(mess.linkm)
-			if (!isUrl(args[0]) && !args[0].includes('youtube.com')) return reply(`The link you provided is invalid`)
-			anu = await fetchJson(`https://api.akuari.my.id/downloader/youtube?link=${text}`)
-			if (anu.filesize_video >= 999999) return reply('*File Over Limit* ' + util.format(anu))
-			tummb = await getBuffer(anu.thumb)
-			audio = await getBuffer(anu.audio)
-			RoseMwol.sendMessage(m.chat, {
-				document: audio,
-				mimetype: 'audio/mpeg',
-				fileName: `${anu.title}`
-			}, {
-				quoted: m
-			}).catch((err) => reply(mess.error))
-			RoseMwol.sendMessage(m.chat, {
-				video: {
-					url: anu.video
-				},
-				jpegThumbnail: tummb,
-				caption: `${util.format(anu)}`
-			}, {
-				quoted: m
-			}).catch((err) => reply(mess.error))
-		}
-		break
-		case 'bts':
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			teks = `Here you go!`
-			buffer = `https://api.dapuhy.xyz/api/randomimage/batues?apikey=0gly81wDky`
-			RoseMwol.sendMessage(from, {
-				image: {
-					url: buffer
-				},
-				caption: "Here you go!"
-			}, {
-				quoted: m
-			})
-			break
-		case 'ytmp32':
-		case 'youtubemp32': {
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			reply(mess.wait)
-			if (args.length < 1) return reply('Where is the link?')
-			try {
-				await yta(args[0])
-					.then((res) => {
-						const {
-							dl_link
-						} = res
-						axios.get(`https://tinyurl.com/api-create.php?url=${dl_link}`)
-							.then((a) => {
-
-								RoseMwol.sendMessage(from, {
-									audio: {
-										url: dl_link
-									},
-									mimetype: 'audio/mp4'
-								}, {
-									quoted: m
-								})
-							})
-
-					})
-			} catch (e) {
-				reply(from, `Access denied, can't download!. Try using another link`, {
-					quoted: m
-				})
-			}
-		}
-		break
-		case 'ytmp42':
-		case 'youtubemp42': {
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			reply(mess.wait)
-			if (args.length < 1) return reply('the link?')
-			try {
-				await ytv(args[0])
-					.then((res) => {
-						const {
-							dl_link
-						} = res
-						axios.get(`https://tinyurl.com/api-create.php?url=${dl_link}`)
-							.then((a) => {
-
-								RoseMwol.sendMessage(from, {
-									video: {
-										url: dl_link
-									},
-									caption: "By Aldi Store"
-								}, {
-									quoted: m
-								})
-							})
-
-					})
-			} catch (e) {
-				reply(from, `Access denied, can't download!. Try using another link`, {
-					quoted: m
-				})
-			}
-		}
-		break
-		case 'pinterest':
-		case 'pin': {
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			if (!args.join(" ")) return reply("What picture are you looking for?")
-			try {
-				hx.pinterest(args.join(" ")).then(async (res) => {
-					imgnyee = res[Math.floor(Math.random() * res.length)]
-					let buttons = [{
-						buttonId: `pinterest ${args.join(" ")}`,
-						buttonText: {
-							displayText: 'Next Image 👀'
-						},
-						type: 1
-					}]
-					let buttonMessage = {
-						image: {
-							url: imgnyee
-						},
-						caption: `${global.roseemoji} Title : ` + args.join(" ") + `\n${global.roseemoji} Media Url : ` + imgnyee,
-						footer: `${global.botname}`,
-						buttons: buttons,
-						headerType: 4,
-						contextInfo: {
-							externalAdReply: {
-								title: `${global.botname}`,
-								body: `${global.ownername}`,
-								thumbnail: log0,
-								mediaType: 2,
-								mediaUrl: `${global.websitex}`,
-								sourceUrl: `${global.websitex}`
-							}
-						}
-					}
-					RoseMwol.sendMessage(m.chat, buttonMessage, {
-						quoted: m
-					})
-				}).catch(_ => _)
-			} catch {
-				reply("Error")
-			}
-		}
-		break
-		case 'img':
-		case 'image': {
+		case 'pinterest2': {
 			if (isBan) return reply(mess.ban)
 			if (isBanChat) return reply(mess.banChat)
 			reply(mess.wait)
@@ -9388,820 +9545,33 @@ _Select video or audio and wait a while_`
 				image: {
 					url: result
 				},
-				caption: ` ${themeemoji} Media Url : ` + result
+				caption: '${themeemoji} Media Url : ' + result
 			}, {
 				quoted: m
 			})
 		}
 		break
-		case 'swm':
-		case 'take':
-		case 'stickerwm': {
+		case 'webtonsearch':
+		case 'webtoon':
 			if (isBan) return reply(mess.ban)
 			if (isBanChat) return reply(mess.banChat)
-			if (!args.join(" ")) return reply(`Example :\nswm ${global.author}|${global.packname}`)
-			const swn = args.join(" ")
-			const pcknm = swn.split("|")[0];
-			const atnm = swn.split("|")[1];
-			if (m.quoted.isAnimated === true) {
-				RoseMwol.downloadAndSaveMediaMessage(quoted, "gifee")
-				RoseMwol.sendMessage(from, {
-					sticker: fs.readFileSync("gifee.webp")
-				}, {
-					quoted: m
+			if (!text) return reply('What Are you Looking For??')
+			await reply(mess.wait)
+			xfarr.Webtoons(q).then(async data => {
+					let txt = `*------「 WEBTOONS-SEARCH 」------*\n\n`
+					for (let i of data) {
+						txt += `*📫 Title :* ${i.judul}\n`
+						txt += `*👍🏻 Like :* ${i.like}\n`
+						txt += `*🤴🏻 Creator :* ${i.creator}\n`
+						txt += `*🎥 Genre :* ${i.genre}\n`
+						txt += `*📚 Url :* ${i.url}\n ----------------------------------------------------------\n`
+					}
+					await reply(txt)
 				})
-			} else if (/image/.test(mime)) {
-				let media = await quoted.download()
-				let encmedia = await RoseMwol.sendImageAsSticker(m.chat, media, m, {
-					packname: pcknm,
-					author: global.atnm
+				.catch((err) => {
+					reply(mess.error)
 				})
-				await fs.unlinkSync(encmedia)
-			} else if (/video/.test(mime)) {
-				if ((quoted.msg || quoted).seconds > 11) return reply('Maximum 10 seconds!')
-				let media = await quoted.download()
-				let encmedia = await RoseMwol.sendVideoAsSticker(m.chat, media, m, {
-					packname: pcknm,
-					author: atnm
-				})
-				await fs.unlinkSync(encmedia)
-			} else {
-				reply(`Send Image/Video With Caption ${prefix + command}\nVideo Duration 1-9 Seconds`)
-			}
-		}
-		break
-		case 'invertxxx':
-		case 'imageinvertxxx': {
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			reply(mess.wait)
-			if (isBan) return reply(mess.ban)
-			if (/image/.test(mime)) {
-				let dwnld = await quoted.download()
-				let {
-					floNime
-				} = require('./lib/uploader')
-				let fatGanss = await floNime(dwnld)
-				buffer = `http://api.lolhuman.xyz/api/editor/invert?apikey=${lolkey}&img=${fatGanss.result.url}`
-				RoseMwol.sendMessage(from, {
-					image: {
-						url: buffer
-					},
-					caption: "Here you go!"
-				}, {
-					quoted: m
-				})
-			}
-		}
-		break
-		case 'stupidxxx':
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			reply(mess.wait)
-			anu = `http://api.lolhuman.xyz/api/toloserti?apikey=${lolkey}&name=${q}`
-			RoseMwol.sendMessage(from, {
-				image: {
-					url: anu
-				},
-				caption: "Here you go!"
-			}, {
-				quoted: m
-			})
 			break
-		case 'wasted':
-		case 'imagewasted': {
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			reply(mess.wait)
-			if (isBan) return reply(mess.ban)
-			if (/image/.test(mime)) {
-				let dwnld = await quoted.download()
-				let {
-					floNime
-				} = require('./lib/uploader')
-				let fatGa = await floNime(dwnld)
-				buffer = `https://api.lolhuman.xyz/api/editor/wasted?apikey=${lolkey}&img=${fatGa.result.url}`
-				RoseMwol.sendMessage(from, {
-					image: {
-						url: buffer
-					},
-					caption: "Here you go!"
-				}, {
-					quoted: m
-				})
-			}
-		}
-		break
-		case 'jailxxx': {
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			reply(mess.wait)
-			if (isBan) return reply(mess.ban)
-			if (/image/.test(mime)) {
-				let dwnld = await quoted.download()
-				let {
-					floNime
-				} = require('./lib/uploader')
-				let fatGan = await floNime(dwnld)
-				buffer = `https://api.lolhuman.xyz/api/editor/jail?apikey=${lolkey}&img=${fatGan.result.url}`
-				RoseMwol.sendMessage(from, {
-					image: {
-						url: buffer
-					},
-					caption: "Here you go!"
-				}, {
-					quoted: m
-				})
-			}
-		}
-		break
-		case 'smeme':
-		case 'stickermeme':
-		case 'stickmeme': {
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			let {
-				TelegraPh
-			} = require('./lib/uploader')
-			if (!text) return reply(`Send/Reply Photo With Caption ${prefix + command} *text*`)
-			if (text.includes('|')) return reply(`Send/Reply Photo With Caption ${prefix + command} *text*`)
-			if (!/image/.test(mime)) return reply(`Send/Reply Photo With Caption ${prefix + command} *text*`)
-			reply(mess.wait)
-			mee = await RoseMwol.downloadAndSaveMediaMessage(quoted)
-			mem = await TelegraPh(mee)
-			meme = `https://api.memegen.link/images/custom/-/${text}.png?background=${mem}`
-			memek = await RoseMwol.sendImageAsSticker(m.chat, meme, m, {
-				packname: global.packname,
-				author: global.author
-			})
-			await fs.unlinkSync(memek)
-		}
-		break
-		case 'sgif':
-		case 'sticker':
-		case 's': {
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			if (/image/.test(mime)) {
-				let media = await quoted.download()
-				let encmedia = await RoseMwol.sendImageAsSticker(m.chat, media, m, {
-					packname: global.packname,
-					author: global.author
-				})
-				await fs.unlinkSync(encmedia)
-			} else if (/video/.test(mime)) {
-				if ((quoted.msg || quoted).seconds > 11) return reply('Maximum 10 seconds!')
-				let media = await quoted.download()
-				let encmedia = await RoseMwol.sendVideoAsSticker(m.chat, media, m, {
-					packname: global.packname,
-					author: global.author
-				})
-				await fs.unlinkSync(encmedia)
-			} else {
-				reply(`Send Image/Video With Caption ${prefix + command}\nVideo Duration 1-9 Seconds`)
-			}
-		}
-		break
-		case 'wiki':
-			if (args.length < 1) return reply('What Are You Looking For?? ')
-			const res2 = await wikiSearch(q).catch(e => {
-				return reply('_[ ! ] Error Result Not Found_')
-			})
-			const result2 = `*Title :* ${res2[0].judul}\n*Wiki :* ${res2[0].wiki}`
-			RoseMwol.sendMessage(from, {
-				image: {
-					url: res2[0].thumb
-				},
-				caption: result2
-			})
-			break
-		case 'earthquake':
-			const tres = await Gempa()
-			var {
-				Waktu, Lintang, Bujur, Magnitude, Kedalaman, Wilayah, Map
-			} = tres.result
-			console.log(Map)
-			const captt = `Time : ${Waktu}\nLatitude : ${Lintang}\nLongitude : ${Bujur}\nRegion : ${Wilayah}`
-			RoseMwol.sendMessage(from, {
-				image: {
-					url: Map
-				},
-				caption: captt
-			})
-			break
-		case 'covidindo':
-		case 'covid':
-			const c = await covid()
-			var {
-				kasus, kematian, sembuh
-			} = c[0]
-			RoseMwol.sendMessage(from, {
-				text: `Case : ${kasus}\n\nDead : ${kematian}\n\nHealed : ${sembuh}`
-			}, m)
-			break
-		case 'tvschedule':
-			if (!q) return reply('Send orders *#jadwaltv [channel]*')
-			reply(await jadwaltv(q))
-			break
-		case 'playstore':
-		case 'apk':
-			if (!q) return reply('what are you looking for?')
-			let play = await hx.playstore(q)
-			let storee = '❉─────────────────────❉\n'
-			for (let i of play) {
-				storee += `\n*「 *PLAY STORE* 」*\n
-- *Name* : ${i.name}
-- *Link* : ${i.link}\n
-- *Dev* : ${i.developer}
-- *Dev Link* : ${i.link_dev}\n❉─────────────────────❉`
-			}
-			reply(storee)
-			break
-		case 'couple': {
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			if (!m.isGroup) return replay(`${mess.group}`)
-			let member = participants.map(u => u.id)
-			let orang = member[Math.floor(Math.random() * member.length)]
-			let jodoh = member[Math.floor(Math.random() * member.length)]
-			let jawab = `@${orang.split('@')[0]} ❤️ @${jodoh.split('@')[0]}
-Cieeee, What's Going On❤️💖👀`
-			let menst = [orang, jodoh]
-			let buttons = [{
-				buttonId: '❤️',
-				buttonText: {
-					displayText: '❤️'
-				},
-				type: 1
-			}]
-			await RoseMwol.sendButtonText(m.chat, buttons, jawab, RoseMwol.user.name, m, {
-				mentions: menst
-			})
-		}
-		break
-		case 'mysoulmate': {
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			if (!m.isGroup) return replay(`${mess.group}`)
-			let member = participants.map(u => u.id)
-			let me = m.sender
-			let jodoh = member[Math.floor(Math.random() * member.length)]
-			let jawab = `👫Your Match Is
-
-@${me.split('@')[0]} ❤️ @${jodoh.split('@')[0]}`
-			let ments = [me, jodoh]
-			let buttons = [{
-				buttonId: '❤️',
-				buttonText: {
-					displayText: '❤️'
-				},
-				type: 1
-			}]
-			await RoseMwol.sendButtonText(m.chat, buttons, jawab, RoseMwol.user.name, m, {
-				mentions: ments
-			})
-		}
-		break
-		case 'is':
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			if (!text) return replay(`Use Text, Example : ${prefix + command} he married `)
-			const apa = [`Yes`, `No`, `It Could Be`, `Thats right`]
-			const kah = apa[Math.floor(Math.random() * apa.length)]
-			RoseMwol.sendMessage(from, {
-				text: `Question : Is ${q}\nAnswer : ${kah}`
-			}, {
-				quoted: m
-			})
-
-			break
-		case 'what':
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			if (!text) return replay(`Use Text, Example : ${prefix + command} he married `)
-			const lel = [`Ask Your Gf`, `I Dont Know`, `I Don't Know, Ask Your Father`]
-			const kahk = lel[Math.floor(Math.random() * lel.length)]
-			RoseMwol.sendMessage(from, {
-				text: `Question : What ${q}\nAnswer : ${kahk}`
-			}, {
-				quoted: m
-			})
-
-			break
-		case 'can':
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			if (!text) return replay(`Use Text, Example : ${prefix + command} you fuck her lol `)
-			const bisa = [`Can`, `Can't`, `Cannot`, `Of Course!!!`]
-			const ga = bisa[Math.floor(Math.random() * bisa.length)]
-			RoseMwol.sendMessage(from, {
-				text: `Question : Can ${q}\nAnswer : ${ga}`
-			}, {
-				quoted: m
-			})
-
-			break
-		case 'how':
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			if (!text) return replay(`Use Text, Example : ${prefix + command} is my face`)
-			const gimana = [`It's Okay`, `It's Difficult Bro`, `Sorry Bot Can't Answer`, `Try Searching On Google`, `Holy Cow! Really???`, `Dizzy Ah`, `Ohhh I See:(`, `The Patient, Boss:(`, `How Are You?`]
-			const ya = gimana[Math.floor(Math.random() * gimana.length)]
-			RoseMwol.sendMessage(from, {
-				text: `Question : How ${q}\nAnswer : How ${ya}`
-			}, {
-				quoted: m
-			})
-			break
-		case 'rate':
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			if (!text) return replay(`Use Text, Example : ${prefix + command} My Dp`)
-			const ra = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30', '31', '32', '33', '34', '35', '36', '37', '38', '39', '40', '41', '42', '43', '44', '45', '46', '47', '48', '49', '50', '51', '52', '53', '54', '55', '56', '57', '58', '59', '60', '61', '62', '63', '64', '65', '66', '67', '68', '69', '70', '71', '72', '73', '74', '75', '76', '77', '78', '79', '80', '81', '82', '83', '84', '85', '86', '87', '88', '89', '90', '91', '92', '93', '94', '95', '96', '97', '98', '99', '100']
-			const te = ra[Math.floor(Math.random() * ra.length)]
-			RoseMwol.sendMessage(from, {
-				text: `Question : Rate ${q}\nAnswer : *${te}%*`
-			}, {
-				quoted: m
-			})
-			break
-		case 'handsomecheck':
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			if (!text) return replay(`Tag Someone, Example : ${prefix + command} @Xeon`)
-			const gan = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30', '31', '32', '33', '34', '35', '36', '37', '38', '39', '40', '41', '42', '43', '44', '45', '46', '47', '48', '49', '50', '51', '52', '53', '54', '55', '56', '57', '58', '59', '60', '61', '62', '63', '64', '65', '66', '67', '68', '69', '70', '71', '72', '73', '74', '75', '76', '77', '78', '79', '80', '81', '82', '83', '84', '85', '86', '87', '88', '89', '90', '91', '92', '93', '94', '95', '96', '97', '98', '99', '100']
-			const teng = gan[Math.floor(Math.random() * gan.length)]
-			RoseMwol.sendMessage(from, {
-				text: `*${command}*\n\nName : ${q}\nAnswer : *${teng}%*`
-			}, {
-				quoted: m
-			})
-			break
-		case 'beautifulcheck':
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			if (!text) return replay(`Tag Someone, Example : ${prefix + command} @Xeon`)
-			const can = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30', '31', '32', '33', '34', '35', '36', '37', '38', '39', '40', '41', '42', '43', '44', '45', '46', '47', '48', '49', '50', '51', '52', '53', '54', '55', '56', '57', '58', '59', '60', '61', '62', '63', '64', '65', '66', '67', '68', '69', '70', '71', '72', '73', '74', '75', '76', '77', '78', '79', '80', '81', '82', '83', '84', '85', '86', '87', '88', '89', '90', '91', '92', '93', '94', '95', '96', '97', '98', '99', '100']
-			const tik = can[Math.floor(Math.random() * can.length)]
-			RoseMwol.sendMessage(from, {
-				text: `*${command}*\n\nNama : ${q}\nAnswer : *${tik}%*`
-			}, {
-				quoted: m
-			})
-			break
-		case 'awesomecheck':
-		case 'greatcheck':
-		case 'gaycheck':
-		case 'cutecheck':
-		case 'lesbicheck':
-		case 'lesbiancheck':
-		case 'hornycheck':
-		case 'prettycheck':
-		case 'lovelycheck':
-		case 'uglycheck':
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			if (!text) return replay(`Tag Someone, Example : ${prefix + command} @Xeon`)
-			const sangeh = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30', '31', '32', '33', '34', '35', '36', '37', '38', '39', '40', '41', '42', '43', '44', '45', '46', '47', '48', '49', '50', '51', '52', '53', '54', '55', '56', '57', '58', '59', '60', '61', '62', '63', '64', '65', '66', '67', '68', '69', '70', '71', '72', '73', '74', '75', '76', '77', '78', '79', '80', '81', '82', '83', '84', '85', '86', '87', '88', '89', '90', '91', '92', '93', '94', '95', '96', '97', '98', '99', '100']
-			const sange = sangeh[Math.floor(Math.random() * sangeh.length)]
-			RoseMwol.sendMessage(from, {
-				text: `*${command}*\n\nName : ${q}\nAnswer : *${sange}%*`
-			}, {
-				quoted: m
-			})
-			break
-		case 'charactercheck':
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			//YouTube📍⛔\\
-			if (!text) return replay(`Tag Someone, Example : ${prefix + command} @Xeon`)
-			const sachuzz = ['Compassionate', 'Generous', 'Grumpy', 'Forgiving', 'Obedient', 'Good', 'Simp', 'Kind-Hearted', 'patient', 'UwU', 'top, anyway', 'Helpful']
-			const taky = sachuzz[Math.floor(Math.random() * sachuzz.length)]
-			RoseMwol.sendMessage(from, {
-				text: `Character Check : ${q}\nAnswer : *${taky}*`
-			}, {
-				quoted: m
-			})
-			break
-		case 'stupid':
-		case 'foolish':
-		case 'smart':
-		case 'idiot':
-		case 'gay':
-		case 'lesbi':
-		case 'bastard':
-		case 'stubble':
-		case 'dog':
-		case 'fuck':
-		case 'ape':
-		case 'noob':
-		case 'great':
-		case 'horny':
-		case 'wibu':
-		case 'asshole':
-		case 'handsome':
-		case 'beautiful':
-		case 'cute':
-		case 'kind':
-		case 'ugly':
-		case 'pretty':
-		case 'lesbian':
-		case 'randi':
-		case 'gandu':
-		case 'madarchod':
-		case 'kala':
-		case 'gora':
-		case 'chutiya':
-		case 'nibba':
-		case 'nibbi':
-		case 'bhosdiwala':
-		case 'chutmarika':
-		case 'bokachoda':
-		case 'suarerbaccha':
-		case 'bolochoda':
-		case 'muthal':
-		case 'muthbaaz':
-		case 'randibaaz':
-		case 'topibaaz':
-		case 'cunt':
-		case 'nerd':
-		case 'behenchod':
-		case 'behnchoda':
-		case 'bhosdika':
-		case 'nerd':
-		case 'mc':
-		case 'bsdk':
-		case 'bhosdk':
-		case 'nigger':
-		case 'loda':
-		case 'laund':
-		case 'nigga':
-		case 'noobra':
-		case 'tharki':
-		case 'nibba':
-		case 'nibbi':
-		case 'mumu':
-		case 'rascal':
-		case 'scumbag':
-		case 'nuts':
-		case 'comrade':
-		case 'fagot':
-		case 'scoundrel':
-		case 'ditch':
-		case 'dope':
-		case 'gucci':
-		case 'lit':
-		case 'dumbass':
-		case 'sexy':
-		case 'crackhead':
-		case 'mf':
-		case 'motherfucker':
-		case 'dogla':
-		case 'bewda':
-		case 'boka':
-		case 'khanki':
-		case 'bal':
-		case 'sucker':
-		case 'fuckboy':
-		case 'playboy':
-		case 'fuckgirl':
-		case 'playgirl':
-		case 'bc':
-		case 'hot': {
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			if (!m.isGroup) return replay(`${mess.group}`)
-			let member = participants.map(u => u.id)
-			let me = m.sender
-			let jodoh = member[Math.floor(Math.random() * member.length)]
-			let jawab = `The Most *${command}* Here Is @${jodoh.split('@')[0]}`
-			let ments = [me, jodoh]
-			let buttons = [{
-				buttonId: '👀',
-				buttonText: {
-					displayText: '👀😂'
-				},
-				type: 1
-			}]
-			await RoseMwol.sendButtonText(m.chat, buttons, jawab, botname, m, {
-				mentions: ments
-			})
-		}
-		break
-		case 'dare':
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			const dare = [
-				"eat 2 tablespoons of rice without any side dishes, if it's dragging you can drink",
-				"spill people who make you pause",
-				"call crush/pickle now and send ss",
-				"drop only emote every time you type on gc/pc for 1 day.",
-				"say Welcome to Who Wants To Be a Millionaire! to all the groups you have",
-				"call ex saying miss",
-				"sing the chorus of the last song you played",
-				"vn your ex/crush/girlfriend, says hi (name), wants to call, just a moment. I miss🥺👉🏼👈🏼",
-				"Bang on the table (which is at home) until you get scolded for being noisy",
-				"Tell random people _I was just told I was your twin first, we separated, then I had plastic surgery. And this is the most ciyusss_ thing",
-				"mention ex's name",
-				"make 1 rhyme for the members!",
-				"send ur whatsapp chat list",
-				"chat random people with gheto language then ss here",
-				"tell your own version of embarrassing things",
-				"tag the person you hate",
-				"Pretending to be possessed, for example: possessed by dog, possessed by grasshoppers, possessed by refrigerator, etc.",
-				"change name to *I AM DONKEY* for 24 hours",
-				"shout *ma chuda ma chuda ma chuda* in front of your house",
-				"snap/post boyfriend photo/crush",
-				"tell me your boyfriend type!",
-				"say *i hv crush on you, do you want to be my girlfriend?* to the opposite sex, the last time you chatted (submit on wa/tele), wait for him to reply, if you have, drop here",
-				"record ur voice that read *titar ke age do titar, titar ke piche do titar*",
-				"prank chat ex and say *i love u, please come back.* without saying dare!",
-				"chat to contact wa in the order according to your battery %, then tell him *i am lucky to hv you!*",
-				"change the name to *I am a child of randi* for 5 hours",
-				"type in bengali 24 hours",
-				"Use selmon bhoi photo for 3 days",
-				"drop a song quote then tag a suitable member for that quote",
-				"send voice note saying can i call u baby?",
-				"ss recent call whatsapp",
-				"Say *YOU ARE SO BEAUTIFUL DON'T LIE* to guys!",
-				"pop to a group member, and say fuck you",
-				"Act like a chicken in front of ur parents",
-				"Pick up a random book and read one page out loud in vn n send it here",
-				"Open your front door and howl like a wolf for 10 seconds",
-				"Take an embarrassing selfie and paste it on your profile picture",
-				"Let the group choose a word and a well known song. You have to sing that song and send it in voice note",
-				"Walk on your elbows and knees for as long as you can",
-				"sing national anthem in voice note",
-				"Breakdance for 30 seconds in the sitting room😂",
-				"Tell the saddest story you know",
-				"make a twerk dance video and put it on status for 5mins",
-				"Eat a raw piece of garlic",
-				"Show the last five people you texted and what the messages said",
-				"put your full name on status for 5hrs",
-				"make a short dance video without any filter just with a music and put it on ur status for 5hrs",
-				"call ur bestie, bitch",
-				"put your photo without filter on ur status for 10mins",
-				"say i love oli london in voice note🤣🤣",
-				"Send a message to your ex and say I still like you",
-				"call Crush/girlfriend/bestie now and screenshot here",
-				"pop to one of the group member personal chat and Say you ugly bustard",
-				"say YOU ARE BEAUTIFUL/HANDSOME to one of person who is in top of ur pinlist or the first person on ur chatlist",
-				"send voice notes and say, can i call u baby, if u r boy tag girl/if girl tag boy",
-				"write i love you (random grup member name, who is online) in personal chat, (if u r boy write girl name/if girl write boy name) take a snap of the pic and send it here",
-				"use any bollywood actor photo as ur pfp for 3 days",
-				"put your crush photo on status with caption, this is my crush",
-				"change name to I AM GAY for 5 hours",
-				"chat to any contact in whatsapp and say i will be ur bf/gf for 5hours",
-				"send voice note says i hv crush on you, want to be my girlfriend/boyfriend or not? to any random person from the grup(if u girl choose boy, if boy choose girl",
-				"slap ur butt hardly send the sound of slap through voice note😂",
-				"state ur gf/bf type and send the photo here with caption, ugliest girl/boy in the world",
-				"shout bravooooooooo and send here through voice note",
-				"snap your face then send it here",
-				"Send your photo with a caption, i am lesbian",
-				"shout using harsh words and send it here through vn",
-				"shout you bastard in front of your mom/papa",
-				"change the name to i am idiot for 24 hours",
-				"slap urself firmly and send the sound of slap through voice note😂",
-				"say i love the bot owner xeon through voice note",
-				"send your gf/bf pic here",
-				"make any tiktok dance challenge video and put it on status, u can delete it after 5hrs",
-				"breakup with your best friend for 5hrs without telling him/her that its a dare",
-				"tell one of your frnd that u love him/her and wanna marry him/her, without telling him/her that its a dare",
-				"say i love depak kalal through voice note",
-				"write i am feeling horny and put it on status, u can delete it only after 5hrs",
-				"write i am lesbian and put it on status, u can delete only after 5hrs",
-				"kiss your mommy or papa and say i love you😌",
-				"put your father name on status for 5hrs",
-				"send abusive words in any grup, excepting this grup, and send screenshot proof here"
-			]
-			const xeondare = dare[Math.floor(Math.random() * dare.length)]
-			buffer = await getBuffer(`https://i.ibb.co/305yt26/bf84f20635dedd5dde31e7e5b6983ae9.jpg`)
-			RoseMwol.sendMessage(from, {
-				image: buffer,
-				caption: '_You choose DARE_\n' + xeondare
-			}, {
-				quoted: m
-			})
-			break
-			break
-		case 'truth':
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			const truth = [
-				"Have you ever liked anyone? How long?",
-				"If you can or if you want, which gc/outside gc would you make friends with? (maybe different/same type)",
-				"apa ketakutan terbesar kamu?",
-				"Have you ever liked someone and felt that person likes you too?",
-				"What is the name of your friend's ex-girlfriend that you used to secretly like?",
-				"Have you ever stolen money from your father or mom? The reason?",
-				"What makes you happy when you're sad?",
-				"Ever had a one sided love? if so who? how does it feel bro?",
-				"been someone's mistress?",
-				"the most feared thing",
-				"Who is the most influential person in your life?",
-				"what proud thing did you get this year",
-				"Who is the person who can make you awesome",
-				"Who is the person who has ever made you very happy?",
-				"Who is closest to your ideal type of partner here",
-				"Who do you like to play with??",
-				"Have you ever rejected people? the reason why?",
-				"Mention an incident that made you hurt that you still remember",
-				"What achievements have you got this year??",
-				"What's your worst habit at school??",
-				"What song do you sing most in the shower",
-				"Have you ever had a near-death experience",
-				"When was the last time you were really angry. Why?",
-				"Who is the last person who called you",
-				"Do you have any hidden talents, What are they",
-				"What word do you hate the most?",
-				"What is the last YouTube video you watched?",
-				"What is the last thing you Googled",
-				"Who in this group would you want to swap lives with for a week",
-				"What is the scariest thing thats ever happened to you",
-				"Have you ever farted and blamed it on someone else",
-				"When is the last time you made someone else cry",
-				"Have you ever ghosted a friend",
-				"Have you ever seen a dead body",
-				"Which of your family members annoys you the most and why",
-				"If you had to delete one app from your phone, which one would it be",
-				"What app do you waste the most time on",
-				"Have you ever faked sick to get home from school",
-				"What is the most embarrassing item in your room",
-				"What five items would you bring if you got stuck on a desert island",
-				"Have you ever laughed so hard you peed your pants",
-				"Do you smell your own farts",
-				"have u ever peed on the bed while sleeping ðŸ¤£ðŸ¤£",
-				"What is the biggest mistake you have ever made",
-				"Have you ever cheated in an exam",
-				"What is the worst thing you have ever done",
-				"When was the last time you cried",
-				"whom do you love the most among ur parents",
-				"do u sometimes put ur finger in ur nosetrilðŸ¤£",
-				"who was ur crush during the school days",
-				"tell honestly, do u like any boy in this grup",
-				"have you ever liked anyone? how long?",
-				"do you have gf/bf','what is your biggest fear?",
-				"have you ever liked someone and felt that person likes you too?",
-				"What is the name of your ex boyfriend of your friend that you once liked quietly?",
-				"ever did you steal your mothers money or your fathers money",
-				"what makes you happy when you are sad",
-				"do you like someone who is in this grup? if you then who?",
-				"have you ever been cheated on by people?",
-				"who is the most important person in your life",
-				"what proud things did you get this year",
-				"who is the person who can make you happy when u r sad",
-				"who is the person who ever made you feel uncomfortable",
-				"have you ever lied to your parents",
-				"do you still like ur ex",
-				"who do you like to play together with?",
-				"have you ever stolen big thing in ur life? the reason why?",
-				"Mention the incident that makes you hurt that you still remember",
-				"what achievements have you got this year?",
-				"what was your worst habit at school?",
-				"do you love the bot creator, xeon?ðŸ¦„",
-				"have you ever thought of taking revenge from ur teacher?",
-				"do you like current prime minister of ur country",
-				"you non veg or veg",
-				"if you could be invisible, what is the first thing you would do",
-				"what is a secret you kept from your parents",
-				"Who is your secret crush",
-				"whois the last person you creeped on social media",
-				"If a genie granted you three wishes, what would you ask for",
-				"What is your biggest regret",
-				"What animal do you think you most look like",
-				"How many selfies do you take a day",
-				"What was your favorite childhood show",
-				"if you could be a fictional character for a day, who would you choose",
-				"whom do you text the most",
-				"What is the biggest lie you ever told your parents",
-				"Who is your celebrity crush",
-				"Whats the strangest dream you have ever had",
-				"do you play pubg, if you then send ur id number"
-			]
-			const xeontruth = truth[Math.floor(Math.random() * truth.length)]
-			buffer = await getBuffer(`https://i.ibb.co/305yt26/bf84f20635dedd5dde31e7e5b6983ae9.jpg`)
-			RoseMwol.sendMessage(from, {
-				image: buffer,
-				caption: '_You choose TRUTH_\n' + xeontruth
-			}, {
-				quoted: m
-			})
-			break
-
-		case 'when':
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			if (!text) return replay(`Use Text, Example : ${prefix + command} will i get married `)
-			const kapan = ['5 More Days', '10 More Days', '15 More Days', '20 More Days', '25 More Days', '30 More Days', '35 More Days', '40 More Days', '45 More Days', '50 More Days', '55 More Days', '60 More Days', '65 More Days', '70 More Days', '75 More Days', '80 More Days', '85 More Days', '90 More Days', '100 More Days', '5 Months More', '10 Months More', '15 Months More', '20 Months More', '25 Months More', '30 Months More', '35 Months More', '40 Months More', '45 Months More', '50 Months More', '55 Months More', '60 Months More', '65 Months More', '70 Months More', '75 Months More', '80 Months More', '85 Months More', '90 Months More', '100 Months More', '1 More Year', '2 More Years', '3 More Years', '4 More Years', '5 More Years', 'Tomorrow', 'The Day After Tomorrow', `After This Command, You Too ${q}`]
-			const kapankah = kapan[Math.floor(Math.random() * kapan.length)]
-			RoseMwol.sendMessage(from, {
-				text: `Question : ${q}\nAnswer : *${kapankah}*`
-			}, {
-				quoted: m
-			})
-			break
-		case 'wangy':
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			if (!text) return replay(`Use Text, Example : ${prefix + command} Rose-Mwol`)
-			qq = q.toUpperCase()
-			awikwok = `${qq} ${qq} ${qq} ❤️ ❤️ ❤️ WANGY WANGY WANGY WANGY HU HA HU HA HU HA, aaah the smell of hair ${qq} smelly i want to smell the fragrance ${qq} AAAAAAAAH ~ Her hair.... aaah i want to stroke her hair too ~~ AAAAAH ${qq} first time out in anime is cute too ❤️ ❤️ ❤️ so AAAAAAAH ${qq} AAAAAA LUCCUUUUUUUUUUUUU............ ${qq} AAAAAAAAAAAAAAAAAAAAGH ❤️ ❤️ ❤️what ? ${qq} it's not real ? Just HELL you say ? no, no no no no no no no no no no no no no no no !! I DON'T CARE ABOUT THE REALITY, I DON'T CARE. ❤️ ❤️ ❤️ ${qq} me ... ${qq} on the laptop watching me, ${qq} .. you believe in me ? aaaaaaaaaaah thanks ${q} I don't want to give up ${qq} aaaaaah ❤️ ❤️ ❤️ YEAAAAAAAAAAAH I STILL HAVE ${qq} ALSO NOT THE SAME AAAAAAAAAAAAAAH`
-			reply(awikwok)
-			break
-		case 'where':
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			if (!text) return replay(`Use Text, Example : ${prefix + command} will i get married `)
-			const kapan6 = ['In the ocean', 'On mars', 'I dont know, ask your father', 'Maybe somewhere on earth', 'I dont know']
-			const kapankah6 = kapan6[Math.floor(Math.random() * kapan6.length)]
-			RoseMwol.sendMessage(from, {
-				text: `Question : ${q}\nAnswer : *${kapankah6}*`
-			}, {
-				quoted: m
-			})
-			break
-		case 'gsmarena': {
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			if (!text) return reply(`Example : ${prefix + command} realme`)
-			let res = await fetchJson(`https://zenzapis.xyz/webzone/gsmarena?query=${text}&apikey=APIKEY`)
-			let {
-				judul,
-				rilis,
-				thumb,
-				ukuran,
-				type,
-				storage,
-				display,
-				inchi,
-				pixel,
-				videoPixel,
-				ram,
-				chipset,
-				batrai,
-				merek_batre,
-				detail
-			} = res.result
-			let capt = `${themeemoji} Title: ${judul}
-${themeemoji} Realease: ${rilis}
-${themeemoji} Size: ${ukuran}
-${themeemoji} Type: ${type}
-${themeemoji} Storage: ${storage}
-${themeemoji} Display: ${display}
-${themeemoji} Inchi: ${inchi}
-${themeemoji} Pixel: ${pixel}
-${themeemoji} Video Pixel: ${videoPixel}
-${themeemoji} Ram: ${ram}
-${themeemoji} Chipset: ${chipset}
-${themeemoji} Battery: ${batrai}
-${themeemoji} Battery Brand: ${merek_batre}
-${themeemoji} Detail: ${detail}`
-			RoseMwol.sendImage(m.chat, thumb, capt, m)
-		}
-		break
-		case 'cinemaschedule': {
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			if (!text) return reply(`Example: ${prefix + command} jakarta`)
-			let res = await fetchJson(`https://zenzapis.xyz/webzone/jadwalbioskop?kota=${text}&apikey=hdiiofficial`)
-			let capt = `Jadwal Bioskop From : ${text}\n\n`
-			for (let i of res.result) {
-				capt += ` Title: ${i.title}\n`
-				capt += ` Thumbnail: ${i.thumb}\n`
-				capt += ` Url: ${i.url}\n\n──────────────────────\n`
-			}
-			RoseMwol.sendImage(m.chat, res.result[0].thumb, capt, m)
-		}
-		break
-		case 'nowplayingcinema': {
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			let res = await fetchJson(api('zenz', '/webzone/nowplayingbioskop', {}, 'apikey'))
-			let capt = `Now Playing Bioskop\n\n`
-			for (let i of res.result) {
-				capt += ` Title: ${i.title}\n`
-				capt += ` Url: ${i.url}\n`
-				capt += ` Img Url: ${i.img}\n\n──────────────────────\n`
-			}
-			RoseMwol.sendImage(m.chat, res.result[0].img, capt, m)
-		}
-		break
-		case 'aminio': {
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			if (!text) return reply(`Example: ${prefix + command} free fire`)
-			let res = await fetchJson(`https://zenzapis.xyz/webzone/amino?query=${text}&apikey=hdiiofficial`)
-			let capt = `Amino Search From : ${text}\n\n`
-			for (let i of res.result) {
-				capt += ` Community: ${i.community}\n`
-				capt += ` Community Link: ${i.community_link}\n`
-				capt += ` Thumbnail: ${i.community_thumb}\n`
-				capt += ` Description: ${i.community_desc}\n`
-				capt += ` Member Count: ${i.member_count}\n\n──────────────────────\n`
-			}
-			RoseMwol.sendImage(m.chat, 'https://' + res.result[0].community_thumb, capt, m)
-		}
-		break
 		case 'wattpad': {
 			if (isBan) return reply(mess.ban)
 			if (isBanChat) return reply(mess.banChat)
@@ -10227,22 +9597,258 @@ ${themeemoji} Detail: ${detail}`
 			RoseMwol.sendImage(m.chat, thumb, capt, m)
 		}
 		break
-		case 'webtoons': {
+		case 'apk':
+		case 'apkmod':
+		case 'apkdl': {
 			if (isBan) return reply(mess.ban)
 			if (isBanChat) return reply(mess.banChat)
-			if (!text) return reply(`Example : ${prefix + command} love`)
-			let res = await fetchJson(`https://zenzapis.xyz/webzone/webtoons?query=${text}&apikey=hdiiofficial`)
-			let capt = `Webtoons Search From : ${text}\n\n`
-			for (let i of res.result) {
-				capt += ` Title: ${i.judul}\n`
-				capt += ` Like: ${i.like}\n`
-				capt += ` Creator: ${i.creator}\n`
-				capt += ` Genre: ${i.genre}\n`
-				capt += ` Url: ${i.url}\n\n──────────────────────\n`
-			}
-			reply(capt)
+			if (!text) return reply(`Use${prefix + command} whatsapp`)
+			let noh = require('./lib/myfunc2')
+			noh.rexdl(`${text}`).then(async (data) => {
+				let sections = []
+				for (let i of data) {
+					const list = {
+						title: `${i.judul}`,
+						rows: [{
+							title: `${i.judul}`,
+							rowId: `${prefix}donlod ${i.link}`,
+							description: `Category: ${i.kategori}\nPublish: ${i.upload_date}\nInfo: ${i.deskripsi}`
+						}, ]
+					}
+					sections.push(list)
+				}
+				const sendm = RoseMwol.sendMessage(
+					m.chat, {
+						text: `${ucapannya2} ${pushname} *Search Results From ${text} Click the button below to choose*`,
+						footer: `${botname}`,
+						title: "*APK DOWNLOADER,*",
+						buttonText: "CLICK HERE",
+						sections
+					}, {
+						quoted: m
+					})
+			}).catch((err) => {
+				reply(`*${text} Not found*`)
+			})
 		}
 		break
+		case 'donlod': {
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			if (!text) return reply(`Use${prefix + command} whatsapp`)
+			if (!isUrl(args[0]) && !args[0].includes('rexdl.com')) reply('*The link you provided is invalid*')
+			let rex = require('./lib/ApkDown.js')
+			rex.ApkDown(`${text}`).then(async (anu) => {
+				if (anu[0].size.split('MB')[0] >= 150) return reply('*File Over Limit* ' + util.format(anu))
+				for (let i of anu) {
+					linkye = `*APK DOWNLOAD*\n\n*Title:* ${i.title}\n*Updated:* ${i.up}\n*Version:* ${i.vers}\n*Size:* ${i.size}\n*Url:* \n*Desc:* ${i.desc}`
+					RoseMwol.sendMessage(m.chat, {
+						image: await getBuffer(i.thumb),
+						jpegThumbnail: await getBuffer(i.thumb),
+						caption: `${linkye}`
+					}, {
+						quoted: m
+					})
+					RoseMwol.sendMessage(m.chat, {
+						document: await getBuffer(i.link),
+						mimetype: `application/vnd.android.package-archive`,
+						fileName: `${i.title}`
+					}, {
+						quoted: m
+					})
+				}
+			}).catch((err) => {
+				reply(mess.error)
+			})
+		}
+		break
+		case 'tagme': {
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			RoseMwol.sendMessage(m.chat, {
+				text: `@${m.sender.split("@")[0]}`,
+				contextInfo: {
+					mentionedJid: [m.sender]
+				}
+			}, {
+				quoted: m
+			})
+		}
+		break
+		case 'git':
+		case 'gitclone':
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			reply(mess.wait)
+			let regex1 = /(?:https|git)(?::\/\/|@)github\.com[\/:]([^\/:]+)\/(.+)/i
+			if (!args[0]) reply(`Use ${prefix}gitclone repo link\nExample: https://github.com/Sachu-Settan/Rose-Mwol-MD`)
+			if (!regex1.test(args[0])) return reply(mess.linkm)
+			let [, user, repo] = args[0].match(regex1) || []
+			repo = repo.replace(/.git$/, '')
+			let url = `https://api.github.com/repos/${user}/${repo}/zipball`
+			let filename = (await fetch(url, {
+				method: 'HEAD'
+			})).headers.get('content-disposition').match(/attachment; filename=(.*)/)[1]
+			RoseMwol.sendMessage(m.chat, {
+				document: {
+					url: url
+				},
+				fileName: filename + '.zip',
+				mimetype: 'application/zip'
+			}, {
+				quoted: m
+			}).catch((err) => reply(mess.error))
+			break
+
+		case 'candy':
+		case 'christmas':
+		case '3dchristmas':
+		case 'sparklechristmas':
+		case 'deepsea':
+		case 'scifi':
+		case 'rainbow':
+		case 'waterpipe':
+		case 'spooky':
+		case 'pencil':
+		case 'circuit':
+		case 'discovery':
+		case 'metalic':
+		case 'fiction':
+		case 'demon':
+		case 'transformer':
+		case 'berry':
+		case 'thunder':
+		case 'magma':
+		case '3dstone':
+		case 'neonlight':
+		case 'glitch':
+		case 'harrypotter':
+		case 'brokenglass':
+		case 'papercut':
+		case 'watercolor':
+		case 'multicolor':
+		case 'neondevil':
+		case 'underwater':
+		case 'graffitibike':
+		case 'snow':
+		case 'cloud':
+		case 'honey':
+		case 'ice':
+		case 'fruitjuice':
+		case 'biscuit':
+		case 'wood':
+		case 'chocolate':
+		case 'strawberry':
+		case 'matrix':
+		case 'blood':
+		case 'dropwater':
+		case 'toxic':
+		case 'lava':
+		case 'rock':
+		case 'bloodglas':
+		case 'hallowen':
+		case 'darkgold':
+		case 'joker':
+		case 'wicker':
+		case 'firework':
+		case 'skeleton':
+		case 'blackpink':
+		case 'sand':
+		case 'glue':
+		case '1917':
+		case 'leaves': {
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			if (!q) return reply(`Example : ${prefix + command} ${global.ownername}`)
+
+			let link
+			if (/candy/.test(command)) link = 'https://textpro.me/create-christmas-candy-cane-text-effect-1056.html'
+			if (/christmas/.test(command)) link = 'https://textpro.me/christmas-tree-text-effect-online-free-1057.html'
+			if (/3dchristmas/.test(command)) link = 'https://textpro.me/3d-christmas-text-effect-by-name-1055.html'
+			if (/sparklechristmas/.test(command)) link = 'https://textpro.me/sparkles-merry-christmas-text-effect-1054.html'
+			if (/deepsea/.test(command)) link = 'https://textpro.me/create-3d-deep-sea-metal-text-effect-online-1053.html'
+			if (/scifi/.test(command)) link = 'https://textpro.me/create-3d-sci-fi-text-effect-online-1050.html'
+			if (/rainbow/.test(command)) link = 'https://textpro.me/3d-rainbow-color-calligraphy-text-effect-1049.html'
+			if (/waterpipe/.test(command)) link = 'https://textpro.me/create-3d-water-pipe-text-effects-online-1048.html'
+			if (/spooky/.test(command)) link = 'https://textpro.me/create-halloween-skeleton-text-effect-online-1047.html'
+			if (/pencil/.test(command)) link = 'https://textpro.me/create-a-sketch-text-effect-online-1044.html'
+			if (/circuit/.test(command)) link = 'https://textpro.me/create-blue-circuit-style-text-effect-online-1043.html'
+			if (/discovery/.test(command)) link = 'https://textpro.me/create-space-text-effects-online-free-1042.html'
+			if (/metalic/.test(command)) link = 'https://textpro.me/creat-glossy-metalic-text-effect-free-online-1040.html'
+			if (/fiction/.test(command)) link = 'https://textpro.me/create-science-fiction-text-effect-online-free-1038.html'
+			if (/demon/.test(command)) link = 'https://textpro.me/create-green-horror-style-text-effect-online-1036.html'
+			if (/transformer/.test(command)) link = 'https://textpro.me/create-a-transformer-text-effect-online-1035.html'
+			if (/berry/.test(command)) link = 'https://textpro.me/create-berry-text-effect-online-free-1033.html'
+			if (/thunder/.test(command)) link = 'https://textpro.me/online-thunder-text-effect-generator-1031.html'
+			if (/magma/.test(command)) link = 'https://textpro.me/create-a-magma-hot-text-effect-online-1030.html'
+			if (/3dstone/.test(command)) link = 'https://textpro.me/3d-stone-cracked-cool-text-effect-1029.html'
+			if (/neonlight/.test(command)) link = 'https://textpro.me/create-3d-neon-light-text-effect-online-1028.html'
+			if (/glitch/.test(command)) link = 'https://textpro.me/create-impressive-glitch-text-effects-online-1027.html'
+			if (/harrypotter/.test(command)) link = 'https://textpro.me/create-harry-potter-text-effect-online-1025.html'
+			if (/brokenglass/.test(command)) link = 'https://textpro.me/broken-glass-text-effect-free-online-1023.html'
+			if (/papercut/.test(command)) link = 'https://textpro.me/create-art-paper-cut-text-effect-online-1022.html'
+			if (/watercolor/.test(command)) link = 'https://textpro.me/create-a-free-online-watercolor-text-effect-1017.html'
+			if (/multicolor/.test(command)) link = 'https://textpro.me/online-multicolor-3d-paper-cut-text-effect-1016.html'
+			if (/neondevil/.test(command)) link = 'https://textpro.me/create-neon-devil-wings-text-effect-online-free-1014.html'
+			if (/underwater/.test(command)) link = 'https://textpro.me/3d-underwater-text-effect-generator-online-1013.html'
+			if (/graffitibike/.test(command)) link = 'https://textpro.me/create-wonderful-graffiti-art-text-effect-1011.html'
+			if (/snow/.test(command)) link = 'https://textpro.me/create-snow-text-effects-for-winter-holidays-1005.html'
+			if (/cloud/.test(command)) link = 'https://textpro.me/create-a-cloud-text-effect-on-the-sky-online-1004.html'
+			if (/honey/.test(command)) link = 'https://textpro.me/honey-text-effect-868.html'
+			if (/ice/.test(command)) link = 'https://textpro.me/ice-cold-text-effect-862.html'
+			if (/fruitjuice/.test(command)) link = 'https://textpro.me/fruit-juice-text-effect-861.html'
+			if (/biscuit/.test(command)) link = 'https://textpro.me/biscuit-text-effect-858.html'
+			if (/wood/.test(command)) link = 'https://textpro.me/wood-text-effect-856.html'
+			if (/chocolate/.test(command)) link = 'https://textpro.me/chocolate-cake-text-effect-890.html'
+			if (/strawberry/.test(command)) link = 'https://textpro.me/strawberry-text-effect-online-889.html'
+			if (/matrix/.test(command)) link = 'https://textpro.me/matrix-style-text-effect-online-884.html'
+			if (/blood/.test(command)) link = 'https://textpro.me/horror-blood-text-effect-online-883.html'
+			if (/dropwater/.test(command)) link = 'https://textpro.me/dropwater-text-effect-872.html'
+			if (/toxic/.test(command)) link = 'https://textpro.me/toxic-text-effect-online-901.html'
+			if (/lava/.test(command)) link = 'https://textpro.me/lava-text-effect-online-914.html'
+			if (/rock/.test(command)) link = 'https://textpro.me/rock-text-effect-online-915.html'
+			if (/bloodglas/.test(command)) link = 'https://textpro.me/blood-text-on-the-frosted-glass-941.html'
+			if (/hallowen/.test(command)) link = 'https://textpro.me/halloween-fire-text-effect-940.html'
+			if (/darkgold/.test(command)) link = 'https://textpro.me/metal-dark-gold-text-effect-online-939.html'
+			if (/joker/.test(command)) link = 'https://textpro.me/create-logo-joker-online-934.html'
+			if (/wicker/.test(command)) link = 'https://textpro.me/wicker-text-effect-online-932.html'
+			if (/firework/.test(command)) link = 'https://textpro.me/firework-sparkle-text-effect-930.html'
+			if (/skeleton/.test(command)) link = 'https://textpro.me/skeleton-text-effect-online-929.html'
+			if (/blackpink/.test(command)) link = 'https://textpro.me/create-blackpink-logo-style-online-1001.html'
+			if (/sand/.test(command)) link = 'https://textpro.me/write-in-sand-summer-beach-free-online-991.html'
+			if (/glue/.test(command)) link = 'https://textpro.me/create-3d-glue-text-effect-with-realistic-style-986.html'
+			if (/1917/.test(command)) link = 'https://textpro.me/1917-style-text-effect-online-980.html'
+			if (/leaves/.test(command)) link = 'https://textpro.me/natural-leaves-text-effect-931.html'
+			let anu = await maker.textpro(link, q)
+			RoseMwol.sendMessage(m.chat, {
+				image: {
+					url: anu
+				},
+				caption: `Made by ${global.botname},For my Darling `
+			}, {
+				quoted: m
+			})
+		}
+		break
+		case 'drakorxxx':
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			if (!text) return reply('What Are You Looking For??')
+			await reply(mess.wait)
+			xfarr.Drakor(`${text}`).then(async data => {
+					let txt = `*-----「 DRAKOR-SEARCH 」-----*\n\n`
+					for (let i of data) {
+						txt += `*📫 Title :* ${i.judul}\n`
+						txt += `*📆 Years :* ${i.years}\n`
+						txt += `*🎥 Genre :* ${i.genre}\n`
+						txt += `*📚 Url :* ${i.url}\n-----------------------------------------------------\n`
+					}
+					await sendFileFromUrl(from, data[0].thumbnail, txt, m)
+				})
+				.catch((err) => {
+					reply(mess.error)
+				})
+			break
 		case 'drakor': {
 			if (isBan) return reply(mess.ban)
 			if (isBanChat) return reply(mess.banChat)
@@ -10259,1043 +9865,88 @@ ${themeemoji} Detail: ${detail}`
 			RoseMwol.sendImage(m.chat, res.result[0].thumbnail, capt, m)
 		}
 		break
-		//════════════════════════════//
-		case 'xxxbj':
-		case 'exxxro':
-		case 'cxxxum':
-		case 'fexxxet':
-		case 'yuxxxri':
-		case 'traxxxp':
-		case 'lewxxxd':
-		case 'fexxxed':
-		case 'erxxxon':
-		case 'soxxxlo':
-		case 'gaxxxsm':
-		case 'pxxxoke':
-		case 'axxxnal':
-		case 'holxxxo':
-		case 'titxxxs':
-		case 'kxxxuni':
-		case 'kixxxss':
-		case 'erxxxok':
-		case 'smxxxug':
-		case 'baxxxka':
-		case 'sxxxolog':
-		case 'feexxxxtg':
-		case 'lexxwdk':
-		case 'puxxxssy':
-		case 'fexxxmdom':
-		case 'cudxxxdle':
-		case 'erozzzyuri':
-		case 'cum_xxxjpg':
-		case 'bloxxxwjob':
-		case 'erofezzzzet':
-		case 'holzzoero':
-		case 'erokezzzmo':
-		case 'fox_zzzgirl':
-		case 'futxxxanari':
-		case 'lewdkezzmo':
-		case 'pussy_jpzzzg':
-		case 'kemonozzzmimi':
-		case 'nsfw_azzzvatar':
+		case 'animexxx': {
 			if (isBan) return reply(mess.ban)
 			if (isBanChat) return reply(mess.banChat)
-			buffer = `http://api.lolhuman.xyz/api/random2/${command}?apikey=${lolkey}`
-			RoseMwol.sendMessage(from, {
-				image: {
-					url: buffer
-				},
-				caption: "Here you go!"
-			}, {
-				quoted: m
-			})
-			break
-		case 'xxxcry':
-			anu = `http://api.lolhuman.xyz/api/random/cry?apikey=${lolkey}`
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			reply(mess.wait)
-			RoseMwol.sendImageAsSticker(m.chat, anu, m, {
-				packname: global.packname,
-				author: global.packname
-			})
-			break
-		case 'kisxxxs3':
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			anu = `http://api.lolhuman.xyz/api/random/kiss?apikey=${lolkey}`
-			reply(mess.wait)
-			RoseMwol.sendImageAsSticker(m.chat, anu, m, {
-				packname: global.packname,
-				author: global.packname
-			})
-			break
-		case 'kixxxss2':
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			anu = `http://api.lolhuman.xyz/api/random2/kiss?apikey=${lolkey}`
-			reply(mess.wait)
-			RoseMwol.sendImageAsSticker(m.chat, anu, m, {
-				packname: global.packname,
-				author: global.packname
-			})
-			break
-		case 'crinxxxge':
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			anu = `http://api.lolhuman.xyz/api/random/cringe?apikey=${lolkey}`
-			reply(mess.wait)
-			RoseMwol.sendImageAsSticker(m.chat, anu, m, {
-				packname: global.packname,
-				author: global.packname
-			})
-			break
-		case 'daxxxnce':
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			anu = `http://api.lolhuman.xyz/api/random/dance?apikey=${lolkey}`
-			reply(mess.wait)
-			RoseMwol.sendImageAsSticker(m.chat, anu, m, {
-				packname: global.packname,
-				author: global.packname
-			})
-			break
-		case 'xxxkill':
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			anu = `http://api.lolhuman.xyz/api/random/kill?apikey=${lolkey}`
-			reply(mess.wait)
-			RoseMwol.sendImageAsSticker(m.chat, anu, m, {
-				packname: global.packname,
-				author: global.packname
-			})
-			break
-		case 'haxxxppy':
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			anu = `http://api.lolhuman.xyz/api/random/happy?apikey=${lolkey}`
-			reply(mess.wait)
-			RoseMwol.sendImageAsSticker(m.chat, anu, m, {
-				packname: global.packname,
-				author: global.packname
-			})
-			break
-		case 'bxxxonk':
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			anu = `http://api.lolhuman.xyz/api/random/bonk?apikey=${lolkey}`
-			reply(mess.wait)
-			RoseMwol.sendImageAsSticker(m.chat, anu, m, {
-				packname: global.packname,
-				author: global.packname
-			})
-			break
-		case 'sxxxmug2':
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			anu = `http://api.lolhuman.xyz/api/random/smug?apikey=${lolkey}`
-			reply(mess.wait)
-			RoseMwol.sendImageAsSticker(m.chat, anu, m, {
-				packname: global.packname,
-				author: global.packname
-			})
-			break
-		case 'slaxxxp':
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			anu = `http://api.lolhuman.xyz/api/random/slap?apikey=${lolkey}`
-			reply(mess.wait)
-			RoseMwol.sendImageAsSticker(m.chat, anu, m, {
-				packname: global.packname,
-				author: global.packname
-			})
-			break
-		case 'waxxxve':
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			anu = `http://api.lolhuman.xyz/api/random/wave?apikey=${lolkey}`
-			reply(mess.wait)
-			RoseMwol.sendImageAsSticker(m.chat, anu, m, {
-				packname: global.packname,
-				author: global.packname
-			})
-			break
-		case 'smilexxx':
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			anu = `http://api.lolhuman.xyz/api/random/smile?apikey=${lolkey}`
-			reply(mess.wait)
-			RoseMwol.sendImageAsSticker(m.chat, anu, m, {
-				packname: global.packname,
-				author: global.packname
-			})
-			break
-		case 'bullyxxx':
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			anu = `http://api.lolhuman.xyz/api/random/bully?apikey=${lolkey}`
-			reply(mess.wait)
-			RoseMwol.sendImageAsSticker(m.chat, anu, m, {
-				packname: global.packname,
-				author: global.packname
-			})
-			break
-		case 'xxart':
-		case 'btsxx':
-		case 'exoxx':
-		case 'elxxxf':
-		case 'lolxxxi':
-		case 'nekoxxx':
-		case 'shotxxxa':
-		case 'sagirixxx':
-		case 'shinxxxobu':
-		case 'mexxxgumin':
-		case 'wallnixxxme':
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			buffer = `http://api.lolhuman.xyz/api/random/${command}?apikey=${lolkey}`
-			RoseMwol.sendMessage(from, {
-				image: {
-					url: buffer
-				},
-				caption: "Here you go!"
-			}, {
-				quoted: m
-			})
-			break
-		case 'xxxblowjob':
-		case 'xxxyaoi':
-		case 'xxxecchi':
-		case 'xxxahegao':
-		case 'xxxhololewd':
-		case 'xxxsideoppai':
-		case 'xxxanimefeets':
-		case 'xxxanimebooty':
-		case 'xxxanimethighss':
-		case 'xxxanimearmpits':
-		case 'xxxlewdanimegirls':
-		case 'xxxbiganimetiddies':
-		case 'xxxanimebellybutton':
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			buffer = `http://api.lolhuman.xyz/api/random/nsfw/${command}?apikey=${lolkey}`
-			RoseMwol.sendMessage(from, {
-				image: {
-					url: buffer
-				},
-				caption: "Here you go!"
-			}, {
-				quoted: m
-			})
-			break
-		case 'xxxnaruto':
-		case 'xxxminato':
-		case 'xxxboruto':
-		case 'xxxhinata':
-		case 'xxxsasuke':
-		case 'xxxsakura':
-		case 'xxxkaneki':
-		case 'xxxtoukachan':
-		case 'xxxrize':
-		case 'akira':
-		case 'xxxitori':
-		case 'xxkurumi':
-		case 'xxxmiku':
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			reply(mess.wait)
-			nye = `http://api.lolhuman.xyz/api/gimage?apikey=${lolkey}&query=${command}`
-			RoseMwol.sendMessage(from, {
-				image: {
-					url: nye
-				},
-				caption: "Here you go!"
-			}, {
-				quoted: m
-			})
-			break
-		case 'xxxanjing':
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			nye = `http://api.lolhuman.xyz/api/gimage?apikey=${lolkey}&query=anjing`
-			reply(mess.wait)
-			RoseMwol.sendMessage(from, {
-				image: {
-					url: nye
-				},
-				caption: "Here you go!"
-			}, {
-				quoted: m
-			})
-			break
-			//════════════════════════════//
-		case 'mediafire': {
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			if (!text) return reply(mess.linkm)
-			if (!isUrl(args[0]) && !args[0].includes('mediafire.com')) return reply(`The link you provided is invalid`)
-			const baby1 = await mediafireDl(text)
-			if (baby1[0].size.split('MB')[0] >= 999) return reply('*File Over Limit* ' + util.format(baby1))
-			const result4 = `*MEDIAFIRE DOWNLOADER*
-				
-*Name* : ${baby1[0].nama}
-*Size* : ${baby1[0].size}
-*Mime* : ${baby1[0].mime}
-*Link* : ${baby1[0].link}`
-			reply(`${result4}`)
-			RoseMwol.sendMessage(m.chat, {
-				document: {
-					url: baby1[0].link
-				},
-				fileName: baby1[0].nama,
-				mimetype: baby1[0].mime
-			}, {
-				quoted: m
-			}).catch((err) => reply(mess.error))
+			if (!text) return reply(`What Anime Are You Looking For??`)
+			await reply(mess.wait)
+			xfarr.Anime(q).then(async data => {
+					let txt = `*-------「 ANIME-SEARCH 」-------*\n\n`
+					for (let i of data) {
+						txt += `*📫 Title :* ${i.judul}\n`
+						txt += `*📚 Url :* ${i.link}\n-----------------------------------------------------\n`
+					}
+					let gam = await getBuffer(data[0].thumbnail.replace('https://www.anime-planet.com', ''))
+					var but = [{
+						"urlButton": {
+							"displayText": "Watch🎥",
+							"url": `${websitex}`
+						}
+					}]
+					await RoseMwol.send5ButLoc(from, txt, `© ${ownername}`, gam, but, {
+						userJid: m.chat,
+						quoted: m
+					})
+				})
+				.catch((err) => {
+					reply(mess.error)
+				})
 		}
 		break
-		case 'masturbation':
-		case 'jahy':
-		case 'hentai':
-		case 'glasses':
-		case 'gangbang':
-		case 'foot':
-		case 'femdom':
-		case 'cum':
-		case 'ero':
-		case 'cuckold':
-		case 'blowjob':
-		case 'bdsm':
-		case 'ahegao':
-		case 'ass':
-		case 'orgy':
-		case 'panties':
-		case 'pussy':
-		case 'thighs':
-		case 'yuri':
-		case 'tentacles':
+		case 'characterxxx':
+		case 'karakterxxx':
 			if (isBan) return reply(mess.ban)
 			if (isBanChat) return reply(mess.banChat)
-			if (!m.isGroup) return replay(mess.group)
-			if (!AntiNsfw) return reply(mess.nsfw)
-			try {
-				reply(mess.wait)
-				NoHorny = await fetchJson(`https://myselfff.herokuapp.com/docs/nsfw/${command}`)
-				YesHorny = await getBuffer(NoHorny.result)
-				RoseMwol.sendMessage(from, {
-					image: YesHorny
-				}, {
-					quoted: m
+			if (!text) return reply(`What Anime Character Are You Looking For??`)
+			await reply(mess.wait)
+			xfarr.Character(q).then(async data => {
+					let txt = `*---「 CHARACTER-SEARCH 」---*\n\n`
+					for (let i of data) {
+						txt += `*📫 Character :* ${i.character}\n`
+						txt += `*📚 Url :* ${i.link}\n-----------------------------------------------------\n`
+					}
+					let gam = await getBuffer(data[0].thumbnail.replace('https://www.anime-planet.com', ''))
+					var but = [{
+						"urlButton": {
+							"displayText": "Bot Web 📍",
+							"url": `${websitex}`
+						}
+					}]
+					await RoseMwol.send5ButLoc(from, txt, `© ${ownername}`, gam, but, {
+						userJid: m.chat,
+						quoted: m
+					})
 				})
-			} catch (e) {
-				error("Error")
-			}
-			break
-		case 'spank':
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			if (!m.isGroup) return replay(mess.group)
-			if (!AntiNsfw) return reply(mess.nsfw)
-			reply(mess.wait)
-			spankd = await axios.get(`https://nekos.life/api/v2/img/spank`)
-			let spbuff = await getBuffer(spankd.data.url)
-			let spgif = await GIFBufferToVideoBuffer(spbuff)
-			await RoseMwol.sendMessage(m.chat, {
-				video: spgif,
-				gifPlayback: true
-			}, {
-				quoted: m
-			}).catch(err => {
-				return reply('Error!')
-			})
-			break
-		case 'blowjobgif':
-		case 'bj':
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			if (!m.isGroup) return replay(mess.group)
-			if (!AntiNsfw) return reply(mess.nsfw)
-			reply(mess.wait)
-			bjd = await axios.get(`https://api.waifu.pics/nsfw/blowjob`)
-			let bjf = await getBuffer(bjd.data.url)
-			let bjif = await GIFBufferToVideoBuffer(bjf)
-			await RoseMwol.sendMessage(m.chat, {
-				video: bjif,
-				gifPlayback: true
-			}, {
-				quoted: m
-			}).catch(err => {
-				return reply('error..')
-			})
-			break
-		case 'hentaivid':
-		case 'hentaivideo': {
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			if (!m.isGroup) return replay(mess.group)
-			if (!AntiNsfw) return reply(mess.nsfw)
-			reply(mess.wait)
-			anu = await hentai()
-			result912 = anu[Math.floor(Math.random(), anu.length)]
-			RoseMwol.sendMessage(m.chat, {
-				video: {
-					url: result912.video_1
-				},
-				caption: `${roseemoji} Title : ${result912.title}\n${roseemoji} Category : ${result912.category}\n${roseemoji} Mimetype : ${result912.type}\n${roseemoji} Views : ${result912.views_count}\n${roseemoji} Shares : ${result912.share_count}\n${roseemoji} Source : ${result912.link}\n${roseemoji} Media Url : ${result912.video_1}`
-			}, {
-				quoted: m
-			})
-		}
-		break
-		case 'trap':
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			if (!m.isGroup) return replay(mess.group)
-			if (!AntiNsfw) return reply(mess.nsfw)
-			reply(mess.wait)
-			waifudd = await axios.get(`https://waifu.pics/api/nsfw/${command}`)
-			let trapbot = [{
-				buttonId: `trap`,
-				buttonText: {
-					displayText: `Next ⚡`
-				},
-				type: 1
-			}, ]
-			let button2Messages = {
-				image: {
-					url: waifudd.data.url
-				},
-				caption: `Here you go!`,
-				buttons: trapbot,
-				headerType: 1
-			}
-			await RoseMwol.sendMessage(m.chat, button2Messages, {
-				quoted: m
-			}).catch(err => {
-				return ('Error!')
-			})
-			break
-		case 'hentai-neko':
-		case 'hneko':
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			if (!m.isGroup) return replay(mess.group)
-			if (!AntiNsfw) return reply(mess.nsfw)
-			waifudd = await axios.get(`https://waifu.pics/api/nsfw/neko`)
-			let hnekobot = [{
-				buttonId: `.hneko`,
-				buttonText: {
-					displayText: `Next ⚡`
-				},
-				type: 1
-			}, ]
-			let button3Messages = {
-				image: {
-					url: waifudd.data.url
-				},
-				caption: `Here you go!`,
-				buttons: hnekobot,
-				headerType: 1
-			}
-			await RoseMwol.sendMessage(m.chat, button3Messages, {
-				quoted: m
-			}).catch(err => {
-				return ('Error!')
-			})
-			break
-		case 'hentai-waifu':
-		case 'nwaifu':
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			if (!m.isGroup) return replay(mess.group)
-			if (!AntiNsfw) return reply(mess.nsfw)
-			reply(mess.wait)
-			waifudd = await axios.get(`https://waifu.pics/api/nsfw/waifu`)
-			let nwaifubot = [{
-				buttonId: `.hneko`,
-				buttonText: {
-					displayText: `Next ⚡`
-				},
-				type: 1
-			}, ]
-			let button4Messages = {
-				image: {
-					url: waifudd.data.url
-				},
-				caption: `Here you go!`,
-				buttons: nwaifubot,
-				headerType: 1
-			}
-			await RoseMwol.sendMessage(m.chat, button4Messages, {
-				quoted: m
-			}).catch(err => {
-				return ('Error!')
-			})
-			break
-		case 'gasm':
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			if (!AntiNsfw) return reply(mess.nsfw)
-			reply(mess.wait)
-			waifudd = await axios.get(`https://nekos.life/api/v2/img/${command}`)
-			var wbuttsss = [{
-				buttonId: `.${command}`,
-				buttonText: {
-					displayText: `Next ✨`
-				},
-				type: 1
-			}, ]
-			let buttonsssMessages = {
-				image: {
-					url: waifudd.data.url
-				},
-				caption: `Here you go!`,
-				footer: `${global.botname}`,
-				buttons: wbuttsss,
-				headerType: 4
-			}
-			await RoseMwol.sendMessage(m.chat, buttonsssMessages, {
-				quoted: m
-			}).catch(err => {
-				return ('Error!')
-			})
-			break
-		case 'wallneon':
-		case 'wallrandom':
-		case 'wallcode':
-		case 'wallpubg':
-		case 'wallml':
-			try {
-				if (isBan) return reply(mess.ban)
-				if (isBanChat) return reply(mess.banChat)
-				reply(mess.wait)
-				nyz2 = await fetchJson(`https://myselfff.herokuapp.com/docs/wallpaper/${command}`)
-				nyz3 = await getBuffer(nyz2.list.gambar)
-				RoseMwol.sendMessage(from, {
-					image: nyz3,
-					caption: `By ${global.botname}`
-				}, {
-					quoted: m
+				.catch((err) => {
+					reply(mess.error)
 				})
-			} catch (e) {
-				error("Error!")
-			}
 			break
-		case 'smug2':
+		case 'manga2':
 			if (isBan) return reply(mess.ban)
 			if (isBanChat) return reply(mess.banChat)
-			reply(mess.wait)
-			waifudd = await axios.get(`https://nekos.life/api/v2/img/smug`)
-			var wbuttsss = [{
-				buttonId: `.${command}`,
-				buttonText: {
-					displayText: `Next ✨`
-				},
-				type: 1
-			}, ]
-			let button1ssMessages = {
-				image: {
-					url: waifudd.data.url
-				},
-				caption: `Here you go!`,
-				footer: `${global.botname}`,
-				buttons: wbuttsss,
-				headerType: 4
-			}
-			await RoseMwol.sendMessage(m.chat, button1ssMessages, {
-				quoted: m
-			}).catch(err => {
-				return ('Error!')
-			})
-			break
-		case 'foxgirl':
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			reply(mess.wait)
-			waifudd = await axios.get(`https://nekos.life/api/v2/img/fox_girl`)
-			var wbuttsss = [{
-				buttonId: `.${command}`,
-				buttonText: {
-					displayText: `Next ✨`
-				},
-				type: 1
-			}, ]
-			let button12ssMessages = {
-				image: {
-					url: waifudd.data.url
-				},
-				caption: `Here you go!`,
-				footer: `${global.botname}`,
-				buttons: wbuttsss,
-				headerType: 4
-			}
-			await RoseMwol.sendMessage(m.chat, button12ssMessages, {
-				quoted: m
-			}).catch(err => {
-				return ('Error!')
-			})
-			break
-		case 'animenom':
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			if (!m.isGroup) return replay(mess.group)
-			waifudd = await axios.get(`https://waifu.pics/api/sfw/nom`)
-			let xxhnekobot = [{
-				buttonId: `.nom`,
-				buttonText: {
-					displayText: `Next ⚡`
-				},
-				type: 1
-			}, ]
-			let xx1button3Messages = {
-				image: {
-					url: waifudd.data.url
-				},
-				caption: `Here you go!`,
-				buttons: xxhnekobot,
-				headerType: 1
-			}
-			await RoseMwol.sendMessage(m.chat, xx1button3Messages, {
-				quoted: m
-			}).catch(err => {
-				return ('Error!')
-			})
-			break
-		case 'waifu3':
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			reply(mess.wait)
-			waifudd = await axios.get(`https://nekos.life/api/v2/img/waifu`)
-			var wbuttsss = [{
-				buttonId: `.${command}`,
-				buttonText: {
-					displayText: `Next ✨`
-				},
-				type: 1
-			}, ]
-			let button112ssMessages = {
-				image: {
-					url: waifudd.data.url
-				},
-				caption: `Here you go!`,
-				footer: `${global.botname}`,
-				buttons: wbuttsss,
-				headerType: 4
-			}
-			await RoseMwol.sendMessage(m.chat, button112ssMessages, {
-				quoted: m
-			}).catch(err => {
-				return ('Error!')
-			})
-			break
-		case 'neko2':
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			reply(mess.wait)
-			waifud = await axios.get('https://waifu.pics/api/sfw/neko')
-			var wbutsss = [{
-				buttonId: `.neko`,
-				buttonText: {
-					displayText: `Next ✨`
-				},
-				type: 1
-			}, ]
-			let buttonssMessage = {
-				image: {
-					url: waifud.data.url
-				},
-				caption: `Here you go!`,
-				footer: `${global.botname}`,
-				buttons: wbutsss,
-				headerType: 4
-			}
-			await RoseMwol.sendMessage(m.chat, buttonssMessage, {
-				quoted: m
-			}).catch(err => {
-				return ('Error!')
-			})
-			break
-		case 'woof':
-		case '8ball':
-		case 'goose':
-		case 'gecg':
-		case 'feed':
-		case 'avatar':
-		case 'lizard':
-		case 'meow':
-		case 'tickle':
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			reply(mess.wait)
-			waifudd = await axios.get(`https://nekos.life/api/v2/img/${command}`)
-			var wbuttsss = [{
-				buttonId: `.${command}`,
-				buttonText: {
-					displayText: `Next ✨`
-				},
-				type: 1
-			}, ]
-			let buttonssMessages = {
-				image: {
-					url: waifudd.data.url
-				},
-				caption: `Here you go!`,
-				footer: `${global.botname}`,
-				buttons: wbuttsss,
-				headerType: 4
-			}
-			await RoseMwol.sendMessage(m.chat, buttonssMessages, {
-				quoted: m
-			}).catch(err => {
-				return ('Error!')
-			})
-			break
-		case 'animecuddle':
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			reply(mess.wait)
-			waifudd = await axios.get(`https://nekos.life/api/v2/img/cuddle`)
-			var wbuttsss = [{
-				buttonId: `.${command}`,
-				buttonText: {
-					displayText: `Next ✨`
-				},
-				type: 1
-			}, ]
-			let buttonsosMessages = {
-				image: {
-					url: waifudd.data.url
-				},
-				caption: `Here you go!`,
-				footer: `${global.botname}`,
-				buttons: wbuttsss,
-				headerType: 4
-			}
-			await RoseMwol.sendMessage(m.chat, buttonsosMessages, {
-				quoted: m
-			}).catch(err => {
-				return ('Error!')
-			})
-			break
-		case 'animeslap':
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			reply(mess.wait)
-			waifudd = await axios.get(`https://nekos.life/api/v2/img/slap`)
-			var wbuttsss = [{
-				buttonId: `.${command}`,
-				buttonText: {
-					displayText: `Next ✨`
-				},
-				type: 1
-			}, ]
-			let btutttonssMessages = {
-				image: {
-					url: waifudd.data.url
-				},
-				caption: `Here you go!`,
-				footer: `${global.botname}`,
-				buttons: wbuttsss,
-				headerType: 4
-			}
-			await RoseMwol.sendMessage(m.chat, btutttonssMessages, {
-				quoted: m
-			}).catch(err => {
-				return ('Error!')
-			})
-			break
-		case 'animepat':
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			reply(mess.wait)
-			waifudd = await axios.get(`https://nekos.life/api/v2/img/pat`)
-			var wbuttsss = [{
-				buttonId: `.${command}`,
-				buttonText: {
-					displayText: `Next ✨`
-				},
-				type: 1
-			}, ]
-			let xxbuttonssMessages = {
-				image: {
-					url: waifudd.data.url
-				},
-				caption: `Here you go!`,
-				footer: `${global.botname}`,
-				buttons: wbuttsss,
-				headerType: 4
-			}
-			await RoseMwol.sendMessage(m.chat, xxbuttonssMessages, {
-				quoted: m
-			}).catch(err => {
-				return ('Error!')
-			})
-			break
-		case 'animeneko':
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			reply(mess.wait)
-			waifudd = await axios.get(`https://nekos.life/api/v2/img/neko`)
-			var wbuttsss = [{
-				buttonId: `.${command}`,
-				buttonText: {
-					displayText: `Next ✨`
-				},
-				type: 1
-			}, ]
-			let buttonsTsMessages = {
-				image: {
-					url: waifudd.data.url
-				},
-				caption: `Here you go!`,
-				footer: `${global.botname}`,
-				buttons: wbuttsss,
-				headerType: 4
-			}
-			await RoseMwol.sendMessage(m.chat, buttonsTsMessages, {
-				quoted: m
-			}).catch(err => {
-				return ('Error!')
-			})
-			break
-		case 'animehug':
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			reply(mess.wait)
-			waifudd = await axios.get(`https://nekos.life/api/v2/img/hug`)
-			var wbuttsss = [{
-				buttonId: `.${command}`,
-				buttonText: {
-					displayText: `Next ✨`
-				},
-				type: 1
-			}, ]
-			let buttonussMessages = {
-				image: {
-					url: waifudd.data.url
-				},
-				caption: `Here you go!`,
-				footer: `${global.botname}`,
-				buttons: wbuttsss,
-				headerType: 4
-			}
-			await RoseMwol.sendMessage(m.chat, buttonussMessages, {
-				quoted: m
-			}).catch(err => {
-				return ('Error!')
-			})
-			break
-		case 'animekiss':
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			reply(mess.wait)
-			waifudd = await axios.get(`https://nekos.life/api/v2/img/kiss`)
-			var wbuttsss = [{
-				buttonId: `.${command}`,
-				buttonText: {
-					displayText: `Next ✨`
-				},
-				type: 1
-			}, ]
-			let bxxuttonssMessages = {
-				image: {
-					url: waifudd.data.url
-				},
-				caption: `Here you go!`,
-				footer: `${global.botname}`,
-				buttons: wbuttsss,
-				headerType: 4
-			}
-			await RoseMwol.sendMessage(m.chat, bxxuttonssMessages, {
-				quoted: m
-			}).catch(err => {
-				return ('Error!')
-			})
-			break
-		case 'animewlp':
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			reply(mess.wait)
-			waifudd = await axios.get(`https://nekos.life/api/v2/img/wallpaper`)
-			var wbuttsss = [{
-				buttonId: `.${command}`,
-				buttonText: {
-					displayText: `Next ✨`
-				},
-				type: 1
-			}, ]
-			let buttoxnssMessages = {
-				image: {
-					url: waifudd.data.url
-				},
-				caption: `Here you go!`,
-				footer: `${global.botname}`,
-				buttons: wbuttsss,
-				headerType: 4
-			}
-			await RoseMwol.sendMessage(m.chat, buttoxnssMessages, {
-				quoted: m
-			}).catch(err => {
-				return ('Error!')
-			})
-			break
-		case 'animespank':
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			reply(mess.wait)
-			waifudd = await axios.get(`https://nekos.life/api/v2/img/spank`)
-			var wbuttsss = [{
-				buttonId: `.${command}`,
-				buttonText: {
-					displayText: `Next ✨`
-				},
-				type: 1
-			}, ]
-			let buttonssxMessages = {
-				image: {
-					url: waifudd.data.url
-				},
-				caption: `Here you go!`,
-				footer: `${global.botname}`,
-				buttons: wbuttsss,
-				headerType: 4
-			}
-			await RoseMwol.sendMessage(m.chat, buttonssxMessages, {
-				quoted: m
-			}).catch(err => {
-				return ('Error!')
-			})
-			break
-		case 'shinobu2':
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			reply(mess.wait)
-			ud = await axios.get('https://waifu.pics/api/sfw/shinobu')
-			var wbutsss = [{
-				buttonId: `.shinobu`,
-				buttonText: {
-					displayText: `Next ✨`
-				},
-				type: 1
-			}, ]
-			let buttonsesMessage = {
-				image: {
-					url: ud.data.url
-				},
-				caption: `Here you go!`,
-				footer: `${global.botname}`,
-				buttons: wbutsss,
-				headerType: 4
-			}
-			await RoseMwol.sendMessage(m.chat, buttonsesMessage, {
-				quoted: m
-			}).catch(err => {
-				return ('Error!')
-			})
-			break
-		case 'megumin2':
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			reply(mess.wait)
-			ud = await axios.get('https://waifu.pics/api/sfw/megumin')
-			var wbutsss = [{
-				buttonId: `.megumin`,
-				buttonText: {
-					displayText: `Next ✨`
-				},
-				type: 1
-			}, ]
-			let buttonzMessage = {
-				image: {
-					url: ud.data.url
-				},
-				caption: `Here you go!`,
-				footer: `${global.botname}`,
-				buttons: wbutsss,
-				headerType: 4
-			}
-			await RoseMwol.sendMessage(m.chat, buttonzMessage, {
-				quoted: m
-			}).catch(err => {
-				return ('Error!')
-			})
-			break
-		case 'awoo2':
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			reply(mess.wait)
-			waifudd = await axios.get(`https://waifu.pics/api/sfw/awoo`)
-			var wbuttsss = [{
-				buttonId: `.${command}`,
-				buttonText: {
-					displayText: `Next ✨`
-				},
-				type: 1
-			}, ]
-			let button1Messages = {
-				image: {
-					url: waifudd.data.url
-				},
-				caption: `Here you go!`,
-				footer: `${global.botname}`,
-				buttons: wbuttsss,
-				headerType: 2
-			}
-			await RoseMwol.sendMessage(m.chat, button1Messages, {
-				quoted: m
-			}).catch(err => {
-				return ('Error!')
-			})
-			break
-		case 'animewall2':
-		case 'animewallpaper2':
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			reply(mess.wait)
-			const {
-				AnimeWallpaper
-			} = require("anime-wallpaper")
-			if (!q) return reply('What wallpaper do you want?')
-			const wall = new AnimeWallpaper();
-			const pages = [1, 2, 3, 4];
-			const random = pages[Math.floor(Math.random() * pages.length)]
-			const wallpaper = await wall
-				.getAnimeWall4({
-					title: q,
-					type: "sfw",
-					page: pages
+			if (!text) return reply(`What Manga Are You Looking For??`)
+			await reply(mess.wait)
+			xfarr.Manga(`${text}`).then(async data => {
+					let txt = `*------「 MANGA-SEARCH 」------*\n\n`
+					for (let i of data) {
+						txt += `*📫 Title :* ${i.judul}\n`
+						txt += `*📚 Url :* ${i.link}\n-----------------------------------------------------\n`
+					}
+					let gam = await getBuffer(data[0].thumbnail.replace('https://www.anime-planet.com', ''))
+					var but = [{
+						"urlButton": {
+							"displayText": "Bot Web 📍",
+							"url": `${websitex}`
+						}
+					}]
+					await RoseMwol.send5ButLoc(from, txt, `© ${ownername}`, gam, but, {
+						userJid: m.chat,
+						quoted: m
+					})
 				})
-				.catch(() => null);
-			const i = Math.floor(Math.random() * wallpaper.length);
-			var walb = [{
-				buttonId: `.${command} ${q}`,
-				buttonText: {
-					displayText: `Next ✨`
-				},
-				type: 1
-			}, ]
-			let wal = {
-				image: {
-					url: wallpaper[i].image
-				},
-				caption: `*Query :* ${q}`,
-				footer: `${global.botname}`,
-				buttons: walb,
-				headerType: 4
-			}
-			await RoseMwol.sendMessage(m.chat, wal, {
-				quoted: m
-			}).catch(err => {
-				return ('Error!')
-			})
-			//RoseMwol.sendMessage(m.chat,{image:{url:wallpaper[i].image},caption:`*Query :* ${q}`})            
-			break
+				.catch((err) => {
+					reply(mess.error)
+				})
 		case 'anime':
 			if (isBan) return reply(mess.ban)
 			if (isBanChat) return reply(mess.banChat)
@@ -11327,7 +9978,7 @@ ${themeemoji} Detail: ${detail}`
 				details += `\t\t\t\t\t\t\t\t\t\t*${result.producers[i].name}*\n`;
 			}
 			details += `💫 *Premiered on: ${result.aired.from}*\n`;
-			details += `🎗 *Ended on: ${result.aired.to}*\n`;
+			details += `?? *Ended on: ${result.aired.to}*\n`;
 			details += `🎐 *Popularity: ${result.popularity}*\n`;
 			details += `🎏 *Favorites: ${result.favorites}*\n`;
 			details += `🎇 *Rating: ${result.rating}*\n`;
@@ -11392,58 +10043,6 @@ ${themeemoji} Detail: ${detail}`
 				quoted: m
 			})
 			break
-		case 'cry':
-		case 'kill':
-		case 'hug':
-		case 'pat':
-		case 'lick':
-		case 'kiss':
-		case 'bite':
-		case 'yeet':
-		case 'neko':
-		case 'bully':
-		case 'bonk':
-		case 'wink':
-		case 'poke':
-		case 'nom':
-		case 'slap':
-		case 'smile':
-		case 'wave':
-		case 'awoo':
-		case 'blush':
-		case 'smug':
-		case 'glomp':
-		case 'happy':
-		case 'dance':
-		case 'cringe':
-		case 'cuddle':
-		case 'highfive':
-		case 'shinobu':
-		case 'megumin':
-		case 'handhold':
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			axios.get(`https://api.waifu.pics/sfw/${command}`)
-				.then(({
-					data
-				}) => {
-					RoseMwol.sendImageAsSticker(m.chat, data.url, m, {
-						packname: global.packname,
-						author: global.author
-					})
-				})
-			break
-		case 'waifu':
-		case 'loli':
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			reply(mess.wait)
-			axios.get(`https://api.waifu.pics/sfw/waifu`)
-				.then(({
-					data
-				}) => {
-					RoseMwol.sendImage(m.chat, data.url, mess.success, m)
-				})
 			break
 		case 'lyrics': {
 			if (isBan) return reply(mess.ban)
@@ -11463,347 +10062,253 @@ ${themeemoji} Url : ${result.link}
 `.trim())
 		}
 		break
-		case 'nomerhoki':
-		case 'nomorhoki': {
+		case 'earthquake':
 			if (isBan) return reply(mess.ban)
 			if (isBanChat) return reply(mess.banChat)
-			if (!Number(text)) return reply(`Example : ${prefix + command} 919744933034`)
-			let anu = await primbon.nomer_hoki(Number(text))
-			if (anu.status == false) return reply(anu.message)
-			RoseMwol.sendText(m.chat, `${themeemoji} *Phone Number :* ${anu.message.nomer_hp}\n${themeemoji} *Shuzi Angka Figures :* ${anu.message.angka_shuzi}\n${themeemoji} *Positive Energy :*\n- Riches : ${anu.message.energi_positif.kekayaan}\n- Health : ${anu.message.energi_positif.kesehatan}\n- Love : ${anu.message.energi_positif.cinta}\n- Stability : ${anu.message.energi_positif.kestabilan}\n- Percentage : ${anu.message.energi_positif.persentase}\n${themeemoji} *Negative Energy :*\n- Dispute : ${anu.message.energi_negatif.perselisihan}\n- Lost : ${anu.message.energi_negatif.kehilangan}\n- Catastrophe : ${anu.message.energi_negatif.malapetaka}\n- Destruction : ${anu.message.energi_negatif.kehancuran}\n- Percentage : ${anu.message.energi_negatif.persentase}`, m)
-		}
-		break
-		case 'artimimpi':
-		case 'tafsirmimpi': {
+			const tres = await Gempa()
+			var {
+				Waktu, Lintang, Bujur, Magnitude, Kedalaman, Wilayah, Map
+			} = tres.result
+			console.log(Map)
+			const captt = `Time : ${Waktu}\nLatitude : ${Lintang}\nLongitude : ${Bujur}\nRegion : ${Wilayah}`
+			RoseMwol.sendMessage(from, {
+				image: {
+					url: Map
+				},
+				caption: captt
+			})
+			break
+		case 'covidindo':
+		case 'covid':
 			if (isBan) return reply(mess.ban)
 			if (isBanChat) return reply(mess.banChat)
-			if (!text) return reply(`Example : ${prefix + command} belanja`)
-			let anu = await primbon.tafsir_mimpi(text)
-			if (anu.status == false) return reply(anu.message)
-			RoseMwol.sendText(m.chat, `${themeemoji} *Dream :* ${anu.message.mimpi}\n${themeemoji} *Meaning :* ${anu.message.arti}\n${themeemoji} *Solution :* ${anu.message.solusi}`, m)
-		}
-		break
-		case 'ramalanjodoh':
-		case 'ramaljodoh': {
+			const c = await covid()
+			var {
+				kasus, kematian, sembuh
+			} = c[0]
+			RoseMwol.sendMessage(from, {
+				text: `Case : ${kasus}\n\nDead : ${kematian}\n\nHealed : ${sembuh}`
+			}, m)
+			break
+		case 'tvschedule':
 			if (isBan) return reply(mess.ban)
 			if (isBanChat) return reply(mess.banChat)
-			if (!text) return reply(`Example : ${prefix + command} Dika, 7, 7, 2005, Novia, 16, 11, 2004`)
-			let [nama1, tgl1, bln1, thn1, nama2, tgl2, bln2, thn2] = text.split`,`
-			let anu = await primbon.ramalan_jodoh(nama1, tgl1, bln1, thn1, nama2, tgl2, bln2, thn2)
-			if (anu.status == false) return reply(anu.message)
-			RoseMwol.sendText(m.chat, `${themeemoji} *Your Name :* ${anu.message.nama_anda.nama}\n${themeemoji} *Your Birth :* ${anu.message.nama_anda.tgl_lahir}\n${themeemoji} *Couple Name :* ${anu.message.nama_pasangan.nama}\n${themeemoji} *Born Couple :* ${anu.message.nama_pasangan.tgl_lahir}\n${themeemoji} *Results :* ${anu.message.result}\n${themeemoji} *Notes :* ${anu.message.catatan}`, m)
-		}
-		break
-		case 'ramalanjodohbali':
-		case 'ramaljodohbali': {
+			if (!q) return reply('Send orders *#tvschedule [channel]*')
+			reply(await jadwaltv(q))
+			break
+		case 'playstore':
+		case 'apk':
 			if (isBan) return reply(mess.ban)
 			if (isBanChat) return reply(mess.banChat)
-			if (!text) return reply(`Example : ${prefix + command} Dika, 7, 7, 2005, Novia, 16, 11, 2004`)
-			let [nama1, tgl1, bln1, thn1, nama2, tgl2, bln2, thn2] = text.split`,`
-			let anu = await primbon.ramalan_jodoh_bali(nama1, tgl1, bln1, thn1, nama2, tgl2, bln2, thn2)
-			if (anu.status == false) return reply(anu.message)
-			RoseMwol.sendText(m.chat, `${themeemoji} *Your Name :* ${anu.message.nama_anda.nama}\n${themeemoji} *Your Birth :* ${anu.message.nama_anda.tgl_lahir}\n${themeemoji} *Couple Name :* ${anu.message.nama_pasangan.nama}\n${themeemoji} *Born Couple :* ${anu.message.nama_pasangan.tgl_lahir}\n${themeemoji} *Results :* ${anu.message.result}\n${themeemoji} *Notes :* ${anu.message.catatan}`, m)
-		}
-		break
-		case 'suamiistri': {
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			if (!text) return reply(`Example : ${prefix + command} Dika, 7, 7, 2005, Novia, 16, 11, 2004`)
-			let [nama1, tgl1, bln1, thn1, nama2, tgl2, bln2, thn2] = text.split`,`
-			let anu = await primbon.suami_istri(nama1, tgl1, bln1, thn1, nama2, tgl2, bln2, thn2)
-			if (anu.status == false) return reply(anu.message)
-			RoseMwol.sendText(m.chat, `${themeemoji} *Husband's Name :* ${anu.message.suami.nama}\n${themeemoji} *Husband Born :* ${anu.message.suami.tgl_lahir}\n${themeemoji} *Wife's Name :* ${anu.message.istri.nama}\n${themeemoji} *Born Wife :* ${anu.message.istri.tgl_lahir}\n${themeemoji} *Results :* ${anu.message.result}\n${themeemoji} *Notes :* ${anu.message.catatan}`, m)
-		}
-		break
-		case 'ramalancinta':
-		case 'ramalcinta': {
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			if (!text) return reply(`Example : ${prefix + command} Dika, 7, 7, 2005, Novia, 16, 11, 2004`)
-			let [nama1, tgl1, bln1, thn1, nama2, tgl2, bln2, thn2] = text.split`,`
-			let anu = await primbon.ramalan_cinta(nama1, tgl1, bln1, thn1, nama2, tgl2, bln2, thn2)
-			if (anu.status == false) return reply(anu.message)
-			RoseMwol.sendText(m.chat, `${themeemoji} *Your Name :* ${anu.message.nama_anda.nama}\n${themeemoji} *Your Birth :* ${anu.message.nama_anda.tgl_lahir}\n${themeemoji} *Couple Name :* ${anu.message.nama_pasangan.nama}\n${themeemoji} *Born Couple :* ${anu.message.nama_pasangan.tgl_lahir}\n${themeemoji} *Positive Side :* ${anu.message.sisi_positif}\n${themeemoji} *Negative Side :* ${anu.message.sisi_negatif}\n${themeemoji} *Notes :* ${anu.message.catatan}`, m)
-		}
-		break
-		case 'artinama': {
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			if (!text) return reply(`Example : ${prefix + command} Dika Ardianta`)
-			let anu = await primbon.arti_nama(text)
-			if (anu.status == false) return reply(anu.message)
-			RoseMwol.sendText(m.chat, `${themeemoji} *Name :* ${anu.message.nama}\n${themeemoji} *Meaning :* ${anu.message.arti}\n${themeemoji} *Notes :* ${anu.message.catatan}`, m)
-		}
-		break
-		case 'kecocokannama':
-		case 'cocoknama': {
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			if (!text) return reply(`Example : ${prefix + command} Dika, 7, 7, 2005`)
-			let [nama, tgl, bln, thn] = text.split`,`
-			let anu = await primbon.kecocokan_nama(nama, tgl, bln, thn)
-			if (anu.status == false) return reply(anu.message)
-			RoseMwol.sendText(m.chat, `${themeemoji} *Name :* ${anu.message.nama}\n${themeemoji} *Born :* ${anu.message.tgl_lahir}\n${themeemoji} *Life Path :* ${anu.message.life_path}\n${themeemoji} *Destiny :* ${anu.message.destiny}\n${themeemoji} *Destiny Desire :* ${anu.message.destiny_desire}\n${themeemoji} *Personality :* ${anu.message.personality}\n${themeemoji} *Percentage :* ${anu.message.persentase_kecocokan}`, m)
-		}
-		break
-		case 'kecocokanpasangan':
-		case 'cocokpasangan':
-		case 'pasangan': {
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			if (!text) return reply(`Example : ${prefix + command} Dika|Novia`)
-			let [nama1, nama2] = text.split`|`
-			let anu = await primbon.kecocokan_nama_pasangan(nama1, nama2)
-			if (anu.status == false) return reply(anu.message)
-			RoseMwol.sendImage(m.chat, anu.message.gambar, `${themeemoji} *Your Name :* ${anu.message.nama_anda}\n${themeemoji} *Couple Name :* ${anu.message.nama_pasangan}\n${themeemoji} *Positive Side :* ${anu.message.sisi_positif}\n${themeemoji} *Negative Side :* ${anu.message.sisi_negatif}`, m)
-		}
-		break
-		case 'jadianpernikahan':
-		case 'jadiannikah': {
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			if (!text) return reply(`Example : ${prefix + command} 6, 12, 2020`)
-			let [tgl, bln, thn] = text.split`,`
-			let anu = await primbon.tanggal_jadian_pernikahan(tgl, bln, thn)
-			if (anu.status == false) return reply(anu.message)
-			RoseMwol.sendText(m.chat, `${themeemoji} *Wedding Date :* ${anu.message.tanggal}\n${themeemoji} *Characteristics :* ${anu.message.karakteristik}`, m)
-		}
-		break
-		case 'sifatusaha': {
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			if (!text) return reply(`Example : ${prefix+ command} 28, 12, 2021`)
-			let [tgl, bln, thn] = text.split`,`
-			let anu = await primbon.sifat_usaha_bisnis(tgl, bln, thn)
-			if (anu.status == false) return reply(anu.message)
-			RoseMwol.sendText(m.chat, `${themeemoji} *Born :* ${anu.message.hari_lahir}\n${themeemoji} *Business :* ${anu.message.usaha}`, m)
-		}
-		break
-		case 'rejeki':
-		case 'rezeki': {
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			if (!text) return reply(`Example : ${prefix + command} 7, 7, 2005`)
-			let [tgl, bln, thn] = text.split`,`
-			let anu = await primbon.rejeki_hoki_weton(tgl, bln, thn)
-			if (anu.status == false) return reply(anu.message)
-			RoseMwol.sendText(m.chat, `${themeemoji} *Born :* ${anu.message.hari_lahir}\n${themeemoji} *Sustenance :* ${anu.message.rejeki}\n${themeemoji} *Notes :* ${anu.message.catatan}`, m)
-		}
-		break
-		case 'pekerjaan':
-		case 'kerja': {
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			if (!text) return reply(`Example : ${prefix + command} 7, 7, 2005`)
-			let [tgl, bln, thn] = text.split`,`
-			let anu = await primbon.pekerjaan_weton_lahir(tgl, bln, thn)
-			if (anu.status == false) return reply(anu.message)
-			RoseMwol.sendText(m.chat, `${themeemoji} *Born :* ${anu.message.hari_lahir}\n?? *Profession :* ${anu.message.pekerjaan}\n${themeemoji} *Notes :* ${anu.message.catatan}`, m)
-		}
-		break
-		case 'ramalannasib':
-		case 'ramalnasib':
-		case 'nasib': {
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			if (!text) return reply(`Example : 7, 7, 2005`)
-			let [tgl, bln, thn] = text.split`,`
-			let anu = await primbon.ramalan_nasib(tgl, bln, thn)
-			if (anu.status == false) return reply(anu.message)
-			RoseMwol.sendText(m.chat, `${themeemoji} *Analysis :* ${anu.message.analisa}\n${themeemoji} *Root Number :* ${anu.message.angka_akar}\n${themeemoji} *Nature :* ${anu.message.sifat}\n${themeemoji} *Element :* ${anu.message.elemen}\n${themeemoji} *Lucky Numbers :* ${anu.message.angka_keberuntungan}`, m)
-		}
-		break
-		case 'potensipenyakit':
-		case 'penyakit': {
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			if (!text) return reply(`Example : ${prefix + command} 7, 7, 2005`)
-			let [tgl, bln, thn] = text.split`,`
-			let anu = await primbon.cek_potensi_penyakit(tgl, bln, thn)
-			if (anu.status == false) return reply(anu.message)
-			RoseMwol.sendText(m.chat, `${themeemoji} *Analysis :* ${anu.message.analisa}\n${themeemoji} *Sector :* ${anu.message.sektor}\n?? *Element :* ${anu.message.elemen}\n${themeemoji} *Notes :* ${anu.message.catatan}`, m)
-		}
-		break
-		case 'artitarot':
-		case 'tarot': {
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			if (!text) return reply(`Example : ${prefix + command} 7, 7, 2005`)
-			let [tgl, bln, thn] = text.split`,`
-			let anu = await primbon.arti_kartu_tarot(tgl, bln, thn)
-			if (anu.status == false) return reply(anu.message)
-			RoseMwol.sendImage(m.chat, anu.message.image, `${themeemoji} *Born :* ${anu.message.tgl_lahir}\n${themeemoji} *Tarot Symbol :* ${anu.message.simbol_tarot}\n${themeemoji} *Meaning :* ${anu.message.arti}\n${themeemoji} *Notes :* ${anu.message.catatan}`, m)
-		}
-		break
-		case 'fengshui': {
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			if (!text) return reply(`Example : ${prefix + command} Dika, 1, 2005\n\nNote : ${prefix + command} Name, gender, tahun lahir\nGender : 1 untuk laki-laki & 2 untuk perempuan`)
-			let [nama, gender, tahun] = text.split`,`
-			let anu = await primbon.perhitungan_feng_shui(nama, gender, tahun)
-			if (anu.status == false) return reply(anu.message)
-			RoseMwol.sendText(m.chat, `${themeemoji} *Name :* ${anu.message.nama}\n${themeemoji} *Born :* ${anu.message.tahun_lahir}\n${themeemoji} *Gender :* ${anu.message.jenis_kelamin}\n${themeemoji} *Kua Number :* ${anu.message.angka_kua}\n${themeemoji} *Group :* ${anu.message.kelompok}\n${themeemoji} *Character :* ${anu.message.karakter}\n${themeemoji} *Good Sector :* ${anu.message.sektor_baik}\n${themeemoji} *Bad Sector :* ${anu.message.sektor_buruk}`, m)
-		}
-		break
-		case 'haribaik': {
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			if (!text) return reply(`Example : ${prefix + command} 7, 7, 2005`)
-			let [tgl, bln, thn] = text.split`,`
-			let anu = await primbon.petung_hari_baik(tgl, bln, thn)
-			if (anu.status == false) return reply(anu.message)
-			RoseMwol.sendText(m.chat, `${themeemoji} *Born :* ${anu.message.tgl_lahir}\n${themeemoji} *When Challenged :* ${anu.message.kala_tinantang}\n${themeemoji} *Info :* ${anu.message.info}\n${themeemoji} *Notes :* ${anu.message.catatan}`, m)
-		}
-		break
-		case 'harisangar':
-		case 'taliwangke': {
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			if (!text) return reply(`Example : ${prefix + command} 7, 7, 2005`)
-			let [tgl, bln, thn] = text.split`,`
-			let anu = await primbon.hari_sangar_taliwangke(tgl, bln, thn)
-			if (anu.status == false) return reply(anu.message)
-			RoseMwol.sendText(m.chat, `${themeemoji} *Born :* ${anu.message.tgl_lahir}\n${themeemoji} *Results :* ${anu.message.result}\n${themeemoji} *Info :* ${anu.message.info}\n${themeemoji} *Notes :* ${anu.message.catatan}`, m)
-		}
-		break
-		case 'harinaas':
-		case 'harisial': {
-			if (!text) return reply(`Example : ${prefix + command} 7, 7, 2005`)
-			let [tgl, bln, thn] = text.split`,`
-			let anu = await primbon.primbon_hari_naas(tgl, bln, thn)
-			if (anu.status == false) return reply(anu.message)
-			RoseMwol.sendText(m.chat, `${themeemoji} *Day Of Birth :* ${anu.message.hari_lahir}\n${themeemoji} *Date Of Birth :* ${anu.message.tgl_lahir}\n${themeemoji} *Fateful Day :* ${anu.message.hari_naas}\n${themeemoji} *Info :* ${anu.message.catatan}\n${themeemoji} *Notes :* ${anu.message.info}`, m)
-		}
-		break
-		case 'nagahari':
-		case 'harinaga': {
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			if (!text) return reply(`Example : ${prefix + command} 7, 7, 2005`)
-			let [tgl, bln, thn] = text.split`,`
-			let anu = await primbon.rahasia_naga_hari(tgl, bln, thn)
-			if (anu.status == false) return reply(anu.message)
-			RoseMwol.sendText(m.chat, `${themeemoji} *Day Of Birth :* ${anu.message.hari_lahir}\n${themeemoji} *Date Of Birth :* ${anu.message.tgl_lahir}\n${themeemoji} *Dragon Day Direction :* ${anu.message.arah_naga_hari}\n${themeemoji} *Notes :* ${anu.message.catatan}`, m)
-		}
-		break
-		case 'arahrejeki':
-		case 'arahrezeki': {
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			if (!text) return reply(`Example : ${prefix + command} 7, 7, 2005`)
-			let [tgl, bln, thn] = text.split`,`
-			let anu = await primbon.primbon_arah_rejeki(tgl, bln, thn)
-			if (anu.status == false) return reply(anu.message)
-			RoseMwol.sendText(m.chat, `${themeemoji} *Day Of Birth :* ${anu.message.hari_lahir}\n${themeemoji} *Date Of Birth :* ${anu.message.tgl_lahir}\n${themeemoji} *Sustenance Direction :* ${anu.message.arah_rejeki}\n${themeemoji} *Notes :* ${anu.message.catatan}`, m)
-		}
-		break
-		case 'peruntungan': {
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			if (!text) return reply(`Example : ${prefix + command} DIka, 7, 7, 2005, 2022\n\nNote : ${prefix + command} Name, tanggal lahir, bulan lahir, tahun lahir, untuk tahun`)
-			let [nama, tgl, bln, thn, untuk] = text.split`,`
-			let anu = await primbon.ramalan_peruntungan(nama, tgl, bln, thn, untuk)
-			if (anu.status == false) return reply(anu.message)
-			RoseMwol.sendText(m.chat, `${themeemoji} *Name :* ${anu.message.nama}\n${themeemoji} *Born :* ${anu.message.tgl_lahir}\n${themeemoji} *Fortune Of The Year :* ${anu.message.peruntungan_tahun}\n${themeemoji} *Results :* ${anu.message.result}\n${themeemoji} *Notes :* ${anu.message.catatan}`, m)
-		}
-		break
-		case 'weton':
-		case 'wetonjawa': {
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			if (!text) return (`Example : ${prefix + command} 7, 7, 2005`)
-			let [tgl, bln, thn] = text.split`,`
-			let anu = await primbon.weton_jawa(tgl, bln, thn)
-			if (anu.status == false) return reply(anu.message)
-			RoseMwol.sendText(m.chat, `${themeemoji} *Date :* ${anu.message.tanggal}\n${themeemoji} *Number Of Neptune :* ${anu.message.jumlah_neptu}\n${themeemoji} *Day Character :* ${anu.message.watak_hari}\n${themeemoji} *Dragon Day :* ${anu.message.naga_hari}\n${themeemoji} *Good Hour :* ${anu.message.jam_baik}\n${themeemoji} *Birth Character :* ${anu.message.watak_kelahiran}`, m)
-		}
-		break
-		case 'sifat':
-		case 'karakter': {
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			if (!text) return reply(`Example : ${prefix + command} Dika, 7, 7, 2005`)
-			let [nama, tgl, bln, thn] = text.split`,`
-			let anu = await primbon.sifat_karakter_tanggal_lahir(nama, tgl, bln, thn)
-			if (anu.status == false) return reply(anu.message)
-			RoseMwol.sendText(m.chat, `${themeemoji} *Name :* ${anu.message.nama}\n${themeemoji} *Born :* ${anu.message.tgl_lahir}\n${themeemoji} *Lifeline :* ${anu.message.garis_hidup}`, m)
-		}
-		break
-		case 'keberuntungan': {
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			if (!text) return reply(`Example : ${prefix + command} Dika, 7, 7, 2005`)
-			let [nama, tgl, bln, thn] = text.split`,`
-			let anu = await primbon.potensi_keberuntungan(nama, tgl, bln, thn)
-			if (anu.status == false) return reply(anu.message)
-			RoseMwol.sendText(m.chat, `${themeemoji} *Name :* ${anu.message.nama}\n${themeemoji} *Born :* ${anu.message.tgl_lahir}\n${themeemoji} *Results :* ${anu.message.result}`, m)
-		}
-		break
-		case 'memancing': {
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			if (!text) return reply(`Example : ${prefix + command} 12, 1, 2022`)
-			let [tgl, bln, thn] = text.split`,`
-			let anu = await primbon.primbon_memancing_ikan(tgl, bln, thn)
-			if (anu.status == false) return reply(anu.message)
-			RoseMwol.sendText(m.chat, `${themeemoji} *Date :* ${anu.message.tgl_memancing}\n${themeemoji} *Results :* ${anu.message.result}\n${themeemoji} *Notes :* ${anu.message.catatan}`, m)
-		}
-		break
-		case 'masasubur': {
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			if (!text) return (`Example : ${prefix + command} 12, 1, 2022, 28\n\nNote : ${prefix + command} First Day Of Menstruation Cycle`)
-			let [tgl, bln, thn, siklus] = text.split`,`
-			let anu = await primbon.masa_subur(tgl, bln, thn, siklus)
-			if (anu.status == false) return reply(anu.message)
-			RoseMwol.sendText(m.chat, `${themeemoji} *Results :* ${anu.message.result}\n${themeemoji} *Notes :* ${anu.message.catatan}`, m)
-		}
-		break
-		case 'zodiak':
-		case 'zodiac': {
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			if (!text) return reply(`Example : ${prefix+ command} 7 7 2005`)
-			let zodiak = [
-				["capricorn", new Date(1970, 0, 1)],
-				["aquarius", new Date(1970, 0, 20)],
-				["pisces", new Date(1970, 1, 19)],
-				["aries", new Date(1970, 2, 21)],
-				["taurus", new Date(1970, 3, 21)],
-				["gemini", new Date(1970, 4, 21)],
-				["cancer", new Date(1970, 5, 22)],
-				["leo", new Date(1970, 6, 23)],
-				["virgo", new Date(1970, 7, 23)],
-				["libra", new Date(1970, 8, 23)],
-				["scorpio", new Date(1970, 9, 23)],
-				["sagittarius", new Date(1970, 10, 22)],
-				["capricorn", new Date(1970, 11, 22)]
-			].reverse()
-
-			function getZodiac(month, day) {
-				let d = new Date(1970, month - 1, day)
-				return zodiak.find(([_, _d]) => d >= _d)[0]
+			if (!q) return reply('what are you looking for?')
+			let play = await hx.playstore(q)
+			let storee = '❉─────────────────────❉\n'
+			for (let i of play) {
+				storee += `\n*「 *PLAY STORE* 」*\n
+- *Name* : ${i.name}
+- *Link* : ${i.link}\n
+- *Dev* : ${i.developer}
+- *Dev Link* : ${i.link_dev}\n❉─────────────────────❉`
 			}
-			let date = new Date(text)
-			if (date == 'Invalid Date') throw date
-			let d = new Date()
-			let [tahun, bulan, tanggal] = [d.getFullYear(), d.getMonth() + 1, d.getDate()]
-			let birth = [date.getFullYear(), date.getMonth() + 1, date.getDate()]
-
-			let zodiac = await getZodiac(birth[1], birth[2])
-
-			let anu = await primbon.zodiak(zodiac)
-			if (anu.status == false) return reply(anu.message)
-			RoseMwol.sendText(m.chat, `${themeemoji} *Zodiac :* ${anu.message.zodiak}\n${themeemoji} *Number :* ${anu.message.nomor_keberuntungan}\n${themeemoji} *Aroma :* ${anu.message.aroma_keberuntungan}\n${themeemoji} *Planet :* ${anu.message.planet_yang_mengitari}\n${themeemoji} *Flower :* ${anu.message.bunga_keberuntungan}\n${themeemoji} *Color :* ${anu.message.warna_keberuntungan}\n${themeemoji} *Stone :* ${anu.message.batu_keberuntungan}\n${themeemoji} *Element :* ${anu.message.elemen_keberuntungan}\n${themeemoji} *Zodiac Couple :* ${anu.message.pasangan_zodiak}\n${themeemoji} *Notes :* ${anu.message.catatan}`, m)
-		}
-		break
-		case 'shio': {
+			reply(storee)
+			break
+		case 'film':
 			if (isBan) return reply(mess.ban)
 			if (isBanChat) return reply(mess.banChat)
-			if (!text) return reply(`Example : ${prefix + command} tikus\n\nNote : For Detail https://primbon.com/shio.htm`)
-			let anu = await primbon.shio(text)
-			if (anu.status == false) return reply(anu.message)
-			RoseMwol.sendText(m.chat, `${themeemoji} *Results :* ${anu.message}`, m)
+			reply(mess.wait)
+			if (!q) return reply(`What film you wanna search?\nExample: ${prefix}film Spiderman`)
+			xfarr.Film(q)
+				.then(data => {
+					console.log(data)
+					let krl = `*❒「  Film ${q} 」*\n*🌿 Author* : ${data[0].author}\n\n`
+					for (let i of data) {
+						krl += (`\n────────────────────\n\n *📍Title :* ${i.judul}\n *📟 Quality :* ${i.quality}\n *🖥️ Type : ${i.type}*\n *⌛ Uploaded :* ${i.upload}\n *🌍 Source :* ${i.link}`)
+					}
+					RoseMwol.sendMessage(from, {
+						image: {
+							url: data[0].thumb
+						},
+						caption: krl
+					}, {
+						quoted: fdocs
+					})
+				});
+			break
+		case 'img':
+		case 'image': {
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			reply(mess.wait)
+			let {
+				pinterest
+			} = require('./lib/scraperW')
+			anu = await pinterest(text)
+			result = anu[Math.floor(Math.random() * anu.length)]
+			RoseMwol.sendMessage(m.chat, {
+				image: {
+					url: result
+				},
+				caption: ` ${themeemoji} Media Url : ` + result
+			}, {
+				quoted: m
+			})
+		}
+		break
+		case 'mcserver':
+		case 'mcquery': {
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			if (!args.join(" ")) return replay(`Example : \n${prefix + command} ip|port\nUses : \n${prefix + command} play.rose.com|19132`)
+			const Query = require("minecraft-query");
+
+			const qury = args.join(" ")
+			const iphost = qury.split("|")[0];
+			const portnya = qury.split("|")[1];
+
+			if (!iphost) return replay(`Where's your ip?`)
+			if (!portnya) return replay(`Where's the port??`)
+
+			const q = new Query({
+				host: iphost,
+				port: portnya,
+				timeout: 7500
+			});
+
+			q.fullStat()
+				.then(success => {
+					replay(jsonformat(success));
+					return q.basicStat()
+				})
+				.then(success => {
+					replay(jsonformat(success));
+					q.close();
+				})
+		}
+		break
+		case 'mcpedl': {
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			if (!args.join(" ")) return replay(`Example : ${prefix + command} shader`)
+			todapi.mcpedl(args.join(" ")).then(async (res) => {
+				teks = `*| MCPEDL SEARCH |*`
+				for (let i of res) {
+					teks += `\n\nName : ${i.name}\nCategory : ${i.category}\nDate : ${i.date}\nDesc : ${i.desc}\nLink : ${i.link}`
+				}
+				let buttons = [{
+					buttonId: `menu`,
+					buttonText: {
+						displayText: 'Menu🥀'
+					},
+					type: 1
+				}]
+				let buttonMessage = {
+					image: log0,
+					jpegThumbnail: thum,
+					caption: teks,
+					footer: `${global.botname}`,
+					buttons: buttons,
+					headerType: 4
+				}
+				RoseMwol.sendMessage(m.chat, buttonMessage, {
+					quoted: m
+				})
+			})
+		}
+		break
+		case 'happymod': {
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			if (!args.join(" ")) return replay(`Example : ${prefix + command} mobile legend`)
+			todapi.happymod(args.join(" ")).then(async (res) => {
+				teks = '```「 HappyMod Search 」```'
+				for (let i of res) {
+					teks += `\n\n${i.name}\n`
+					teks += `${i.link}`
+				}
+				let buttons = [{
+					buttonId: `menu`,
+					buttonText: {
+						displayText: 'Menu🥀'
+					},
+					type: 1
+				}]
+				let buttonMessage = {
+					image: {
+						url: res[0].icon
+					},
+					jpegThumbnail: thum,
+					caption: teks,
+					footer: `${global.botname}`,
+					buttons: buttons,
+					headerType: 4
+				}
+				RoseMwol.sendMessage(m.chat, buttonMessage, {
+					quoted: m
+				})
+			})
+		}
+		break
+		case 'searchgc': {
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			if (args.length < 1) return replay(`Example :\n${prefix}searchgc Classy Editor`)
+			nae = args.join(" ")
+			hx.linkwa(nae).then(res => {
+				teks = '```「 Search Group 」```'
+				for (let i of res) {
+					teks += `\n\n•> Group Whatsapp :\n`
+					teks += `${i.link}\n`
+					teks += `${i.nama}`
+				}
+				let buttons = [{
+					buttonId: `menu`,
+					buttonText: {
+						displayText: 'Menu🥀'
+					},
+					type: 1
+				}]
+				let buttonMessage = {
+					image: log0,
+					jpegThumbnail: thum,
+					caption: teks,
+					footer: `${global.botname}`,
+					buttons: buttons,
+					headerType: 4
+				}
+				RoseMwol.sendMessage(m.chat, buttonMessage, {
+					quoted: m
+				})
+			})
+		}
+		break
+		case 'servermc': {
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			todapi.servermc().then(async (res) => {
+				let teks = '*| MINECRAFT SERVER |*\n\nhttps://minecraftpocket-servers.com/country/indonesia/\n\n'
+				let no = 1
+				for (let i of res) {
+					teks += `${themeemoji} Server To ${no++}\nip : ${i.ip}\nport : ${i.port}\nversi : ${i.versi}\nplayer : ${i.player}\n\n`
+				}
+				let buttons = [{
+					buttonId: `menu`,
+					buttonText: {
+						displayText: 'Menu🥀'
+					},
+					type: 1
+				}]
+				let buttonMessage = {
+					image: log0,
+					jpegThumbnail: thum,
+					caption: teks,
+					footer: `${global.botname}`,
+					buttons: buttons,
+					headerType: 4
+				}
+				RoseMwol.sendMessage(m.chat, buttonMessage, {
+					quoted: m
+				})
+			})
 		}
 		break
 		case 'fajar-news':
@@ -12226,13 +10731,21 @@ ${themeemoji} Url : ${result.link}
 				quoted: m
 			})
 			break
-		case 'react': {
+		case 'cinemaschedule': {
 			if (isBan) return reply(mess.ban)
 			if (isBanChat) return reply(mess.banChat)
-			RoseMwol.sendMessage(m.chat, reactionMessage)
+			if (!text) return reply(`Example: ${prefix + command} jakarta`)
+			let res = await fetchJson(`https://zenzapis.xyz/webzone/jadwalbioskop?kota=${text}&apikey=hdiiofficial`)
+			let capt = `Jadwal Bioskop From : ${text}\n\n`
+			for (let i of res.result) {
+				capt += ` Title: ${i.title}\n`
+				capt += ` Thumbnail: ${i.thumb}\n`
+				capt += ` Url: ${i.url}\n\n──────────────────────\n`
+			}
+			RoseMwol.sendImage(m.chat, res.result[0].thumb, capt, m)
 		}
 		break
-		case 'shortstory': {
+		case 'shortstoryx': {
 			if (isBan) return reply(mess.ban)
 			if (isBanChat) return reply(mess.banChat)
 			if (!q) return reply(`*List*\n${prefix}shortstory Anak\n${prefix}shortstory Bahasa Daerah\n${prefix}shortstory Bahasa Inggris\n${prefix}shortstory Bahasa Jawa\n${prefix}shortstory Bahasa Sunda\n${prefix}shortstory Budaya\n${prefix}shortstory Cinta\n${prefix}shortstory Cinta Islami\n${prefix}shortstory Cinta Pertama\n${prefix}shortstory Cinta Romantis\n${prefix}shortstory Cinta Sedih\n${prefix}shortstory Cinta Segitiga\n${prefix}shortstory Cinta Sejati\n${prefix}shortstory Galau\n${prefix}shortstory Gokil\n${prefix}shortstory Inspiratif\n${prefix}shortstory Jepang\n${prefix}shortstory Kehidupan\n${prefix}shortstory Keluarga\n${prefix}shortstory Kisah Nyata\n${prefix}shortstory Korea\n${prefix}shortstory Kristen\n${prefix}shortstory Liburan\n${prefix}shortstory Lingkungan\n${prefix}shortstory Lucu\n${prefix}shortstory Malaysia\n${prefix}shortstory Mengharukan\n${prefix}shortstory Misteri\n${prefix}shortstory Motivasi\n${prefix}shortstory Nasihat\n${prefix}shortstory Nasionalisme\n${prefix}shortstory Olahraga\n${prefix}shortstory Patah Hati\n${prefix}shortstory Penantian\n${prefix}shortstory Pendidikan\n${prefix}shortstory Pengalaman Pribadi\n${prefix}shortstory Pengorbanan\n${prefix}shortstory Penyesalan\n${prefix}shortstory Perjuangan\n${prefix}shortstory Perpisahan\n${prefix}shortstory Persahabatan\n${prefix}shortstory Petualangan\n${prefix}shortstory Ramadhan\n${prefix}shortstory Remaja\n${prefix}shortstory Renungan\n${prefix}shortstory Rindu\n${prefix}shortstory Rohani\n${prefix}shortstory Romantis\n${prefix}shortstory Sastra\n${prefix}shortstory Sedih\n${prefix}shortstory Sejarah\n${prefix}shortstory Slice Of Life\n${prefix}shortstory Terjemahan\n${prefix}shortstory Thriller`)
@@ -12240,15 +10753,1311 @@ ${themeemoji} Url : ${result.link}
 			reply(`${global.themeemoji} _*Title :*_ ${cerpe.title}\n${global.themeemoji} _*Author :*_ ${cerpe.author}\n${global.themeemoji} _*Category :*_ ${cerpe.kategori}\n${global.themeemoji} _*Pass Moderation :*_ ${cerpe.lolos}\n${global.themeemoji} _*Story :*_\n${cerpe.cerita}`)
 		}
 		break
+		case 'loveshortstoryx': {
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			let cerpe = await cerpen(`Cinta segitiga`)
+			reply(`${themeemoji} _*Title :*_ ${cerpe.title}\n${themeemoji} _*Author :*_ ${cerpe.author}\n${themeemoji} _*Category :*_ ${cerpe.kategori}\n${themeemoji} _*Pass Moderation :*_ ${cerpe.lolos}\n${themeemoji} _*Story :*_\n${cerpe.cerita}`)
+		}
+		break
+		case 'islamicshortstoryx': {
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			let cerpe = await cerpen(`Cinta segitiga`)
+			reply(`${themeemoji} _*Title :*_ ${cerpe.title}\n${themeemoji} _*Author :*_ ${cerpe.author}\n${themeemoji} _*Category :*_ ${cerpe.kategori}\n${themeemoji} _*Pass Moderation :*_ ${cerpe.lolos}\n${themeemoji} _*Story :*_\n${cerpe.cerita}`)
+		}
+		break
+		case 'disturbingshorystoryx': {
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			let cerpe = await cerpen(`galau`)
+			reply(`${themeemoji} _*Title :*_ ${cerpe.title}\n${themeemoji} _*Author :*_ ${cerpe.author}\n${themeemoji} _*Category :*_ ${cerpe.kategori}\n${themeemoji} _*Pass Moderation :*_ ${cerpe.lolos}\n${themeemoji} _*Story :*_\n${cerpe.cerita}`)
+		}
+		break
+		case 'friendshipshortstoryx': {
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			let cerpe = await cerpen(`persahabatan`)
+			reply(`${themeemoji} _*Title :*_ ${cerpe.title}\n${themeemoji} _*Author :*_ ${cerpe.author}\n${themeemoji} _*Category :*_ ${cerpe.kategori}\n${themeemoji} _*Pass Moderation :*_ ${cerpe.lolos}\n${themeemoji} _*Story :*_\n${cerpe.cerita}`)
+		}
+		break
+		case 'sacrificeshortstoryx': {
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			let cerpe = await cerpen(`Pengorbanan`)
+			reply(`${themeemoji} _*Title :*_ ${cerpe.title}\n${themeemoji} _*Author :*_ ${cerpe.author}\n${themeemoji} _*Category :*_ ${cerpe.kategori}\n${themeemoji} _*Pass Moderation :*_ ${cerpe.lolos}\n${themeemoji} _*Story :*_\n${cerpe.cerita}`)
+		}
+		break
+		case 'couplepp':
+		case 'ppcouple': {
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			reply(mess.wait)
+			let anu = await fetchJson('https://raw.githubusercontent.com/iamriz7/kopel_/main/kopel.json')
+			let random = anu[Math.floor(Math.random() * anu.length)]
+			RoseMwol.sendMessage(m.chat, {
+				image: {
+					url: random.male
+				},
+				caption: `Couple Male🙎🏻‍♂️`
+			}, {
+				quoted: m
+			})
+			RoseMwol.sendMessage(m.chat, {
+				image: {
+					url: random.female
+				},
+				caption: `Couple Female🙎🏻‍♀️`
+			}, {
+				quoted: m
+			})
+		}
+		break
+		case 'animequotes':
+		case 'animequote': {
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			let {
+				quotesAnime
+			} = require('./lib/scraperW')
+			let anu = await quotesAnime()
+			result = anu[Math.floor(Math.random() * anu.length)]
+			let buttons = [{
+				buttonId: `quotesanime`,
+				buttonText: {
+					displayText: 'Next'
+				},
+				type: 1
+			}]
+			let buttonMessage = {
+				text: `~_${result.quotes}_\n\nBy '${result.karakter}', ${result.anime}\n\n- ${result.up_at}`,
+				footer: 'Press The Button Below',
+				buttons: buttons,
+				headerType: 2
+			}
+			RoseMwol.sendMessage(m.chat, buttonMessage, {
+				quoted: m
+			})
+		}
+		break
+		case 'wallpaper':
+		case 'animewallpaper':
+		case 'animewall': {
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			if (!args.join(" ")) return reply("What picture are you looking for??")
+			let {
+				wallpaper
+			} = require('./lib/scraperW')
+			anu = await wallpaper(args)
+			result = anu[Math.floor(Math.random() * anu.length)]
+			let buttons = [{
+				buttonId: `.wallpaper ${args.join(" ")}`,
+				buttonText: {
+					displayText: 'Next Image'
+				},
+				type: 1
+			}]
+			let buttonMessage = {
+				image: {
+					url: result.image[0]
+				},
+				caption: `Title : ${result.title}\nCategory : ${result.type}\nDetail : ${result.source}\nMedia Url : ${result.image[2] || result.image[1] || result.image[0]}`,
+				footer: `${botname}`,
+				buttons: buttons,
+				headerType: 4
+			}
+			RoseMwol.sendMessage(m.chat, buttonMessage, {
+				quoted: m
+			})
+		}
+		break
+
+		case 'wiki':
+		case 'wikipedia':
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			if (args.length < 1) return reply('What Are You Looking For?? ')
+			const res2 = await RoseMwolWiki(q).catch(e => {
+				return reply('_[ ! ] Error Result Not Found_')
+			})
+			const result2 = `*Title :* ${res2[0].judul}\n*Wiki :* ${res2[0].wiki}`
+			RoseMwol.sendMessage(from, {
+				image: {
+					url: res2[0].thumb
+				},
+				caption: result2
+			})
+			break
+		case 'wikimedia': {
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			if (!text) return reply(`Enter Query Title`)
+			let {
+				wikimedia
+			} = require('./lib/scraper')
+			anu = await wikimedia(text)
+			result = anu[Math.floor(Math.random() * anu.length)]
+			let buttons = [{
+				buttonId: `wikimedia ${text}`,
+				buttonText: {
+					displayText: '➡️Next Image➡️'
+				},
+				type: 1
+			}]
+			let buttonMessage = {
+				image: {
+					url: result.image
+				},
+				caption: `${themeemoji} Title : ${result.title}\n${themeemoji} Source : ${result.source}\n${themeemoji} Media Url : ${result.image}`,
+				footer: RoseMwol.user.name,
+				buttons: buttons,
+				headerType: 4
+			}
+			RoseMwol.sendMessage(m.chat, buttonMessage, {
+				quoted: m
+			})
+		}
+		break
+		case 'quotesanime':
+		case 'animequotes':
+		case 'animequote':
+		case 'quoteanime': {
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			let {
+				quotesAnime
+			} = require('./lib/scraper')
+			let anu = await quotesAnime()
+			result = anu[Math.floor(Math.random() * anu.length)]
+			let buttons = [{
+				buttonId: `quotesanime`,
+				buttonText: {
+					displayText: '➡️Next➡️'
+				},
+				type: 1
+			}]
+			let buttonMessage = {
+				text: `~_${result.quotes}_\n\nBy '${result.karakter}', ${result.anime}\n\n- ${result.up_at}`,
+				footer: 'Press The Button Below',
+				buttons: buttons,
+				headerType: 2
+			}
+			RoseMwol.sendMessage(m.chat, buttonMessage, {
+				quoted: m
+			})
+		}
+		break
+		case 'nomerhoki':
+		case 'nomorhoki': {
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			if (!Number(text)) return reply(`Example : ${prefix + command} 919744933034`)
+			let anu = await primbon.nomer_hoki(Number(text))
+			if (anu.status == false) return reply(anu.message)
+			RoseMwol.sendText(m.chat, `${themeemoji} *Phone Number :* ${anu.message.nomer_hp}\n${themeemoji} *Shuzi Angka Figures :* ${anu.message.angka_shuzi}\n${themeemoji} *Positive Energy :*\n- Riches : ${anu.message.energi_positif.kekayaan}\n- Health : ${anu.message.energi_positif.kesehatan}\n- Love : ${anu.message.energi_positif.cinta}\n- Stability : ${anu.message.energi_positif.kestabilan}\n- Percentage : ${anu.message.energi_positif.persentase}\n${themeemoji} *Negative Energy :*\n- Dispute : ${anu.message.energi_negatif.perselisihan}\n- Lost : ${anu.message.energi_negatif.kehilangan}\n- Catastrophe : ${anu.message.energi_negatif.malapetaka}\n- Destruction : ${anu.message.energi_negatif.kehancuran}\n- Percentage : ${anu.message.energi_negatif.persentase}`, m)
+		}
+		break
+		case 'artimimpi':
+		case 'tafsirmimpi': {
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			if (!text) return reply(`Example : ${prefix + command} belanja`)
+			let anu = await primbon.tafsir_mimpi(text)
+			if (anu.status == false) return reply(anu.message)
+			RoseMwol.sendText(m.chat, `${themeemoji} *Dream :* ${anu.message.mimpi}\n${themeemoji} *Meaning :* ${anu.message.arti}\n${themeemoji} *Solution :* ${anu.message.solusi}`, m)
+		}
+		break
+		case 'ramalanjodoh':
+		case 'ramaljodoh': {
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			if (!text) return reply(`Example : ${prefix + command} Dika, 7, 7, 2005, Novia, 16, 11, 2004`)
+			let [nama1, tgl1, bln1, thn1, nama2, tgl2, bln2, thn2] = text.split`,`
+			let anu = await primbon.ramalan_jodoh(nama1, tgl1, bln1, thn1, nama2, tgl2, bln2, thn2)
+			if (anu.status == false) return reply(anu.message)
+			RoseMwol.sendText(m.chat, `${themeemoji} *Your Name :* ${anu.message.nama_anda.nama}\n${themeemoji} *Your Birth :* ${anu.message.nama_anda.tgl_lahir}\n${themeemoji} *Couple Name :* ${anu.message.nama_pasangan.nama}\n${themeemoji} *Born Couple :* ${anu.message.nama_pasangan.tgl_lahir}\n${themeemoji} *Results :* ${anu.message.result}\n${themeemoji} *Notes :* ${anu.message.catatan}`, m)
+		}
+		break
+		case 'ramalanjodohbali':
+		case 'ramaljodohbali': {
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			if (!text) return reply(`Example : ${prefix + command} Dika, 7, 7, 2005, Novia, 16, 11, 2004`)
+			let [nama1, tgl1, bln1, thn1, nama2, tgl2, bln2, thn2] = text.split`,`
+			let anu = await primbon.ramalan_jodoh_bali(nama1, tgl1, bln1, thn1, nama2, tgl2, bln2, thn2)
+			if (anu.status == false) return reply(anu.message)
+			RoseMwol.sendText(m.chat, `${themeemoji} *Your Name :* ${anu.message.nama_anda.nama}\n${themeemoji} *Your Birth :* ${anu.message.nama_anda.tgl_lahir}\n${themeemoji} *Couple Name :* ${anu.message.nama_pasangan.nama}\n${themeemoji} *Born Couple :* ${anu.message.nama_pasangan.tgl_lahir}\n${themeemoji} *Results :* ${anu.message.result}\n${themeemoji} *Notes :* ${anu.message.catatan}`, m)
+		}
+		break
+		case 'suamiistri': {
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			if (!text) return reply(`Example : ${prefix + command} Dika, 7, 7, 2005, Novia, 16, 11, 2004`)
+			let [nama1, tgl1, bln1, thn1, nama2, tgl2, bln2, thn2] = text.split`,`
+			let anu = await primbon.suami_istri(nama1, tgl1, bln1, thn1, nama2, tgl2, bln2, thn2)
+			if (anu.status == false) return reply(anu.message)
+			RoseMwol.sendText(m.chat, `${themeemoji} *Husband's Name :* ${anu.message.suami.nama}\n${themeemoji} *Husband Born :* ${anu.message.suami.tgl_lahir}\n${themeemoji} *Wife's Name :* ${anu.message.istri.nama}\n${themeemoji} *Born Wife :* ${anu.message.istri.tgl_lahir}\n${themeemoji} *Results :* ${anu.message.result}\n${themeemoji} *Notes :* ${anu.message.catatan}`, m)
+		}
+		break
+		case 'ramalancinta':
+		case 'ramalcinta': {
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			if (!text) return reply(`Example : ${prefix + command} Dika, 7, 7, 2005, Novia, 16, 11, 2004`)
+			let [nama1, tgl1, bln1, thn1, nama2, tgl2, bln2, thn2] = text.split`,`
+			let anu = await primbon.ramalan_cinta(nama1, tgl1, bln1, thn1, nama2, tgl2, bln2, thn2)
+			if (anu.status == false) return reply(anu.message)
+			RoseMwol.sendText(m.chat, `${themeemoji} *Your Name :* ${anu.message.nama_anda.nama}\n${themeemoji} *Your Birth :* ${anu.message.nama_anda.tgl_lahir}\n${themeemoji} *Couple Name :* ${anu.message.nama_pasangan.nama}\n${themeemoji} *Born Couple :* ${anu.message.nama_pasangan.tgl_lahir}\n${themeemoji} *Positive Side :* ${anu.message.sisi_positif}\n${themeemoji} *Negative Side :* ${anu.message.sisi_negatif}\n${themeemoji} *Notes :* ${anu.message.catatan}`, m)
+		}
+		break
+		case 'artinama': {
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			if (!text) return reply(`Example : ${prefix + command} Dika Ardianta`)
+			let anu = await primbon.arti_nama(text)
+			if (anu.status == false) return reply(anu.message)
+			RoseMwol.sendText(m.chat, `${themeemoji} *Name :* ${anu.message.nama}\n${themeemoji} *Meaning :* ${anu.message.arti}\n${themeemoji} *Notes :* ${anu.message.catatan}`, m)
+		}
+		break
+		case 'kecocokannama':
+		case 'cocoknama': {
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			if (!text) return reply(`Example : ${prefix + command} Dika, 7, 7, 2005`)
+			let [nama, tgl, bln, thn] = text.split`,`
+			let anu = await primbon.kecocokan_nama(nama, tgl, bln, thn)
+			if (anu.status == false) return reply(anu.message)
+			RoseMwol.sendText(m.chat, `${themeemoji} *Name :* ${anu.message.nama}\n${themeemoji} *Born :* ${anu.message.tgl_lahir}\n${themeemoji} *Life Path :* ${anu.message.life_path}\n${themeemoji} *Destiny :* ${anu.message.destiny}\n${themeemoji} *Destiny Desire :* ${anu.message.destiny_desire}\n${themeemoji} *Personality :* ${anu.message.personality}\n${themeemoji} *Percentage :* ${anu.message.persentase_kecocokan}`, m)
+		}
+		break
+		case 'kecocokanpasangan':
+		case 'cocokpasangan':
+		case 'pasangan': {
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			if (!text) return reply(`Example : ${prefix + command} Dika|Novia`)
+			let [nama1, nama2] = text.split`|`
+			let anu = await primbon.kecocokan_nama_pasangan(nama1, nama2)
+			if (anu.status == false) return reply(anu.message)
+			RoseMwol.sendImage(m.chat, anu.message.gambar, `${themeemoji} *Your Name :* ${anu.message.nama_anda}\n${themeemoji} *Couple Name :* ${anu.message.nama_pasangan}\n${themeemoji} *Positive Side :* ${anu.message.sisi_positif}\n${themeemoji} *Negative Side :* ${anu.message.sisi_negatif}`, m)
+		}
+		break
+		case 'jadianpernikahan':
+		case 'jadiannikah': {
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			if (!text) return reply(`Example : ${prefix + command} 6, 12, 2020`)
+			let [tgl, bln, thn] = text.split`,`
+			let anu = await primbon.tanggal_jadian_pernikahan(tgl, bln, thn)
+			if (anu.status == false) return reply(anu.message)
+			RoseMwol.sendText(m.chat, `${themeemoji} *Wedding Date :* ${anu.message.tanggal}\n${themeemoji} *Characteristics :* ${anu.message.karakteristik}`, m)
+		}
+		break
+		case 'sifatusaha': {
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			if (!text) return reply(`Example : ${prefix+ command} 28, 12, 2021`)
+			let [tgl, bln, thn] = text.split`,`
+			let anu = await primbon.sifat_usaha_bisnis(tgl, bln, thn)
+			if (anu.status == false) return reply(anu.message)
+			RoseMwol.sendText(m.chat, `${themeemoji} *Born :* ${anu.message.hari_lahir}\n${themeemoji} *Business :* ${anu.message.usaha}`, m)
+		}
+		break
+		case 'rejeki':
+		case 'rezeki': {
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			if (!text) return reply(`Example : ${prefix + command} 7, 7, 2005`)
+			let [tgl, bln, thn] = text.split`,`
+			let anu = await primbon.rejeki_hoki_weton(tgl, bln, thn)
+			if (anu.status == false) return reply(anu.message)
+			RoseMwol.sendText(m.chat, `${themeemoji} *Born :* ${anu.message.hari_lahir}\n${themeemoji} *Sustenance :* ${anu.message.rejeki}\n${themeemoji} *Notes :* ${anu.message.catatan}`, m)
+		}
+		break
+		case 'pekerjaan':
+		case 'kerja': {
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			if (!text) return reply(`Example : ${prefix + command} 7, 7, 2005`)
+			let [tgl, bln, thn] = text.split`,`
+			let anu = await primbon.pekerjaan_weton_lahir(tgl, bln, thn)
+			if (anu.status == false) return reply(anu.message)
+			RoseMwol.sendText(m.chat, `${themeemoji} *Born :* ${anu.message.hari_lahir}\n?? *Profession :* ${anu.message.pekerjaan}\n${themeemoji} *Notes :* ${anu.message.catatan}`, m)
+		}
+		break
+		case 'ramalannasib':
+		case 'ramalnasib':
+		case 'nasib': {
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			if (!text) return reply(`Example : 7, 7, 2005`)
+			let [tgl, bln, thn] = text.split`,`
+			let anu = await primbon.ramalan_nasib(tgl, bln, thn)
+			if (anu.status == false) return reply(anu.message)
+			RoseMwol.sendText(m.chat, `${themeemoji} *Analysis :* ${anu.message.analisa}\n${themeemoji} *Root Number :* ${anu.message.angka_akar}\n${themeemoji} *Nature :* ${anu.message.sifat}\n${themeemoji} *Element :* ${anu.message.elemen}\n${themeemoji} *Lucky Numbers :* ${anu.message.angka_keberuntungan}`, m)
+		}
+		break
+		case 'potensipenyakit':
+		case 'penyakit': {
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			if (!text) return reply(`Example : ${prefix + command} 7, 7, 2005`)
+			let [tgl, bln, thn] = text.split`,`
+			let anu = await primbon.cek_potensi_penyakit(tgl, bln, thn)
+			if (anu.status == false) return reply(anu.message)
+			RoseMwol.sendText(m.chat, `${themeemoji} *Analysis :* ${anu.message.analisa}\n${themeemoji} *Sector :* ${anu.message.sektor}\n?? *Element :* ${anu.message.elemen}\n${themeemoji} *Notes :* ${anu.message.catatan}`, m)
+		}
+		break
+		case 'artitarot':
+		case 'tarot': {
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			if (!text) return reply(`Example : ${prefix + command} 7, 7, 2005`)
+			let [tgl, bln, thn] = text.split`,`
+			let anu = await primbon.arti_kartu_tarot(tgl, bln, thn)
+			if (anu.status == false) return reply(anu.message)
+			RoseMwol.sendImage(m.chat, anu.message.image, `${themeemoji} *Born :* ${anu.message.tgl_lahir}\n${themeemoji} *Tarot Symbol :* ${anu.message.simbol_tarot}\n${themeemoji} *Meaning :* ${anu.message.arti}\n${themeemoji} *Notes :* ${anu.message.catatan}`, m)
+		}
+		break
+		case 'fengshui': {
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			if (!text) return reply(`Example : ${prefix + command} Dika, 1, 2005\n\nNote : ${prefix + command} Name, gender, tahun lahir\nGender : 1 untuk laki-laki & 2 untuk perempuan`)
+			let [nama, gender, tahun] = text.split`,`
+			let anu = await primbon.perhitungan_feng_shui(nama, gender, tahun)
+			if (anu.status == false) return reply(anu.message)
+			RoseMwol.sendText(m.chat, `${themeemoji} *Name :* ${anu.message.nama}\n${themeemoji} *Born :* ${anu.message.tahun_lahir}\n${themeemoji} *Gender :* ${anu.message.jenis_kelamin}\n${themeemoji} *Kua Number :* ${anu.message.angka_kua}\n${themeemoji} *Group :* ${anu.message.kelompok}\n${themeemoji} *Character :* ${anu.message.karakter}\n${themeemoji} *Good Sector :* ${anu.message.sektor_baik}\n${themeemoji} *Bad Sector :* ${anu.message.sektor_buruk}`, m)
+		}
+		break
+		case 'haribaik': {
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			if (!text) return reply(`Example : ${prefix + command} 7, 7, 2005`)
+			let [tgl, bln, thn] = text.split`,`
+			let anu = await primbon.petung_hari_baik(tgl, bln, thn)
+			if (anu.status == false) return reply(anu.message)
+			RoseMwol.sendText(m.chat, `${themeemoji} *Born :* ${anu.message.tgl_lahir}\n${themeemoji} *When Challenged :* ${anu.message.kala_tinantang}\n${themeemoji} *Info :* ${anu.message.info}\n${themeemoji} *Notes :* ${anu.message.catatan}`, m)
+		}
+		break
+		case 'harisangar':
+		case 'taliwangke': {
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			if (!text) return reply(`Example : ${prefix + command} 7, 7, 2005`)
+			let [tgl, bln, thn] = text.split`,`
+			let anu = await primbon.hari_sangar_taliwangke(tgl, bln, thn)
+			if (anu.status == false) return reply(anu.message)
+			RoseMwol.sendText(m.chat, `${themeemoji} *Born :* ${anu.message.tgl_lahir}\n${themeemoji} *Results :* ${anu.message.result}\n${themeemoji} *Info :* ${anu.message.info}\n${themeemoji} *Notes :* ${anu.message.catatan}`, m)
+		}
+		break
+		case 'harinaas':
+		case 'harisial': {
+			if (!text) return reply(`Example : ${prefix + command} 7, 7, 2005`)
+			let [tgl, bln, thn] = text.split`,`
+			let anu = await primbon.primbon_hari_naas(tgl, bln, thn)
+			if (anu.status == false) return reply(anu.message)
+			RoseMwol.sendText(m.chat, `${themeemoji} *Day Of Birth :* ${anu.message.hari_lahir}\n${themeemoji} *Date Of Birth :* ${anu.message.tgl_lahir}\n${themeemoji} *Fateful Day :* ${anu.message.hari_naas}\n${themeemoji} *Info :* ${anu.message.catatan}\n${themeemoji} *Notes :* ${anu.message.info}`, m)
+		}
+		break
+		case 'nagahari':
+		case 'harinaga': {
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			if (!text) return reply(`Example : ${prefix + command} 7, 7, 2005`)
+			let [tgl, bln, thn] = text.split`,`
+			let anu = await primbon.rahasia_naga_hari(tgl, bln, thn)
+			if (anu.status == false) return reply(anu.message)
+			RoseMwol.sendText(m.chat, `${themeemoji} *Day Of Birth :* ${anu.message.hari_lahir}\n${themeemoji} *Date Of Birth :* ${anu.message.tgl_lahir}\n${themeemoji} *Dragon Day Direction :* ${anu.message.arah_naga_hari}\n${themeemoji} *Notes :* ${anu.message.catatan}`, m)
+		}
+		break
+		case 'arahrejeki':
+		case 'arahrezeki': {
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			if (!text) return reply(`Example : ${prefix + command} 7, 7, 2005`)
+			let [tgl, bln, thn] = text.split`,`
+			let anu = await primbon.primbon_arah_rejeki(tgl, bln, thn)
+			if (anu.status == false) return reply(anu.message)
+			RoseMwol.sendText(m.chat, `${themeemoji} *Day Of Birth :* ${anu.message.hari_lahir}\n${themeemoji} *Date Of Birth :* ${anu.message.tgl_lahir}\n${themeemoji} *Sustenance Direction :* ${anu.message.arah_rejeki}\n${themeemoji} *Notes :* ${anu.message.catatan}`, m)
+		}
+		break
+		case 'peruntungan': {
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			if (!text) return reply(`Example : ${prefix + command} DIka, 7, 7, 2005, 2022\n\nNote : ${prefix + command} Name, tanggal lahir, bulan lahir, tahun lahir, untuk tahun`)
+			let [nama, tgl, bln, thn, untuk] = text.split`,`
+			let anu = await primbon.ramalan_peruntungan(nama, tgl, bln, thn, untuk)
+			if (anu.status == false) return reply(anu.message)
+			RoseMwol.sendText(m.chat, `${themeemoji} *Name :* ${anu.message.nama}\n${themeemoji} *Born :* ${anu.message.tgl_lahir}\n${themeemoji} *Fortune Of The Year :* ${anu.message.peruntungan_tahun}\n${themeemoji} *Results :* ${anu.message.result}\n${themeemoji} *Notes :* ${anu.message.catatan}`, m)
+		}
+		break
+		case 'weton':
+		case 'wetonjawa': {
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			if (!text) return (`Example : ${prefix + command} 7, 7, 2005`)
+			let [tgl, bln, thn] = text.split`,`
+			let anu = await primbon.weton_jawa(tgl, bln, thn)
+			if (anu.status == false) return reply(anu.message)
+			RoseMwol.sendText(m.chat, `${themeemoji} *Date :* ${anu.message.tanggal}\n${themeemoji} *Number Of Neptune :* ${anu.message.jumlah_neptu}\n${themeemoji} *Day Character :* ${anu.message.watak_hari}\n${themeemoji} *Dragon Day :* ${anu.message.naga_hari}\n${themeemoji} *Good Hour :* ${anu.message.jam_baik}\n${themeemoji} *Birth Character :* ${anu.message.watak_kelahiran}`, m)
+		}
+		break
+		case 'sifat':
+		case 'karakter': {
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			if (!text) return reply(`Example : ${prefix + command} Dika, 7, 7, 2005`)
+			let [nama, tgl, bln, thn] = text.split`,`
+			let anu = await primbon.sifat_karakter_tanggal_lahir(nama, tgl, bln, thn)
+			if (anu.status == false) return reply(anu.message)
+			RoseMwol.sendText(m.chat, `${themeemoji} *Name :* ${anu.message.nama}\n${themeemoji} *Born :* ${anu.message.tgl_lahir}\n${themeemoji} *Lifeline :* ${anu.message.garis_hidup}`, m)
+		}
+		break
+		case 'keberuntungan': {
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			if (!text) return reply(`Example : ${prefix + command} Dika, 7, 7, 2005`)
+			let [nama, tgl, bln, thn] = text.split`,`
+			let anu = await primbon.potensi_keberuntungan(nama, tgl, bln, thn)
+			if (anu.status == false) return reply(anu.message)
+			RoseMwol.sendText(m.chat, `${themeemoji} *Name :* ${anu.message.nama}\n${themeemoji} *Born :* ${anu.message.tgl_lahir}\n${themeemoji} *Results :* ${anu.message.result}`, m)
+		}
+		break
+		case 'memancing': {
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			if (!text) return reply(`Example : ${prefix + command} 12, 1, 2022`)
+			let [tgl, bln, thn] = text.split`,`
+			let anu = await primbon.primbon_memancing_ikan(tgl, bln, thn)
+			if (anu.status == false) return reply(anu.message)
+			RoseMwol.sendText(m.chat, `${themeemoji} *Date :* ${anu.message.tgl_memancing}\n${themeemoji} *Results :* ${anu.message.result}\n${themeemoji} *Notes :* ${anu.message.catatan}`, m)
+		}
+		break
+		case 'masasubur': {
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			if (!text) return (`Example : ${prefix + command} 12, 1, 2022, 28\n\nNote : ${prefix + command} First Day Of Menstruation Cycle`)
+			let [tgl, bln, thn, siklus] = text.split`,`
+			let anu = await primbon.masa_subur(tgl, bln, thn, siklus)
+			if (anu.status == false) return reply(anu.message)
+			RoseMwol.sendText(m.chat, `${themeemoji} *Results :* ${anu.message.result}\n${themeemoji} *Notes :* ${anu.message.catatan}`, m)
+		}
+		break
+		case 'zodiak':
+		case 'zodiac': {
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			if (!text) return reply(`Example : ${prefix+ command} 7 7 2005`)
+			let zodiak = [
+				["capricorn", new Date(1970, 0, 1)],
+				["aquarius", new Date(1970, 0, 20)],
+				["pisces", new Date(1970, 1, 19)],
+				["aries", new Date(1970, 2, 21)],
+				["taurus", new Date(1970, 3, 21)],
+				["gemini", new Date(1970, 4, 21)],
+				["cancer", new Date(1970, 5, 22)],
+				["leo", new Date(1970, 6, 23)],
+				["virgo", new Date(1970, 7, 23)],
+				["libra", new Date(1970, 8, 23)],
+				["scorpio", new Date(1970, 9, 23)],
+				["sagittarius", new Date(1970, 10, 22)],
+				["capricorn", new Date(1970, 11, 22)]
+			].reverse()
+
+			function getZodiac(month, day) {
+				let d = new Date(1970, month - 1, day)
+				return zodiak.find(([_, _d]) => d >= _d)[0]
+			}
+			let date = new Date(text)
+			if (date == 'Invalid Date') throw date
+			let d = new Date()
+			let [tahun, bulan, tanggal] = [d.getFullYear(), d.getMonth() + 1, d.getDate()]
+			let birth = [date.getFullYear(), date.getMonth() + 1, date.getDate()]
+
+			let zodiac = await getZodiac(birth[1], birth[2])
+
+			let anu = await primbon.zodiak(zodiac)
+			if (anu.status == false) return reply(anu.message)
+			RoseMwol.sendText(m.chat, `${themeemoji} *Zodiac :* ${anu.message.zodiak}\n${themeemoji} *Number :* ${anu.message.nomor_keberuntungan}\n${themeemoji} *Aroma :* ${anu.message.aroma_keberuntungan}\n${themeemoji} *Planet :* ${anu.message.planet_yang_mengitari}\n${themeemoji} *Flower :* ${anu.message.bunga_keberuntungan}\n${themeemoji} *Color :* ${anu.message.warna_keberuntungan}\n${themeemoji} *Stone :* ${anu.message.batu_keberuntungan}\n${themeemoji} *Element :* ${anu.message.elemen_keberuntungan}\n${themeemoji} *Zodiac Couple :* ${anu.message.pasangan_zodiak}\n${themeemoji} *Notes :* ${anu.message.catatan}`, m)
+		}
+		break
+		case 'shio': {
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			if (!text) return reply(`Example : ${prefix + command} tikus\n\nNote : For Detail https://primbon.com/shio.htm`)
+			let anu = await primbon.shio(text)
+			if (anu.status == false) return reply(anu.message)
+			RoseMwol.sendText(m.chat, `${themeemoji} *Results :* ${anu.message}`, m)
+		}
+		break
+		case 'tiktok': {
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			if (!q) return reply('Where is the link?')
+			reply(mess.wait)
+			if (!q.includes('tiktok')) return reply(`That's not a tiktok link!`)
+			const musim_rambutan = await RoseMwolTiktok(`${q}`).catch(e => {
+				reply(mess.error)
+			})
+			console.log(musim_rambutan)
+			const rosetiktokop = musim_rambutan.result.watermark
+			texttk = `Wanna download no watermark or audio?
+_Please choose the button below_`
+			let buttons = [{
+					buttonId: `ttnowm ${q}`,
+					buttonText: {
+						displayText: 'No Watermark ❌'
+					},
+					type: 1
+				},
+				{
+					buttonId: `ttaud ${q}`,
+					buttonText: {
+						displayText: 'Audio 🎶'
+					},
+					type: 1
+				}
+			]
+			let buttonMessage = {
+				video: {
+					url: rosetiktokop
+				},
+				caption: texttk,
+				footer: `${botname}`,
+				buttons: buttons,
+				headerType: 4,
+				contextInfo: {
+					externalAdReply: {
+						title: `${ownername}`,
+						body: `${pushname}`,
+						thumbnail: log0,
+						mediaType: 1,
+						mediaUrl: q,
+						sourceUrl: q
+					}
+				}
+			}
+			RoseMwol.sendMessage(from, buttonMessage, {
+				quoted: m
+			})
+		}
+		break
+		case 'tiktoknowm':
+		case 'ttnowm': {
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			if (!q) return reply('Where is the link?')
+			reply(mess.wait)
+			if (!q.includes('tiktok')) return reply(`That's not a tiktok link!`)
+			const musim_rambutan = await RoseMwolTiktok(`${q}`).catch(e => {
+				reply(mess.error)
+			})
+			console.log(musim_rambutan)
+			const rosetiktoknowm = musim_rambutan.result.nowatermark
+			RoseMwol.sendMessage(from, {
+				video: {
+					url: rosetiktoknowm
+				},
+				caption: "Here you go!"
+			}, {
+				quoted: m
+			})
+		}
+		break
+		case 'tiktokaudio':
+		case 'tiktokmusic':
+		case 'ttaud': {
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			if (!q) return reply('Where is the audio?')
+			if (!q.includes('tiktok')) return reply(`That's not a tiktok link!`)
+			const musim_rambutan = await RoseMwolTiktok(`${q}`).catch(e => {
+				reply(mess.error)
+			})
+			console.log(musim_rambutan)
+			const rosetiktokaudio = musim_rambutan.result.nowatermark
+			RoseMwol.sendMessage(from, {
+				audio: {
+					url: rosetiktokaudio
+				},
+				mimetype: 'audio/mp4'
+			}, {
+				quoted: m
+			})
+		}
+		break
+		/*
+	case 'music': case 'play': case 'song': case 'ytplay': {
+   if (isBan) return reply(mess.ban)	 			
+if (isBanChat) return reply(mess.banChat)
+let yts = require("yt-search")
+let search = await yts(text)
+let anu = search.videos[Math.floor(Math.random() * search.videos.length)]
+let ytvc = await hx.youtube(anu.url)
+let buttons = [
+{buttonId: `ytvd ${ytvc.link}`, buttonText: {displayText: '► Video'}, type: 1},
+{buttonId: `ytad ${ytvc.mp3}`, buttonText: {displayText: '♫ Audio'}, type: 1}
+]
+let buttonMessage = {
+image: { url: anu.thumbnail },
+caption: `*| YOUTUBE PLAY |*
+
+${global.themeemoji} Title : ${anu.title}
+${global.themeemoji} Ext : Search
+${global.themeemoji} ID : ${anu.videoId}
+${global.themeemoji} Duration : ${anu.timestamp}
+${global.themeemoji} Viewers : ${anu.views}
+${global.themeemoji} Uploaded : ${anu.ago}
+${global.themeemoji} Author : ${anu.author.name}
+${global.themeemoji} Channel : ${anu.author.url}
+${global.themeemoji} Description : ${anu.description}
+${global.themeemoji} Url : ${anu.url}`,
+footer: `${global.botname}`,
+buttons: buttons,
+headerType: 4,
+contextInfo:{externalAdReply:{
+title: anu.title,
+body: `${global.botname}`,
+thumbnail: log0,
+mediaType:2,
+mediaUrl: anu.url,
+sourceUrl: anu.url
+}}
+}
+RoseMwol.sendMessage(m.chat, buttonMessage, { quoted: m })
+}
+break
+*/
+		case 'getmusic':
+		case 'getvideo':
+		case 'yt':
+		case 'youtube':
+		case 'ytvideo':
+		case 'ytmp3':
+		case 'ytmp4':
+		case 'ytmusic': {
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			if (!args[0]) return reply(mess.linkm)
+			try {
+				hx.youtube(args[0]).then(async (res) => {
+					textyt = `*| YOUTUBE DOWNLOADER |*
+
+${global.themeemoji} Title : ${res.title}
+${global.themeemoji} Size : ${res.size}
+${global.themeemoji} Quality : ${res.quality}
+
+_Select video or audio and wait a while_`
+					let buttons = [{
+							buttonId: `ytvd ${res.link}`,
+							buttonText: {
+								displayText: '► Video'
+							},
+							type: 1
+						},
+						{
+							buttonId: `ytad ${res.mp3}`,
+							buttonText: {
+								displayText: '♫ Audio'
+							},
+							type: 1
+						}
+					]
+					let buttonMessage = {
+						image: {
+							url: res.thumb
+						},
+						caption: textyt,
+						footer: `${botname}`,
+						buttons: buttons,
+						headerType: 4,
+						contextInfo: {
+							externalAdReply: {
+								title: res.title,
+								body: `${global.ownername}`,
+								thumbnail: {
+									url: res.thumb
+								},
+								mediaType: 2,
+								mediaUrl: args[0],
+								sourceUrl: args[0]
+							}
+						}
+					}
+					RoseMwol.sendMessage(from, buttonMessage, {
+						quoted: m
+					})
+				}).catch(_ => _)
+			} catch {
+				reply("Link error!")
+			}
+		}
+		break
+		case 'ytvd': {
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			RoseMwol.sendMessage(from, {
+				video: {
+					url: args[0]
+				},
+				mimetype: "video/mp4",
+				caption: "Success",
+				contextInfo: {
+					externalAdReply: {
+						title: `${global.botname}`,
+						body: `${global.botname}`,
+						thumbnail: log0,
+						mediaType: 2,
+						mediaUrl: `${global.websitex}`,
+						sourceUrl: `${global.websitex}`
+					}
+				}
+			}, {
+				quoted: m
+			})
+		}
+		break
+		case 'ytad': {
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			RoseMwol.sendMessage(from, {
+				audio: {
+					url: args[0]
+				},
+				mimetype: "audio/mp4",
+				ptt: true,
+				contextInfo: {
+					externalAdReply: {
+						title: `${global.botname}`,
+						body: `${global.botname}`,
+						thumbnail: log0,
+						mediaType: 2,
+						mediaUrl: `${global.websitex}`,
+						sourceUrl: `${global.websitex}`
+					}
+				}
+			}, {
+				quoted: m
+			})
+		}
+		break
+		case 'ytdl': {
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			if (!text) return reply(mess.linkm)
+			if (!isUrl(args[0]) && !args[0].includes('youtube.com')) return reply(`The link you provided is invalid`)
+			anu = await fetchJson(`https://api.akuari.my.id/downloader/youtube?link=${text}`)
+			if (anu.filesize_video >= 999999) return reply('*File Over Limit* ' + util.format(anu))
+			tummb = await getBuffer(anu.thumb)
+			audio = await getBuffer(anu.audio)
+			RoseMwol.sendMessage(m.chat, {
+				document: audio,
+				mimetype: 'audio/mpeg',
+				fileName: `${anu.title}`
+			}, {
+				quoted: m
+			}).catch((err) => reply(mess.error))
+			RoseMwol.sendMessage(m.chat, {
+				video: {
+					url: anu.video
+				},
+				jpegThumbnail: tummb,
+				caption: `${util.format(anu)}`
+			}, {
+				quoted: m
+			}).catch((err) => reply(mess.error))
+		}
+		break
+		case 'ytshorts':
+		case 'shorts': {
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			if (!text) return reply(`*Use ${prefix + command} put yt shorts link*`)
+			if (!isUrl(args[0]) && !args[0].includes('youtube')) return reply(`The link you provided is not valid`)
+			xfarr.Youtube(`${text}`).then(async (data) => {
+				if (data.medias[0].formattedSize.split('MB')[0] >= 999) return reply('*File Over Limit* ' + util.format(data))
+				cap = `
+*YOUTUBE SHORTS*
+
+*${themeemoji}TITLE:* ${data.title}\n*${themeemoji}QUALITY:* ${data.medias[0].quality}\n*${themeemoji}SIZE:* ${data.medias[0].formattedSize}\n*${themeemoji}DURATION* ${data.duration}\n*${themeemoji}ID:* ${data.medias[0].cached}\n*${themeemoji}LINK:* ${data.url}\n\n*${botname}*`
+				buf = await getBuffer(data.thumbnail)
+				RoseMwol.sendMessage(m.chat, {
+					image: {
+						url: data.thumbnail
+					},
+					jpegThumbnail: buf,
+					caption: `${cap}`
+				}, {
+					quoted: m
+				})
+				RoseMwol.sendMessage(m.chat, {
+					video: {
+						url: data.medias[0].url
+					},
+					jpegThumbnail: buf,
+					caption: `*${themeemoji}TITLE:* ${data.title}\n*${themeemoji}QUALITY:* ${data.medias[0].quality}\n*${themeemoji}SIZE:* ${data.medias[0].formattedSize}`
+				}, {
+					quoted: m
+				})
+			}).catch((err) => {
+				reply(mess.reply)
+			})
+		}
+		break
+		case 'pinterest':
+		case 'pin': {
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			if (!args.join(" ")) return reply("What picture are you looking for?")
+			try {
+				hx.pinterest(args.join(" ")).then(async (res) => {
+					imgnyee = res[Math.floor(Math.random() * res.length)]
+					let buttons = [{
+						buttonId: `pinterest ${args.join(" ")}`,
+						buttonText: {
+							displayText: 'Next Image 👀'
+						},
+						type: 1
+					}]
+					let buttonMessage = {
+						image: {
+							url: imgnyee
+						},
+						caption: `${global.dogeemoji} Title : ` + args.join(" ") + `\n${global.dogeemoji} Media Url : ` + imgnyee,
+						footer: `${global.botname}`,
+						buttons: buttons,
+						headerType: 4,
+						contextInfo: {
+							externalAdReply: {
+								title: `${global.botname}`,
+								body: `${global.ownername}`,
+								thumbnail: log0,
+								mediaType: 2,
+								mediaUrl: `${global.websitex}`,
+								sourceUrl: `${global.websitex}`
+							}
+						}
+					}
+					RoseMwol.sendMessage(m.chat, buttonMessage, {
+						quoted: m
+					})
+				}).catch(_ => _)
+			} catch {
+				reply("Error")
+			}
+		}
+		break
+		case 'mediafire': {
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			if (!text) return reply(mess.linkm)
+			if (!isUrl(args[0]) && !args[0].includes('mediafire.com')) return reply(`The link you provided is invalid`)
+			const baby1 = await mediafireDl(text)
+			if (baby1[0].size.split('MB')[0] >= 999) return reply('*File Over Limit* ' + util.format(baby1))
+			const result4 = `*MEDIAFIRE DOWNLOADER*
+				
+*Name* : ${baby1[0].nama}
+*Size* : ${baby1[0].size}
+*Mime* : ${baby1[0].mime}
+*Link* : ${baby1[0].link}`
+			reply(`${result4}`)
+			RoseMwol.sendMessage(m.chat, {
+				document: {
+					url: baby1[0].link
+				},
+				fileName: baby1[0].nama,
+				mimetype: baby1[0].mime
+			}, {
+				quoted: m
+			}).catch((err) => reply(mess.error))
+		}
+		break
+		case 'umma':
+		case 'ummadl': {
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			if (!text) return reply(`Example : ${prefix + command} https://umma.id/channel/video/post/gus-arafat-sumber-kecewa-84464612933698`)
+			let {
+				umma
+			} = require('./lib/scraper')
+			let anu = await umma(isUrl(text)[0])
+			if (anu.type == 'video') {
+				let buttons = [{
+						buttonId: `ytmp3 ${anu.media[0]} 128kbps`,
+						buttonText: {
+							displayText: '🎵Audio🎵'
+						},
+						type: 1
+					},
+					{
+						buttonId: `ytmp4 ${anu.media[0]} 360p`,
+						buttonText: {
+							displayText: '📽️Video📽️'
+						},
+						type: 1
+					}
+				]
+				let buttonMessage = {
+					image: {
+						url: anu.author.profilePic
+					},
+					caption: `
+${themeemoji} Title : ${anu.title}
+${themeemoji} Author : ${anu.author.name}
+${themeemoji} Like : ${anu.like}
+${themeemoji} Caption : ${anu.caption}
+${themeemoji} Url : ${anu.media[0]}
+To Download Media, Please Click One Of The Buttons Below Or Enter The ytmp3/ytmp4 Command With The Url Above
+`,
+					footer: RoseMwol.user.name,
+					buttons,
+					headerType: 4
+				}
+				RoseMwol.sendMessage(m.chat, buttonMessage, {
+					quoted: m
+				})
+			} else if (anu.type == 'image') {
+				anu.media.map(async (url) => {
+					RoseMwol.sendMessage(m.chat, {
+						image: {
+							url
+						},
+						caption: `${themeemoji} Title : ${anu.title}\n${themeemoji} Author : ${anu.author.name}\n${themeemoji} Like : ${anu.like}\n${themeemoji} Caption : ${anu.caption}`
+					}, {
+						quoted: m
+					})
+				})
+			}
+		}
+		break
+		case 'ringtone': {
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			if (!text) return reply(`Where is the ringtone name noob?, Example : ${prefix + command} charlie puth`)
+			let {
+				ringtone
+			} = require('./lib/scraper')
+			let anu = await ringtone(text)
+			let result = anu[Math.floor(Math.random() * anu.length)]
+			RoseMwol.sendMessage(m.chat, {
+				audio: {
+					url: result.audio
+				},
+				fileName: result.title + '.mp3',
+				mimetype: 'audio/mpeg'
+			}, {
+				quoted: m
+			})
+		}
+		break
+		case 'tempo': {
+			if (isBan) return reply(mess.ban)
+			if (!args.join(" ")) return reply(`Example: ${prefix + command} 10`)
+			var req = args.join(' ')
+			media = await RoseMwol.downloadAndSaveMediaMessage(quoted, "tempo")
+			if (isQuotedAudio) {
+				ran = getRandom('.mp3')
+				exec(`ffmpeg -i ${media} -filter:a "atempo=1.0,asetrate=${req}" ${ran}`, (err, stderr, stdout) => {
+					fs.unlinkSync(media)
+					if (err) return reply('Error!')
+					hah = fs.readFileSync(ran)
+					RoseMwol.sendMessage(from, {
+						audio: hah,
+						mimetype: 'audio/mp4',
+						ptt: true
+					}, {
+						quoted: m
+					})
+					fs.unlinkSync(ran)
+				})
+			} else if (isQuotedVideo) {
+				ran = getRandom('.mp4')
+				exec(`ffmpeg -i ${media} -filter:a "atempo=1.0,asetrate=${req}" ${ran}`, (err, stderr, stdout) => {
+					fs.unlinkSync(media)
+					if (err) return reply('Error!')
+					hah = fs.readFileSync(ran)
+					RoseMwol.sendMessage(from, {
+						video: hah,
+						mimetype: 'video/mp4'
+					}, {
+						quoted: m
+					})
+					fs.unlinkSync(ran)
+				})
+			} else {
+				reply("Send video/audio")
+			}
+		}
+		break
+		case 'volume': {
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			if (!args.join(" ")) return reply(`Example: ${prefix + command} 10`)
+			media = await RoseMwol.downloadAndSaveMediaMessage(quoted, "volume")
+			if (isQuotedAudio) {
+				rname = getRandom('.mp3')
+				exec(`ffmpeg -i ${media} -filter:a volume=${args[0]} ${rname}`, (err, stderr, stdout) => {
+					fs.unlinkSync(media)
+					if (err) return reply('Error!')
+					jadie = fs.readFileSync(rname)
+					RoseMwol.sendMessage(from, {
+						audio: jadie,
+						mimetype: 'audio/mp4',
+						ptt: true
+					}, {
+						quoted: m
+					})
+					fs.unlinkSync(rname)
+				})
+			} else if (isQuotedVideo) {
+				rname = getRandom('.mp4')
+				exec(`ffmpeg -i ${media} -filter:a volume=${args[0]} ${rname}`, (err, stderr, stdout) => {
+					fs.unlinkSync(media)
+					if (err) return reply('Error!')
+					jadie = fs.readFileSync(rname)
+					RoseMwol.sendMessage(from, {
+						video: jadie,
+						mimetype: 'video/mp4'
+					}, {
+						quoted: m
+					})
+					fs.unlinkSync(rname)
+				})
+			} else {
+				reply("Send video/audio")
+			}
+		}
+		break
+		case 'mp3':
+		case 'tomp3':
+		case 'toaud':
+		case 'toaudio':
+			try {
+				let set
+				if(/mp3/.test(command)) set = '-vn -ar 44100 -ac 2 -b:a 192k'
+				if (/tomp3/.test(command)) set = '-vn -ar 44100 -ac 2 -b:a 192k'
+				if (/toaudio/.test(command)) set = '-vn -ar 44100 -ac 2 -b:a 192k'
+				if (/audio/.test(mime)){
+					replay(mess.wait)
+					let media = await RoseMwol.downloadAndSaveMediaMessage(quoted)
+					let ran = getRandom('.mp3')
+					exec(`ffmpeg -i ${media} ${set} ${ran}`, (err, stderr, stdout) => {
+						fs.unlinkSync(media)
+						if (err) return reply(err)
+						let buff = fs.readFileSync(ran)
+						RoseMwol.sendMessage(m.chat, {
+							audio: buff,
+							mimetype: 'audio/mpeg'
+						}, {
+							quoted: m
+						})
+						fs.unlinkSync(ran)
+					})
+				} else if (/video/.test(mime)) {
+					replay(mess.wait)
+					let media = await RoseMwol.downloadAndSaveMediaMessage(quoted)
+					let ran = getRandom('.mp3')
+					exec(`ffmpeg -i ${media} ${set} ${ran}`, (err, stderr, stdout) => {
+						fs.unlinkSync(media)
+						if (err) return reply(err)
+						let buff = fs.readFileSync(ran)
+						RoseMwol.sendMessage(m.chat, {
+							audio: buff,
+							mimetype: 'audio/mpeg'
+						}, {
+							quoted: m
+						})
+						fs.unlinkSync(ran)
+					})
+				} else reply(`Reply To The Audio You Want To Change With Caption *${prefix + command}*`)
+			} catch (e) {
+				reply(e)
+			}
+			break
+		case 'bass':
+			case 'blown':
+			case 'deep':
+			case 'earrape':
+			case 'fast':
+			case 'fat':
+			case 'nightcore':
+			case 'reverse':
+			case 'robot':
+			case 'slow':
+			case 'smooth':
+			case 'squirrel':
+			case 'supereq':
+			case 'integral':
+			case 'whisper':
+			case 'vib2':
+			case 'okbye':
+			case 'vibra':
+			case 'tupai':
+			case 'tovn':
+			case 'toptt':
+				try {
+					let set
+					if(/tovn/.test(command)) set = '-vn -c:a libopus -b:a 128k -vbr on -compression_level 10'
+					if (/toptt/.test(command)) set = '-vn -c:a libopus -b:a 128k -vbr on -compression_level 10'
+					if (/bass/.test(command)) set = '-af equalizer=f=54:width_type=o:width=2:g=20'
+					if (/blown/.test(command)) set = '-af acrusher=.1:1:64:0:log'
+					if (/deep/.test(command)) set = '-af atempo=4/4,asetrate=44500*2/3'
+					if (/earrape/.test(command)) set = '-af volume=12'
+					if (/tupai/.test(command)) set = '-filter:a "atempo=0.5,asetrate=65100"'
+					if (/vibra/.test(command)) set = '-filter_complex "vibrato=f=16"'
+					if (/okbye/.test(command)) set = '-filter_complex "acrusher=level_in=8:level_out=18:bits=8:mode=log:aa=1"'
+					if (/vib2/.test(command)) set = '-filter_complex "vibrato=f=4"'
+					if (/supereq/.test(command)) set = '-af "superequalizer=1b=10:2b=10:3b=1:4b=5:5b=7:6b=5:7b=2:8b=3:9b=4:10b=5:11b=6:12b=7:13b=8:14b=8:15b=9:16b=9:17b=10:18b=10[a];[a]loudnorm=I=-16:TP=-1.5:LRA=14" -ar 48k'
+					if (/integral/.test(command)) set = '-filter_complex "aintegral[a];[a]aeval=val(ch)/30:c=same"'
+					if (/whisper/.test(command)) set = '-filter_complex "afftfilt=real=\'hypot(re,im)*cos((random(0)*2-1)*2*3.14)\':imag=\'hypot(re,im)*sin((random(1)*2-1)*2*3.14)\':win_size=128:overlap=0.8"'
+					if (/fast/.test(command)) set = '-filter:a "atempo=1.63,asetrate=44100"'
+					if (/fat/.test(command)) set = '-filter:a "atempo=1.6,asetrate=22100"'
+					if (/nightcore/.test(command)) set = '-filter:a atempo=1.06,asetrate=44100*1.25'
+					if (/reverse/.test(command)) set = '-filter_complex "areverse"'
+					if (/robot/.test(command)) set = '-filter_complex "afftfilt=real=\'hypot(re,im)*sin(0)\':imag=\'hypot(re,im)*cos(0)\':win_size=512:overlap=0.75"'
+					if (/slow/.test(command)) set = '-filter:a "atempo=0.7,asetrate=44100"'
+					if (/smooth/.test(command)) set = '-filter:v "minterpolate=\'mi_mode=mci:mc_mode=aobmc:vsbmc=1:fps=120\'"'
+					if (/squirrel/.test(command)) set = '-filter:a "atempo=0.5,asetrate=65100"'
+					if (/audio/.test(mime)) {
+						replay(mess.wait)
+						let media = await RoseMwol.downloadAndSaveMediaMessage(quoted)
+						let ran = getRandom('.mp3')
+						exec(`ffmpeg -i ${media} ${set} ${ran}`, (err, stderr, stdout) => {
+							fs.unlinkSync(media)
+							if (err) return reply(err)
+							let buff = fs.readFileSync(ran)
+							RoseMwol.sendMessage(m.chat, {
+								audio: buff,
+								mimetype: 'audio/mpeg',
+								ptt: true
+							}, {
+								quoted: m
+							})
+							fs.unlinkSync(ran)
+						})
+					} else reply(`Reply To The Audio You Want To Change With Caption *${prefix + command}*`)
+				} catch (e) {
+					reply(e)
+				}
+				break
+		case 'setcmd': {
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			if (!m.quoted) return reply(`Reply Message!`)
+			if (!m.quoted.fileSha256) return reply(`SHA256 Hash Missing`)
+			if (!text) return reply(`For What Command?`)
+			let hash = m.quoted.fileSha256.toString('base64')
+			if (global.db.data.sticker[hash] && global.db.data.sticker[hash].locked) return reply(`You Have No Permission To Change This Sticker Command`)
+			global.db.data.sticker[hash] = {
+				text,
+				mentionedJid: m.mentionedJid,
+				creator: m.sender,
+				at: +new Date,
+				locked: false,
+			}
+			reply(`Done!`)
+		}
+		break
+		case 'delcmd': {
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			let hash = m.quoted.fileSha256.toString('base64')
+			if (!hash) return reply(`No Hashes`)
+			if (global.db.data.sticker[hash] && global.db.data.sticker[hash].locked) return reply(`You Have No Permission To Delete This Sticker Command`)
+			delete global.db.data.sticker[hash]
+			reply(`Done!`)
+		}
+		break
+		case 'listcmd': {
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			let teks = `
+*Hash List*
+Info: *bold* hash is Locked
+${Object.entries(global.db.data.sticker).map(([key, value], index) => `${index + 1}. ${value.locked ? `*${key}*` : key} : ${value.text}`).join('\n')}
+`.trim()
+			RoseMwol.sendText(m.chat, teks, m, {
+				mentions: Object.values(global.db.data.sticker).map(x => x.mentionedJid).reduce((a, b) => [...a, ...b], [])
+			})
+		}
+		break
+		case 'lockcmd': {
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			if (!isCreator) return replay(`${mess.owner}`)
+			if (!m.quoted) return reply(`Reply Message!`)
+			if (!m.quoted.fileSha256) return reply(`SHA256 Hash Missing`)
+			let hash = m.quoted.fileSha256.toString('base64')
+			if (!(hash in global.db.data.sticker)) return reply(`Hash Not Found In Database`)
+			global.db.data.sticker[hash].locked = !/^un/i.test(command)
+			reply('Done!')
+		}
+		break
+		case 'addmsg': {
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			if (!m.quoted) return reply(`Reply Message You Want To Save In Database`)
+			if (!text) return reply(`Example : ${prefix + command} File Name`)
+			let msgs = global.db.data.database
+			if (text.toLowerCase() in msgs) return reply(`'${text}' Has Been Registered In The Message List`)
+			msgs[text.toLowerCase()] = quoted.fakeObj
+			reply(`Successfully Added Message In Message List As '${text}'
+    
+Access With ${prefix}getmsg ${text}
+
+View List Of Messages With ${prefix}listmsg`)
+		}
+		break
+		case 'getmsg': {
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			if (!text) return reply(`Example : ${prefix + command} file name\n\nView Message List With ${prefix}listmsg`)
+			let msgs = global.db.data.database
+			if (!(text.toLowerCase() in msgs)) return reply(`'${text}' Not Listed In The Message List`)
+			RoseMwol.copyNForward(m.chat, msgs[text.toLowerCase()], true)
+		}
+		break
+		case 'listmsg': {
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			let msgs = JSON.parse(fs.readFileSync('./database/database.json'))
+			let seplit = Object.entries(global.db.data.database).map(([nama, isi]) => {
+				return {
+					nama,
+					...isi
+				}
+			})
+			let teks = '「 DATABASE LIST 」\n\n'
+			for (let i of seplit) {
+				teks += `${themeemoji} *Name :* ${i.nama}\n${themeemoji} *Type :* ${getContentType(i.message).replace(/Message/i, '')}\n────────────────────────\n\n`
+			}
+			reply(teks)
+		}
+		break
+		case 'delmsg':
+		case 'deletemsg': {
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			let msgs = global.db.data.database
+			if (!(text.toLowerCase() in msgs)) return reply(`'${text}' Not Listed In The Message List`)
+			delete msgs[text.toLowerCase()]
+			reply(`Delete Successfully '${text}' From The Message list`)
+		}
+		break
 		case 'anonymous': {
 			if (isBan) return reply(mess.ban)
 			if (isBanChat) return reply(mess.banChat)
-			if (m.isGroup) return reply(mess.private)
+			if (m.isGroup) return reply('Features Cannot Be Used For Groups!')
 			this.anonymous = this.anonymous ? this.anonymous : {}
 			let buttons = [{
 				buttonId: 'Start',
 				buttonText: {
-					displayText: 'Start 🚶'
+					displayText: '🚶Start🚶'
 				},
 				type: 1
 			}]
@@ -12259,14 +12068,14 @@ ${themeemoji} Url : ${result.link}
 		case 'leave': {
 			if (isBan) return reply(mess.ban)
 			if (isBanChat) return reply(mess.banChat)
-			if (m.isGroup) return reply('Feature Cannot Be Used In Groups!')
+			if (m.isGroup) return reply('Features Cannot Be Used For Groups!')
 			this.anonymous = this.anonymous ? this.anonymous : {}
 			let room = Object.values(this.anonymous).find(room => room.check(m.sender))
 			if (!room) {
 				let buttons = [{
 					buttonId: 'start',
 					buttonText: {
-						displayText: 'Start 🚶'
+						displayText: '🚶Start🚶'
 					},
 					type: 1
 				}]
@@ -12283,13 +12092,13 @@ ${themeemoji} Url : ${result.link}
 		case 'start': {
 			if (isBan) return reply(mess.ban)
 			if (isBanChat) return reply(mess.banChat)
-			if (m.isGroup) return reply('Feature Cannot Be Used In Groups!')
+			if (m.isGroup) return reply('Features Cannot Be Used For Groups!')
 			this.anonymous = this.anonymous ? this.anonymous : {}
 			if (Object.values(this.anonymous).find(room => room.check(m.sender))) {
 				let buttons = [{
-					buttonId: 'leave',
+					buttonId: 'keluar',
 					buttonText: {
-						displayText: 'Stop 🛑'
+						displayText: '🛑Stop🛑'
 					},
 					type: 1
 				}]
@@ -12301,14 +12110,14 @@ ${themeemoji} Url : ${result.link}
 				let buttons = [{
 						buttonId: 'next',
 						buttonText: {
-							displayText: ' Skip ⏩'
+							displayText: '⏩Skip⏩'
 						},
 						type: 1
 					},
 					{
-						buttonId: 'leave',
+						buttonId: 'keluar',
 						buttonText: {
-							displayText: 'Stop 🛑'
+							displayText: '🛑Stop🛑'
 						},
 						type: 1
 					}
@@ -12332,9 +12141,9 @@ ${themeemoji} Url : ${result.link}
 					},
 				}
 				let buttons = [{
-					buttonId: 'leave',
+					buttonId: 'keluar',
 					buttonText: {
-						displayText: 'Stop 🛑'
+						displayText: '🛑Stop🛑'
 					},
 					type: 1
 				}]
@@ -12346,7 +12155,7 @@ ${themeemoji} Url : ${result.link}
 		case 'lanjut': {
 			if (isBan) return reply(mess.ban)
 			if (isBanChat) return reply(mess.banChat)
-			if (m.isGroup) return reply('Feature Cannot Be Used In Groups!')
+			if (m.isGroup) return reply('Features Cannot Be Used For Groups!')
 			this.anonymous = this.anonymous ? this.anonymous : {}
 			let romeo = Object.values(this.anonymous).find(room => room.check(m.sender))
 			if (!romeo) {
@@ -12368,14 +12177,14 @@ ${themeemoji} Url : ${result.link}
 				let buttons = [{
 						buttonId: 'next',
 						buttonText: {
-							displayText: 'Skip ⏩'
+							displayText: '⏩Skip⏩'
 						},
 						type: 1
 					},
 					{
-						buttonId: 'leave',
+						buttonId: 'keluar',
 						buttonText: {
-							displayText: 'Stop 🛑'
+							displayText: '🛑Stop🛑'
 						},
 						type: 1
 					}
@@ -12399,706 +12208,115 @@ ${themeemoji} Url : ${result.link}
 					},
 				}
 				let buttons = [{
-					buttonId: 'leave',
+					buttonId: 'keluar',
 					buttonText: {
-						displayText: 'Stop 🛑'
+						displayText: '🛑Stop🛑'
 					},
 					type: 1
 				}]
 				await RoseMwol.sendButtonText(m.chat, buttons, `\`\`\`Please Wait, Looking For A Partner\`\`\``, RoseMwol.user.name, m)
 			}
-		}
-		break
-		case 'leavegc':
-		case 'leavegroup': {
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			reply(mess.wait)
-			if (!isCreator) return replay(`${mess.owner}`)
-			await RoseMwol.groupLeave(m.chat).then((res) => reply(jsonformat(res))).catch((err) => reply(jsonformat(err)))
-		}
-		break
-		case 'sound1':
-		case 'sound2':
-		case 'sound3':
-		case 'sound4':
-		case 'sound5':
-		case 'sound6':
-		case 'sound7':
-		case 'sound8':
-		case 'sound9':
-		case 'sound10':
-		case 'sound11':
-		case 'sound12':
-		case 'sound13':
-		case 'sound14':
-		case 'sound15':
-		case 'sound16':
-		case 'sound17':
-		case 'sound18':
-		case 'sound19':
-		case 'sound20':
-		case 'sound21':
-		case 'sound22':
-		case 'sound23':
-		case 'sound24':
-		case 'sound25':
-		case 'sound26':
-		case 'sound27':
-		case 'sound28':
-		case 'sound29':
-		case 'sound30':
-		case 'sound31':
-		case 'sound32':
-		case 'sound33':
-		case 'sound34':
-		case 'sound35':
-		case 'sound36':
-		case 'sound37':
-		case 'sound38':
-		case 'sound39':
-		case 'sound40':
-		case 'sound41':
-		case 'sound42':
-		case 'sound43':
-		case 'sound44':
-		case 'sound45':
-		case 'sound46':
-		case 'sound47':
-		case 'sound48':
-		case 'sound49':
-		case 'sound50':
-		case 'sound51':
-		case 'sound52':
-		case 'sound53':
-		case 'sound54':
-		case 'sound55':
-		case 'sound56':
-		case 'sound57':
-		case 'sound58':
-		case 'sound59':
-		case 'sound60':
-		case 'sound61':
-		case 'sound62':
-		case 'sound63':
-		case 'sound64':
-		case 'sound65':
-		case 'sound66':
-		case 'sound67':
-		case 'sound68':
-		case 'sound69':
-		case 'sound70':
-		case 'sound71':
-		case 'sound72':
-		case 'sound73':
-		case 'sound74':
-		case 'sound75':
-		case 'sound76':
-		case 'sound77':
-		case 'sound78':
-		case 'sound79':
-		case 'sound80':
-		case 'sound81':
-		case 'sound82':
-		case 'sound83':
-		case 'sound84':
-		case 'sound85':
-		case 'sound86':
-		case 'sound87':
-		case 'sound88':
-		case 'sound89':
-		case 'sound90':
-		case 'sound91':
-		case 'sound92':
-		case 'sound93':
-		case 'sound94':
-		case 'sound95':
-		case 'sound96':
-		case 'sound97':
-		case 'sound98':
-		case 'sound99':
-		case 'sound100':
-		case 'sound101':
-		case 'sound102':
-		case 'sound103':
-		case 'sound104':
-		case 'sound105':
-		case 'sound106':
-		case 'sound107':
-		case 'sound108':
-		case 'sound109':
-		case 'sound110':
-		case 'sound111':
-		case 'sound112':
-		case 'sound113':
-		case 'sound114':
-		case 'sound115':
-		case 'sound116':
-		case 'sound117':
-		case 'sound118':
-		case 'sound119':
-		case 'sound120':
-		case 'sound121':
-		case 'sound122':
-		case 'sound123':
-		case 'sound124':
-		case 'sound125':
-		case 'sound126':
-		case 'sound127':
-		case 'sound128':
-		case 'sound129':
-		case 'sound130':
-		case 'sound131':
-		case 'sound132':
-		case 'sound133':
-		case 'sound134':
-		case 'sound135':
-		case 'sound136':
-		case 'sound137':
-		case 'sound138':
-		case 'sound139':
-		case 'sound140':
-		case 'sound141':
-		case 'sound142':
-		case 'sound143':
-		case 'sound144':
-		case 'sound145':
-		case 'sound146':
-		case 'sound147':
-		case 'sound148':
-		case 'sound149':
-		case 'sound150':
-		case 'sound151':
-		case 'sound152':
-		case 'sound153':
-		case 'sound154':
-		case 'sound155':
-		case 'sound156':
-		case 'sound157':
-		case 'sound158':
-		case 'sound159':
-		case 'sound160':
-		case 'sound161':
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			buffer = await getBuffer(`https://github.com/Sachu-Settan/Media/raw/master/sounds/${command}.mp3`)
-			await RoseMwol.sendMessage(m.chat, {
-				audio: buffer,
-				mimetype: 'audio/mp4',
-				ptt: true
-			}, {
-				quoted: m
-			})
 			break
-		case "efx1":
-		case "efx10":
-		case "efx100":
-		case "efx101":
-		case "efx102":
-		case "efx103":
-		case "efx104":
-		case "efx105":
-		case "efx106":
-		case "efx107":
-		case "efx108":
-		case "efx109":
-		case "efx11":
-		case "efx110":
-		case "efx111":
-		case "efx112":
-		case "efx113":
-		case "efx114":
-		case "efx115":
-		case "efx116":
-		case "efx117":
-		case "efx118":
-		case "efx119":
-		case "efx12":
-		case "efx120":
-		case "efx121":
-		case "efx122":
-		case "efx123":
-		case "efx124":
-		case "efx125":
-		case "efx126":
-		case "efx127":
-		case "efx128":
-		case "efx129":
-		case "efx13":
-		case "efx130":
-		case "efx131":
-		case "efx132":
-		case "efx133":
-		case "efx134":
-		case "efx135":
-		case "efx136":
-		case "efx137":
-		case "efx138":
-		case "efx139":
-		case "efx14":
-		case "efx140":
-		case "efx141":
-		case "efx142":
-		case "efx143":
-		case "efx144":
-		case "efx145":
-		case "efx146":
-		case "efx147":
-		case "efx148":
-		case "efx149":
-		case "efx15":
-		case "efx150":
-		case "efx151":
-		case "efx152":
-		case "efx154":
-		case "efx155":
-		case "efx156":
-		case "efx157":
-		case "efx158":
-		case "efx159":
-		case "efx16":
-		case "efx160":
-		case "efx161":
-		case "efx162":
-		case "efx163":
-		case "efx164":
-		case "efx165":
-		case "efx166":
-		case "efx167":
-		case "efx168":
-		case "efx169":
-		case "efx17":
-		case "efx170":
-		case "efx171":
-		case "efx172":
-		case "efx173":
-		case "efx174":
-		case "efx175":
-		case "efx176":
-		case "efx177":
-		case "efx178":
-		case "efx179":
-		case "efx18":
-		case "efx180":
-		case "efx181":
-		case "efx182":
-		case "efx183":
-		case "efx184":
-		case "efx185":
-		case "efx186":
-		case "efx187":
-		case "efx188":
-		case "efx189":
-		case "efx19":
-		case "efx190":
-		case "efx191":
-		case "efx192":
-		case "efx193":
-		case "efx194":
-		case "efx195":
-		case "efx196":
-		case "efx197":
-		case "efx198":
-		case "efx199":
-		case "efx2":
-		case "efx20":
-		case "efx200":
-		case "efx201":
-		case "efx202":
-		case "efx203":
-		case "efx204":
-		case "efx205":
-		case "efx206":
-		case "efx207":
-		case "efx208":
-		case "efx209":
-		case "efx21":
-		case "efx210":
-		case "efx211":
-		case "efx212":
-		case "efx213":
-		case "efx214":
-		case "efx215":
-		case "efx216":
-		case "efx217":
-		case "efx218":
-		case "efx219":
-		case "efx22":
-		case "efx220":
-		case "efx221":
-		case "efx222":
-		case "efx223":
-		case "efx224":
-		case "efx225":
-		case "efx226":
-		case "efx227":
-		case "efx228":
-		case "efx229":
-		case "efx23":
-		case "efx230":
-		case "efx231":
-		case "efx232":
-		case "efx233":
-		case "efx234":
-		case "efx235":
-		case "efx236":
-		case "efx237":
-		case "efx238":
-		case "efx239":
-		case "efx24":
-		case "efx240":
-		case "efx241":
-		case "efx242":
-		case "efx243":
-		case "efx244":
-		case "efx245":
-		case "efx246":
-		case "efx247":
-		case "efx248":
-		case "efx249":
-		case "efx25":
-		case "efx250":
-		case "efx251":
-		case "efx252":
-		case "efx253":
-		case "efx254":
-		case "efx255":
-		case "efx256":
-		case "efx257":
-		case "efx258":
-		case "efx259":
-		case "efx26":
-		case "efx260":
-		case "efx261":
-		case "efx262":
-		case "efx263":
-		case "efx264":
-		case "efx265":
-		case "efx266":
-		case "efx267":
-		case "efx268":
-		case "efx269":
-		case "efx27":
-		case "efx270":
-		case "efx271":
-		case "efx272":
-		case "efx273":
-		case "efx274":
-		case "efx275":
-		case "efx276":
-		case "efx277":
-		case "efx278":
-		case "efx279":
-		case "efx28":
-		case "efx280":
-		case "efx281":
-		case "efx282":
-		case "efx283":
-		case "efx284":
-		case "efx285":
-		case "efx286":
-		case "efx287":
-		case "efx288":
-		case "efx289":
-		case "efx29":
-		case "efx290":
-		case "efx291":
-		case "efx292":
-		case "efx293":
-		case "efx294":
-		case "efx295":
-		case "efx296":
-		case "efx297":
-		case "efx298":
-		case "efx299":
-		case "efx3":
-		case "efx30":
-		case "efx300":
-		case "efx301":
-		case "efx302":
-		case "efx303":
-		case "efx304":
-		case "efx305":
-		case "efx306":
-		case "efx307":
-		case "efx308":
-		case "efx309":
-		case "efx31":
-		case "efx310":
-		case "efx311":
-		case "efx312":
-		case "efx313":
-		case "efx314":
-		case "efx316":
-		case "efx317":
-		case "efx318":
-		case "efx319":
-		case "efx32":
-		case "efx320":
-		case "efx321":
-		case "efx322":
-		case "efx323":
-		case "efx324":
-		case "efx325":
-		case "efx326":
-		case "efx327":
-		case "efx328":
-		case "efx329":
-		case "efx33":
-		case "efx330":
-		case "efx331":
-		case "efx332":
-		case "efx333":
-		case "efx334":
-		case "efx335":
-		case "efx336":
-		case "efx337":
-		case "efx338":
-		case "efx339":
-		case "efx34":
-		case "efx340":
-		case "efx341":
-		case "efx342":
-		case "efx343":
-		case "efx344":
-		case "efx345":
-		case "efx346":
-		case "efx347":
-		case "efx348":
-		case "efx349":
-		case "efx35":
-		case "efx350":
-		case "efx351":
-		case "efx352":
-		case "efx353":
-		case "efx354":
-		case "efx355":
-		case "efx356":
-		case "efx357":
-		case "efx358":
-		case "efx359":
-		case "efx36":
-		case "efx360":
-		case "efx361":
-		case "efx362":
-		case "efx363":
-		case "efx364":
-		case "efx365":
-		case "efx366":
-		case "efx367":
-		case "efx368":
-		case "efx369":
-		case "efx37":
-		case "efx370":
-		case "efx371":
-		case "efx372":
-		case "efx373":
-		case "efx374":
-		case "efx375":
-		case "efx376":
-		case "efx377":
-		case "efx378":
-		case "efx379":
-		case "efx38":
-		case "efx380":
-		case "efx381":
-		case "efx382":
-		case "efx383":
-		case "efx384":
-		case "efx385":
-		case "efx386":
-		case "efx387":
-		case "efx388":
-		case "efx389":
-		case "efx39":
-		case "efx390":
-		case "efx391":
-		case "efx392":
-		case "efx393":
-		case "efx394":
-		case "efx395":
-		case "efx396":
-		case "efx397":
-		case "efx398":
-		case "efx399":
-		case "efx4":
-		case "efx40":
-		case "efx400":
-		case "efx401":
-		case "efx402":
-		case "efx404":
-		case "efx405":
-		case "efx406":
-		case "efx407":
-		case "efx408":
-		case "efx409":
-		case "efx41":
-		case "efx410":
-		case "efx411":
-		case "efx412":
-		case "efx413":
-		case "efx414":
-		case "efx415":
-		case "efx416":
-		case "efx417":
-		case "efx42":
-		case "efx43":
-		case "efx44":
-		case "efx45":
-		case "efx46":
-		case "efx47":
-		case "efx48":
-		case "efx49":
-		case "efx5":
-		case "efx50":
-		case "efx51":
-		case "efx52":
-		case "efx53":
-		case "efx54":
-		case "efx55":
-		case "efx56":
-		case "efx57":
-		case "efx58":
-		case "efx59":
-		case "efx6":
-		case "efx60":
-		case "efx61":
-		case "efx62":
-		case "efx63":
-		case "efx64":
-		case "efx65":
-		case "efx66":
-		case "efx67":
-		case "efx68":
-		case "efx69":
-		case "efx7":
-		case "efx70":
-		case "efx71":
-		case "efx72":
-		case "efx73":
-		case "efx74":
-		case "efx75":
-		case "efx76":
-		case "efx77":
-		case "efx78":
-		case "efx79":
-		case "efx8":
-		case "efx80":
-		case "efx81":
-		case "efx82":
-		case "efx83":
-		case "efx84":
-		case "efx85":
-		case "efx86":
-		case "efx87":
-		case "efx88":
-		case "efx89":
-		case "efx9":
-		case "efx90":
-		case "efx91":
-		case "efx92":
-		case "efx93":
-		case "efx94":
-		case "efx95":
-		case "efx96":
-		case "efx97":
-		case "efx98":
-		case "efx99": {
-			result = await getBuffer(`https://raw.githubusercontent.com/Sachu-Settan/Media/main/efx/${encodeURIComponent(command)}.mp3`)
-			await RoseMwol.sendMessage(m.chat, {
-				audio: result,
-				mimetype: 'audio/mp4',
-				ptt: true
-			}, {
-				quoted: m
+		}
+		case 'public': {
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			if (!isCreator) return replay(`${mess.owner}`)
+			RoseMwol.public = true
+			reply('Successful Change To Public Usage')
+		}
+		break
+		case 'self': {
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			if (!isCreator) return replay(`${mess.owner}`)
+			RoseMwol.public = false
+			reply('Successful Change To Self Usage')
+		}
+		break
+		case 'setstatuts':
+		case 'setbio':
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			if (!q) return reply('Send orders *#setbio text*')
+			RoseMwol.setStatus(`${q}`)
+			reply(mess.success)
+			break
+		case 'antitag': {
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			if (!isCreator) return
+			if (args.length < 1) return replay(`Type on to enable\nType off to disable`)
+			if (args[0] === 'on') {
+				if (antitags === true) return
+				global.antitags = true
+				replay(`Successfully activated antitag!`)
+			} else if (args[0] === 'off') {
+				if (antitags === false) return
+				global.antitags = false
+				replay(`Successfully deactivated antitag!`)
+			} else {
+				replay('Choose on or off')
+			}
+		}
+		break
+		case 'ping':
+		case 'p':
+		case 'botstatus':
+		case 'statusbot': {
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			const used = process.memoryUsage()
+			const cpus = os.cpus().map(cpu => {
+				cpu.total = Object.keys(cpu.times).reduce((last, type) => last + cpu.times[type], 0)
+				return cpu
 			})
+			const cpu = cpus.reduce((last, cpu, _, {
+				length
+			}) => {
+				last.total += cpu.total
+				last.speed += cpu.speed / length
+				last.times.user += cpu.times.user
+				last.times.nice += cpu.times.nice
+				last.times.sys += cpu.times.sys
+				last.times.idle += cpu.times.idle
+				last.times.irq += cpu.times.irq
+				return last
+			}, {
+				speed: 0,
+				total: 0,
+				times: {
+					user: 0,
+					nice: 0,
+					sys: 0,
+					idle: 0,
+					irq: 0
+				}
+			})
+			let timestamp = speed()
+			let latensi = speed() - timestamp
+			neww = performance.now()
+			oldd = performance.now()
+			respon = `
+Response Speed ${latensi.toFixed(4)} _Second_ \n ${oldd - neww} _miliseconds_\n\nRuntime : ${runtime(process.uptime())}
+
+💻 Info Server
+RAM: ${formatp(os.totalmem() - os.freemem())} / ${formatp(os.totalmem())}
+
+_NodeJS Memory Usaage_
+${Object.keys(used).map((key, _, arr) => `${key.padEnd(Math.max(...arr.map(v=>v.length)),' ')}: ${formatp(used[key])}`).join('\n')}
+
+${cpus[0] ? `_Total CPU Usage_
+${cpus[0].model.trim()} (${cpu.speed} MHZ)\n${Object.keys(cpu.times).map(type => `- *${(type + '*').padEnd(6)}: ${(100 * cpu.times[type] / cpu.total).toFixed(2)}%`).join('\n')}
+_CPU Core(s) Usage (${cpus.length} Core CPU)_
+${cpus.map((cpu, i) => `${i + 1}. ${cpu.model.trim()} (${cpu.speed} MHZ)\n${Object.keys(cpu.times).map(type => `- *${(type + '*').padEnd(6)}: ${(100 * cpu.times[type] / cpu.total).toFixed(2)}%`).join('\n')}`).join('\n\n')}` : ''}
+                `.trim()
+			reply(respon)
 		}
 		break
-		case 'bcgc':
-		case 'bcgroup': {
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			if (!isCreator) return replay(mess.owner)
-			if (!args.join(" ")) return replay(`Where is the text?\n\nExample : ${prefix + command} ${global.ownername}`)
-			let getGroups = await RoseMwol.groupFetchAllParticipating()
-			let groups = Object.entries(getGroups).slice(0).map(entry => entry[1])
-			let anu = groups.map(v => v.id)
-			replay(`Send broadcast to ${anu.length} group chat, time's up ${anu.length * 1.5} second`)
-			for (let i of anu) {
-				await sleep(1500)
-				let btn = [{
-					urlButton: {
-						displayText: 'Bot Web 🍓',
-						url: `${global.websitex}`
-					}
-				}, {
-					urlButton: {
-						displayText: 'Script 🍜',
-						url: `${global.botscript}`
-					}
-				}, {
-					quickReplyButton: {
-						displayText: 'Bot Status 🚀',
-						id: 'ping'
-					}
-				}, {
-					quickReplyButton: {
-						displayText: 'Menu 🐰',
-						id: 'menu'
-					}
-				}, {
-					quickReplyButton: {
-						displayText: 'Owner 😈',
-						id: 'owner'
-					}
-				}]
-				let txt = `*「 ${global.ownername} Broadcast」*\n\n${text}`
-				RoseMwol.send5ButImg(i, txt, `${global.botname}`, log0, btn, thum)
-			}
-			replay(`Successfully Sent Broadcast To ${anu.length} Group`)
-		}
-		break
-		case 'bc':
-		case 'broadcast':
-		case 'bcall': {
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			if (!isCreator) return replay(mess.owner)
-			if (!args.join(" ")) return replay(`Where is the text??\n\nExample : ${prefix + command} ${global.ownername}`)
-			let anu = await store.chats.all().map(v => v.id)
-			replay(`Send Broadcast To ${anu.length} Chat\nTime's up ${anu.length * 1.5} second`)
-			for (let yoi of anu) {
-				await sleep(1500)
-				let btn = [{
-					urlButton: {
-						displayText: 'Bot Web 🍓',
-						url: `${global.websitex}`
-					}
-				}, {
-					urlButton: {
-						displayText: 'Script 🍜',
-						url: `${global.botscript}`
-					}
-				}, {
-					quickReplyButton: {
-						displayText: 'Bot Status 🚀',
-						id: 'ping'
-					}
-				}, {
-					quickReplyButton: {
-						displayText: 'Menu 🐰',
-						id: 'menu'
-					}
-				}, {
-					quickReplyButton: {
-						displayText: 'Owner 😈',
-						id: 'owner'
-					}
-				}]
-				let txt = `*「 ${global.ownername}'s Broadcast」*\n\n${text}`
-				RoseMwol.send5ButImg(yoi, txt, `${global.botname}`, log0, btn, thum)
-			}
-			replay('Broadcast Success')
+		case 'owner':
+		case 'creator': {
+			RoseMwol.sendContact(m.chat, global.vcardowner, m)
 		}
 		break
 		case 'setmenu': {
@@ -13113,18 +12331,18 @@ ${themeemoji} Url : ${result.link}
 				setbot.templateMsg = false
 				setbot.templateDocument = false
 				reply(mess.success)
+			} else if (args[0] === 'templateVideo') {
+				setbot.templateImage = false
+				setbot.templateVideo = true
+				setbot.templateGif = false
+				setbot.templateMsg = false
+				setbot.templateLocation = false
+				reply(mess.success)
 			} else if (args[0] === 'templateGif') {
 				setbot.templateImage = false
 				setbot.templateVideo = false
 				setbot.templateGif = true
 				setbot.templateMsg = false
-				setbot.templateDocument = false
-				reply(mess.success)
-			} else if (args[0] === 'templateMessage') {
-				setbot.templateImage = false
-				setbot.templateVideo = false
-				setbot.templateGif = false
-				setbot.templateMsg = true
 				setbot.templateDocument = false
 				reply(mess.success)
 			} else if (args[0] === 'templateDocument') {
@@ -13148,9 +12366,9 @@ ${themeemoji} Url : ${result.link}
 							description: `Tap to change bot menu to Gif Menu`
 						},
 						{
-							title: "Text Menu",
-							rowId: `setmenu templateMessage`,
-							description: `Tap to change bot menu to Text Menu`
+							title: "Video Menu",
+							rowId: `setmenu templateVideo`,
+							description: `Tap to change bot menu to Video Menu`
 						},
 						{
 							title: "Document Menu",
@@ -13160,6 +12378,175 @@ ${themeemoji} Url : ${result.link}
 					]
 				}, ]
 				RoseMwol.sendListMsg(m.chat, `Please select the menu you want to change!`, ` `, RoseMwol.user.name, `Click Here`, sections, m)
+			}
+		}
+		break
+		case 'request': {
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			if (!args.join(" ")) return replay(`Example : ${prefix + command} hello dev please add a downloader feature`)
+			teks = `*| REQUEST |*`
+			teks1 = `\n\nNumber : @${m.sender.split("@")[0]}\nRequest : ${args.join(" ")}`
+			teks2 = `\n\nSuccessfully sent to owner`
+			for (let i of owner) {
+				RoseMwol.sendMessage(i + "@s.whatsapp.net", {
+					text: teks + teks1,
+					mentions: [m.sender]
+				}, {
+					quoted: m
+				})
+			}
+			RoseMwol.sendMessage(m.chat, {
+				text: teks + teks2 + teks1,
+				mentions: [m.sender]
+			}, {
+				quoted: m
+			})
+		}
+		break
+		case 'bug':
+		case 'report': {
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			if (!text) return reply(`Enter The Bug\n\nExample: ${command} Menu Error`)
+			RoseMwol.sendMessage(`${owner}@s.whatsapp.net`, {
+				text: `*Bug Report From:* wa.me/${m.sender.split("@")[0]}
+Report Message: ${text}`
+			})
+			reply(`Successfully Reported To The Owner\n\nPlease Make Sure The Bug Is Valid, If You Play With This, Use This Feature Again And Again For No Reason, You Will Be Blocked For Sure !`)
+		}
+		break
+		case 'sc':
+		case 'script':
+		case 'donate':
+		case 'donate':
+		case 'cekupdate':
+		case 'updatebot':
+		case 'cekbot':
+		case 'sourcecode': {
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			teks = `*「 ${global.botname} Script 」*\n\nYouTube: ${global.websitex}\nGitHub: ${global.botscript}\n\nDont forget to donate 🍜`
+			let buttons = [{
+				buttonId: `menu`,
+				buttonText: {
+					displayText: 'Menu 🌺'
+				},
+				type: 1
+			}]
+			let buttonMessage = {
+				image: thum,
+				jpegThumbnail: log0,
+				caption: teks,
+				footer: `${botname}`,
+				buttons: buttons,
+				headerType: 4,
+				contextInfo: {
+					externalAdReply: {
+						title: "I deserve something for my hardwork",
+						body: "Click to donate",
+						thumbnail: fs.readFileSync("Media/theme/cheemspic.jpg"),
+						mediaType: 1,
+						mediaUrl: 'https://telegra.ph/file/8737b098fd5702daeb7e0.jpg',
+						sourceUrl: "https://telegra.ph/file/8737b098fd5702daeb7e0.jpg"
+					}
+				}
+			}
+			RoseMwol.sendMessage(m.chat, buttonMessage, {
+				quoted: m
+			})
+		}
+		break
+		case 'alive':
+		case 'panel':
+		case 'list':
+		case 'menu':
+		case 'help':
+		case '?': {
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			RoseMwol.sendMessage(from, {
+				react: {
+					text: `${global.reactmoji}`,
+					key: m.key
+				}
+			})
+			let btn = [{
+				urlButton: {
+					displayText: 'Bot Web 🍒',
+					url: `${websitex}`
+				}
+			}, {
+				callButton: {
+					displayText: 'Script 🍜',
+					url: `${botscript}`
+				}
+			}, {
+				quickReplyButton: {
+					displayText: 'All Menu 🍱',
+					id: 'allmenu'
+				}
+			}, {
+				quickReplyButton: {
+					displayText: 'List Menu 🍢',
+					id: 'command'
+				}
+			}, {
+				quickReplyButton: {
+					displayText: 'Owner 🤣',
+					id: 'owner'
+				}
+			}]
+			let setbot = db.data.settings[botNumber]
+			if (setbot.templateImage) {
+				RoseMwol.send5ButImg(m.chat, menulist, global.botname, global.thumb, btn, global.thumb)
+			} else if (setbot.templateGif) {
+				RoseMwol.send5ButGif(m.chat, menulist, global.botname, global.vidmenu, btn, global.thumb)
+			} else if (setbot.templateVid) {
+				RoseMwol.send5ButVid(m.chat, anu, global.botname, global.vidmenu, btn, global.thumb)
+			} else if (setbot.templateVideo) {
+				RoseMwol.send5ButVid(m.chat, menulist, global.botname, global.vidmenu, btn, global.thumb)
+			} else if (setbot.templateDocument) {
+				let buttonmenu = [{
+						urlButton: {
+							displayText: `Bot Web 🍒`,
+							url: `${websitex}`
+						}
+					},
+					{
+						urlButton: {
+							displayText: `Script 🍜`,
+							url: `${botscript}`
+						}
+					},
+					{
+						quickReplyButton: {
+							displayText: `All Menu 🍱`,
+							id: 'allmenu'
+						}
+					},
+					{
+						quickReplyButton: {
+							displayText: `List Menu 🍢`,
+							id: 'command'
+						}
+					},
+					{
+						quickReplyButton: {
+							displayText: `Owner 🤣`,
+							id: 'owner'
+						}
+					}
+				]
+				RoseMwol.sendMessage(m.chat, {
+					caption: menulist,
+					document: fs.readFileSync('./Media/theme/cheems.xlsx'),
+					mimetype: `${docs}`,
+					fileName: `${ownername}`,
+					templateButtons: buttonmenu,
+					footer: `${botname}`,
+					mentionedJid: [m.sender]
+				})
 			}
 		}
 		break
@@ -13199,11 +12586,6 @@ ${themeemoji} Url : ${result.link}
 									"rowId": `${prefix}groupmenu`
 								},
 								{
-									"title": "Rpg Menu 🏞️",
-									"description": "Displays The List Of Rpg Features",
-									"rowId": `${prefix}rpgmenu`
-								},
-								{
 									"title": "Maker Menu 🌈",
 									"description": "Displays The List Of Logo Making Features",
 									"rowId": `${prefix}indomenu`
@@ -13212,11 +12594,6 @@ ${themeemoji} Url : ${result.link}
 									"title": "Sound Menu 🎵",
 									"description": "Displays The List Of Sound Features",
 									"rowId": `${prefix}soundmenu`
-								},
-								{
-									"title": "EFX/BGM Menu 🎵",
-									"description": "Displays The List Of EFX/BGM Features",
-									"rowId": `${prefix}efxmenu`
 								},
 								{
 									"title": "Download Menu ↘️",
@@ -13234,6 +12611,11 @@ ${themeemoji} Url : ${result.link}
 									"rowId": `${prefix}searchmenu`
 								},
 								{
+									"title": "EFX/BGM Menu 🎵",
+									"description": "Displays The List Of EFX/BGM Features",
+									"rowId": `${prefix}efxmenu`
+								},
+								{
 									"title": "Tool Menu ⚙️",
 									"description": "Displays The List Of Tool Features",
 									"rowId": `${prefix}toolmenu`
@@ -13244,9 +12626,19 @@ ${themeemoji} Url : ${result.link}
 									"rowId": `${prefix}randomimagemenu`
 								},
 								{
+									"title": "Image Effect Menu 🖼️",
+									"description": "Displays The List Of Image Effect Features",
+									"rowId": `${prefix}imageeffectmenu`
+								},
+								{
 									"title": "Anime Menu 😘",
 									"description": "Displays The List Of Random Anime Features",
 									"rowId": `${prefix}animemenu`
+								},
+								{
+									"title": "Emote Menu 😀",
+									"description": "Displays The List Of Emote Features",
+									"rowId": `${prefix}emotemenu`
 								},
 								{
 									"title": "Anime Sticker Menu ☺️",
@@ -13318,11 +12710,11 @@ ${themeemoji} Url : ${result.link}
 		case 'allmenu':
 			if (isBan) return reply(mess.ban)
 			if (isBanChat) return reply(mess.banChat)
-			var unicorn = await getBuffer(picak + 'All Menu')
 			let Allmenuu = lang.AllMenu(prefix)
+			var unicorn = await getBuffer(picak + 'All Menu')
 			await RoseMwol.send5ButImg(from, `${Allmenuu}` + '' + ' ', `${botname}`, unicorn, [{
 				"urlButton": {
-					"displayText": "💝 Bot Web ⚠",
+					"displayText": "🌏 Bot Web 🌏",
 					"url": `${websitex}`
 				}
 			}, {
@@ -13348,7 +12740,7 @@ ${themeemoji} Url : ${result.link}
 			var unicorn = await getBuffer(picak + 'Owner Menu')
 			await RoseMwol.send5ButImg(from, `${lang.OwnerMenu(pushname, prefix)}` + '' + ' ', `${botname}`, unicorn, [{
 				"urlButton": {
-					"displayText": "💝 Bot Web ⚠",
+					"displayText": "🌏 Bot Web 🌏",
 					"url": `${websitex}`
 				}
 			}, {
@@ -13374,7 +12766,7 @@ ${themeemoji} Url : ${result.link}
 			var unicorn = await getBuffer(picak + 'Group Menu')
 			await RoseMwol.send5ButImg(from, `${lang.GroupMenu(pushname, prefix)}` + '' + ' ', `${botname}`, unicorn, [{
 				"urlButton": {
-					"displayText": "💝 Bot Web ⚠",
+					"displayText": "🌏 Bot Web 🌏",
 					"url": `${websitex}`
 				}
 			}, {
@@ -13400,7 +12792,7 @@ ${themeemoji} Url : ${result.link}
 			var unicorn = await getBuffer(picak + 'Rpg Menu')
 			await RoseMwol.send5ButImg(from, `${lang.RpgMenu(pushname, prefix)}` + '' + ' ', `${botname}`, unicorn, [{
 				"urlButton": {
-					"displayText": "💝 Bot Web ⚠",
+					"displayText": "🌏 Bot Web 🌏",
 					"url": `${websitex}`
 				}
 			}, {
@@ -13426,7 +12818,7 @@ ${themeemoji} Url : ${result.link}
 			var unicorn = await getBuffer(picak + 'Maker Menu')
 			await RoseMwol.send5ButImg(from, `${lang.MakerMenu(pushname, prefix)}` + '' + ' ', `${botname}`, unicorn, [{
 				"urlButton": {
-					"displayText": "💝 Bot Web ⚠",
+					"displayText": "🌏 Bot Web 🌏",
 					"url": `${websitex}`
 				}
 			}, {
@@ -13452,7 +12844,7 @@ ${themeemoji} Url : ${result.link}
 			var unicorn = await getBuffer(picak + 'Download Menu')
 			await RoseMwol.send5ButImg(from, `${lang.DownloaderMenu(pushname, prefix)}` + '' + ' ', `${botname}`, unicorn, [{
 				"urlButton": {
-					"displayText": "💝 Bot Web ⚠",
+					"displayText": "🌏 Bot Web 🌏",
 					"url": `${websitex}`
 				}
 			}, {
@@ -13478,7 +12870,7 @@ ${themeemoji} Url : ${result.link}
 			var unicorn = await getBuffer(picak + 'Search Menu')
 			await RoseMwol.send5ButImg(from, `${lang.SearchMenu(pushname, prefix)}` + '' + ' ', `${botname}`, unicorn, [{
 				"urlButton": {
-					"displayText": "💝 Bot Web ⚠",
+					"displayText": "🌏 Bot Web 🌏",
 					"url": `${websitex}`
 				}
 			}, {
@@ -13504,7 +12896,7 @@ ${themeemoji} Url : ${result.link}
 			var unicorn = await getBuffer(picak + 'Convert Menu')
 			await RoseMwol.send5ButImg(from, `${lang.ConvertMenu(pushname, prefix)}` + '' + ' ', `${botname}`, unicorn, [{
 				"urlButton": {
-					"displayText": "💝 Bot Web ⚠",
+					"displayText": "🌏 Bot Web 🌏",
 					"url": `${websitex}`
 				}
 			}, {
@@ -13530,7 +12922,60 @@ ${themeemoji} Url : ${result.link}
 			var unicorn = await getBuffer(picak + 'Random Image Menu')
 			await RoseMwol.send5ButImg(from, `${lang.RandomPicMenu(pushname, prefix)}` + '' + ' ', `${botname}`, unicorn, [{
 				"urlButton": {
-					"displayText": "💝 Bot Web ⚠",
+					"displayText": "🌏 Bot Web 🌏",
+					"url": `${websitex}`
+				}
+			}, {
+				"urlButton": {
+					"displayText": "Script🔖",
+					"url": `${botscript}`
+				}
+			}, {
+				"quickReplyButton": {
+					"displayText": "Donate 🍜",
+					"id": 'donate'
+				}
+			}, {
+				"quickReplyButton": {
+					"displayText": "Owner 👤",
+					"id": 'owner'
+				}
+			}])
+			break
+
+		case 'emotemenu':
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			var unicorn = await getBuffer(picak + 'Emote Menu')
+			await RoseMwol.send5ButImg(from, `${lang.EmoteMenu(pushname, prefix)}` + '' + ' ', `${botname}`, unicorn, [{
+				"urlButton": {
+					"displayText": "🌏 Bot Web 🌏",
+					"url": `${websitex}`
+				}
+			}, {
+				"urlButton": {
+					"displayText": "Script🔖",
+					"url": `${botscript}`
+				}
+			}, {
+				"quickReplyButton": {
+					"displayText": "Donate 🍜",
+					"id": 'donate'
+				}
+			}, {
+				"quickReplyButton": {
+					"displayText": "Owner 👤",
+					"id": 'owner'
+				}
+			}])
+			break
+		case 'imageeffectmenu':
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			var unicorn = await getBuffer(picak + 'Image Effect Menu')
+			await RoseMwol.send5ButImg(from, `${lang.ImgEffectMenu(pushname ,prefix)}` + '' + ' ', `${botname}`, unicorn, [{
+				"urlButton": {
+					"displayText": "🌏 Bot Web 🌏",
 					"url": `${websitex}`
 				}
 			}, {
@@ -13556,7 +13001,7 @@ ${themeemoji} Url : ${result.link}
 			var unicorn = await getBuffer(picak + 'Anime Menu')
 			await RoseMwol.send5ButImg(from, `${lang.AnimeMenu(pushname, prefix)}` + '' + ' ', `${botname}`, unicorn, [{
 				"urlButton": {
-					"displayText": "💝 Bot Web ⚠",
+					"displayText": "🌏 Bot Web 🌏",
 					"url": `${websitex}`
 				}
 			}, {
@@ -13582,7 +13027,7 @@ ${themeemoji} Url : ${result.link}
 			var unicorn = await getBuffer(picak + 'Sticker Menu')
 			await RoseMwol.send5ButImg(from, `${lang.StickerMenu(pushname, prefix)}` + '' + ' ', `${botname}`, unicorn, [{
 				"urlButton": {
-					"displayText": "💝 Bot Web ⚠",
+					"displayText": "🌏 Bot Web 🌏",
 					"url": `${websitex}`
 				}
 			}, {
@@ -13608,7 +13053,7 @@ ${themeemoji} Url : ${result.link}
 			var unicorn = await getBuffer(picak + 'Anime Sticker Menu')
 			await RoseMwol.send5ButImg(from, `${lang.AnimeStickerMenu(pushname, prefix)}` + '' + ' ', `${botname}`, unicorn, [{
 				"urlButton": {
-					"displayText": "💝 Bot Web ⚠",
+					"displayText": "🌏 Bot Web 🌏",
 					"url": `${websitex}`
 				}
 			}, {
@@ -13634,7 +13079,7 @@ ${themeemoji} Url : ${result.link}
 			var unicorn = await getBuffer(picak + 'Nsfw Menu')
 			await RoseMwol.send5ButImg(from, `${lang.NSFWMenu(pushname, prefix)}` + '' + ' ', `${botname}`, unicorn, [{
 				"urlButton": {
-					"displayText": "💝 Bot Web ⚠",
+					"displayText": "🌏 Bot Web 🌏",
 					"url": `${websitex}`
 				}
 			}, {
@@ -13660,7 +13105,7 @@ ${themeemoji} Url : ${result.link}
 			var unicorn = await getBuffer(picak + 'Fun Menu')
 			await RoseMwol.send5ButImg(from, `${lang.FunMenu(pushname, prefix)}` + '' + ' ', `${botname}`, unicorn, [{
 				"urlButton": {
-					"displayText": "💝 Bot Web ⚠",
+					"displayText": "🌏 Bot Web 🌏",
 					"url": `${websitex}`
 				}
 			}, {
@@ -13686,7 +13131,7 @@ ${themeemoji} Url : ${result.link}
 			var unicorn = await getBuffer(picak + 'Sound Menu')
 			await RoseMwol.send5ButImg(from, `${lang.SoundMenu(pushname, prefix)}` + '' + ' ', `${botname}`, unicorn, [{
 				"urlButton": {
-					"displayText": "💝 Bot Web ⚠",
+					"displayText": "🌏 Bot Web 🌏",
 					"url": `${websitex}`
 				}
 			}, {
@@ -13738,7 +13183,7 @@ ${themeemoji} Url : ${result.link}
 			var unicorn = await getBuffer(picak + 'Game Menu')
 			await RoseMwol.send5ButImg(from, `${lang.GameMenu(pushname, prefix)}` + '' + ' ', `${botname}`, unicorn, [{
 				"urlButton": {
-					"displayText": "💝 Bot Web ⚠",
+					"displayText": "🌏 Bot Web 🌏",
 					"url": `${websitex}`
 				}
 			}, {
@@ -13764,7 +13209,7 @@ ${themeemoji} Url : ${result.link}
 			var unicorn = await getBuffer(picak + 'Anonymous Menu')
 			await RoseMwol.send5ButImg(from, `${lang.AmogusMenu(pushname, prefix)}` + '' + ' ', `${botname}`, unicorn, [{
 				"urlButton": {
-					"displayText": "💝 Bot Web ⚠",
+					"displayText": "🌏 Bot Web 🌏",
 					"url": `${websitex}`
 				}
 			}, {
@@ -13790,7 +13235,7 @@ ${themeemoji} Url : ${result.link}
 			var unicorn = await getBuffer(picak + 'Tool Menu')
 			await RoseMwol.send5ButImg(from, `${lang.ToolMenu(pushname, prefix)}` + '' + ' ', `${botname}`, unicorn, [{
 				"urlButton": {
-					"displayText": "💝 Bot Web ⚠",
+					"displayText": "🌏 Bot Web 🌏",
 					"url": `${websitex}`
 				}
 			}, {
@@ -13816,7 +13261,7 @@ ${themeemoji} Url : ${result.link}
 			var unicorn = await getBuffer(picak + 'Database Menu')
 			await RoseMwol.send5ButImg(from, `${lang.DataMenu(pushname, prefix)}` + '' + ' ', `${botname}`, unicorn, [{
 				"urlButton": {
-					"displayText": "💝 Bot Web ⚠",
+					"displayText": "🌏 Bot Web 🌏",
 					"url": `${websitex}`
 				}
 			}, {
@@ -13842,7 +13287,7 @@ ${themeemoji} Url : ${result.link}
 			var unicorn = await getBuffer(picak + 'Indo Menu')
 			await RoseMwol.send5ButImg(from, `${lang.IndoMenu(pushname, prefix)}` + '' + ' ', `${botname}`, unicorn, [{
 				"urlButton": {
-					"displayText": "💝 Bot Web ⚠",
+					"displayText": "🌏 Bot Web 🌏",
 					"url": `${websitex}`
 				}
 			}, {
@@ -13868,7 +13313,7 @@ ${themeemoji} Url : ${result.link}
 			var unicorn = await getBuffer(picak + 'Indo Horoscope Menu')
 			await RoseMwol.send5ButImg(from, `${lang.IndoHoroScopeMenu(pushname, prefix)}` + '' + ' ', `${botname}`, unicorn, [{
 				"urlButton": {
-					"displayText": "💝 Bot Web ⚠",
+					"displayText": "🌏 Bot Web 🌏",
 					"url": `${websitex}`
 				}
 			}, {
@@ -13894,7 +13339,7 @@ ${themeemoji} Url : ${result.link}
 			var unicorn = await getBuffer(picak + 'Other Menu')
 			await RoseMwol.send5ButImg(from, `${lang.OtherMenu(pushname, prefix)}` + '' + ' ', `${botname}`, unicorn, [{
 				"urlButton": {
-					"displayText": "💝 Bot Web ⚠",
+					"displayText": "🌏 Bot Web 🌏",
 					"url": `${websitex}`
 				}
 			}, {
@@ -13918,7 +13363,7 @@ ${themeemoji} Url : ${result.link}
 			if (isBan) return reply(mess.ban)
 			if (isBanChat) return reply(mess.banChat)
 			reply(`${lang.ThanksTo(pushname, prefix)}`)
-			break
+		break
 		default:
 			if (budy.startsWith('=>')) {
 				if (!isCreator) return reply(mess.owner)
@@ -13929,19 +13374,15 @@ ${themeemoji} Url : ${result.link}
 					if (sat == undefined) {
 						bang = util.format(sul)
 					}
-					return reply(bang)
+					reply(bang)
 				}
 				try {
-					reply(util.format(eval(`(async () => { ${budy.slice(3)} })()`)))
+					reply(util.format(eval(`(async () => { return ${budy.slice(3)} })()`)))
 				} catch (e) {
-					RoseMwol.sendMessage(from, {
-						image: err4r,
-						caption: String(e)
-					}, {
-						quoted: m
-					})
+					reply(String(e))
 				}
 			}
+
 			if (budy.startsWith('>')) {
 				if (!isCreator) return reply(mess.owner)
 				try {
@@ -13949,13 +13390,16 @@ ${themeemoji} Url : ${result.link}
 					if (typeof evaled !== 'string') evaled = require('util').inspect(evaled)
 					await reply(evaled)
 				} catch (err) {
-					await RoseMwol.sendMessage(from, {
-						image: err4r,
-						caption: String(err)
-					}, {
-						quoted: m
-					})
+					await reply(String(err))
 				}
+			}
+
+			if (budy.startsWith('$')) {
+				if (!isCreator) return reply(mess.owner)
+				exec(budy.slice(2), (err, stdout) => {
+					if (err) return reply(err)
+					if (stdout) return reply(stdout)
+				})
 			}
 
 			if (m.chat.endsWith('@s.whatsapp.net') && isCmd) {
@@ -13963,7 +13407,7 @@ ${themeemoji} Url : ${result.link}
 				let room = Object.values(this.anonymous).find(room => [room.a, room.b].includes(m.sender) && room.state === 'CHATTING')
 				if (room) {
 					if (/^.*(next|leave|start)/.test(m.text)) return
-					if (['.next', '.leave', '.stop', '.start', 'Find Partner', 'Keluar', 'Lanjut', 'Stop'].includes(m.text)) return
+					if (['.next', '.leave', '.stop', '.start', 'Cari Partner', 'Keluar', 'Lanjut', 'Stop'].includes(m.text)) return
 					let other = [room.a, room.b].find(user => user !== m.sender)
 					m.copyNForward(other, true, m.quoted && m.quoted.fromMe ? {
 						contextInfo: {
@@ -13977,18 +13421,6 @@ ${themeemoji} Url : ${result.link}
 				return !0
 			}
 
-			if (budy.startsWith('$')) {
-				if (!isCreator) return replay(mess.owner)
-				exec(budy.slice(2), (err, stdout) => {
-					if (err) return RoseMwol.sendMessage(from, {
-						image: err4r,
-						caption: String(err)
-					}, {
-						quoted: m
-					})
-					if (stdout) return replay(stdout)
-				})
-			}
 			const listTag = [`${global.ownertag}@s.whatsapp.net`]
 			const partiNum = (m.mtype === 'extendedTextMessage') ? m.message.extendedTextMessage.contextInfo.participant : ''
 			if (listTag.includes(partiNum)) {
@@ -14026,16 +13458,15 @@ ${themeemoji} Url : ${result.link}
 			if (isCmd && budy.toLowerCase() != undefined) {
 				if (m.chat.endsWith('broadcast')) return
 				if (m.isBaileys) return
-				let msgs = global.db.database
+				let msgs = global.db.data.database
 				if (!(budy.toLowerCase() in msgs)) return
 				RoseMwol.copyNForward(m.chat, msgs[budy.toLowerCase()], true)
 			}
 		}
+
+
 	} catch (err) {
-		RoseMwol.sendMessage(`${ownertag}@s.whatsapp.net`, util.format(err), {
-			quoted: m
-		})
-		console.log(err)
+		m.reply(util.format(err))
 	}
 }
 
