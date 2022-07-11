@@ -80,9 +80,9 @@ global.mess = {
     group: 'Feature Used Only For Groups!',
     private: 'Features Used Only For Private Chat!',
     bot: 'This Feature Is Only For Bot',
-    wait: 'In process...',
+    wait: 'Prossesing....',
+    error: 'Error !!',
     linkm: 'Where Is The Link?',
-    error: 'Error!!',
     servererror: '⚠ Server Error ⚠',
     errorlink: 'Link Invalid !!',
     linkerror: '⚠ Invalid URL ⚠',
@@ -92,7 +92,7 @@ global.mess = {
     ban: 'You have been banned by the owner, if you want to be unbanned, chat owner.',
     nsfw: 'The nsfw feature has not been activated, please contact the admin to activate',
     banChat: 'The bot was banned in this group, please contact the owner to unban',
-    chatbotmediaerror: 'Sorry I Have Trouble To Identify Other Medias.Could You please Just Chat ?'
+    chatbotmediaerror: 'Sorry I Have Trouble To Identify Other Medias .Could You please Just Chat ?'
 }
     global.limitawal = {
     premium: "Infinity",

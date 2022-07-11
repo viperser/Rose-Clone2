@@ -94,6 +94,7 @@ const toHur = require('@develoka/angka-terbilang-js')
 const {
 	hentai
 } = require('./lib/scraper2.js')
+const igscraper = require('@bochilteam/scraper')
 const {
 	FajarNews,
 	BBCNews,
@@ -9192,7 +9193,7 @@ ${global.themeemoji} Media Url : ${images}`,
 					}
 				}
 			} catch (err) {
-				reply(`${mess.servererror}`)
+				reply(`${err}`)
 			}
 		}
 		break
@@ -12556,85 +12557,52 @@ Report Message: ${text}`
 					key: m.key
 				}
 			})
-			let btn = [{
-				urlButton: {
-					displayText: 'Bot Web 🍒',
-					url: `${websitex}`
-				}
-			}, {
-				callButton: {
-					displayText: 'Script 🍜',
-					url: `${botscript}`
-				}
-			}, {
-				quickReplyButton: {
-					displayText: 'All Menu 🍱',
-					id: 'allmenu'
-				}
-			}, {
-				quickReplyButton: {
-					displayText: 'List Menu 🍢',
-					id: 'command'
-				}
-			}, {
-				quickReplyButton: {
-					displayText: 'Owner 🤣',
-					id: 'owner'
-				}
-			}]
-			let setbot = db.data.settings[botNumber]
-			if (setbot.templateImage) {
-				RoseMwol.send5ButImg(m.chat, menulist, global.botname, global.thumb, btn, global.thumb)
-			} else if (setbot.templateGif) {
-				RoseMwol.send5ButGif(m.chat, menulist, global.botname, global.vidmenu, btn, global.thumb)
-			} else if (setbot.templateVid) {
-				RoseMwol.send5ButVid(m.chat, anu, global.botname, global.vidmenu, btn, global.thumb)
-			} else if (setbot.templateVideo) {
-				RoseMwol.send5ButVid(m.chat, menulist, global.botname, global.vidmenu, btn, global.thumb)
-			} else if (setbot.templateDocument) {
-				let buttonmenu = [{
-						urlButton: {
-							displayText: `Bot Web 🍒`,
-							url: `${websitex}`
-						}
-					},
-					{
-						urlButton: {
-							displayText: `Script 🍜`,
-							url: `${botscript}`
-						}
-					},
-					{
-						quickReplyButton: {
-							displayText: `All Menu 🍱`,
-							id: 'allmenu'
-						}
-					},
-					{
-						quickReplyButton: {
-							displayText: `List Menu 🍢`,
-							id: 'command'
-						}
-					},
-					{
-						quickReplyButton: {
-							displayText: `Owner 🤣`,
-							id: 'owner'
+				anu = ``
+				let footertext = lang.Menu(pushname)
+				const template = generateWAMessageFromContent(m.chat, proto.Message.fromObject({
+					templateMessage: {
+						hydratedTemplate: {
+							hydratedContentText: anu,
+							locationMessage: {
+								jpegThumbnail: fs.readFileSync('./Bot Pic/Rose-Mwol-MD.jpg')
+							},
+							hydratedFooterText: `${footertext}`,
+							hydratedButtons: [{
+								urlButton: {
+									displayText: '❣ Bot Web 🌏',
+									url: `${websitex}`
+								}
+							}, {
+								urlButton: {
+									displayText: 'Script🔖',
+									url: `${botscript}`
+								}
+							}, {
+								quickReplyButton: {
+									displayText: '⚠ All Menu ⚠',
+									id: `${prefix}allmenu`
+								}
+							}, {
+								quickReplyButton: {
+									displayText: '🤖 List Menu ✨',
+									id: `${prefix}command`
+								}
+							}, {
+								quickReplyButton: {
+									displayText: '🙋‍♂️ Owner 🐱‍💻',
+									id: `${prefix}owner`
+								}
+							}]
 						}
 					}
-				]
-				RoseMwol.sendMessage(m.chat, {
-					caption: menulist,
-					document: fs.readFileSync('./Media/theme/cheems.xlsx'),
-					mimetype: `${docs}`,
-					fileName: `${ownername}`,
-					templateButtons: buttonmenu,
-					footer: `${botname}`,
-					mentionedJid: [m.sender]
+				}), {
+					userJid: m.chat
+				})
+				RoseMwol.relayMessage(m.chat, template.message, {
+					messageId: template.key.id
 				})
 			}
-		}
-		break
+			break
 		case 'command': {
 			if (isBan) return reply(mess.ban)
 			if (isBanChat) return reply(mess.banChat)
