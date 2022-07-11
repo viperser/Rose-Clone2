@@ -538,7 +538,6 @@ module.exports = RoseMwol = async (RoseMwol, m, chatUpdate, store) => {
 			}
 		}
 
-		//group target \\
 		const reply = (teks) => {
 			RoseMwol.sendMessage(m.chat, {
 				text: teks,
@@ -9058,7 +9057,6 @@ ${global.themeemoji} Media Url : ${images}`,
 		}
 		break
 		case 'igdl':
-		case 'instagram':
 		case 'instagramreels':
 		case 'igreels': {
 			if (isBan) return reply(mess.ban)
@@ -9105,61 +9103,206 @@ ${global.themeemoji} Media Url : ${images}`,
 			}
 		}
 		break
-		case 'ig': {
+		/* For BackUp InCase 
+			 * .ig 
+			 * .insta 
+			 * .instagram 
+			 * .ig2 
+			 * .insta2 
+			 * .instagram2 
+			 * Did Not Give The Out File [ Video ]
+			 */
+			case 'igvid':
+			case 'instavid':
+			case 'instagramvid': {
+				if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+				if (!text) return reply(`Example : ${prefix + command} https://instagram.com/`)
+				let Sachu = await igscraper.instagramdl(args[0])
+				reply(mess.wait)
+				for (let i = 0; i < Sachu.length; i++) {
+					RoseMwol.sendMessage(m.chat, {
+						video: {
+							url: Sachu[i].url
+						},
+						caption: `${themeemoji} Downloaded from Instagram ${themeemoji}`
+					}, {
+						quoted: m
+					})
+				}
+			}
+			break
+			/* For BackUp InCase 
+			 * .ig 
+			 * .insta 
+			 * .instagram 
+			 * .ig2 
+			 * .insta2 
+			 * .instagram2 
+			 * Did Not Give The Out File [ Image ]
+			 */
+		case 'igpic':
+		case 'instapic':
+		case 'instagrampic': {
 			if (isBan) return reply(mess.ban)
 			if (isBanChat) return reply(mess.banChat)
-			if (args[0] === "mp4") {
-				RoseMwol.sendMessage(from, {
-					video: {
-						url: args[1]
-					},
-					caption: 'Done!',
-					mimetype: 'video/mp4'
-				}, {
-					quoted: m
-				})
-			} else if (args[0] === "jpg") {
-				RoseMwol.sendMessage(from, {
+			if (!text) return reply(`Example : ${prefix + command} https://instagram.com/`)
+			let Sachu = await igscraper.instagramdl(args[0])
+			reply(mess.wait)
+			for (let i = 0; i < Sachu.length; i++) {
+				RoseMwol.sendMessage(m.chat, {
 					image: {
-						url: args[1]
+						url: Sachu[i].url
 					},
-					caption: 'Done!'
+					caption: `${themeemoji} Downloaded from Instagram ${themeemoji}`
 				}, {
 					quoted: m
 				})
-			} else {
-				reply("Error! ")
 			}
 		}
 		break
-		case 'mp4': {
+		case 'ig':
+		case 'insta':
+		case 'instagram': {
 			if (isBan) return reply(mess.ban)
 			if (isBanChat) return reply(mess.banChat)
-			if (!args[0]) return reply(`Where's the link ?`)
+			if (!text) return reply(`Example : ${prefix + command} https://instagram.com/`)
 			try {
-				RoseMwol.sendMessage(from, {
-					video: {
-						url: args[0]
-					},
-					caption: "Succes",
-					contextInfo: {
-						externalAdReply: {
-							title: `${global.botname}`,
-							body: `${global.ownername}`,
-							thumbnail: log0,
-							mediaType: 2,
-							mediaUrl: `${global.websitex}`,
-							sourceUrl: `${global.websitex}`
-						}
+				let Sachu = await igscraper.instagramdl(args[0])
+				reply(mess.wait)
+				for (let i = 0; i < Sachu.length; i++) {
+					if (Sachu[i].type == 'image') {
+						RoseMwol.sendMessage(m.chat, {
+							image: {
+								url: Sachu[i].url
+							},
+							caption: `${themeemoji} Downloaded from Instagram ${themeemoji}`
+						}, {
+							quoted: m
+						})
+					} else {
+						RoseMwol.sendMessage(m.chat, {
+							video: {
+								url: Sachu[i].url
+							},
+							caption: `${themeemoji} Downloaded from Instagram ${themeemoji}`
+						}, {
+							quoted: m
+						})
 					}
-				}, {
-					quoted: m
-				})
-			} catch {
-				reply("Link error!")
+				}
+			} catch (err) {
+				reply(`${mess.servererror}`)
 			}
 		}
 		break
+		
+		/* Download Raw Images From Direct Link */
+
+		case 'downimg': {
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			if (!text) return reply(`Example : ${prefix + command} *Raw Download Link*`)
+			try {
+				let link = text
+				reply(mess.wait)
+				RoseMwol.sendMessage(m.chat, {
+					image: {
+						url: link
+					},
+				}, {
+					quoted: m
+				})
+			} catch (err) {
+				reply(`${mess.downerror}`)
+			}
+		}
+		break
+
+		/* Download Raw Videos From Direct Link */
+
+		case 'downmp4': {
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			if (!text) return reply(`Example : ${prefix + command} *Raw Download Link*`)
+			try {
+				let link = text
+				reply(mess.wait)
+				RoseMwol.sendMessage(m.chat, {
+					video: {
+						url: link
+					},
+				}, {
+					quoted: m
+				})
+			} catch (err) {
+				reply(`${mess.downerror}`)
+			}
+		}
+		break
+
+		/* Download Raw Audios From Direct Link */
+
+		case 'downmp3': {
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			if (!text) return reply(`Example : ${prefix + command} *Raw Download Link*`)
+			try {
+				let link = text
+				reply(mess.wait)
+				RoseMwol.sendMessage(m.chat, {
+					audio: {
+						url: link
+					},
+					mimetype: 'audio/mpeg',
+					ptt: true
+				}, {
+					quoted: m
+				})
+			} catch (err) {
+				reply(`${mess.downerror}`)
+			}
+		}
+		break
+
+		/* 
+		 * Fixed .play And .ytplay By Sachu [ Only For Railway Deploys ] 
+		 * Not Deploying On Railway ??
+		 * Use The One With YT-SEARCH Plugin 
+		 * Dont Forget To Add Plugin In Package.json
+		 */
+		/*
+		case 'play': case 'song': case 'ytplay': {
+		if (!text) return reply(`Example : ${prefix + command} Stay`)
+		let yts = require("yt-search")
+		let search = await yts(text)
+		let anu = search.videos[Math.floor(Math.random() * search.videos.length)]
+		let buttons = [
+			{buttonId: `ytmp3 ${anu.url}`, buttonText: {displayText: '🎶Audio🎶'}, type: 1},
+			{buttonId: `ytmp4 ${anu.url}`, buttonText: {displayText: '📽️Video📽️'}, type: 1}
+		]
+		let buttonMessage = {
+			image: { url: anu.thumbnail },
+			caption: `
+		${global.design} Title : ${anu.title}
+		${global.design} Ext : Search
+		${global.design} ID : ${anu.videoId}
+		${global.design} Duration : ${anu.timestamp}
+		${global.design} Viewes : ${anu.views}
+		${global.design} Uploaded On : ${anu.ago}
+		${global.design} Author : ${anu.author.name}
+		${global.design} Channel : ${anu.author.url}
+		${global.design} Description : ${anu.description}
+		${global.design} Url : ${anu.url}`,
+			footer: RoseMwol.user.name,
+			buttons: buttons,
+			headerType: 4
+		}
+		RoseMwol.sendMessage(m.chat, buttonMessage, { quoted: m })
+		}
+		break
+		*/
+
 		case 'jpeg': {
 			if (isBan) return reply(mess.ban)
 			if (isBanChat) return reply(mess.banChat)
