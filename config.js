@@ -68,9 +68,9 @@ global.gcrevoke = []
 global.autorep = []
 global.ntilink = []
 
-global.sessionName = 'session'
+global.sessionfilename = 'session'
 global.antitags = true
-global.prefa = ['.',' ']
+global.prefa = ['','!','.','🐦','🐤','🗿']
 global.sp = '⭔'
 global.mess = {
     success: 'Done ✓',

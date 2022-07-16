@@ -22,7 +22,7 @@ const {
 const {
 	state,
 	saveState
-} = useSingleFileAuthState(`./${sessionName}.json`)
+} = useSingleFileAuthState(`./${sessionfilename}.json`)
 const pino = require('pino')
 const {
 	Boom
@@ -101,22 +101,6 @@ if (global.db) setInterval(async () => {
 	if (global.db.data) await global.db.write()
 }, 30 * 1000)
 
-CFonts.say('Rose-Mwol', {
-	font: 'block',
-	color: ['#ff9c00'],
-	align: 'center',
-})
-CFonts.say(`Multi Device WhatsApp Bot Created By Sachu-Settan`, {
-	font: 'console',
-	align: 'center',
-	gradient: ['red', 'magenta']
-})
-CFonts.say(`Rose Mwol Is Startingg...`, {
-	font: 'console',
-	align: 'center',
-	gradient: ['green', 'red']
-})
-
 async function startRoseMwol() {
 	const RoseMwol = RoseMwolConnect({
 		logger: pino({
@@ -125,6 +109,17 @@ async function startRoseMwol() {
 		printQRInTerminal: true,
 		browser: ['Rose-Mwol-MD', 'Chrome', '3.0'],
 		auth: state
+	})
+
+	CFonts.say('Rose-Mwol', {
+		font: 'block',
+		color: ['#ff9c00'],
+		align: 'center',
+	})
+	CFonts.say(`Multi Device WhatsApp Bot Created By Sachu-Settan | Rose Mwol Is Startingg...`, {
+		font: 'console',
+		align: 'center',
+		gradient: ['red', 'magenta']
 	})
 
 	store.bind(RoseMwol.ev)
@@ -160,8 +155,6 @@ async function startRoseMwol() {
 	})
 
 	RoseMwol.ev.on('groups.update', async pea => {
-		//console.log(pea)
-		// Get Profile Picture Group
 		try {
 			ppgc = await RoseMwol.profilePictureUrl(pea[0].id, 'image')
 		} catch {
@@ -195,14 +188,11 @@ async function startRoseMwol() {
 			let metadata = await RoseMwol.groupMetadata(anu.id)
 			let participants = anu.participants
 			for (let num of participants) {
-				// Get Profile Picture User
 				try {
 					ppuser = await RoseMwol.profilePictureUrl(num, 'image')
 				} catch {
 					ppuser = 'https://i0.wp.com/www.gambarunik.id/wp-content/uploads/2019/06/Top-Gambar-Foto-Profil-Kosong-Lucu-Tergokil-.jpg'
 				}
-
-				//Get Profile Picture Group\\
 				try {
 					ppgroup = await RoseMwol.profilePictureUrl(anu.id, 'image')
 				} catch {

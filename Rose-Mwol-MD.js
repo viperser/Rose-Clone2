@@ -606,13 +606,12 @@ module.exports = RoseMwol = async (RoseMwol, m, chatUpdate, store) => {
 			timezone: "Asia/Kolkata"
 		})
 
-		//hitter
 		global.hit = {}
 		if (isCmd) {
 			data = await fetchJson('https://api.countapi.xyz/hit/Rose-Mwol-MD/visits')
-			jumlahcmd = `${data.value}`
+			global.jumlahcmd = `${data.value}`
 			dataa = await fetchJson(`https://api.countapi.xyz/hit/Rose-Mwol-MD${moment.tz('Asia/Kolkata').format('DDMMYYYY')}/visits`)
-			jumlahharian = `${dataa.value}`
+			global.jumlahharian = `${dataa.value}`
 		}
 
 		//auto set bio\\
@@ -624,12 +623,6 @@ module.exports = RoseMwol = async (RoseMwol, m, chatUpdate, store) => {
 				setting.status = new Date() * 1
 			}
 		}
-
-		//antispam or auto react
-		//if (m.message && msgFilter.isFiltered(from)) {
-		//console.log(`${global.themeemoji}[SPAM]`, color(moment(m.messageTimestamp * 1000).format('DD/MM/YYYY HH:mm:ss'), 'yellow'), color(`${command} [${args.length}]`), 'from', color(m.pushName))
-		//return RoseMwol.sendMessage(from, { react: { text: `${global.themeemoji}`, key: m.key }})
-		//}
 
 		//auto read whatsapp status
 		if (autoreadsw) {
@@ -2789,18 +2782,69 @@ Cieeee, What's Going On❤️💖👀`
 			})
 		}
 		break
-		case 'hidetag': {
+		case 'hidetag':
+		case 'tag':{
 			if (isBan) return reply(mess.ban)
 			if (isBanChat) return reply(mess.banChat)
 			if (!m.isGroup) return replay(`${mess.group}`)
 			if (!isBotAdmins) return replay(`${mess.botAdmin}`)
 			if (!isAdmins) return replay(`${mess.admin}`)
-			RoseMwol.sendMessage(m.chat, {
-				text: q ? q : '',
-				mentions: participants.map(a => a.id)
-			}, {
-				quoted: m
-			})
+			try {
+			if (/image/.test(mime)) {
+				let mediac = await quoted.download()
+				await RoseMwol.sendMessage(m.chat, {
+					image: mediac,
+					caption: q ? q : '',
+					mentions: participants.map(a => a.id)
+				}, {
+					quoted: m
+				})
+			} else if (/document/.test(mime)) {
+				let mediac = await quoted.download()
+				await RoseMwol.sendMessage(m.chat, {
+					document: mediac,
+					mentions: participants.map(a => a.id)
+				}, {
+					quoted: m
+				})
+			} else if (/audio/.test(mime)) {
+				let mediac = await quoted.download()
+				await RoseMwol.sendMessage(m.chat, {
+					audio: mediac,
+					caption: q ? q : '',
+					mentions: participants.map(a => a.id)
+				}, {
+					quoted: m
+				})
+			} else if (/video/.test(mime)) {
+				let mediac = await quoted.download()
+				await RoseMwol.sendMessage(m.chat, {
+					video: mediac,
+					caption: q ? q : '',
+					mentions: participants.map(a => a.id)
+				}, {
+					quoted: m
+				})
+			} else if (/webp/.test(mime)) {
+				let mediac = await quoted.download()
+				await RoseMwol.sendMessage(m.chat, {
+					sticker: mediac,
+					caption: q ? q : '',
+					mentions: participants.map(a => a.id)
+				}, {
+					quoted: m
+				})
+			} else {
+				await RoseMwol.sendMessage(m.chat, {
+					text: q ? q : '',
+					mentions: participants.map(a => a.id)
+				}, {
+					quoted: m
+				})
+			}
+		} catch (err) {
+			reply(`Failed To Hide Tag \n If This Is A Bug Please Report To ${ownernumber}\n\n` + err)
+		}
 		}
 		break
 		case 'style':
@@ -6795,9 +6839,9 @@ ${vote[m.chat][2].map((v, i) => `┃╠ ${i + 1}. @${v.split`@`[0]}`).join('\n')
 		case "efx98":
 		case "efx99": {
 			const pttduration = durationn[Math.floor(Math.random() * durationn.length)]
-			result = await getBuffer(`https://raw.githubusercontent.com/Sachu-Settan/Media/main/efx/${encodeURIComponent(command)}.mp3`)
+			let results = await getBuffer(`https://raw.githubusercontent.com/Sachu-Settan/Media/main/efx/${encodeURIComponent(command)}.mp3`)
 			await RoseMwol.sendMessage(m.chat, {
-				audio: result,
+				audio: results,
 				mimetype: 'audio/mpeg',
 				seconds: `${pttduration}`,
 				ptt: true
@@ -12434,6 +12478,12 @@ Report Message: ${text}`
 		case 'sewa':
 		case 'buypremium':
 		case 'donate': {
+			RoseMwol.sendMessage(from, {
+				react: {
+					text: `${global.reactmoji}`,
+					key: m.key
+				}
+			})
 			RoseMwol.sendMessage(m.chat, {
 				image: {
 					url: 'https://telegra.ph/file/6a02cf1b00855ff80febb.jpg'

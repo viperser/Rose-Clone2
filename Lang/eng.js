@@ -5,6 +5,7 @@
 */
 
 require ('../config')
+require ('../Rose-Mwol-MD')
 const fs = require('fs');
 const chalk = require('chalk');
 const os = require('os');
@@ -72,7 +73,8 @@ exports.Alive = (pushname ,prefix) => {
 ││✑  ${greeting}
 ││✑  🖐️!!
 │└───────────────┈ ⳹
-│ 「 BOT INFO 」
+│ 「 𝘽𝙊𝙏 𝙄𝙉𝙁𝙊 」
+│
 │✙ 𝗦𝗽𝗲𝗲𝗱 : ${latensie.toFixed(4)} miliseconds
 │✙ 𝗥𝘂𝗻𝘁𝗶𝗺𝗲 : ${runtime(process.uptime())}
 │✙ 𝗧𝗶𝗺𝗲 𝗡𝗼𝘄 : ${time2}
@@ -82,6 +84,8 @@ exports.Alive = (pushname ,prefix) => {
 │✙ 𝗛𝗼𝘀𝘁 𝗡𝗮𝗺𝗲 : ${os.hostname()}
 │✙ 𝗣𝗹𝗮𝘁𝗳𝗼𝗿𝗺 : ${os.platform()}
 │✙ 𝗧𝗼𝘁𝗮𝗹 𝗨𝘀𝗲𝗿 : ${Object.keys(global.db.data.users).length}
+│✙ 𝗧𝗼𝘁𝗮𝗹 𝗛𝗶𝘁 : ${global.jumlahcmd}
+│✙ 𝗧𝗼𝘁𝗮𝗹 𝗛𝗶𝘁 𝗧𝗼𝗱𝗮𝘆 : ${global.jumlahharian}
 │✙ 𝗖𝗿𝗲𝗮𝘁𝗼𝗿 : 𝗦𝗮𝗰𝗵𝘂 𝗦𝗲𝘁𝘁𝗮𝗻
 │✙ 𝗧𝗼𝘁𝗮𝗹 𝗙𝗲𝗮𝘁𝘂𝗿𝗲𝘀 : 𝟮𝟬𝟬+
 │
@@ -111,6 +115,8 @@ exports.Menu = (pushname ,prefix) => {
 │✙ 𝗛𝗼𝘀𝘁 𝗡𝗮𝗺𝗲 : ${os.hostname()}
 │✙ 𝗣𝗹𝗮𝘁𝗳𝗼𝗿𝗺 : ${os.platform()}
 │✙ 𝗧𝗼𝘁𝗮𝗹 𝗨𝘀𝗲𝗿 : ${Object.keys(global.db.data.users).length}
+│✙ 𝗧𝗼𝘁𝗮𝗹 𝗛𝗶𝘁 : ${global.jumlahcmd}
+│✙ 𝗧𝗼𝘁𝗮𝗹 𝗛𝗶𝘁 𝗧𝗼𝗱𝗮𝘆 : ${global.jumlahharian}
 │
 └┬──────────────┈ ⳹
  │✑  Please Select The Button Below 
