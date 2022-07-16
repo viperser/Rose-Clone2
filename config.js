@@ -16,7 +16,7 @@ global.autoReadGc = false
 global.autoRecord = false 
 global.available = true 
 
-global.vidmenu = fs.readFileSync("./Media/theme/Cheems-bot.mp4") 
+global.vidmenu = fs.readFileSync("./Media/vid/Rose-Mwol-Vid.mp4") 
 
 global.doc1 = 'application/vnd.openxmlformats-officedocument.presentationml.presentation'
 global.doc2 = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
@@ -74,11 +74,12 @@ global.prefa = ['.',' ']
 global.sp = '⭔'
 global.mess = {
     success: 'Done ✓',
-    admin: 'This Feature Is Only For Admin!',
-    botAdmin: 'Bot Must Be Admin First!',
-    owner: 'This Feature Is Only For Owner!',
-    group: 'Feature Used Only For Groups!',
-    private: 'Features Used Only For Private Chat!',
+    caption: 'Here You Go !',
+    admin: 'This Feature Is Only For Admin !',
+    botAdmin: 'Bot Must Be Admin First !',
+    owner: 'This Feature Is Only For Owner !',
+    group: 'Feature Used Only For Groups !',
+    private: 'Features Used Only For Private Chat !',
     bot: 'This Feature Is Only For Bot',
     wait: 'Prossesing....',
     error: 'Error !!',
@@ -86,20 +87,21 @@ global.mess = {
     servererror: '⚠ Server Error ⚠',
     errorlink: 'Link Invalid !!',
     linkerror: '⚠ Invalid URL ⚠',
-    downerror: 'Download Failed !! \n Check If FileSize Is Over The Limit',
+    downerror: 'Download Failed !! \n Check If File Size Is Over The Limit',
     igdownloaded: '⚠ Downloaded From Instagram ⚠',
+    logodownloading: 'Wait a moment while making the logo about 1 minute',
     endLimit: 'Your Daily Limit Has Expired, The Limit Will Be Reset Every 12 Hours',
     ban: 'You have been banned by the owner, if you want to be unbanned, chat owner.',
     nsfw: 'The nsfw feature has not been activated, please contact the admin to activate',
     banChat: 'The bot was banned in this group, please contact the owner to unban',
-    chatbotmediaerror: 'Sorry I Have Trouble To Identify Other Medias .Could You please Just Chat ?'
+    chatbotmediaerror: 'Sorry I Have Trouble To Identify Other Medias. Could You please Just Chat ?'
 }
-    global.limitawal = {
+global.limitawal = {
     premium: "Infinity",
-    free: 12,
+    free: 10,
     monayawal: 1000
 }
-   global.rpg = {
+global.rpg = {
    darahawal: 100,
    besiawal: 15,
    goldawal: 10,
@@ -112,6 +114,7 @@ global.flaming = 'https://www6.flamingtext.com/net-fu/proxy_form.cgi?&imageoutpu
 global.fluming = 'https://www6.flamingtext.com/net-fu/proxy_form.cgi?&imageoutput=true&script=fluffy-logo&doScale=true&scaleWidth=800&scaleHeight=500&fontsize=100&text='
 global.flarun = 'https://www6.flamingtext.com/net-fu/proxy_form.cgi?&imageoutput=true&script=runner-logo&doScale=true&scaleWidth=800&scaleHeight=500&fontsize=100&text='
 global.flasmurf = 'https://www6.flamingtext.com/net-fu/proxy_form.cgi?&imageoutput=true&script=smurfs-logo&doScale=true&scaleWidth=800&scaleHeight=500&fontsize=100&text='
+
 let file = require.resolve(__filename)
 fs.watchFile(file, () => {
 	fs.unwatchFile(file)

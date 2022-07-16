@@ -1,13 +1,13 @@
 {
   "users": {
-    "12508483529@s.whatsapp.net": {
+    "919744933034@s.whatsapp.net": {
       "afkTime": -1,
       "afkReason": "",
       "limit": "Infinity"
     }
   },
   "chats": {
-    "12508483529@s.whatsapp.net": {
+    "120363038570228615@g.us": {
       "mute": false
     }
   },
@@ -32,7 +32,8 @@
       "templateVideo": false,
       "templateGif": false,
       "templateMsg": false,
-      "templateDocument": true
+      "templateDocument": false,
+      "templateLocation": true
     }
   },
   "others": {

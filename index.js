@@ -1,3 +1,9 @@
+/*
+ * You Can Recode, Reupload or Copy The Codes/Scripts With Credits To Code Owners ( Sachu-Settan )
+ * Licenced Under MIT License
+ * Copyright © 2022 Sachu. Rose Mwol-MD
+ */
+
 require('./config')
 const {
 	default: RoseMwolConnect,
@@ -255,7 +261,7 @@ async function startRoseMwol() {
 						type: 1
 					}]
 					let buttonMessage = {
-						document: fs.readFileSync('./Media/theme/cheems.xlsx'),
+						document: fs.readFileSync('./Media/file/rose.xlsx'),
 						mimetype: docs,
 						jpegThumbnail: Wlcm,
 						mentions: [num],
@@ -326,7 +332,7 @@ async function startRoseMwol() {
 						type: 1
 					}]
 					let buttonMessage = {
-						document: fs.readFileSync('./Media/theme/cheems.xlsx'),
+						document: fs.readFileSync('./Media/file/rose.xlsx'),
 						mimetype: docs,
 						jpegThumbnail: Lft,
 						mentions: [num],
@@ -460,7 +466,7 @@ async function startRoseMwol() {
 				console.log("✔ Restart Required, Restarting...");
 				startRoseMwol();
 			} else if (reason === DisconnectReason.timedOut) {
-				console.log("✔ Connection Timed Out, Reconnecting...");
+				console.log("✔ Connection Timed Out, Reconnecting....");
 				startRoseMwol();
 			} else RoseMwol.end(`✔ Unknown Disconnect Reason: ${reason}|${connection}`)
 		}
