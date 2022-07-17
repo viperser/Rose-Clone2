@@ -555,13 +555,13 @@ module.exports = RoseMwol = async (RoseMwol, m, chatUpdate, store) => {
 			RoseMwol.sendMessage(m.chat, {
 				text: teks,
 				contextInfo: {
-					"externalAdReply": {
-						"title": ` ${global.botname}`,
-						"body": `${ownername}`,
-						"previewType": "PHOTO",
-						"thumbnailUrl": ``,
-						"thumbnail": fs.readFileSync(`./Bot Pic/Rose.jpg`),
-						"sourceUrl": `${linkz}`
+					externalAdReply: {
+						title: `${global.botname}`,
+						body: `${global.botname}`,
+						thumbnail: log0,
+						mediaType: 2,
+						mediaUrl: `${global.websitex}`,
+						sourceUrl: `${global.websitex}`
 					}
 				}
 			}, {
@@ -573,13 +573,13 @@ module.exports = RoseMwol = async (RoseMwol, m, chatUpdate, store) => {
 			RoseMwol.sendMessage(m.chat, {
 				text: teks,
 				contextInfo: {
-					"externalAdReply": {
-						"title": ` ${global.botname}`,
-						"body": `${ownername}`,
-						"previewType": "PHOTO",
-						"thumbnailUrl": ``,
-						"thumbnail": fs.readFileSync(`./Bot Pic/Rose.jpg`),
-						"sourceUrl": `${linkz}`
+					externalAdReply: {
+						title: `${global.botname}`,
+						body: `${global.botname}`,
+						thumbnail: log0,
+						mediaType: 2,
+						mediaUrl: `${global.websitex}`,
+						sourceUrl: `${global.websitex}`
 					}
 				}
 			}, {
@@ -592,12 +592,10 @@ module.exports = RoseMwol = async (RoseMwol, m, chatUpdate, store) => {
 			if (!m.key.fromMe) return
 		}
 
-		//Push Message To Console && Auto Read\\
 		if (m.message) {
 			console.log(chalk.black(chalk.bgWhite('[ MESSAGE ]')), chalk.black(chalk.bgGreen(new Date)), chalk.black(chalk.bgBlue(budy || m.mtype)) + '\n' + chalk.magenta('=> From'), chalk.green(pushname), chalk.yellow(m.sender) + '\n' + chalk.blueBright('=> In'), chalk.green(m.isGroup ? pushname : 'Private Chat', m.chat))
 		}
 
-		//reset limit every 12 hours\\
 		let cron = require('node-cron')
 		cron.schedule('00 12 * * *', () => {
 			let user = Object.keys(global.db.data.users)
@@ -617,7 +615,6 @@ module.exports = RoseMwol = async (RoseMwol, m, chatUpdate, store) => {
 			global.jumlahharian = `${dataa.value}`
 		}
 
-		//auto set bio\\
 		if (db.data.settings[botNumber].autobio) {
 			let setting = global.db.data.settings[botNumber]
 			if (new Date() * 1 - setting.status > 1000) {
@@ -627,45 +624,43 @@ module.exports = RoseMwol = async (RoseMwol, m, chatUpdate, store) => {
 			}
 		}
 
-		//auto read whatsapp status
 		if (autoreadsw) {
 			if (from === 'status@broadcast') {
 				RoseMwol.chatRead(from)
 			}
 		}
-		//autoreader gc and pm
+
 		if (global.autoreadpmngc) {
 			if (command) {
 				await RoseMwol.sendPresenceUpdate('composing', m.chat)
 				RoseMwol.sendReadReceipt(from, m.sender, [m.key.id])
 			}
 		}
-		//autoread gc only
+
 		if (global.autoReadGc) {
 			if (m.isGroup) {
 				RoseMwol.sendReadReceipt(m.chat, m.sender, [m.key.id])
 			}
 		}
-		//auto recording all
+
 		if (global.autoRecord) {
 			if (m.chat) {
 				RoseMwol.sendPresenceUpdate('recording', m.chat)
 			}
 		}
-		//autotyper all
+
 		if (global.autoTyping) {
 			if (m.chat) {
 				RoseMwol.sendPresenceUpdate('composing', m.chat)
 			}
 		}
-		//auto available all
+
 		if (global.available) {
 			if (m.chat) {
 				RoseMwol.sendPresenceUpdate('available', m.chat)
 			}
 		}
 
-		// Autosticker gc
 		if (isAutoSticker) {
 			if (/image/.test(mime) && !/webp/.test(mime)) {
 				let mediac = await quoted.download()
@@ -683,7 +678,7 @@ module.exports = RoseMwol = async (RoseMwol, m, chatUpdate, store) => {
 				})
 			}
 		}
-		//Autosticker pc
+
 		if (isAutoStick) {
 			if (/image/.test(mime) && !/webp/.test(mime)) {
 				let mediac = await quoted.download()
@@ -702,7 +697,6 @@ module.exports = RoseMwol = async (RoseMwol, m, chatUpdate, store) => {
 			}
 		}
 
-		// AntiLinkgc
 		if (AntiLink) {
 			linkgce = await RoseMwol.groupInviteCode(from)
 			if (budy.includes(`https://chat.whatsapp.com/${linkgce}`)) {
@@ -724,7 +718,7 @@ module.exports = RoseMwol = async (RoseMwol, m, chatUpdate, store) => {
 				})
 			} else {}
 		}
-		// Antiwame by rose
+
 		if (antiWame)
 			if (budy.includes(`wa.me`)) {
 				if (!isBotAdmins) return
@@ -743,6 +737,7 @@ module.exports = RoseMwol = async (RoseMwol, m, chatUpdate, store) => {
 					quoted: m
 				})
 			} else {}
+
 		if (antiWame)
 			if (budy.includes(`http://wa.me`)) {
 				if (!isBotAdmins) return
@@ -761,7 +756,7 @@ module.exports = RoseMwol = async (RoseMwol, m, chatUpdate, store) => {
 					quoted: m
 				})
 			} else {}
-		//antivirtex by rose
+
 		if (antiVirtex) {
 			if (budy.length > 3500) {
 				reply(`Somebody spammed virus!! Mark as read⚠️\n`.repeat(300))
@@ -770,7 +765,7 @@ module.exports = RoseMwol = async (RoseMwol, m, chatUpdate, store) => {
 				RoseMwol.groupParticipantsUpdate(m.chat, [m.sender], 'remove')
 			}
 		}
-		//anti bad words by rose
+
 		if (antiToxic)
 			if (bad.includes(messagesD)) {
 				tos = ['Hey, watch your mouth', 'Never been taught how to speak?', 'Stop being toxic my friend🤢', 'Dont be toxic🦄']
@@ -793,7 +788,7 @@ module.exports = RoseMwol = async (RoseMwol, m, chatUpdate, store) => {
 					})
 				}
 			}
-		//antilink youtube video by rose
+
 		if (AntiLinkYoutubeVid)
 			if (budy.includes("https://youtu.be/")) {
 				if (!isBotAdmins) return
@@ -812,7 +807,7 @@ module.exports = RoseMwol = async (RoseMwol, m, chatUpdate, store) => {
 					quoted: m
 				})
 			} else {}
-		//antilink youtube channel by rose
+
 		if (AntiLinkYoutubeChannel)
 			if (budy.includes("https://youtube.com/")) {
 				if (!isBotAdmins) return
@@ -831,7 +826,7 @@ module.exports = RoseMwol = async (RoseMwol, m, chatUpdate, store) => {
 					quoted: m
 				})
 			} else {}
-		//antilink instagram by rose
+
 		if (AntiLinkInstagram)
 			if (budy.includes("https://www.instagram.com/")) {
 				if (!isBotAdmins) return
@@ -850,7 +845,7 @@ module.exports = RoseMwol = async (RoseMwol, m, chatUpdate, store) => {
 					quoted: m
 				})
 			} else {}
-		//antilink facebook by rose
+
 		if (AntiLinkFacebook)
 			if (budy.includes("https://facebook.com/")) {
 				if (!isBotAdmins) return
@@ -869,7 +864,7 @@ module.exports = RoseMwol = async (RoseMwol, m, chatUpdate, store) => {
 					quoted: m
 				})
 			} else {}
-		//antilink telegram by rose
+
 		if (AntiLinkTelegram)
 			if (budy.includes("https://t.me/")) {
 				if (AntiLinkTelegram)
@@ -889,7 +884,7 @@ module.exports = RoseMwol = async (RoseMwol, m, chatUpdate, store) => {
 					quoted: m
 				})
 			} else {}
-		//antilink tiktok by rose
+
 		if (AntiLinkTiktok)
 			if (budy.includes("https://www.tiktok.com/")) {
 				if (!isBotAdmins) return
@@ -908,7 +903,7 @@ module.exports = RoseMwol = async (RoseMwol, m, chatUpdate, store) => {
 					quoted: m
 				})
 			} else {}
-		//antilink twitter by rose
+
 		if (AntiLinkTwitter)
 			if (budy.includes("https://twitter.com/")) {
 				if (!isBotAdmins) return
@@ -927,7 +922,7 @@ module.exports = RoseMwol = async (RoseMwol, m, chatUpdate, store) => {
 					quoted: m
 				})
 			} else {}
-		//antilink all by rose
+
 		if (AntiLinkAll)
 			if (budy.includes("https://")) {
 				if (!isBotAdmins) return
@@ -966,6 +961,16 @@ module.exports = RoseMwol = async (RoseMwol, m, chatUpdate, store) => {
 						audio: result,
 						mimetype: 'audio/mpeg',
 						seconds: `${pttduration}`,
+						contextInfo: {
+							externalAdReply: {
+								title: `${global.botname}`,
+								body: `${global.botname}`,
+								thumbnail: log0,
+								mediaType: 2,
+								mediaUrl: `${global.websitex}`,
+								sourceUrl: `${global.websitex}`
+							}
+						},
 						ptt: true
 					}, {
 						quoted: m
@@ -1053,18 +1058,15 @@ module.exports = RoseMwol = async (RoseMwol, m, chatUpdate, store) => {
 			}
 		}
 
-		//Mute Chat\\
 		if (db.data.chats[m.chat].mute && !isAdmins && !isCreator) {
 			return
 		}
 
-		//media detect \\
 		const isQuotedImage = type === 'extendedTextMessage' && content.includes('imageMessage')
 		const isQuotedVideo = type === 'extendedTextMessage' && content.includes('videoMessage')
 		const isQuotedAudio = type === 'extendedTextMessage' && content.includes('audioMessage')
 		const isQuotedSticker = type === 'extendedTextMessage' && content.includes('stickerMessage')
 
-		//Respon Cmd with media\\
 		if (isMedia && m.msg.fileSha256 && (m.msg.fileSha256.toString('base64') in global.db.data.sticker)) {
 			let hash = global.db.data.sticker[m.msg.fileSha256.toString('base64')]
 			let {
@@ -4392,7 +4394,17 @@ ${global.themeendline}
 						url: data.medias[0].url
 					},
 					mimetype: 'audio/mpeg',
-					fileName: data.title + '.m4a'
+					fileName: data.title + '.m4a',
+					contextInfo: {
+						externalAdReply: {
+							title: `${global.botname}`,
+							body: `${global.botname}`,
+							thumbnail: log0,
+							mediaType: 2,
+							mediaUrl: `${global.websitex}`,
+							sourceUrl: `${global.websitex}`
+						}
+					}
 				}, {
 					quoted: m
 				})
@@ -6405,7 +6417,17 @@ ${global.themeendline}
 				audio: buffer,
 				mimetype: 'audio/mp4',
 				seconds: `${pttduration}`,
-				ptt: true
+				ptt: true,
+				contextInfo: {
+					externalAdReply: {
+						title: `${global.botname}`,
+						body: `${global.botname}`,
+						thumbnail: log0,
+						mediaType: 2,
+						mediaUrl: `${global.websitex}`,
+						sourceUrl: `${global.websitex}`
+					}
+				}
 			}, {
 				quoted: m
 			})
@@ -6420,7 +6442,17 @@ ${global.themeendline}
 				audio: results,
 				mimetype: 'audio/mpeg',
 				seconds: `${pttduration}`,
-				ptt: true
+				ptt: true,
+				contextInfo: {
+					externalAdReply: {
+						title: `${global.botname}`,
+						body: `${global.botname}`,
+						thumbnail: log0,
+						mediaType: 2,
+						mediaUrl: `${global.websitex}`,
+						sourceUrl: `${global.websitex}`
+					}
+				}
 			}, {
 				quoted: m
 			})
@@ -7059,7 +7091,17 @@ ${global.themeendline}
 				audio: results,
 				mimetype: 'audio/mpeg',
 				seconds: `${pttduration}`,
-				ptt: true
+				ptt: true,
+				contextInfo: {
+					externalAdReply: {
+						title: `${global.botname}`,
+						body: `${global.botname}`,
+						thumbnail: log0,
+						mediaType: 2,
+						mediaUrl: `${global.websitex}`,
+						sourceUrl: `${global.websitex}`
+					}
+				}
 			}, {
 				quoted: m
 			})
@@ -9367,6 +9409,126 @@ ${global.themeemoji} Media Url : ${images}`,
 			}
 		}
 		break
+		case 'meme':{
+			if (!text) return reply(`Example : ${prefix + command} *Query Title*`)
+			try {
+			let {
+				result
+			} = await fetchJson(`https://hardianto.xyz/api/yt/search?query=${encodeURIComponent(text)}&apikey=hardianto`)
+			let memes = result
+			let memecap = `
+${global.themeemoji} Title : ${memes.title}
+${global.themeemoji} Author : ${memes.author}
+`
+			await RoseMwol.sendMessage(m.chat, {
+				image: { 
+					url: memes.url
+				},
+				caption : memecap
+			}, {
+				quoted: m
+			})
+		} catch (err) {
+			reply(`${mess.downerror}`)
+			}
+		}
+		break
+
+		case 'play':
+		case 'song':
+		case 'ytplay': {
+			if (!text) return reply(`Example : ${prefix + command} *Query Title*`)
+			let {
+				result
+			} = await fetchJson(`https://hardianto.xyz/api/yt/search?query=${encodeURIComponent(text)}&apikey=hardianto`)
+			let anu = result[Math.floor(Math.random() * result.length)]
+			let buttons = [{
+					buttonId: `ytmp3 ${anu.url}`,
+					buttonText: {
+						displayText: '🎶 Audio 🎶'
+					},
+					type: 1
+				},
+				{
+					buttonId: `ytmp4 ${anu.url}`,
+					buttonText: {
+						displayText: '📽️ Video 📽️'
+					},
+					type: 1
+				}
+			]
+			let buttonMessage = {
+				image: {
+					url: anu.thumbnail
+				},
+				caption: `
+${global.themeemoji} Title : ${anu.title}
+${global.themeemoji} Ext : Search
+${global.themeemoji} ID : ${anu.videoId}
+${global.themeemoji} Duration : ${anu.timestamp}
+${global.themeemoji} Viewes : ${anu.views}
+${global.themeemoji} Uploaded On : ${anu.ago}
+${global.themeemoji} Author : ${anu.author.name}
+${global.themeemoji} Channel : ${anu.author.url}
+${global.themeemoji} Description : ${anu.description}
+${global.themeemoji} Url : ${anu.url}`,
+				footer: RoseMwol.user.name,
+				buttons: buttons,
+				headerType: 4
+			}
+			RoseMwol.sendMessage(m.chat, buttonMessage, {
+				quoted: m
+			})
+		}
+		break
+
+		case 'play2':
+		case 'song2':
+		case 'ytplay2': {
+			if (!text) return reply(`Example : ${prefix + command} *Query Title*`)
+			let {
+				information
+			} = await fetchJson(`https://hardianto.xyz/api/download/play?query=${encodeURIComponent(text)}&apikey=hardianto`)
+			let anu = information
+			let buttons = [{
+					buttonId: `ytmp3 ${anu.url}`,
+					buttonText: {
+						displayText: '🎶 Audio 🎶'
+					},
+					type: 1
+				},
+				{
+					buttonId: `ytmp4 ${anu.url}`,
+					buttonText: {
+						displayText: '📽️ Video 📽️'
+					},
+					type: 1
+				}
+			]
+			let buttonMessage = {
+				image: {
+					url: anu.thumbnail
+				},
+				caption: `
+${global.themeemoji} Title : ${anu.title}
+${global.themeemoji} Ext : Search
+${global.themeemoji} ID : ${anu.videoId}
+${global.themeemoji} Duration : ${anu.timestamp}
+${global.themeemoji} Viewes : ${anu.views}
+${global.themeemoji} Uploaded On : ${anu.ago}
+${global.themeemoji} Author : ${anu.author.name}
+${global.themeemoji} Channel : ${anu.author.url}
+${global.themeemoji} Description : ${anu.description}
+${global.themeemoji} Url : ${anu.url}`,
+				footer: `${pushname}`,
+				buttons: buttons,
+				headerType: 4
+			}
+			RoseMwol.sendMessage(m.chat, buttonMessage, {
+				quoted: m
+			})
+		}
+		break
 
 		/* 
 		 * Fixed .play And .ytplay By Sachu [ Only For Railway Deploys ] 
@@ -9387,16 +9549,16 @@ ${global.themeemoji} Media Url : ${images}`,
 		let buttonMessage = {
 			image: { url: anu.thumbnail },
 			caption: `
-		${global.design} Title : ${anu.title}
-		${global.design} Ext : Search
-		${global.design} ID : ${anu.videoId}
-		${global.design} Duration : ${anu.timestamp}
-		${global.design} Viewes : ${anu.views}
-		${global.design} Uploaded On : ${anu.ago}
-		${global.design} Author : ${anu.author.name}
-		${global.design} Channel : ${anu.author.url}
-		${global.design} Description : ${anu.description}
-		${global.design} Url : ${anu.url}`,
+${global.themeemoji} Title : ${anu.title}
+${global.themeemoji} Ext : Search
+${global.themeemoji} ID : ${anu.videoId}
+${global.themeemoji} Duration : ${anu.timestamp}
+${global.themeemoji} Viewes : ${anu.views}
+${global.themeemoji} Uploaded On : ${anu.ago}
+${global.themeemoji} Author : ${anu.author.name}
+${global.themeemoji} Channel : ${anu.author.url}
+${global.themeemoji} Description : ${anu.description}
+${global.themeemoji} Url : ${anu.url}`,
 			footer: RoseMwol.user.name,
 			buttons: buttons,
 			headerType: 4
@@ -12140,7 +12302,17 @@ To Download Media, Please Click One Of The Buttons Below Or Enter The ytmp3/ytmp
 							audio: buff,
 							mimetype: 'audio/mpeg',
 							seconds: `${pttduration}`,
-							ptt: true
+							ptt: true,
+							contextInfo: {
+								externalAdReply: {
+									title: `${global.botname}`,
+									body: `${global.botname}`,
+									thumbnail: log0,
+									mediaType: 2,
+									mediaUrl: `${global.websitex}`,
+									sourceUrl: `${global.websitex}`
+								}
+							}
 						}, {
 							quoted: m
 						})
