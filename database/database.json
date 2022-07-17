@@ -1,16 +1,6 @@
 {
-  "users": {
-    "919744933034@s.whatsapp.net": {
-      "afkTime": -1,
-      "afkReason": "",
-      "limit": "Infinity"
-    }
-  },
-  "chats": {
-    "120363038570228615@g.us": {
-      "mute": false
-    }
-  },
+  "users": {},
+  "chats": {},
   "database": {},
   "game": {
     "tebaklagu": [],
@@ -24,18 +14,7 @@
     "lirik": [],
     "tebakan": []
   },
-  "settings": {
-    "12508483529@s.whatsapp.net": {
-      "status": 0,
-      "autobio": false,
-      "templateImage": false,
-      "templateVideo": false,
-      "templateGif": false,
-      "templateMsg": false,
-      "templateDocument": false,
-      "templateLocation": true
-    }
-  },
+  "settings": {},
   "others": {
     "vote": []
   },
