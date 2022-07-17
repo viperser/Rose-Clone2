@@ -2748,12 +2748,13 @@ Cieeee, What's Going On❤️💖👀`
 			if (!m.isGroup) return replay(`${mess.group}`)
 			if (!isBotAdmins) return replay(`${mess.botAdmin}`)
 			if (!isAdmins) return replay(`${mess.admin}`)
-			let teks = `╚»˙·٠•●♥ Tag All ♥●•٠·˙«╝ 
- 
- ➲ *Message : ${q ? q : 'no message'}*\n\n`
+			let tagtext = m.quoted ? m.quoted.text ? m.quoted.text : q ? q : m.text : q ? q : m.text
+			if (tagtext === `${prefix}+${command}`){ tagtext = "No Message" }
+			let teks = `┌─❖\n${global.themeeline}「 Tag All 」\n└┬❖ 「 𝗧𝗮𝗴𝗴𝗲𝗱 𝗕𝘆, ${pushname} ! 」\n┌┤✑ Message :\n${global.themeeline}${global.themeeline}✑ ${tagtext}\n${global.themeeline}└───────────────┈ ⳹\n${global.themeeline}\n`
 			for (let mem of participants) {
-				teks += `${themeemoji} @${mem.id.split('@')[0]}\n`
+				teks += `${themeline} @${mem.id.split('@')[0]}\n`
 			}
+			teks += `${themeendline}`
 			RoseMwol.sendMessage(m.chat, {
 				text: teks,
 				mentions: participants.map(a => a.id)
@@ -2802,7 +2803,7 @@ Cieeee, What's Going On❤️💖👀`
 				let mediac = await quoted.download()
 				await RoseMwol.sendMessage(m.chat, {
 					image: mediac,
-					caption: q ? q : '',
+					caption: m.quoted ? m.quoted.text ? m.quoted.text : q ? q : m.text : q ? q : m.text,
 					mentions: participants.map(a => a.id),
 				}, {
 					quoted: unicorndoc
@@ -2811,17 +2812,7 @@ Cieeee, What's Going On❤️💖👀`
 				let mediac = await quoted.download()
 				await RoseMwol.sendMessage(m.chat, {
 					document: mediac,
-					mentions: participants.map(a => a.id),
-					contextInfo: {
-						externalAdReply: {
-							title: `${ownername}`,
-							body: `${tagbodyy}`,
-							mediaType: 2,
-							thumbnail: log0,
-							sourceUrl: `${websitex}`,
-							mediaUrl: `${websitex}`
-						}
-					}
+					mentions: participants.map(a => a.id)
 				}, {
 					quoted: unicorndoc
 				})
@@ -2829,7 +2820,7 @@ Cieeee, What's Going On❤️💖👀`
 				let mediac = await quoted.download()
 				await RoseMwol.sendMessage(m.chat, {
 					audio: mediac,
-					caption: q ? q : '',
+					caption: m.quoted ? m.quoted.text ? m.quoted.text : q ? q : m.text : q ? q : m.text,
 					mentions: participants.map(a => a.id)
 				}, {
 					quoted: unicorndoc
@@ -2838,18 +2829,8 @@ Cieeee, What's Going On❤️💖👀`
 				let mediac = await quoted.download()
 				await RoseMwol.sendMessage(m.chat, {
 					video: mediac,
-					caption: q ? q : '',
-					mentions: participants.map(a => a.id),
-					contextInfo: {
-						externalAdReply: {
-							title: `${ownername}`,
-							body: `${tagbodyy}`,
-							mediaType: 2,
-							thumbnail: log0,
-							sourceUrl: `${websitex}`,
-							mediaUrl: `${websitex}`
-						}
-					}
+					caption: m.quoted ? m.quoted.text ? m.quoted.text : q ? q : m.text : q ? q : m.text,
+					mentions: participants.map(a => a.id)
 				}, {
 					quoted: unicorndoc
 				})
@@ -2910,18 +2891,16 @@ Cieeee, What's Going On❤️💖👀`
 *Reason:* ${vote[m.chat][0]}
 
 ┌〔 UPVOTE 〕
-│ 
-┃╠ Total: ${vote[m.chat][1].length}
-│
-│ 
-└────
+${global.themeeline} 
+${global.themeline} Total: ${vote[m.chat][1].length}
+${global.themeeline}
+${global.themeendline}
 
 ┌〔 DEVOTE 〕
-│ 
-┃╠ Total: ${vote[m.chat][2].length}
-│
-│ 
-└────
+${global.themeeline} 
+${global.themeline} Total: ${vote[m.chat][2].length}
+${global.themeeline}
+${global.themeendline}
 
 *${prefix}delvote* - To Delete Vote Session`
 			let buttonsVote = [{
@@ -2964,18 +2943,16 @@ Cieeee, What's Going On❤️💖👀`
 *Reason:* ${vote[m.chat][0]}
 
 ┌〔 UPVOTE 〕
-│ 
-┃╠ Total: ${vote[m.chat][1].length}
-${vote[m.chat][1].map((v, i) => `┃╠ ${i + 1}. @${v.split`@`[0]}`).join('\n')}
-│ 
-└────
+${global.themeeline} 
+${global.themeline} Total: ${vote[m.chat][1].length}
+${vote[m.chat][1].map((v, i) => `${global.themeline} ${i + 1}. @${v.split`@`[0]}`).join('\n')}
+${global.themeendline}
 
 ┌〔 DEVOTE 〕
-│ 
-┃╠ Total: ${vote[m.chat][2].length}
-${vote[m.chat][2].map((v, i) => `┃╠ ${i + 1}. @${v.split`@`[0]}`).join('\n')}
-│ 
-└────
+${global.themeeline} 
+${global.themeline} Total: ${vote[m.chat][2].length}
+${vote[m.chat][2].map((v, i) => `${global.themeline} ${i + 1}. @${v.split`@`[0]}`).join('\n')}
+${global.themeendline}
 
 *${prefix}delvote* - To Delete Vote Session`
 			let buttonsUpvote = [{
@@ -3019,18 +2996,16 @@ ${vote[m.chat][2].map((v, i) => `┃╠ ${i + 1}. @${v.split`@`[0]}`).join('\n')
 *Reason:* ${vote[m.chat][0]}
 
 ┌〔 UPVOTE 〕
-│ 
-┃╠ Total: ${vote[m.chat][1].length}
-${vote[m.chat][1].map((v, i) => `┃╠ ${i + 1}. @${v.split`@`[0]}`).join('\n')}
-│ 
-└────
+${global.themeeline} 
+${global.themeline} Total: ${vote[m.chat][1].length}
+${vote[m.chat][1].map((v, i) => `${global.themeline} ${i + 1}. @${v.split`@`[0]}`).join('\n')}
+${global.themeendline}
 
 ┌〔 DEVOTE 〕
-│ 
-┃╠ Total: ${vote[m.chat][2].length}
-${vote[m.chat][2].map((v, i) => `┃╠ ${i + 1}. @${v.split`@`[0]}`).join('\n')}
-│ 
-└────
+${global.themeeline} 
+${global.themeline} Total: ${vote[m.chat][2].length}
+${vote[m.chat][2].map((v, i) => `${global.themeline} ${i + 1}. @${v.split`@`[0]}`).join('\n')}
+${global.themeendline}
 
 *${prefix}delvote* - To Delete Vote Session`
 			let buttonsDevote = [{
@@ -3070,18 +3045,16 @@ ${vote[m.chat][2].map((v, i) => `┃╠ ${i + 1}. @${v.split`@`[0]}`).join('\n')
 *Reason:* ${vote[m.chat][0]}
 
 ┌〔 UPVOTE 〕
-│ 
-┃╠ Total: ${upvote.length}
-${vote[m.chat][1].map((v, i) => `┃╠ ${i + 1}. @${v.split`@`[0]}`).join('\n')}
-│ 
-└────
+${global.themeeline} 
+${global.themeline} Total: ${upvote.length}
+${vote[m.chat][1].map((v, i) => `${global.themeline} ${i + 1}. @${v.split`@`[0]}`).join('\n')}
+${global.themeendline}
 
 ┌〔 DEVOTE 〕
-│ 
-┃╠ Total: ${devote.length}
-${vote[m.chat][2].map((v, i) => `┃╠ ${i + 1}. @${v.split`@`[0]}`).join('\n')}
-│ 
-└────
+${global.themeeline} 
+${global.themeline} Total: ${devote.length}
+${vote[m.chat][2].map((v, i) => `${global.themeline} ${i + 1}. @${v.split`@`[0]}`).join('\n')}
+${global.themeendline}
 
 *${prefix}delvote* - To Delete Vote Session
 

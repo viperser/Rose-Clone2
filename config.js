@@ -42,6 +42,9 @@ global.themeemoji = "⚠"
 global.packname = "💞 ᴍᴀᴅᴇ ᴡɪᴛʜ ❤️"
 global.author = "🤖 ʀᴏꜱᴇ-ᴍᴡᴏʟ-ᴍᴅ 👻"
 global.watermark = "🤖 ʀᴏꜱᴇ-ᴍᴡᴏʟ-ᴍᴅ 👻"
+global.themeeline = "│"
+global.themeline = "│✙"
+global.themeendline = "│\n└──────────────────┈ ⳹"
 
 global.thum = fs.readFileSync("./Bot Pic/Rose.jpg") 
 global.log0 = fs.readFileSync("./Bot Pic/Rose.jpg") 
@@ -84,7 +87,7 @@ global.mess = {
     bot: 'This Feature Is Only For Bot',
     wait: 'Prossesing....',
     error: 'Error !!',
-    linkm: 'Where Is The Link?',
+    linkm: 'Where Is The Link ?',
     servererror: '⚠ Server Error ⚠',
     errorlink: 'Link Invalid !!',
     linkerror: '⚠ Invalid URL ⚠',
