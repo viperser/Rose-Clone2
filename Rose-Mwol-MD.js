@@ -9,6 +9,7 @@ const {
 	eng
 } = require('./Lang')
 let lang = eng
+const defaultLang = 'en'
 const {
 	BufferJSON,
 	WA_DEFAULT_EPHEMERAL,
@@ -206,6 +207,8 @@ const {
 	getSapi,
 	getGajah
 } = require('./storage/user/buruan.js')
+const timestampe = speed();
+const latensie = speed() - timestampe
 let DarahAwal = global.rpg.darahawal
 const isDarah = cekDuluJoinAdaApaKagaDiJson(m.sender)
 const isCekDarah = getDarah(m.sender)
@@ -1412,29 +1415,6 @@ In ${clockString(new Date - user.afkTime)}
 			}
 		}
 
-		const timestampe = speed();
-		const latensie = speed() - timestampe
-		const menulist = `┌─❖
-│「 Hi 👋 」
-└┬❖ 「 ${pushname} 」
-┌┤✑  How Are You? 😄
-│└────────────┈ ⳹
-│
-└─「 𝘽𝙊𝙏 𝙄𝙉𝙁𝙊 」       
-│✑ 𝗦𝗽𝗲𝗲𝗱 : ${latensie.toFixed(4)} miliseconds
-│✑ 𝗥𝘂𝗻𝘁𝗶𝗺𝗲 : ${runtime(process.uptime())}
-│✑ 𝗕𝗼𝘁 𝗡𝗮𝗺𝗲 : ${global.botname}
-│✑ 𝗢𝘄𝗻𝗲𝗿 𝗡𝗮𝗺𝗲 : ${global.ownername}
-│✑ 𝗢𝘄𝗻𝗲𝗿 𝗡𝗼. : ${global.owner}
-│✑ 𝗛𝗼𝘀𝘁 𝗡𝗮𝗺𝗲 : ${os.hostname()}
-│✑ 𝗣𝗹𝗮𝘁𝗳𝗼𝗿𝗺 : ${os.platform()}
-│✑ 𝗧𝗼𝘁𝗮𝗹 𝗨𝘀𝗲𝗿 : ${Object.keys(global.db.data.users).length}
-│✑ 𝗧𝗼𝘁𝗮𝗹 𝗛𝗶𝘁 : ${jumlahcmd}
-│✑ 𝗧𝗼𝘁𝗮𝗹 𝗛𝗶𝘁 𝗧𝗼𝗱𝗮𝘆 : ${jumlahharian}
-└┬────────────┈ ⳹
- │✑  Please Select
- │✑  The Button Below
- └─────────────┈ ⳹`
 
 		function pickRandom(list) {
 			return list[Math.floor(list.length * Math.random())]
@@ -2789,23 +2769,61 @@ Cieeee, What's Going On❤️💖👀`
 			if (!m.isGroup) return replay(`${mess.group}`)
 			if (!isBotAdmins) return replay(`${mess.botAdmin}`)
 			if (!isAdmins) return replay(`${mess.admin}`)
+			let unicorndoc = {
+				key: {
+					fromMe: false,
+					"participant": "0@s.whatsapp.net",
+					"remoteJid": "919744933034@g.us"
+				},
+				"message": {
+					"productMessage": {
+						"product": {
+							"productImage": {
+								"mimetype": "image/jpeg",
+								"jpegThumbnail": log0 //The picture
+							},
+							"title": `${global.botname}`,
+							"currencyCode": "USD",
+							"priceAmount1000": "999999999999",
+							"retailerId": `${global.watermark}`,
+							"productImageCount": 1
+						},
+						"businessOwnerJid": `0@s.whatsapp.net`
+					}
+				},
+				contextInfo: {
+					"forwardingScore": 999,
+					"isForwarded": true
+				},
+				sendEphemeral: true
+			}
 			try {
 			if (/image/.test(mime)) {
 				let mediac = await quoted.download()
 				await RoseMwol.sendMessage(m.chat, {
 					image: mediac,
 					caption: q ? q : '',
-					mentions: participants.map(a => a.id)
+					mentions: participants.map(a => a.id),
 				}, {
-					quoted: m
+					quoted: unicorndoc
 				})
 			} else if (/document/.test(mime)) {
 				let mediac = await quoted.download()
 				await RoseMwol.sendMessage(m.chat, {
 					document: mediac,
-					mentions: participants.map(a => a.id)
+					mentions: participants.map(a => a.id),
+					contextInfo: {
+						externalAdReply: {
+							title: `${ownername}`,
+							body: `${tagbodyy}`,
+							mediaType: 2,
+							thumbnail: log0,
+							sourceUrl: `${websitex}`,
+							mediaUrl: `${websitex}`
+						}
+					}
 				}, {
-					quoted: m
+					quoted: unicorndoc
 				})
 			} else if (/audio/.test(mime)) {
 				let mediac = await quoted.download()
@@ -2814,16 +2832,26 @@ Cieeee, What's Going On❤️💖👀`
 					caption: q ? q : '',
 					mentions: participants.map(a => a.id)
 				}, {
-					quoted: m
+					quoted: unicorndoc
 				})
 			} else if (/video/.test(mime)) {
 				let mediac = await quoted.download()
 				await RoseMwol.sendMessage(m.chat, {
 					video: mediac,
 					caption: q ? q : '',
-					mentions: participants.map(a => a.id)
+					mentions: participants.map(a => a.id),
+					contextInfo: {
+						externalAdReply: {
+							title: `${ownername}`,
+							body: `${tagbodyy}`,
+							mediaType: 2,
+							thumbnail: log0,
+							sourceUrl: `${websitex}`,
+							mediaUrl: `${websitex}`
+						}
+					}
 				}, {
-					quoted: m
+					quoted: unicorndoc
 				})
 			} else if (/webp/.test(mime)) {
 				let mediac = await quoted.download()
@@ -2832,14 +2860,14 @@ Cieeee, What's Going On❤️💖👀`
 					caption: q ? q : '',
 					mentions: participants.map(a => a.id)
 				}, {
-					quoted: m
+					quoted: unicorndoc
 				})
 			} else {
 				await RoseMwol.sendMessage(m.chat, {
 					text: q ? q : '',
 					mentions: participants.map(a => a.id)
 				}, {
-					quoted: m
+					quoted: unicorndoc
 				})
 			}
 		} catch (err) {
@@ -12577,7 +12605,7 @@ Report Message: ${text}`
 					}
 				]
 				RoseMwol.sendMessage(m.chat, {
-					caption: menulist,
+					caption: `${footertext}`,
 					document: fs.readFileSync('./Media/file/rose.xlsx'),
 					mimetype: `${docs}`,
 					fileName: `${ownername}`,

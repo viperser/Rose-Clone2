@@ -41,6 +41,7 @@ global.reactmoji = "💝"
 global.themeemoji = "⚠"
 global.packname = "💞 ᴍᴀᴅᴇ ᴡɪᴛʜ ❤️"
 global.author = "🤖 ʀᴏꜱᴇ-ᴍᴡᴏʟ-ᴍᴅ 👻"
+global.watermark = "🤖 ʀᴏꜱᴇ-ᴍᴡᴏʟ-ᴍᴅ 👻"
 
 global.thum = fs.readFileSync("./Bot Pic/Rose.jpg") 
 global.log0 = fs.readFileSync("./Bot Pic/Rose.jpg") 
