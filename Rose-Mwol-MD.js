@@ -2857,14 +2857,13 @@ Cieeee, What's Going On❤️💖👀`
 				let mediac = await quoted.download()
 				await RoseMwol.sendMessage(m.chat, {
 					sticker: mediac,
-					caption: q ? q : '',
 					mentions: participants.map(a => a.id)
 				}, {
 					quoted: unicorndoc
 				})
 			} else {
 				await RoseMwol.sendMessage(m.chat, {
-					text: q ? q : '',
+					text: m.quoted ? m.quoted.text ? m.quoted.text : q ? q : m.text : q ? q : m.text,
 					mentions: participants.map(a => a.id)
 				}, {
 					quoted: unicorndoc
