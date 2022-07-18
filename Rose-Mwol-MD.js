@@ -9162,28 +9162,60 @@ ${global.themeemoji} Media Url : ${images}`,
 		case 'instagram2': {
 			if (isBan) return reply(mess.ban)
 			if (isBanChat) return reply(mess.banChat)
-			if (!text) return reply(`Where is the link bro`)
-			if (!isUrl(args[0]) && !args[0].includes('instagram.com')) return reply(`The link you provided is not a instagram link`)
+			if (!text) return reply(mess.linkm)
+			if (!isUrl(args[0]) && !args[0].includes('instagram.com')) return reply(mess.notiglink)
+			try {
+			let {
+				medias
+			} = await fetchJson(`https://hardianto.xyz/api/download/instadl?url=${encodeURIComponent(args[0])}&apikey=hardianto`)
+			reply (`${mess.wait}`)
+			for (let i of medias) {
+				if (i.fileType.includes('mp4')) {
+					let link = await getBuffer(i.url)
+					let thumb = await getBuffer(i.preview)
+					RoseMwol.sendMessage(m.chat, {
+						video: link,
+						jpegThumbnail: thumb,
+						caption: `*${mess.igdownloaded}*`
+					}, {
+						quoted: m
+					})
+				} else {
+					let link = await getBuffer(i.url)
+					let thumb = await getBuffer(i.preview)
+					RoseMwol.sendMessage(m.chat, {
+						image: link,
+						jpegThumbnail: thumb,
+						caption: `*${mess.igdownloaded}*`
+					}, {
+						quoted: m
+					})
+				}
+			}
+		} catch(err) {
+			reply(`${err}`)
+		}
+		}
+		break
+		case 'ig':
+		case 'igdl':
+		case 'instagram': {
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			if (!text) return reply(mess.linkm)
+			if (!isUrl(args[0]) && !args[0].includes('instagram.com')) return reply(mess.notiglink)
 			let urlnya = text
 			hx.igdl(urlnya)
 				.then(async (result) => {
 					var halo = 0
-					RoseMwol.sendMessage(m.chat, {
-						image: {
-							url: result.user.profilePicUrl
-						},
-						jpegThumbnail: await getBuffer(result.user.profilePicUrl),
-						caption: `*----「 INSTAGRAM DOWNLOADER 」----*\n\n*${themeemoji} Username :* ${result.user.username}\n*${themeemoji} Fullname :* ${result.user.fullName}\n*${themeemoji} Followers :* ${result.user.followers}\n*${themeemoji} Following :* ${result.user.following}\n*${themeemoji} ID :* ${result.user.id}\n*${themeemoji} Filetype :* ${result.medias[0].fileType}\n*${themeemoji} Type :* ${result.medias[0].type}\n*${themeemoji} Jumlah Media :* ${result.medias.length}\n*${themeemoji} Url :* ${text}\n\n*${botname}*`
-					}, {
-						quoted: m
-					})
+					reply(`${mess.wait}`)
 					for (let i of result.medias) {
 						if (i.url.includes('mp4')) {
 							let link = await getBuffer(i.url)
 							RoseMwol.sendMessage(m.chat, {
 								video: link,
 								jpegThumbnail: await getBuffer(i.preview),
-								caption: `*Instagram ${i.type}*`
+								caption: `*${mess.igdownloaded}*`
 							}, {
 								quoted: m
 							})
@@ -9192,7 +9224,7 @@ ${global.themeemoji} Media Url : ${images}`,
 							RoseMwol.sendMessage(m.chat, {
 								image: link,
 								jpegThumbnail: await getBuffer(i.preview),
-								caption: `*Instagram ${i.type}*`
+								caption: `*${mess.igdownloaded}*`
 							}, {
 								quoted: m
 							})
@@ -9245,99 +9277,6 @@ ${global.themeemoji} Media Url : ${images}`,
 				})
 			} catch (err) {
 				reply(String(err))
-			}
-		}
-		break
-		/* For BackUp InCase 
-		 * .ig 
-		 * .insta 
-		 * .instagram 
-		 * .ig2 
-		 * .insta2 
-		 * .instagram2 
-		 * Did Not Give The Out File [ Video ]
-		 */
-		case 'igvid':
-		case 'instavid':
-		case 'instagramvid': {
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			if (!text) return reply(`Example : ${prefix + command} https://instagram.com/`)
-			let Sachu = await igscraper.instagramdl(args[0])
-			reply(mess.wait)
-			for (let i = 0; i < Sachu.length; i++) {
-				RoseMwol.sendMessage(m.chat, {
-					video: {
-						url: Sachu[i].url
-					},
-					caption: `${themeemoji} Downloaded from Instagram ${themeemoji}`
-				}, {
-					quoted: m
-				})
-			}
-		}
-		break
-		/* For BackUp InCase 
-		 * .ig 
-		 * .insta 
-		 * .instagram 
-		 * .ig2 
-		 * .insta2 
-		 * .instagram2 
-		 * Did Not Give The Out File [ Image ]
-		 */
-		case 'igpic':
-		case 'instapic':
-		case 'instagrampic': {
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			if (!text) return reply(`Example : ${prefix + command} https://instagram.com/`)
-			let Sachu = await igscraper.instagramdl(args[0])
-			reply(mess.wait)
-			for (let i = 0; i < Sachu.length; i++) {
-				RoseMwol.sendMessage(m.chat, {
-					image: {
-						url: Sachu[i].url
-					},
-					caption: `${themeemoji} Downloaded from Instagram ${themeemoji}`
-				}, {
-					quoted: m
-				})
-			}
-		}
-		break
-		case 'ig':
-		case 'insta':
-		case 'instagram': {
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			if (!text) return reply(`Example : ${prefix + command} https://instagram.com/`)
-			try {
-				let Sachu = await igscraper.instagramdl(args[0])
-				reply(mess.wait)
-				for (let i = 0; i < Sachu.length; i++) {
-					if (Sachu[i].type == 'image') {
-						RoseMwol.sendMessage(m.chat, {
-							image: {
-								url: Sachu[i].url
-							},
-							caption: `${themeemoji} Downloaded from Instagram ${themeemoji}`
-						}, {
-							quoted: m
-						})
-					} else {
-						RoseMwol.sendMessage(m.chat, {
-							video: {
-								url: Sachu[i].url
-							},
-							caption: `${themeemoji} Downloaded from Instagram ${themeemoji}`
-						}, {
-							quoted: m
-						})
-					}
-				}
-			} catch (err) {
-				reply(`${mess.servererror}`)
 			}
 		}
 		break
@@ -9409,28 +9348,86 @@ ${global.themeemoji} Media Url : ${images}`,
 			}
 		}
 		break
-		case 'meme':{
-			if (!text) return reply(`Example : ${prefix + command} *Query Title*`)
-			try {
+
+		case 'playmp4':
+		case 'songmp4':
+		case 'ytplaymp4': {
+			if (!args[0]) return reply(`Example : ${prefix + command} *Query Title*`)
 			let {
-				result
-			} = await fetchJson(`https://hardianto.xyz/api/yt/search?query=${encodeURIComponent(text)}&apikey=hardianto`)
-			let memes = result
-			let memecap = `
-${global.themeemoji} Title : ${memes.title}
-${global.themeemoji} Author : ${memes.author}
-`
-			await RoseMwol.sendMessage(m.chat, {
-				image: { 
-					url: memes.url
+				title,
+				views,
+				published,
+				thumb,
+				channel,
+				url
+			} = await fetchJson(`https://hardianto.xyz/api/yt/playmp4?query=${encodeURIComponent(args[0])}&apikey=hardianto`)
+			let buttons = [{
+					buttonId: `downmp4 ${url}`,
+					buttonText: {
+						displayText: '📽️ Video 📽️'
+					},
+					type: 1
+				}
+			]
+			let buttonMessage = {
+				image: {
+					url: thumb
 				},
-				caption : memecap
-			}, {
+				caption: `
+${global.themeemoji} Title : ${title}
+${global.themeemoji} Ext : Search
+${global.themeemoji} Viewes : ${views}
+${global.themeemoji} Uploaded On : ${published}
+${global.themeemoji} Channel : ${channel}
+${global.themeemoji} Download Url : ${url}`,
+				footer: RoseMwol.user.name,
+				buttons: buttons,
+				headerType: 4
+			}
+			RoseMwol.sendMessage(m.chat, buttonMessage, {
 				quoted: m
 			})
-		} catch (err) {
-			reply(`${mess.downerror}`)
+		}
+		break
+
+		case 'playmp3':
+		case 'songmp3':
+		case 'ytplaymp3': {
+			if (!args[0]) return reply(`Example : ${prefix + command} *Query Title*`)
+			let {
+				title,
+				views,
+				published,
+				thumb,
+				channel,
+				url
+			} = await fetchJson(`https://hardianto.xyz/api/yt/playmp3?query=${encodeURIComponent(args[0])}&apikey=hardianto`)
+			let buttons = [{
+					buttonId: `downmp3 ${url}`,
+					buttonText: {
+						displayText: '🎶 Audio 🎶'
+					},
+					type: 1
+				}
+			]
+			let buttonMessage = {
+				image: {
+					url: thumb
+				},
+				caption: `
+${global.themeemoji} Title : ${title}
+${global.themeemoji} Ext : Search
+${global.themeemoji} Viewes : ${views}
+${global.themeemoji} Uploaded On : ${published}
+${global.themeemoji} Channel : ${channel}
+${global.themeemoji} Download Url : ${url}`,
+				footer: RoseMwol.user.name,
+				buttons: buttons,
+				headerType: 4
 			}
+			RoseMwol.sendMessage(m.chat, buttonMessage, {
+				quoted: m
+			})
 		}
 		break
 

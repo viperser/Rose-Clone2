@@ -88,6 +88,7 @@ global.mess = {
     wait: 'Prossesing....',
     error: 'Error !!',
     linkm: 'Where Is The Link ?',
+    notiglink: 'Link Given Is Not Ig (Instagram) Link !!',
     servererror: '⚠ Server Error ⚠',
     errorlink: 'Link Invalid !!',
     linkerror: '⚠ Invalid URL ⚠',
