@@ -9,7 +9,6 @@ const {
 	eng
 } = require('./Lang')
 let lang = eng
-const defaultLang = 'en'
 const {
 	BufferJSON,
 	WA_DEFAULT_EPHEMERAL,
@@ -144,7 +143,6 @@ const {
 	Couples,
 	Darkjokes
 } = require("dhn-api")
-//rpg function\\
 const {
 	addInventoriDarah,
 	cekDuluJoinAdaApaKagaDiJson,
@@ -246,6 +244,7 @@ const _autostick = JSON.parse(fs.readFileSync('./database/autostickpc.json'));
 let banUser = JSON.parse(fs.readFileSync('./database/banUser.json'));
 let banchat = JSON.parse(fs.readFileSync('./database/banChat.json'));
 let bad = JSON.parse(fs.readFileSync('./src/toxic/bad.json'))
+let emojiss = JSON.parse(fs.readFileSync('./Media/emojis/emoji.json'))
 
 let tebaklagu = db.data.game.tebaklagu = []
 let _family100 = db.data.game.family100 = []
@@ -1236,7 +1235,6 @@ ${Array.from(room.jawaban, (jawaban, index) => {
 			} else reply('*Wrong Answer!*')
 		}
 
-		//TicTacToe\\
 		this.game = this.game ? this.game : {}
 		let room = Object.values(this.game).find(room => room.id && room.game && room.state && room.id.startsWith('tictactoe') && [room.game.playerX, room.game.playerO].includes(m.sender) && room.state == 'PLAYING')
 		if (room) {
@@ -1305,7 +1303,6 @@ Typed *surrender* to surrender and admited defeat`
 			}
 		}
 
-		//Suit PvP\\
 		this.suit = this.suit ? this.suit : {}
 		let roof = Object.values(this.suit).find(roof => roof.id && roof.status && [roof.p, roof.p2].includes(m.sender))
 		if (roof) {
@@ -1406,6 +1403,10 @@ In ${clockString(new Date - user.afkTime)}
 			user.afkReason = ''
 		}
 
+		async function pickRandom(list) {
+			return list[Math.floor(list.length * Math.random())]
+		}
+
 		const reactionMessage = {
 			react: {
 				text: args[0],
@@ -1417,10 +1418,18 @@ In ${clockString(new Date - user.afkTime)}
 			}
 		}
 
-
-		function pickRandom(list) {
-			return list[Math.floor(list.length * Math.random())]
+		let Reactt = await pickRandom(emojiss)
+		const RandomReactionMessage = {
+			react: {
+				text: await Reactt,
+				key: {
+					remoteJid: m.chat,
+					fromMe: true,
+					id: quoted.id,
+				}
+			}
 		}
+
 		let documents = [doc1, doc2, doc3, doc4, doc5, doc6]
 		let docs = pickRandom(documents)
 
@@ -1454,6 +1463,1194 @@ In ${clockString(new Date - user.afkTime)}
 		}
 
 		switch (command) {
+
+			case 'bug':
+		case 'report': {
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			if (!text) return reply(`Enter The Bug\n\nExample: ${command} Menu Error`)
+			RoseMwol.sendMessage(`${owner}@s.whatsapp.net`, {
+				text: `*Bug Report From:* wa.me/${m.sender.split("@")[0]}
+Report Message: ${text}`
+			})
+			reply(`Successfully Reported To The Owner\n\nPlease Make Sure The Bug Is Valid, If You Play With This, Use This Feature Again And Again For No Reason, You Will Be Blocked For Sure !`)
+		}
+		break
+		case 'gitlink':
+		case 'git':
+		case 'script':
+		case 'sc': {
+			let Git = lang.Git(pushname)
+			anu = ``
+			const template = generateWAMessageFromContent(m.chat, proto.Message.fromObject({
+				templateMessage: {
+					hydratedTemplate: {
+						hydratedContentText: anu,
+						locationMessage: {
+							jpegThumbnail: fs.readFileSync('./Bot Pic/Rose-Mwol-MD.jpg')
+						},
+						hydratedFooterText: `${Git}`,
+						hydratedButtons: [{
+							urlButton: {
+								displayText: '🌏 Bot Web 🌏',
+								url: '${botweb}'
+							},
+							urlButton: {
+								displayText: 'GitHub',
+								url: '${sc}'
+							}
+						}, {
+							quickReplyButton: {
+								displayText: '💖',
+								buttonId: '❤️'
+							}
+						}, {
+							quickReplyButton: {
+								displayText: '🙂',
+								buttonId: '❤️'
+							}
+						}]
+					}
+				}
+			}), {
+				userJid: m.chat
+			})
+			RoseMwol.relayMessage(m.chat, template.message, {
+				messageId: template.key.id
+			})
+		}
+		break
+		case 'donasi':
+		case 'donate':
+		case 'sewabot':
+		case 'sewa':
+		case 'buypremium':
+		case 'donate': {
+			RoseMwol.sendMessage(from, {
+				react: {
+					text: `${global.reactmoji}`,
+					key: m.key
+				}
+			})
+			RoseMwol.sendMessage(m.chat, {
+				image: {
+					url: 'https://telegra.ph/file/6a02cf1b00855ff80febb.jpg'
+				},
+				caption: `\n*Hi bro ${m.pushName}*\n\n *Bot Rental Price*\n*250 INR Per Group via Gpay For 1 Month*\n\n*For more details, You Can Chat With The Owner\nhttps://wa.me/919744933034 (Owner)*\n\n*Donate Me : \n\nGPay : +919744933034*`
+			}, {
+				quoted: m
+			})
+		}
+		break
+		case 'alive':
+		case 'panel':
+		case 'list':
+		case 'menu':
+		case 'help':
+		case '?': {
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			RoseMwol.sendMessage(from, {
+				react: {
+					text: `${global.reactmoji}`,
+					key: m.key
+				}
+			})
+			let footertext = lang.Menu(pushname)
+			let btn = [{
+				urlButton: {
+					displayText: 'YouTube 🍒',
+					url: `${websitex}`
+				}
+			}, {
+				callButton: {
+					displayText: 'Script 🍜',
+					url: `${botscript}`
+				}
+			}, {
+				quickReplyButton: {
+					displayText: 'All Menu 🍱',
+					id: 'allmenu'
+				}
+			}, {
+				quickReplyButton: {
+					displayText: 'List Menu 🍢',
+					id: 'command'
+				}
+			}, {
+				quickReplyButton: {
+					displayText: 'Owner 🤣',
+					id: 'owner'
+				}
+			}]
+			let setbot = db.data.settings[botNumber]
+			if (setbot.templateImage) {
+				RoseMwol.send5ButImg(m.chat, footertext, global.botname, global.thumb, btn, global.thumb)
+			} else if (setbot.templateGif) {
+				RoseMwol.send5ButGif(m.chat, footertext, global.botname, global.vidmenu, btn, global.thumb)
+			} else if (setbot.templateVid) {
+				RoseMwol.send5ButVid(m.chat, footertext, global.botname, global.vidmenu, btn, global.thumb)
+			} else if (setbot.templateVideo) {
+				RoseMwol.send5ButVid(m.chat, footertext, global.botname, global.vidmenu, btn, global.thumb)
+			} else if (setbot.templateDocument) {
+				let buttonmenu = [{
+						urlButton: {
+							displayText: `YouTube 🍒`,
+							url: `${websitex}`
+						}
+					},
+					{
+						urlButton: {
+							displayText: `Script 🍜`,
+							url: `${botscript}`
+						}
+					},
+					{
+						quickReplyButton: {
+							displayText: `All Menu 🍱`,
+							id: 'allmenu'
+						}
+					},
+					{
+						quickReplyButton: {
+							displayText: `List Menu 🍢`,
+							id: 'command'
+						}
+					},
+					{
+						quickReplyButton: {
+							displayText: `Owner 🤣`,
+							id: 'owner'
+						}
+					}
+				]
+				RoseMwol.sendMessage(m.chat, {
+					caption: `${footertext}`,
+					document: fs.readFileSync('./Media/file/rose.xlsx'),
+					mimetype: `${docs}`,
+					fileName: `${ownername}`,
+					templateButtons: buttonmenu,
+					footer: `${botname}`,
+					mentionedJid: [m.sender]
+				})
+			} else if (setbot.templateLocation) {
+				anu = ``
+				let footertext = lang.Menu(pushname)
+				const template = generateWAMessageFromContent(m.chat, proto.Message.fromObject({
+					templateMessage: {
+						hydratedTemplate: {
+							hydratedContentText: anu,
+							locationMessage: {
+								jpegThumbnail: fs.readFileSync('./Bot Pic/Rose-Mwol-MD.jpg')
+							},
+							hydratedFooterText: `${footertext}`,
+							hydratedButtons: [{
+								urlButton: {
+									displayText: '❣ Bot Web 🌏',
+									url: `${websitex}`
+								}
+							}, {
+								urlButton: {
+									displayText: 'Script 🔖',
+									url: `${botscript}`
+								}
+							}, {
+								quickReplyButton: {
+									displayText: '⚠ All Menu ⚠',
+									id: `${prefix}allmenu`
+								}
+							}, {
+								quickReplyButton: {
+									displayText: '🤖 List Menu ✨',
+									id: `${prefix}command`
+								}
+							}, {
+								quickReplyButton: {
+									displayText: '🙋‍♂️ Owner 🐱‍💻',
+									id: `${prefix}owner`
+								}
+							}]
+						}
+					}
+				}), {
+					userJid: m.chat
+				})
+				RoseMwol.relayMessage(m.chat, template.message, {
+					messageId: template.key.id
+				})
+			}
+		}
+		break
+		case 'command': {
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			let template = await generateWAMessageFromContent(m.chat, proto.Message.fromObject({
+				listMessage: {
+					title: `Hi ${pushname}`,
+					description: `Please Choose The Menu\n\n`,
+					buttonText: "Menu",
+					footerText: `${global.botname}`,
+					listType: "SINGLE_SELECT",
+					sections: [{
+							"title": "Initial Features Of Bot 🦄",
+							"rows": [{
+								"title": "Other ☕",
+								"description": "Displays The List Of Other Features",
+								"rowId": `${prefix}othermenu`
+							}]
+						},
+						{
+							"title": "Bot Features ❤️",
+							"rows": [{
+									"title": "All Menu 🥀",
+									"description": "Displays The List Of All The Features!",
+									"rowId": `${prefix}allmenu`
+								},
+								{
+									"title": "Owner Menu 💠",
+									"description": "Displays The List Of Owner Features",
+									"rowId": `${prefix}ownermenu`
+								},
+								{
+									"title": "Group Menu ✨",
+									"description": "Displays The List Of Main Features",
+									"rowId": `${prefix}groupmenu`
+								},
+								{
+									"title": "Maker Menu 🌈",
+									"description": "Displays The List Of Logo Making Features",
+									"rowId": `${prefix}indomenu`
+								},
+								{
+									"title": "Sound Menu 🎵",
+									"description": "Displays The List Of Sound Features",
+									"rowId": `${prefix}soundmenu`
+								},
+								{
+									"title": "Download Menu ↘️",
+									"description": "Displays The List Of Download Features",
+									"rowId": `${prefix}downloadmenu`
+								},
+								{
+									"title": "Sticker Menu 🃏",
+									"description": "Displays The List Of Sticker Features",
+									"rowId": `${prefix}indomenu`
+								},
+								{
+									"title": "Search Menu 🔎",
+									"description": "Displays The List Of Searching Features",
+									"rowId": `${prefix}searchmenu`
+								},
+								{
+									"title": "EFX/BGM Menu 🎵",
+									"description": "Displays The List Of EFX/BGM Features",
+									"rowId": `${prefix}efxmenu`
+								},
+								{
+									"title": "Tool Menu ⚙️",
+									"description": "Displays The List Of Tool Features",
+									"rowId": `${prefix}toolmenu`
+								},
+								{
+									"title": "Random Image Menu 🌆",
+									"description": "Displays The List Of Random Image Features",
+									"rowId": `${prefix}randomimagemenu`
+								},
+								{
+									"title": "Image Effect Menu 🖼️",
+									"description": "Displays The List Of Image Effect Features",
+									"rowId": `${prefix}imageeffectmenu`
+								},
+								{
+									"title": "Anime Menu 😘",
+									"description": "Displays The List Of Random Anime Features",
+									"rowId": `${prefix}animemenu`
+								},
+								{
+									"title": "Emote Menu 😀",
+									"description": "Displays The List Of Emote Features",
+									"rowId": `${prefix}emotemenu`
+								},
+								{
+									"title": "Anime Sticker Menu ☺️",
+									"description": "Displays The List Of Anime Sticker Features",
+									"rowId": `${prefix}animestickermenu`
+								},
+								{
+									"title": "Nsfw Menu 🤓",
+									"description": "Displays The List Of Nsfe Features",
+									"rowId": `${prefix}nsfwmenu`
+								},
+								{
+									"title": "Fun Menu 🕺",
+									"description": "Displays The List Of Fun Features",
+									"rowId": `${prefix}funmenu`
+								},
+								{
+									"title": "Game Menu 🎮",
+									"description": "Displays The List Of Game Features",
+									"rowId": `${prefix}indomenu`
+								},
+								{
+									"title": "Convert Menu ⚒️",
+									"description": "Displays The List Of Convert Features",
+									"rowId": `${prefix}convertmenu`
+								},
+								{
+									"title": "Database Menu ♻️",
+									"description": "Displays The List Of Database Features",
+									"rowId": `${prefix}databasemenu`
+								},
+								{
+									"title": "Indo Menu  🦜",
+									"description": "Displays The List Of Indo Features",
+									"rowId": `${prefix}indomenu`
+								},
+								{
+									"title": "Horoscope Menu 🕊️",
+									"description": "Displays The List Of Horoscope Features",
+									"rowId": `${prefix}indohoroscopemenu`
+								}
+							]
+						},
+						{
+							"title": "Chat With Fellow Users 🌝",
+							"rows": [{
+								"title": "Anonymous Chat Menu 🙎🏻‍♂️",
+								"description": "Displays The List Of Anonymous Chat Features",
+								"rowId": `${prefix}anonymousmenu`
+							}]
+						},
+						{
+							"title": "Credit ©️",
+							"rows": [{
+								"title": "Thanks To ❤️",
+								"description": "Displays The List Of Credit Of The Bot !!",
+								"rowId": `${prefix}tqtt`
+							}]
+						}
+					],
+					listType: 1
+				}
+			}), {})
+			RoseMwol.relayMessage(m.chat, template.message, {
+				messageId: template.key.id
+			})
+		}
+		break
+		case 'allmenu':
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			await RoseMwol.sendMessage(from, {
+				react: {
+					text: `${Reactt}`,
+					key: m.key
+				}
+			})
+			let Allmenuu = lang.AllMenu(prefix)
+			var unicorn = await getBuffer(picak + 'All Menu')
+			await RoseMwol.send5ButImg(from, `${Allmenuu}` + '' + ' ', `${botname}`, unicorn, [{
+				"urlButton": {
+					"displayText": "🌏 Bot Web 🌏",
+					"url": `${websitex}`
+				}
+			}, {
+				"urlButton": {
+					"displayText": "Script🔖",
+					"url": `${botscript}`
+				}
+			}, {
+				"quickReplyButton": {
+					"displayText": "Donate 🍜",
+					"id": 'donate'
+				}
+			}, {
+				"quickReplyButton": {
+					"displayText": "Owner 👤",
+					"id": 'owner'
+				}
+			}])
+			break
+		case 'ownermenu':
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			await RoseMwol.sendMessage(from, {
+				react: {
+					text: `${Reactt}`,
+					key: m.key
+				}
+			})
+			var unicorn = await getBuffer(picak + 'Owner Menu')
+			await RoseMwol.send5ButImg(from, `${lang.OwnerMenu(pushname, prefix)}` + '' + ' ', `${botname}`, unicorn, [{
+				"urlButton": {
+					"displayText": "🌏 Bot Web 🌏",
+					"url": `${websitex}`
+				}
+			}, {
+				"urlButton": {
+					"displayText": "Script🔖",
+					"url": `${botscript}`
+				}
+			}, {
+				"quickReplyButton": {
+					"displayText": "Donate 🍜",
+					"id": 'donate'
+				}
+			}, {
+				"quickReplyButton": {
+					"displayText": "Owner 👤",
+					"id": 'owner'
+				}
+			}])
+			break
+		case 'groupmenu':
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			await RoseMwol.sendMessage(from, {
+				react: {
+					text: `${Reactt}`,
+					key: m.key
+				}
+			})
+			var unicorn = await getBuffer(picak + 'Group Menu')
+			await RoseMwol.send5ButImg(from, `${lang.GroupMenu(pushname, prefix)}` + '' + ' ', `${botname}`, unicorn, [{
+				"urlButton": {
+					"displayText": "🌏 Bot Web 🌏",
+					"url": `${websitex}`
+				}
+			}, {
+				"urlButton": {
+					"displayText": "Script🔖",
+					"url": `${botscript}`
+				}
+			}, {
+				"quickReplyButton": {
+					"displayText": "Donate 🍜",
+					"id": 'donate'
+				}
+			}, {
+				"quickReplyButton": {
+					"displayText": "Owner 👤",
+					"id": 'owner'
+				}
+			}])
+			break
+		case 'rpgmenu':
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			await RoseMwol.sendMessage(from, {
+				react: {
+					text: `${Reactt}`,
+					key: m.key
+				}
+			})
+			var unicorn = await getBuffer(picak + 'Rpg Menu')
+			await RoseMwol.send5ButImg(from, `${lang.RpgMenu(pushname, prefix)}` + '' + ' ', `${botname}`, unicorn, [{
+				"urlButton": {
+					"displayText": "🌏 Bot Web 🌏",
+					"url": `${websitex}`
+				}
+			}, {
+				"urlButton": {
+					"displayText": "Script🔖",
+					"url": `${botscript}`
+				}
+			}, {
+				"quickReplyButton": {
+					"displayText": "Donate 🍜",
+					"id": 'donate'
+				}
+			}, {
+				"quickReplyButton": {
+					"displayText": "Owner 👤",
+					"id": 'owner'
+				}
+			}])
+			break
+		case 'makermenu':
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			await RoseMwol.sendMessage(from, {
+				react: {
+					text: `${Reactt}`,
+					key: m.key
+				}
+			})
+			var unicorn = await getBuffer(picak + 'Maker Menu')
+			await RoseMwol.send5ButImg(from, `${lang.MakerMenu(pushname, prefix)}` + '' + ' ', `${botname}`, unicorn, [{
+				"urlButton": {
+					"displayText": "🌏 Bot Web 🌏",
+					"url": `${websitex}`
+				}
+			}, {
+				"urlButton": {
+					"displayText": "Script🔖",
+					"url": `${botscript}`
+				}
+			}, {
+				"quickReplyButton": {
+					"displayText": "Donate 🍜",
+					"id": 'donate'
+				}
+			}, {
+				"quickReplyButton": {
+					"displayText": "Owner 👤",
+					"id": 'owner'
+				}
+			}])
+			break
+		case 'downloadmenu':
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			await RoseMwol.sendMessage(from, {
+				react: {
+					text: `${Reactt}`,
+					key: m.key
+				}
+			})
+			var unicorn = await getBuffer(picak + 'Download Menu')
+			await RoseMwol.send5ButImg(from, `${lang.DownloaderMenu(pushname, prefix)}` + '' + ' ', `${botname}`, unicorn, [{
+				"urlButton": {
+					"displayText": "🌏 Bot Web 🌏",
+					"url": `${websitex}`
+				}
+			}, {
+				"urlButton": {
+					"displayText": "Script🔖",
+					"url": `${botscript}`
+				}
+			}, {
+				"quickReplyButton": {
+					"displayText": "Donate 🍜",
+					"id": 'donate'
+				}
+			}, {
+				"quickReplyButton": {
+					"displayText": "Owner 👤",
+					"id": 'owner'
+				}
+			}])
+			break
+		case 'searchmenu':
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			await RoseMwol.sendMessage(from, {
+				react: {
+					text: `${Reactt}`,
+					key: m.key
+				}
+			})
+			var unicorn = await getBuffer(picak + 'Search Menu')
+			await RoseMwol.send5ButImg(from, `${lang.SearchMenu(pushname, prefix)}` + '' + ' ', `${botname}`, unicorn, [{
+				"urlButton": {
+					"displayText": "🌏 Bot Web 🌏",
+					"url": `${websitex}`
+				}
+			}, {
+				"urlButton": {
+					"displayText": "Script🔖",
+					"url": `${botscript}`
+				}
+			}, {
+				"quickReplyButton": {
+					"displayText": "Donate 🍜",
+					"id": 'donate'
+				}
+			}, {
+				"quickReplyButton": {
+					"displayText": "Owner 👤",
+					"id": 'owner'
+				}
+			}])
+			break
+		case 'convertmenu':
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			await RoseMwol.sendMessage(from, {
+				react: {
+					text: `${Reactt}`,
+					key: m.key
+				}
+			})
+			var unicorn = await getBuffer(picak + 'Convert Menu')
+			await RoseMwol.send5ButImg(from, `${lang.ConvertMenu(pushname, prefix)}` + '' + ' ', `${botname}`, unicorn, [{
+				"urlButton": {
+					"displayText": "🌏 Bot Web 🌏",
+					"url": `${websitex}`
+				}
+			}, {
+				"urlButton": {
+					"displayText": "Script🔖",
+					"url": `${botscript}`
+				}
+			}, {
+				"quickReplyButton": {
+					"displayText": "Donate 🍜",
+					"id": 'donate'
+				}
+			}, {
+				"quickReplyButton": {
+					"displayText": "Owner 👤",
+					"id": 'owner'
+				}
+			}])
+			break
+		case 'randomimagemenu':
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			await RoseMwol.sendMessage(from, {
+				react: {
+					text: `${Reactt}`,
+					key: m.key
+				}
+			})
+			var unicorn = await getBuffer(picak + 'Random Image Menu')
+			await RoseMwol.send5ButImg(from, `${lang.RandomPicMenu(pushname, prefix)}` + '' + ' ', `${botname}`, unicorn, [{
+				"urlButton": {
+					"displayText": "🌏 Bot Web 🌏",
+					"url": `${websitex}`
+				}
+			}, {
+				"urlButton": {
+					"displayText": "Script🔖",
+					"url": `${botscript}`
+				}
+			}, {
+				"quickReplyButton": {
+					"displayText": "Donate 🍜",
+					"id": 'donate'
+				}
+			}, {
+				"quickReplyButton": {
+					"displayText": "Owner 👤",
+					"id": 'owner'
+				}
+			}])
+			break
+
+		case 'emotemenu':
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			var unicorn = await getBuffer(picak + 'Emote Menu')
+			await RoseMwol.sendMessage(from, {
+				react: {
+					text: `${Reactt}`,
+					key: m.key
+				}
+			})
+			await RoseMwol.send5ButImg(from, `${lang.EmoteMenu(pushname, prefix)}` + '' + ' ', `${botname}`, unicorn, [{
+				"urlButton": {
+					"displayText": "🌏 Bot Web 🌏",
+					"url": `${websitex}`
+				}
+			}, {
+				"urlButton": {
+					"displayText": "Script🔖",
+					"url": `${botscript}`
+				}
+			}, {
+				"quickReplyButton": {
+					"displayText": "Donate 🍜",
+					"id": 'donate'
+				}
+			}, {
+				"quickReplyButton": {
+					"displayText": "Owner 👤",
+					"id": 'owner'
+				}
+			}])
+			break
+		case 'imageeffectmenu':
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			await RoseMwol.sendMessage(from, {
+				react: {
+					text: `${Reactt}`,
+					key: m.key
+				}
+			})
+			var unicorn = await getBuffer(picak + 'Image Effect Menu')
+			await RoseMwol.send5ButImg(from, `${lang.ImgEffectMenu(pushname ,prefix)}` + '' + ' ', `${botname}`, unicorn, [{
+				"urlButton": {
+					"displayText": "🌏 Bot Web 🌏",
+					"url": `${websitex}`
+				}
+			}, {
+				"urlButton": {
+					"displayText": "Script🔖",
+					"url": `${botscript}`
+				}
+			}, {
+				"quickReplyButton": {
+					"displayText": "Donate 🍜",
+					"id": 'donate'
+				}
+			}, {
+				"quickReplyButton": {
+					"displayText": "Owner 👤",
+					"id": 'owner'
+				}
+			}])
+			break
+		case 'animemenu':
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			await RoseMwol.sendMessage(from, {
+				react: {
+					text: `${Reactt}`,
+					key: m.key
+				}
+			})
+			var unicorn = await getBuffer(picak + 'Anime Menu')
+			await RoseMwol.send5ButImg(from, `${lang.AnimeMenu(pushname, prefix)}` + '' + ' ', `${botname}`, unicorn, [{
+				"urlButton": {
+					"displayText": "🌏 Bot Web 🌏",
+					"url": `${websitex}`
+				}
+			}, {
+				"urlButton": {
+					"displayText": "Script🔖",
+					"url": `${botscript}`
+				}
+			}, {
+				"quickReplyButton": {
+					"displayText": "Donate 🍜",
+					"id": 'donate'
+				}
+			}, {
+				"quickReplyButton": {
+					"displayText": "Owner 👤",
+					"id": 'owner'
+				}
+			}])
+			break
+		case 'stickermenu':
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			await RoseMwol.sendMessage(from, {
+				react: {
+					text: `${Reactt}`,
+					key: m.key
+				}
+			})
+			var unicorn = await getBuffer(picak + 'Sticker Menu')
+			await RoseMwol.send5ButImg(from, `${lang.StickerMenu(pushname, prefix)}` + '' + ' ', `${botname}`, unicorn, [{
+				"urlButton": {
+					"displayText": "🌏 Bot Web 🌏",
+					"url": `${websitex}`
+				}
+			}, {
+				"urlButton": {
+					"displayText": "Script🔖",
+					"url": `${botscript}`
+				}
+			}, {
+				"quickReplyButton": {
+					"displayText": "Donate 🍜",
+					"id": 'donate'
+				}
+			}, {
+				"quickReplyButton": {
+					"displayText": "Owner 👤",
+					"id": 'owner'
+				}
+			}])
+			break
+		case 'animestickermenu':
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			await RoseMwol.sendMessage(from, {
+				react: {
+					text: `${Reactt}`,
+					key: m.key
+				}
+			})
+			var unicorn = await getBuffer(picak + 'Anime Sticker Menu')
+			await RoseMwol.send5ButImg(from, `${lang.AnimeStickerMenu(pushname, prefix)}` + '' + ' ', `${botname}`, unicorn, [{
+				"urlButton": {
+					"displayText": "🌏 Bot Web 🌏",
+					"url": `${websitex}`
+				}
+			}, {
+				"urlButton": {
+					"displayText": "Script🔖",
+					"url": `${botscript}`
+				}
+			}, {
+				"quickReplyButton": {
+					"displayText": "Donate 🍜",
+					"id": 'donate'
+				}
+			}, {
+				"quickReplyButton": {
+					"displayText": "Owner 👤",
+					"id": 'owner'
+				}
+			}])
+			break
+		case 'nsfwmenu':
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			await RoseMwol.sendMessage(from, {
+				react: {
+					text: `${Reactt}`,
+					key: m.key
+				}
+			})
+			var unicorn = await getBuffer(picak + 'Nsfw Menu')
+			await RoseMwol.send5ButImg(from, `${lang.NSFWMenu(pushname, prefix)}` + '' + ' ', `${botname}`, unicorn, [{
+				"urlButton": {
+					"displayText": "🌏 Bot Web 🌏",
+					"url": `${websitex}`
+				}
+			}, {
+				"urlButton": {
+					"displayText": "Script🔖",
+					"url": `${botscript}`
+				}
+			}, {
+				"quickReplyButton": {
+					"displayText": "Donate 🍜",
+					"id": 'donate'
+				}
+			}, {
+				"quickReplyButton": {
+					"displayText": "Owner 👤",
+					"id": 'owner'
+				}
+			}])
+			break
+		case 'funmenu':
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			await RoseMwol.sendMessage(from, {
+				react: {
+					text: `${Reactt}`,
+					key: m.key
+				}
+			})
+			var unicorn = await getBuffer(picak + 'Fun Menu')
+			await RoseMwol.send5ButImg(from, `${lang.FunMenu(pushname, prefix)}` + '' + ' ', `${botname}`, unicorn, [{
+				"urlButton": {
+					"displayText": "🌏 Bot Web 🌏",
+					"url": `${websitex}`
+				}
+			}, {
+				"urlButton": {
+					"displayText": "Script🔖",
+					"url": `${botscript}`
+				}
+			}, {
+				"quickReplyButton": {
+					"displayText": "Donate 🍜",
+					"id": 'donate'
+				}
+			}, {
+				"quickReplyButton": {
+					"displayText": "Owner 👤",
+					"id": 'owner'
+				}
+			}])
+			break
+		case 'soundmenu':
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			await RoseMwol.sendMessage(from, {
+				react: {
+					text: `${Reactt}`,
+					key: m.key
+				}
+			})
+			var unicorn = await getBuffer(picak + 'Sound Menu')
+			await RoseMwol.send5ButImg(from, `${lang.SoundMenu(pushname, prefix)}` + '' + ' ', `${botname}`, unicorn, [{
+				"urlButton": {
+					"displayText": "🌏 Bot Web 🌏",
+					"url": `${websitex}`
+				}
+			}, {
+				"urlButton": {
+					"displayText": "Script🔖",
+					"url": `${botscript}`
+				}
+			}, {
+				"quickReplyButton": {
+					"displayText": "Donate 🍜",
+					"id": 'donate'
+				}
+			}, {
+				"quickReplyButton": {
+					"displayText": "Owner 👤",
+					"id": 'owner'
+				}
+			}])
+			break
+		case 'efxmenu':
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			await RoseMwol.sendMessage(from, {
+				react: {
+					text: `${Reactt}`,
+					key: m.key
+				}
+			})
+			var unicorn = await getBuffer(picak + 'EFX Menu')
+			await RoseMwol.send5ButImg(from, `${lang.EFXMenu(pushname, prefix)}` + '' + ' ', `${botname}`, unicorn, [{
+				"urlButton": {
+					"displayText": "💝 Bot Web ⚠",
+					"url": `${websitex}`
+				}
+			}, {
+				"urlButton": {
+					"displayText": "Script🔖",
+					"url": `${botscript}`
+				}
+			}, {
+				"quickReplyButton": {
+					"displayText": "Donate 🍜",
+					"id": 'donate'
+				}
+			}, {
+				"quickReplyButton": {
+					"displayText": "Owner 👤",
+					"id": 'owner'
+				}
+			}])
+			break
+		case 'gamemenu':
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			await RoseMwol.sendMessage(from, {
+				react: {
+					text: `${Reactt}`,
+					key: m.key
+				}
+			})
+			var unicorn = await getBuffer(picak + 'Game Menu')
+			await RoseMwol.send5ButImg(from, `${lang.GameMenu(pushname, prefix)}` + '' + ' ', `${botname}`, unicorn, [{
+				"urlButton": {
+					"displayText": "🌏 Bot Web 🌏",
+					"url": `${websitex}`
+				}
+			}, {
+				"urlButton": {
+					"displayText": "Script🔖",
+					"url": `${botscript}`
+				}
+			}, {
+				"quickReplyButton": {
+					"displayText": "Donate 🍜",
+					"id": 'donate'
+				}
+			}, {
+				"quickReplyButton": {
+					"displayText": "Owner 👤",
+					"id": 'owner'
+				}
+			}])
+			break
+		case 'anonymousmenu':
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			await RoseMwol.sendMessage(from, {
+				react: {
+					text: `${Reactt}`,
+					key: m.key
+				}
+			})
+			var unicorn = await getBuffer(picak + 'Anonymous Menu')
+			await RoseMwol.send5ButImg(from, `${lang.AmogusMenu(pushname, prefix)}` + '' + ' ', `${botname}`, unicorn, [{
+				"urlButton": {
+					"displayText": "🌏 Bot Web 🌏",
+					"url": `${websitex}`
+				}
+			}, {
+				"urlButton": {
+					"displayText": "Script🔖",
+					"url": `${botscript}`
+				}
+			}, {
+				"quickReplyButton": {
+					"displayText": "Donate 🍜",
+					"id": 'donate'
+				}
+			}, {
+				"quickReplyButton": {
+					"displayText": "Owner 👤",
+					"id": 'owner'
+				}
+			}])
+			break
+		case 'toolmenu':
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			await RoseMwol.sendMessage(from, {
+				react: {
+					text: `${Reactt}`,
+					key: m.key
+				}
+			})
+			var unicorn = await getBuffer(picak + 'Tool Menu')
+			await RoseMwol.send5ButImg(from, `${lang.ToolMenu(pushname, prefix)}` + '' + ' ', `${botname}`, unicorn, [{
+				"urlButton": {
+					"displayText": "🌏 Bot Web 🌏",
+					"url": `${websitex}`
+				}
+			}, {
+				"urlButton": {
+					"displayText": "Script🔖",
+					"url": `${botscript}`
+				}
+			}, {
+				"quickReplyButton": {
+					"displayText": "Donate 🍜",
+					"id": 'donate'
+				}
+			}, {
+				"quickReplyButton": {
+					"displayText": "Owner 👤",
+					"id": 'owner'
+				}
+			}])
+			break
+		case 'databasemenu':
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			await RoseMwol.sendMessage(from, {
+				react: {
+					text: `${Reactt}`,
+					key: m.key
+				}
+			})
+			var unicorn = await getBuffer(picak + 'Database Menu')
+			await RoseMwol.send5ButImg(from, `${lang.DataMenu(pushname, prefix)}` + '' + ' ', `${botname}`, unicorn, [{
+				"urlButton": {
+					"displayText": "🌏 Bot Web 🌏",
+					"url": `${websitex}`
+				}
+			}, {
+				"urlButton": {
+					"displayText": "Script🔖",
+					"url": `${botscript}`
+				}
+			}, {
+				"quickReplyButton": {
+					"displayText": "Donate 🍜",
+					"id": 'donate'
+				}
+			}, {
+				"quickReplyButton": {
+					"displayText": "Owner 👤",
+					"id": 'owner'
+				}
+			}])
+			break
+		case 'indomenu':
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			await RoseMwol.sendMessage(from, {
+				react: {
+					text: `${Reactt}`,
+					key: m.key
+				}
+			})
+			var unicorn = await getBuffer(picak + 'Indo Menu')
+			await RoseMwol.send5ButImg(from, `${lang.IndoMenu(pushname, prefix)}` + '' + ' ', `${botname}`, unicorn, [{
+				"urlButton": {
+					"displayText": "🌏 Bot Web 🌏",
+					"url": `${websitex}`
+				}
+			}, {
+				"urlButton": {
+					"displayText": "Script🔖",
+					"url": `${botscript}`
+				}
+			}, {
+				"quickReplyButton": {
+					"displayText": "Donate 🍜",
+					"id": 'donate'
+				}
+			}, {
+				"quickReplyButton": {
+					"displayText": "Owner 👤",
+					"id": 'owner'
+				}
+			}])
+			break
+		case 'indohoroscopemenu':
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			await RoseMwol.sendMessage(from, {
+				react: {
+					text: `${Reactt}`,
+					key: m.key
+				}
+			})
+			var unicorn = await getBuffer(picak + 'Indo Horoscope Menu')
+			await RoseMwol.send5ButImg(from, `${lang.IndoHoroScopeMenu(pushname, prefix)}` + '' + ' ', `${botname}`, unicorn, [{
+				"urlButton": {
+					"displayText": "🌏 Bot Web 🌏",
+					"url": `${websitex}`
+				}
+			}, {
+				"urlButton": {
+					"displayText": "Script🔖",
+					"url": `${botscript}`
+				}
+			}, {
+				"quickReplyButton": {
+					"displayText": "Donate 🍜",
+					"id": 'donate'
+				}
+			}, {
+				"quickReplyButton": {
+					"displayText": "Owner 👤",
+					"id": 'owner'
+				}
+			}])
+			break
+		case 'othermenu':
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			await RoseMwol.sendMessage(from, {
+				react: {
+					text: `${Reactt}`,
+					key: m.key
+				}
+			})
+			var unicorn = await getBuffer(picak + 'Other Menu')
+			await RoseMwol.send5ButImg(from, `${lang.OtherMenu(pushname, prefix)}` + '' + ' ', `${botname}`, unicorn, [{
+				"urlButton": {
+					"displayText": "🌏 Bot Web 🌏",
+					"url": `${websitex}`
+				}
+			}, {
+				"urlButton": {
+					"displayText": "Script🔖",
+					"url": `${botscript}`
+				}
+			}, {
+				"quickReplyButton": {
+					"displayText": "Donate 🍜",
+					"id": 'donate'
+				}
+			}, {
+				"quickReplyButton": {
+					"displayText": "Owner 👤",
+					"id": 'owner'
+				}
+			}])
+			break
+		case 'tqtt':
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			await RoseMwol.sendMessage(from, {
+				react: {
+					text: `${Reactt}`,
+					key: m.key
+				}
+			})
+			reply(`${lang.ThanksTo(pushname, prefix)}`)
+			break
 
 			case 'banchat': {
 				if (isBan) return reply(mess.ban)
@@ -2246,6 +3443,18 @@ Please @${m.mentionedJid[0].split`@`[0]} To Type Accept/Reject`
 					delete caklontong_desk[m.sender.split('@')[0]]
 				}
 			}
+		}
+		break
+
+		case 'randomreact': {
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			await RoseMwol.sendMessage(from, {
+				react: {
+					text: `${Reactt}`,
+					key: m.key
+				}
+			})
 		}
 		break
 
@@ -12702,6 +13911,12 @@ ${cpus.map((cpu, i) => `${i + 1}. ${cpu.model.trim()} (${cpu.speed} MHZ)\n${Obje
 			if (isBan) return reply(mess.ban)
 			if (isBanChat) return reply(mess.banChat)
 			if (!isCreator) return reply(mess.owner)
+			await RoseMwol.sendMessage(from, {
+				react: {
+					text: `${Reactt}`,
+					key: m.key
+				}
+			})
 			let setbot = db.data.settings[botNumber]
 			if (args[0] === 'templateImage') {
 				setbot.templateImage = true
@@ -12800,1037 +14015,6 @@ ${cpus.map((cpu, i) => `${i + 1}. ${cpu.model.trim()} (${cpu.speed} MHZ)\n${Obje
 			})
 		}
 		break
-		case 'bug':
-		case 'report': {
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			if (!text) return reply(`Enter The Bug\n\nExample: ${command} Menu Error`)
-			RoseMwol.sendMessage(`${owner}@s.whatsapp.net`, {
-				text: `*Bug Report From:* wa.me/${m.sender.split("@")[0]}
-Report Message: ${text}`
-			})
-			reply(`Successfully Reported To The Owner\n\nPlease Make Sure The Bug Is Valid, If You Play With This, Use This Feature Again And Again For No Reason, You Will Be Blocked For Sure !`)
-		}
-		break
-		case 'gitlink':
-		case 'git':
-		case 'script':
-		case 'sc': {
-			let Git = lang.Git(pushname)
-			anu = ``
-			const template = generateWAMessageFromContent(m.chat, proto.Message.fromObject({
-				templateMessage: {
-					hydratedTemplate: {
-						hydratedContentText: anu,
-						locationMessage: {
-							jpegThumbnail: fs.readFileSync('./Bot Pic/Rose-Mwol-MD.jpg')
-						},
-						hydratedFooterText: `${Git}`,
-						hydratedButtons: [{
-							urlButton: {
-								displayText: '🌏 Bot Web 🌏',
-								url: '${botweb}'
-							},
-							urlButton: {
-								displayText: 'GitHub',
-								url: '${sc}'
-							}
-						}, {
-							quickReplyButton: {
-								displayText: '💖',
-								buttonId: '❤️'
-							}
-						}, {
-							quickReplyButton: {
-								displayText: '🙂',
-								buttonId: '❤️'
-							}
-						}]
-					}
-				}
-			}), {
-				userJid: m.chat
-			})
-			RoseMwol.relayMessage(m.chat, template.message, {
-				messageId: template.key.id
-			})
-		}
-		break
-		case 'donasi':
-		case 'donate':
-		case 'sewabot':
-		case 'sewa':
-		case 'buypremium':
-		case 'donate': {
-			RoseMwol.sendMessage(from, {
-				react: {
-					text: `${global.reactmoji}`,
-					key: m.key
-				}
-			})
-			RoseMwol.sendMessage(m.chat, {
-				image: {
-					url: 'https://telegra.ph/file/6a02cf1b00855ff80febb.jpg'
-				},
-				caption: `\n*Hi bro ${m.pushName}*\n\n *Bot Rental Price*\n*250 INR Per Group via Gpay For 1 Month*\n\n*For more details, You Can Chat With The Owner\nhttps://wa.me/919744933034 (Owner)*\n\n*Donate Me : \n\nGPay : +919744933034*`
-			}, {
-				quoted: m
-			})
-		}
-		break
-		case 'alive':
-		case 'panel':
-		case 'list':
-		case 'menu':
-		case 'help':
-		case '?': {
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			RoseMwol.sendMessage(from, {
-				react: {
-					text: `${global.reactmoji}`,
-					key: m.key
-				}
-			})
-			let footertext = lang.Menu(pushname)
-			let btn = [{
-				urlButton: {
-					displayText: 'YouTube 🍒',
-					url: `${websitex}`
-				}
-			}, {
-				callButton: {
-					displayText: 'Script 🍜',
-					url: `${botscript}`
-				}
-			}, {
-				quickReplyButton: {
-					displayText: 'All Menu 🍱',
-					id: 'allmenu'
-				}
-			}, {
-				quickReplyButton: {
-					displayText: 'List Menu 🍢',
-					id: 'command'
-				}
-			}, {
-				quickReplyButton: {
-					displayText: 'Owner 🤣',
-					id: 'owner'
-				}
-			}]
-			let setbot = db.data.settings[botNumber]
-			if (setbot.templateImage) {
-				RoseMwol.send5ButImg(m.chat, footertext, global.botname, global.thumb, btn, global.thumb)
-			} else if (setbot.templateGif) {
-				RoseMwol.send5ButGif(m.chat, footertext, global.botname, global.vidmenu, btn, global.thumb)
-			} else if (setbot.templateVid) {
-				RoseMwol.send5ButVid(m.chat, footertext, global.botname, global.vidmenu, btn, global.thumb)
-			} else if (setbot.templateVideo) {
-				RoseMwol.send5ButVid(m.chat, footertext, global.botname, global.vidmenu, btn, global.thumb)
-			} else if (setbot.templateDocument) {
-				let buttonmenu = [{
-						urlButton: {
-							displayText: `YouTube 🍒`,
-							url: `${websitex}`
-						}
-					},
-					{
-						urlButton: {
-							displayText: `Script 🍜`,
-							url: `${botscript}`
-						}
-					},
-					{
-						quickReplyButton: {
-							displayText: `All Menu 🍱`,
-							id: 'allmenu'
-						}
-					},
-					{
-						quickReplyButton: {
-							displayText: `List Menu 🍢`,
-							id: 'command'
-						}
-					},
-					{
-						quickReplyButton: {
-							displayText: `Owner 🤣`,
-							id: 'owner'
-						}
-					}
-				]
-				RoseMwol.sendMessage(m.chat, {
-					caption: `${footertext}`,
-					document: fs.readFileSync('./Media/file/rose.xlsx'),
-					mimetype: `${docs}`,
-					fileName: `${ownername}`,
-					templateButtons: buttonmenu,
-					footer: `${botname}`,
-					mentionedJid: [m.sender]
-				})
-			} else if (setbot.templateLocation) {
-				anu = ``
-				let footertext = lang.Menu(pushname)
-				const template = generateWAMessageFromContent(m.chat, proto.Message.fromObject({
-					templateMessage: {
-						hydratedTemplate: {
-							hydratedContentText: anu,
-							locationMessage: {
-								jpegThumbnail: fs.readFileSync('./Bot Pic/Rose-Mwol-MD.jpg')
-							},
-							hydratedFooterText: `${footertext}`,
-							hydratedButtons: [{
-								urlButton: {
-									displayText: '❣ Bot Web 🌏',
-									url: `${websitex}`
-								}
-							}, {
-								urlButton: {
-									displayText: 'Script 🔖',
-									url: `${botscript}`
-								}
-							}, {
-								quickReplyButton: {
-									displayText: '⚠ All Menu ⚠',
-									id: `${prefix}allmenu`
-								}
-							}, {
-								quickReplyButton: {
-									displayText: '🤖 List Menu ✨',
-									id: `${prefix}command`
-								}
-							}, {
-								quickReplyButton: {
-									displayText: '🙋‍♂️ Owner 🐱‍💻',
-									id: `${prefix}owner`
-								}
-							}]
-						}
-					}
-				}), {
-					userJid: m.chat
-				})
-				RoseMwol.relayMessage(m.chat, template.message, {
-					messageId: template.key.id
-				})
-			}
-		}
-		break
-		case 'command': {
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			let template = await generateWAMessageFromContent(m.chat, proto.Message.fromObject({
-				listMessage: {
-					title: `Hi ${pushname}`,
-					description: `Please Choose The Menu\n\n`,
-					buttonText: "Menu",
-					footerText: `${global.botname}`,
-					listType: "SINGLE_SELECT",
-					sections: [{
-							"title": "Initial Features Of Bot 🦄",
-							"rows": [{
-								"title": "Other ☕",
-								"description": "Displays The List Of Other Features",
-								"rowId": `${prefix}othermenu`
-							}]
-						},
-						{
-							"title": "Bot Features ❤️",
-							"rows": [{
-									"title": "All Menu 🥀",
-									"description": "Displays The List Of All The Features!",
-									"rowId": `${prefix}allmenu`
-								},
-								{
-									"title": "Owner Menu 💠",
-									"description": "Displays The List Of Owner Features",
-									"rowId": `${prefix}ownermenu`
-								},
-								{
-									"title": "Group Menu ✨",
-									"description": "Displays The List Of Main Features",
-									"rowId": `${prefix}groupmenu`
-								},
-								{
-									"title": "Maker Menu 🌈",
-									"description": "Displays The List Of Logo Making Features",
-									"rowId": `${prefix}indomenu`
-								},
-								{
-									"title": "Sound Menu 🎵",
-									"description": "Displays The List Of Sound Features",
-									"rowId": `${prefix}soundmenu`
-								},
-								{
-									"title": "Download Menu ↘️",
-									"description": "Displays The List Of Download Features",
-									"rowId": `${prefix}downloadmenu`
-								},
-								{
-									"title": "Sticker Menu 🃏",
-									"description": "Displays The List Of Sticker Features",
-									"rowId": `${prefix}indomenu`
-								},
-								{
-									"title": "Search Menu 🔎",
-									"description": "Displays The List Of Searching Features",
-									"rowId": `${prefix}searchmenu`
-								},
-								{
-									"title": "EFX/BGM Menu 🎵",
-									"description": "Displays The List Of EFX/BGM Features",
-									"rowId": `${prefix}efxmenu`
-								},
-								{
-									"title": "Tool Menu ⚙️",
-									"description": "Displays The List Of Tool Features",
-									"rowId": `${prefix}toolmenu`
-								},
-								{
-									"title": "Random Image Menu 🌆",
-									"description": "Displays The List Of Random Image Features",
-									"rowId": `${prefix}randomimagemenu`
-								},
-								{
-									"title": "Image Effect Menu 🖼️",
-									"description": "Displays The List Of Image Effect Features",
-									"rowId": `${prefix}imageeffectmenu`
-								},
-								{
-									"title": "Anime Menu 😘",
-									"description": "Displays The List Of Random Anime Features",
-									"rowId": `${prefix}animemenu`
-								},
-								{
-									"title": "Emote Menu 😀",
-									"description": "Displays The List Of Emote Features",
-									"rowId": `${prefix}emotemenu`
-								},
-								{
-									"title": "Anime Sticker Menu ☺️",
-									"description": "Displays The List Of Anime Sticker Features",
-									"rowId": `${prefix}animestickermenu`
-								},
-								{
-									"title": "Nsfw Menu 🤓",
-									"description": "Displays The List Of Nsfe Features",
-									"rowId": `${prefix}nsfwmenu`
-								},
-								{
-									"title": "Fun Menu 🕺",
-									"description": "Displays The List Of Fun Features",
-									"rowId": `${prefix}funmenu`
-								},
-								{
-									"title": "Game Menu 🎮",
-									"description": "Displays The List Of Game Features",
-									"rowId": `${prefix}indomenu`
-								},
-								{
-									"title": "Convert Menu ⚒️",
-									"description": "Displays The List Of Convert Features",
-									"rowId": `${prefix}convertmenu`
-								},
-								{
-									"title": "Database Menu ♻️",
-									"description": "Displays The List Of Database Features",
-									"rowId": `${prefix}databasemenu`
-								},
-								{
-									"title": "Indo Menu  🦜",
-									"description": "Displays The List Of Indo Features",
-									"rowId": `${prefix}indomenu`
-								},
-								{
-									"title": "Horoscope Menu 🕊️",
-									"description": "Displays The List Of Horoscope Features",
-									"rowId": `${prefix}indohoroscopemenu`
-								}
-							]
-						},
-						{
-							"title": "Chat With Fellow Users 🌝",
-							"rows": [{
-								"title": "Anonymous Chat Menu 🙎🏻‍♂️",
-								"description": "Displays The List Of Anonymous Chat Features",
-								"rowId": `${prefix}anonymousmenu`
-							}]
-						},
-						{
-							"title": "Credit ©️",
-							"rows": [{
-								"title": "Thanks To ❤️",
-								"description": "Displays The List Of Credit Of The Bot !!",
-								"rowId": `${prefix}tqtt`
-							}]
-						}
-					],
-					listType: 1
-				}
-			}), {})
-			RoseMwol.relayMessage(m.chat, template.message, {
-				messageId: template.key.id
-			})
-		}
-		break
-		case 'allmenu':
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			let Allmenuu = lang.AllMenu(prefix)
-			var unicorn = await getBuffer(picak + 'All Menu')
-			await RoseMwol.send5ButImg(from, `${Allmenuu}` + '' + ' ', `${botname}`, unicorn, [{
-				"urlButton": {
-					"displayText": "🌏 Bot Web 🌏",
-					"url": `${websitex}`
-				}
-			}, {
-				"urlButton": {
-					"displayText": "Script🔖",
-					"url": `${botscript}`
-				}
-			}, {
-				"quickReplyButton": {
-					"displayText": "Donate 🍜",
-					"id": 'donate'
-				}
-			}, {
-				"quickReplyButton": {
-					"displayText": "Owner 👤",
-					"id": 'owner'
-				}
-			}])
-			break
-		case 'ownermenu':
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			var unicorn = await getBuffer(picak + 'Owner Menu')
-			await RoseMwol.send5ButImg(from, `${lang.OwnerMenu(pushname, prefix)}` + '' + ' ', `${botname}`, unicorn, [{
-				"urlButton": {
-					"displayText": "🌏 Bot Web 🌏",
-					"url": `${websitex}`
-				}
-			}, {
-				"urlButton": {
-					"displayText": "Script🔖",
-					"url": `${botscript}`
-				}
-			}, {
-				"quickReplyButton": {
-					"displayText": "Donate 🍜",
-					"id": 'donate'
-				}
-			}, {
-				"quickReplyButton": {
-					"displayText": "Owner 👤",
-					"id": 'owner'
-				}
-			}])
-			break
-		case 'groupmenu':
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			var unicorn = await getBuffer(picak + 'Group Menu')
-			await RoseMwol.send5ButImg(from, `${lang.GroupMenu(pushname, prefix)}` + '' + ' ', `${botname}`, unicorn, [{
-				"urlButton": {
-					"displayText": "🌏 Bot Web 🌏",
-					"url": `${websitex}`
-				}
-			}, {
-				"urlButton": {
-					"displayText": "Script🔖",
-					"url": `${botscript}`
-				}
-			}, {
-				"quickReplyButton": {
-					"displayText": "Donate 🍜",
-					"id": 'donate'
-				}
-			}, {
-				"quickReplyButton": {
-					"displayText": "Owner 👤",
-					"id": 'owner'
-				}
-			}])
-			break
-		case 'rpgmenu':
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			var unicorn = await getBuffer(picak + 'Rpg Menu')
-			await RoseMwol.send5ButImg(from, `${lang.RpgMenu(pushname, prefix)}` + '' + ' ', `${botname}`, unicorn, [{
-				"urlButton": {
-					"displayText": "🌏 Bot Web 🌏",
-					"url": `${websitex}`
-				}
-			}, {
-				"urlButton": {
-					"displayText": "Script🔖",
-					"url": `${botscript}`
-				}
-			}, {
-				"quickReplyButton": {
-					"displayText": "Donate 🍜",
-					"id": 'donate'
-				}
-			}, {
-				"quickReplyButton": {
-					"displayText": "Owner 👤",
-					"id": 'owner'
-				}
-			}])
-			break
-		case 'makermenu':
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			var unicorn = await getBuffer(picak + 'Maker Menu')
-			await RoseMwol.send5ButImg(from, `${lang.MakerMenu(pushname, prefix)}` + '' + ' ', `${botname}`, unicorn, [{
-				"urlButton": {
-					"displayText": "🌏 Bot Web 🌏",
-					"url": `${websitex}`
-				}
-			}, {
-				"urlButton": {
-					"displayText": "Script🔖",
-					"url": `${botscript}`
-				}
-			}, {
-				"quickReplyButton": {
-					"displayText": "Donate 🍜",
-					"id": 'donate'
-				}
-			}, {
-				"quickReplyButton": {
-					"displayText": "Owner 👤",
-					"id": 'owner'
-				}
-			}])
-			break
-		case 'downloadmenu':
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			var unicorn = await getBuffer(picak + 'Download Menu')
-			await RoseMwol.send5ButImg(from, `${lang.DownloaderMenu(pushname, prefix)}` + '' + ' ', `${botname}`, unicorn, [{
-				"urlButton": {
-					"displayText": "🌏 Bot Web 🌏",
-					"url": `${websitex}`
-				}
-			}, {
-				"urlButton": {
-					"displayText": "Script🔖",
-					"url": `${botscript}`
-				}
-			}, {
-				"quickReplyButton": {
-					"displayText": "Donate 🍜",
-					"id": 'donate'
-				}
-			}, {
-				"quickReplyButton": {
-					"displayText": "Owner 👤",
-					"id": 'owner'
-				}
-			}])
-			break
-		case 'searchmenu':
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			var unicorn = await getBuffer(picak + 'Search Menu')
-			await RoseMwol.send5ButImg(from, `${lang.SearchMenu(pushname, prefix)}` + '' + ' ', `${botname}`, unicorn, [{
-				"urlButton": {
-					"displayText": "🌏 Bot Web 🌏",
-					"url": `${websitex}`
-				}
-			}, {
-				"urlButton": {
-					"displayText": "Script🔖",
-					"url": `${botscript}`
-				}
-			}, {
-				"quickReplyButton": {
-					"displayText": "Donate 🍜",
-					"id": 'donate'
-				}
-			}, {
-				"quickReplyButton": {
-					"displayText": "Owner 👤",
-					"id": 'owner'
-				}
-			}])
-			break
-		case 'convertmenu':
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			var unicorn = await getBuffer(picak + 'Convert Menu')
-			await RoseMwol.send5ButImg(from, `${lang.ConvertMenu(pushname, prefix)}` + '' + ' ', `${botname}`, unicorn, [{
-				"urlButton": {
-					"displayText": "🌏 Bot Web 🌏",
-					"url": `${websitex}`
-				}
-			}, {
-				"urlButton": {
-					"displayText": "Script🔖",
-					"url": `${botscript}`
-				}
-			}, {
-				"quickReplyButton": {
-					"displayText": "Donate 🍜",
-					"id": 'donate'
-				}
-			}, {
-				"quickReplyButton": {
-					"displayText": "Owner 👤",
-					"id": 'owner'
-				}
-			}])
-			break
-		case 'randomimagemenu':
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			var unicorn = await getBuffer(picak + 'Random Image Menu')
-			await RoseMwol.send5ButImg(from, `${lang.RandomPicMenu(pushname, prefix)}` + '' + ' ', `${botname}`, unicorn, [{
-				"urlButton": {
-					"displayText": "🌏 Bot Web 🌏",
-					"url": `${websitex}`
-				}
-			}, {
-				"urlButton": {
-					"displayText": "Script🔖",
-					"url": `${botscript}`
-				}
-			}, {
-				"quickReplyButton": {
-					"displayText": "Donate 🍜",
-					"id": 'donate'
-				}
-			}, {
-				"quickReplyButton": {
-					"displayText": "Owner 👤",
-					"id": 'owner'
-				}
-			}])
-			break
-
-		case 'emotemenu':
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			var unicorn = await getBuffer(picak + 'Emote Menu')
-			await RoseMwol.send5ButImg(from, `${lang.EmoteMenu(pushname, prefix)}` + '' + ' ', `${botname}`, unicorn, [{
-				"urlButton": {
-					"displayText": "🌏 Bot Web 🌏",
-					"url": `${websitex}`
-				}
-			}, {
-				"urlButton": {
-					"displayText": "Script🔖",
-					"url": `${botscript}`
-				}
-			}, {
-				"quickReplyButton": {
-					"displayText": "Donate 🍜",
-					"id": 'donate'
-				}
-			}, {
-				"quickReplyButton": {
-					"displayText": "Owner 👤",
-					"id": 'owner'
-				}
-			}])
-			break
-		case 'imageeffectmenu':
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			var unicorn = await getBuffer(picak + 'Image Effect Menu')
-			await RoseMwol.send5ButImg(from, `${lang.ImgEffectMenu(pushname ,prefix)}` + '' + ' ', `${botname}`, unicorn, [{
-				"urlButton": {
-					"displayText": "🌏 Bot Web 🌏",
-					"url": `${websitex}`
-				}
-			}, {
-				"urlButton": {
-					"displayText": "Script🔖",
-					"url": `${botscript}`
-				}
-			}, {
-				"quickReplyButton": {
-					"displayText": "Donate 🍜",
-					"id": 'donate'
-				}
-			}, {
-				"quickReplyButton": {
-					"displayText": "Owner 👤",
-					"id": 'owner'
-				}
-			}])
-			break
-		case 'animemenu':
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			var unicorn = await getBuffer(picak + 'Anime Menu')
-			await RoseMwol.send5ButImg(from, `${lang.AnimeMenu(pushname, prefix)}` + '' + ' ', `${botname}`, unicorn, [{
-				"urlButton": {
-					"displayText": "🌏 Bot Web 🌏",
-					"url": `${websitex}`
-				}
-			}, {
-				"urlButton": {
-					"displayText": "Script🔖",
-					"url": `${botscript}`
-				}
-			}, {
-				"quickReplyButton": {
-					"displayText": "Donate 🍜",
-					"id": 'donate'
-				}
-			}, {
-				"quickReplyButton": {
-					"displayText": "Owner 👤",
-					"id": 'owner'
-				}
-			}])
-			break
-		case 'stickermenu':
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			var unicorn = await getBuffer(picak + 'Sticker Menu')
-			await RoseMwol.send5ButImg(from, `${lang.StickerMenu(pushname, prefix)}` + '' + ' ', `${botname}`, unicorn, [{
-				"urlButton": {
-					"displayText": "🌏 Bot Web 🌏",
-					"url": `${websitex}`
-				}
-			}, {
-				"urlButton": {
-					"displayText": "Script🔖",
-					"url": `${botscript}`
-				}
-			}, {
-				"quickReplyButton": {
-					"displayText": "Donate 🍜",
-					"id": 'donate'
-				}
-			}, {
-				"quickReplyButton": {
-					"displayText": "Owner 👤",
-					"id": 'owner'
-				}
-			}])
-			break
-		case 'animestickermenu':
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			var unicorn = await getBuffer(picak + 'Anime Sticker Menu')
-			await RoseMwol.send5ButImg(from, `${lang.AnimeStickerMenu(pushname, prefix)}` + '' + ' ', `${botname}`, unicorn, [{
-				"urlButton": {
-					"displayText": "🌏 Bot Web 🌏",
-					"url": `${websitex}`
-				}
-			}, {
-				"urlButton": {
-					"displayText": "Script🔖",
-					"url": `${botscript}`
-				}
-			}, {
-				"quickReplyButton": {
-					"displayText": "Donate 🍜",
-					"id": 'donate'
-				}
-			}, {
-				"quickReplyButton": {
-					"displayText": "Owner 👤",
-					"id": 'owner'
-				}
-			}])
-			break
-		case 'nsfwmenu':
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			var unicorn = await getBuffer(picak + 'Nsfw Menu')
-			await RoseMwol.send5ButImg(from, `${lang.NSFWMenu(pushname, prefix)}` + '' + ' ', `${botname}`, unicorn, [{
-				"urlButton": {
-					"displayText": "🌏 Bot Web 🌏",
-					"url": `${websitex}`
-				}
-			}, {
-				"urlButton": {
-					"displayText": "Script🔖",
-					"url": `${botscript}`
-				}
-			}, {
-				"quickReplyButton": {
-					"displayText": "Donate 🍜",
-					"id": 'donate'
-				}
-			}, {
-				"quickReplyButton": {
-					"displayText": "Owner 👤",
-					"id": 'owner'
-				}
-			}])
-			break
-		case 'funmenu':
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			var unicorn = await getBuffer(picak + 'Fun Menu')
-			await RoseMwol.send5ButImg(from, `${lang.FunMenu(pushname, prefix)}` + '' + ' ', `${botname}`, unicorn, [{
-				"urlButton": {
-					"displayText": "🌏 Bot Web 🌏",
-					"url": `${websitex}`
-				}
-			}, {
-				"urlButton": {
-					"displayText": "Script🔖",
-					"url": `${botscript}`
-				}
-			}, {
-				"quickReplyButton": {
-					"displayText": "Donate 🍜",
-					"id": 'donate'
-				}
-			}, {
-				"quickReplyButton": {
-					"displayText": "Owner 👤",
-					"id": 'owner'
-				}
-			}])
-			break
-		case 'soundmenu':
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			var unicorn = await getBuffer(picak + 'Sound Menu')
-			await RoseMwol.send5ButImg(from, `${lang.SoundMenu(pushname, prefix)}` + '' + ' ', `${botname}`, unicorn, [{
-				"urlButton": {
-					"displayText": "🌏 Bot Web 🌏",
-					"url": `${websitex}`
-				}
-			}, {
-				"urlButton": {
-					"displayText": "Script🔖",
-					"url": `${botscript}`
-				}
-			}, {
-				"quickReplyButton": {
-					"displayText": "Donate 🍜",
-					"id": 'donate'
-				}
-			}, {
-				"quickReplyButton": {
-					"displayText": "Owner 👤",
-					"id": 'owner'
-				}
-			}])
-			break
-		case 'efxmenu':
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			var unicorn = await getBuffer(picak + 'EFX Menu')
-			await RoseMwol.send5ButImg(from, `${lang.EFXMenu(pushname, prefix)}` + '' + ' ', `${botname}`, unicorn, [{
-				"urlButton": {
-					"displayText": "💝 Bot Web ⚠",
-					"url": `${websitex}`
-				}
-			}, {
-				"urlButton": {
-					"displayText": "Script🔖",
-					"url": `${botscript}`
-				}
-			}, {
-				"quickReplyButton": {
-					"displayText": "Donate 🍜",
-					"id": 'donate'
-				}
-			}, {
-				"quickReplyButton": {
-					"displayText": "Owner 👤",
-					"id": 'owner'
-				}
-			}])
-			break
-		case 'gamemenu':
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			var unicorn = await getBuffer(picak + 'Game Menu')
-			await RoseMwol.send5ButImg(from, `${lang.GameMenu(pushname, prefix)}` + '' + ' ', `${botname}`, unicorn, [{
-				"urlButton": {
-					"displayText": "🌏 Bot Web 🌏",
-					"url": `${websitex}`
-				}
-			}, {
-				"urlButton": {
-					"displayText": "Script🔖",
-					"url": `${botscript}`
-				}
-			}, {
-				"quickReplyButton": {
-					"displayText": "Donate 🍜",
-					"id": 'donate'
-				}
-			}, {
-				"quickReplyButton": {
-					"displayText": "Owner 👤",
-					"id": 'owner'
-				}
-			}])
-			break
-		case 'anonymousmenu':
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			var unicorn = await getBuffer(picak + 'Anonymous Menu')
-			await RoseMwol.send5ButImg(from, `${lang.AmogusMenu(pushname, prefix)}` + '' + ' ', `${botname}`, unicorn, [{
-				"urlButton": {
-					"displayText": "🌏 Bot Web 🌏",
-					"url": `${websitex}`
-				}
-			}, {
-				"urlButton": {
-					"displayText": "Script🔖",
-					"url": `${botscript}`
-				}
-			}, {
-				"quickReplyButton": {
-					"displayText": "Donate 🍜",
-					"id": 'donate'
-				}
-			}, {
-				"quickReplyButton": {
-					"displayText": "Owner 👤",
-					"id": 'owner'
-				}
-			}])
-			break
-		case 'toolmenu':
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			var unicorn = await getBuffer(picak + 'Tool Menu')
-			await RoseMwol.send5ButImg(from, `${lang.ToolMenu(pushname, prefix)}` + '' + ' ', `${botname}`, unicorn, [{
-				"urlButton": {
-					"displayText": "🌏 Bot Web 🌏",
-					"url": `${websitex}`
-				}
-			}, {
-				"urlButton": {
-					"displayText": "Script🔖",
-					"url": `${botscript}`
-				}
-			}, {
-				"quickReplyButton": {
-					"displayText": "Donate 🍜",
-					"id": 'donate'
-				}
-			}, {
-				"quickReplyButton": {
-					"displayText": "Owner 👤",
-					"id": 'owner'
-				}
-			}])
-			break
-		case 'databasemenu':
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			var unicorn = await getBuffer(picak + 'Database Menu')
-			await RoseMwol.send5ButImg(from, `${lang.DataMenu(pushname, prefix)}` + '' + ' ', `${botname}`, unicorn, [{
-				"urlButton": {
-					"displayText": "🌏 Bot Web 🌏",
-					"url": `${websitex}`
-				}
-			}, {
-				"urlButton": {
-					"displayText": "Script🔖",
-					"url": `${botscript}`
-				}
-			}, {
-				"quickReplyButton": {
-					"displayText": "Donate 🍜",
-					"id": 'donate'
-				}
-			}, {
-				"quickReplyButton": {
-					"displayText": "Owner 👤",
-					"id": 'owner'
-				}
-			}])
-			break
-		case 'indomenu':
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			var unicorn = await getBuffer(picak + 'Indo Menu')
-			await RoseMwol.send5ButImg(from, `${lang.IndoMenu(pushname, prefix)}` + '' + ' ', `${botname}`, unicorn, [{
-				"urlButton": {
-					"displayText": "🌏 Bot Web 🌏",
-					"url": `${websitex}`
-				}
-			}, {
-				"urlButton": {
-					"displayText": "Script🔖",
-					"url": `${botscript}`
-				}
-			}, {
-				"quickReplyButton": {
-					"displayText": "Donate 🍜",
-					"id": 'donate'
-				}
-			}, {
-				"quickReplyButton": {
-					"displayText": "Owner 👤",
-					"id": 'owner'
-				}
-			}])
-			break
-		case 'indohoroscopemenu':
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			var unicorn = await getBuffer(picak + 'Indo Horoscope Menu')
-			await RoseMwol.send5ButImg(from, `${lang.IndoHoroScopeMenu(pushname, prefix)}` + '' + ' ', `${botname}`, unicorn, [{
-				"urlButton": {
-					"displayText": "🌏 Bot Web 🌏",
-					"url": `${websitex}`
-				}
-			}, {
-				"urlButton": {
-					"displayText": "Script🔖",
-					"url": `${botscript}`
-				}
-			}, {
-				"quickReplyButton": {
-					"displayText": "Donate 🍜",
-					"id": 'donate'
-				}
-			}, {
-				"quickReplyButton": {
-					"displayText": "Owner 👤",
-					"id": 'owner'
-				}
-			}])
-			break
-		case 'othermenu':
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			var unicorn = await getBuffer(picak + 'Other Menu')
-			await RoseMwol.send5ButImg(from, `${lang.OtherMenu(pushname, prefix)}` + '' + ' ', `${botname}`, unicorn, [{
-				"urlButton": {
-					"displayText": "🌏 Bot Web 🌏",
-					"url": `${websitex}`
-				}
-			}, {
-				"urlButton": {
-					"displayText": "Script🔖",
-					"url": `${botscript}`
-				}
-			}, {
-				"quickReplyButton": {
-					"displayText": "Donate 🍜",
-					"id": 'donate'
-				}
-			}, {
-				"quickReplyButton": {
-					"displayText": "Owner 👤",
-					"id": 'owner'
-				}
-			}])
-			break
-		case 'tqtt':
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			reply(`${lang.ThanksTo(pushname, prefix)}`)
-			break
 		default:
 			if (budy.startsWith('=>')) {
 				if (!isCreator) return reply(mess.owner)
