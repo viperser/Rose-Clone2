@@ -128,7 +128,6 @@ exports.AllMenu = (prefix) => {
 ╔═══════✪「 OWNER 」	
 ╠ ${prefix}self
 ╠ ${prefix}public
-╠ ${prefix}antitag
 ╠ ${prefix}rentbot [add/del]
 ╠ ${prefix}rentlist
 ╠ ${prefix}ban [add/del]

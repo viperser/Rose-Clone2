@@ -73,7 +73,6 @@ global.autorep = []
 global.ntilink = []
 
 global.sessionfilename = 'session'
-global.antitags = true
 global.prefa = ['','!','.','🐦','🐤','🗿']
 global.sp = '⭔'
 global.mess = {

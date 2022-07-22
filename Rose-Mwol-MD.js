@@ -13830,24 +13830,6 @@ View List Of Messages With ${prefix}listmsg`)
 			RoseMwol.setStatus(`${q}`)
 			reply(mess.success)
 			break
-		case 'antitag': {
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			if (!isCreator) return
-			if (args.length < 1) return replay(`Type on to enable\nType off to disable`)
-			if (args[0] === 'on') {
-				if (antitags === true) return
-				global.antitags = true
-				replay(`Successfully activated antitag!`)
-			} else if (args[0] === 'off') {
-				if (antitags === false) return
-				global.antitags = false
-				replay(`Successfully deactivated antitag!`)
-			} else {
-				replay('Choose on or off')
-			}
-		}
-		break
 		case 'ping':
 		case 'p':
 		case 'botstatus':
@@ -14070,41 +14052,6 @@ ${cpus.map((cpu, i) => `${i + 1}. ${cpu.model.trim()} (${cpu.speed} MHZ)\n${Obje
 					} : {})
 				}
 				return !0
-			}
-
-			const listTag = [`${global.ownertag}@s.whatsapp.net`]
-			const partiNum = (m.mtype === 'extendedTextMessage') ? m.message.extendedTextMessage.contextInfo.participant : ''
-			if (listTag.includes(partiNum)) {
-				if (antitags === false) return
-				if (!m.isGroup) return
-				if (m.key.fromMe) return
-				sendNye = fs.readFileSync('./Media/sticker/tagme.webp')
-				RoseMwol.sendReadReceipt(m.chat, m.sender, [m.key.id])
-				RoseMwol.sendMessage(from, {
-					sticker: sendNye,
-					contextInfo: {
-						forwardingScore: 800,
-						isForwarded: true
-					}
-				}, {
-					quoted: m
-				})
-			}
-			if (budy.includes(`${global.ownertag}`)) {
-				if (antitags === false) return
-				if (!m.isGroup) return
-				if (m.key.fromMe) return
-				sendNye = fs.readFileSync('./Media/sticker/tagme.webp')
-				RoseMwol.sendReadReceipt(m.chat, m.sender, [m.key.id])
-				RoseMwol.sendMessage(from, {
-					sticker: sendNye,
-					contextInfo: {
-						forwardingScore: 800,
-						isForwarded: true
-					}
-				}, {
-					quoted: m
-				})
 			}
 			if (isCmd && budy.toLowerCase() != undefined) {
 				if (m.chat.endsWith('broadcast')) return
