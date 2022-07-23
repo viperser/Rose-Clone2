@@ -309,6 +309,7 @@ module.exports = RoseMwol = async (RoseMwol, m, chatUpdate, store) => {
 		const Autoreply = m.isGroup ? autorep.includes(from) : true
 		const ChatBot = m.isGroup ? chattbot.includes(from) : false
 		const isBan = banUser.includes(m.sender)
+		const Reactt = emojiss[Math.floor(Math.random() * emojiss.length)]
 		const isBanChat = m.isGroup ? banchat.includes(from) : false
 		autoreadsw = true
 
@@ -629,37 +630,6 @@ module.exports = RoseMwol = async (RoseMwol, m, chatUpdate, store) => {
 		if (autoreadsw) {
 			if (from === 'status@broadcast') {
 				RoseMwol.chatRead(from)
-			}
-		}
-
-		if (global.autoreadpmngc) {
-			if (command) {
-				await RoseMwol.sendPresenceUpdate('composing', m.chat)
-				RoseMwol.sendReadReceipt(from, m.sender, [m.key.id])
-			}
-		}
-
-		if (global.autoReadGc) {
-			if (m.isGroup) {
-				RoseMwol.sendReadReceipt(m.chat, m.sender, [m.key.id])
-			}
-		}
-
-		if (global.autoRecord) {
-			if (m.chat) {
-				RoseMwol.sendPresenceUpdate('recording', m.chat)
-			}
-		}
-
-		if (global.autoTyping) {
-			if (m.chat) {
-				RoseMwol.sendPresenceUpdate('composing', m.chat)
-			}
-		}
-
-		if (global.available) {
-			if (m.chat) {
-				RoseMwol.sendPresenceUpdate('available', m.chat)
 			}
 		}
 
@@ -1410,29 +1380,6 @@ In ${clockString(new Date - user.afkTime)}
 			return list[Math.floor(list.length * Math.random())]
 		}
 
-		const reactionMessage = {
-			react: {
-				text: args[0],
-				key: {
-					remoteJid: m.chat,
-					fromMe: true,
-					id: quoted.id
-				}
-			}
-		}
-
-		let Reactt = await pickRandom(emojiss)
-		const RandomReactionMessage = {
-			react: {
-				text: await Reactt,
-				key: {
-					remoteJid: m.chat,
-					fromMe: true,
-					id: quoted.id,
-				}
-			}
-		}
-
 		let documents = [doc1, doc2, doc3, doc4, doc5, doc6]
 		let docs = pickRandom(documents)
 
@@ -1844,11 +1791,15 @@ Report Message: ${text}`
 		case 'allmenu':
 			if (isBan) return reply(mess.ban)
 			if (isBanChat) return reply(mess.banChat)
-			await RoseMwol.sendMessage(from, {
+			await RoseMwol.sendMessage(m.chat, {
 				react: {
-					text: `${Reactt}`,
-					key: m.key
+				text: Reactt,
+				key: {
+					remoteJid: m.chat,
+					fromMe: true,
+					id: quoted.id
 				}
+			}
 			})
 			let Allmenuu = lang.AllMenu(prefix)
 			var unicorn = await getBuffer(picak + 'All Menu')
@@ -1877,11 +1828,15 @@ Report Message: ${text}`
 		case 'ownermenu':
 			if (isBan) return reply(mess.ban)
 			if (isBanChat) return reply(mess.banChat)
-			await RoseMwol.sendMessage(from, {
+			await RoseMwol.sendMessage(m.chat, {
 				react: {
-					text: `${Reactt}`,
-					key: m.key
+				text: Reactt,
+				key: {
+					remoteJid: m.chat,
+					fromMe: true,
+					id: quoted.id
 				}
+			}
 			})
 			var unicorn = await getBuffer(picak + 'Owner Menu')
 			await RoseMwol.send5ButImg(from, `${lang.OwnerMenu(pushname, prefix)}` + '' + ' ', `${botname}`, unicorn, [{
@@ -1909,11 +1864,15 @@ Report Message: ${text}`
 		case 'groupmenu':
 			if (isBan) return reply(mess.ban)
 			if (isBanChat) return reply(mess.banChat)
-			await RoseMwol.sendMessage(from, {
+			await RoseMwol.sendMessage(m.chat, {
 				react: {
-					text: `${Reactt}`,
-					key: m.key
+				text: Reactt,
+				key: {
+					remoteJid: m.chat,
+					fromMe: true,
+					id: quoted.id
 				}
+			}
 			})
 			var unicorn = await getBuffer(picak + 'Group Menu')
 			await RoseMwol.send5ButImg(from, `${lang.GroupMenu(pushname, prefix)}` + '' + ' ', `${botname}`, unicorn, [{
@@ -1941,11 +1900,15 @@ Report Message: ${text}`
 		case 'rpgmenu':
 			if (isBan) return reply(mess.ban)
 			if (isBanChat) return reply(mess.banChat)
-			await RoseMwol.sendMessage(from, {
+			await RoseMwol.sendMessage(m.chat, {
 				react: {
-					text: `${Reactt}`,
-					key: m.key
+				text: Reactt,
+				key: {
+					remoteJid: m.chat,
+					fromMe: true,
+					id: quoted.id
 				}
+			}
 			})
 			var unicorn = await getBuffer(picak + 'Rpg Menu')
 			await RoseMwol.send5ButImg(from, `${lang.RpgMenu(pushname, prefix)}` + '' + ' ', `${botname}`, unicorn, [{
@@ -1973,11 +1936,15 @@ Report Message: ${text}`
 		case 'makermenu':
 			if (isBan) return reply(mess.ban)
 			if (isBanChat) return reply(mess.banChat)
-			await RoseMwol.sendMessage(from, {
+			await RoseMwol.sendMessage(m.chat, {
 				react: {
-					text: `${Reactt}`,
-					key: m.key
+				text: Reactt,
+				key: {
+					remoteJid: m.chat,
+					fromMe: true,
+					id: quoted.id
 				}
+			}
 			})
 			var unicorn = await getBuffer(picak + 'Maker Menu')
 			await RoseMwol.send5ButImg(from, `${lang.MakerMenu(pushname, prefix)}` + '' + ' ', `${botname}`, unicorn, [{
@@ -2005,11 +1972,15 @@ Report Message: ${text}`
 		case 'downloadmenu':
 			if (isBan) return reply(mess.ban)
 			if (isBanChat) return reply(mess.banChat)
-			await RoseMwol.sendMessage(from, {
+			await RoseMwol.sendMessage(m.chat, {
 				react: {
-					text: `${Reactt}`,
-					key: m.key
+				text: Reactt,
+				key: {
+					remoteJid: m.chat,
+					fromMe: true,
+					id: quoted.id
 				}
+			}
 			})
 			var unicorn = await getBuffer(picak + 'Download Menu')
 			await RoseMwol.send5ButImg(from, `${lang.DownloaderMenu(pushname, prefix)}` + '' + ' ', `${botname}`, unicorn, [{
@@ -2037,11 +2008,15 @@ Report Message: ${text}`
 		case 'searchmenu':
 			if (isBan) return reply(mess.ban)
 			if (isBanChat) return reply(mess.banChat)
-			await RoseMwol.sendMessage(from, {
+			await RoseMwol.sendMessage(m.chat, {
 				react: {
-					text: `${Reactt}`,
-					key: m.key
+				text: Reactt,
+				key: {
+					remoteJid: m.chat,
+					fromMe: true,
+					id: quoted.id
 				}
+			}
 			})
 			var unicorn = await getBuffer(picak + 'Search Menu')
 			await RoseMwol.send5ButImg(from, `${lang.SearchMenu(pushname, prefix)}` + '' + ' ', `${botname}`, unicorn, [{
@@ -2069,11 +2044,15 @@ Report Message: ${text}`
 		case 'convertmenu':
 			if (isBan) return reply(mess.ban)
 			if (isBanChat) return reply(mess.banChat)
-			await RoseMwol.sendMessage(from, {
+			await RoseMwol.sendMessage(m.chat, {
 				react: {
-					text: `${Reactt}`,
-					key: m.key
+				text: Reactt,
+				key: {
+					remoteJid: m.chat,
+					fromMe: true,
+					id: quoted.id
 				}
+			}
 			})
 			var unicorn = await getBuffer(picak + 'Convert Menu')
 			await RoseMwol.send5ButImg(from, `${lang.ConvertMenu(pushname, prefix)}` + '' + ' ', `${botname}`, unicorn, [{
@@ -2101,11 +2080,15 @@ Report Message: ${text}`
 		case 'randomimagemenu':
 			if (isBan) return reply(mess.ban)
 			if (isBanChat) return reply(mess.banChat)
-			await RoseMwol.sendMessage(from, {
+			await RoseMwol.sendMessage(m.chat, {
 				react: {
-					text: `${Reactt}`,
-					key: m.key
+				text: Reactt,
+				key: {
+					remoteJid: m.chat,
+					fromMe: true,
+					id: quoted.id
 				}
+			}
 			})
 			var unicorn = await getBuffer(picak + 'Random Image Menu')
 			await RoseMwol.send5ButImg(from, `${lang.RandomPicMenu(pushname, prefix)}` + '' + ' ', `${botname}`, unicorn, [{
@@ -2135,11 +2118,15 @@ Report Message: ${text}`
 			if (isBan) return reply(mess.ban)
 			if (isBanChat) return reply(mess.banChat)
 			var unicorn = await getBuffer(picak + 'Emote Menu')
-			await RoseMwol.sendMessage(from, {
+			await RoseMwol.sendMessage(m.chat, {
 				react: {
-					text: `${Reactt}`,
-					key: m.key
+				text: Reactt,
+				key: {
+					remoteJid: m.chat,
+					fromMe: true,
+					id: quoted.id
 				}
+			}
 			})
 			await RoseMwol.send5ButImg(from, `${lang.EmoteMenu(pushname, prefix)}` + '' + ' ', `${botname}`, unicorn, [{
 				"urlButton": {
@@ -2166,11 +2153,15 @@ Report Message: ${text}`
 		case 'imageeffectmenu':
 			if (isBan) return reply(mess.ban)
 			if (isBanChat) return reply(mess.banChat)
-			await RoseMwol.sendMessage(from, {
+			await RoseMwol.sendMessage(m.chat, {
 				react: {
-					text: `${Reactt}`,
-					key: m.key
+				text: Reactt,
+				key: {
+					remoteJid: m.chat,
+					fromMe: true,
+					id: quoted.id
 				}
+			}
 			})
 			var unicorn = await getBuffer(picak + 'Image Effect Menu')
 			await RoseMwol.send5ButImg(from, `${lang.ImgEffectMenu(pushname ,prefix)}` + '' + ' ', `${botname}`, unicorn, [{
@@ -2198,11 +2189,15 @@ Report Message: ${text}`
 		case 'animemenu':
 			if (isBan) return reply(mess.ban)
 			if (isBanChat) return reply(mess.banChat)
-			await RoseMwol.sendMessage(from, {
+			await RoseMwol.sendMessage(m.chat, {
 				react: {
-					text: `${Reactt}`,
-					key: m.key
+				text: Reactt,
+				key: {
+					remoteJid: m.chat,
+					fromMe: true,
+					id: quoted.id
 				}
+			}
 			})
 			var unicorn = await getBuffer(picak + 'Anime Menu')
 			await RoseMwol.send5ButImg(from, `${lang.AnimeMenu(pushname, prefix)}` + '' + ' ', `${botname}`, unicorn, [{
@@ -2230,11 +2225,15 @@ Report Message: ${text}`
 		case 'stickermenu':
 			if (isBan) return reply(mess.ban)
 			if (isBanChat) return reply(mess.banChat)
-			await RoseMwol.sendMessage(from, {
+			await RoseMwol.sendMessage(m.chat, {
 				react: {
-					text: `${Reactt}`,
-					key: m.key
+				text: Reactt,
+				key: {
+					remoteJid: m.chat,
+					fromMe: true,
+					id: quoted.id
 				}
+			}
 			})
 			var unicorn = await getBuffer(picak + 'Sticker Menu')
 			await RoseMwol.send5ButImg(from, `${lang.StickerMenu(pushname, prefix)}` + '' + ' ', `${botname}`, unicorn, [{
@@ -2262,11 +2261,15 @@ Report Message: ${text}`
 		case 'animestickermenu':
 			if (isBan) return reply(mess.ban)
 			if (isBanChat) return reply(mess.banChat)
-			await RoseMwol.sendMessage(from, {
+			await RoseMwol.sendMessage(m.chat, {
 				react: {
-					text: `${Reactt}`,
-					key: m.key
+				text: Reactt,
+				key: {
+					remoteJid: m.chat,
+					fromMe: true,
+					id: quoted.id
 				}
+			}
 			})
 			var unicorn = await getBuffer(picak + 'Anime Sticker Menu')
 			await RoseMwol.send5ButImg(from, `${lang.AnimeStickerMenu(pushname, prefix)}` + '' + ' ', `${botname}`, unicorn, [{
@@ -2294,11 +2297,15 @@ Report Message: ${text}`
 		case 'nsfwmenu':
 			if (isBan) return reply(mess.ban)
 			if (isBanChat) return reply(mess.banChat)
-			await RoseMwol.sendMessage(from, {
+			await RoseMwol.sendMessage(m.chat, {
 				react: {
-					text: `${Reactt}`,
-					key: m.key
+				text: Reactt,
+				key: {
+					remoteJid: m.chat,
+					fromMe: true,
+					id: quoted.id
 				}
+			}
 			})
 			var unicorn = await getBuffer(picak + 'Nsfw Menu')
 			await RoseMwol.send5ButImg(from, `${lang.NSFWMenu(pushname, prefix)}` + '' + ' ', `${botname}`, unicorn, [{
@@ -2326,11 +2333,15 @@ Report Message: ${text}`
 		case 'funmenu':
 			if (isBan) return reply(mess.ban)
 			if (isBanChat) return reply(mess.banChat)
-			await RoseMwol.sendMessage(from, {
+			await RoseMwol.sendMessage(m.chat, {
 				react: {
-					text: `${Reactt}`,
-					key: m.key
+				text: Reactt,
+				key: {
+					remoteJid: m.chat,
+					fromMe: true,
+					id: quoted.id
 				}
+			}
 			})
 			var unicorn = await getBuffer(picak + 'Fun Menu')
 			await RoseMwol.send5ButImg(from, `${lang.FunMenu(pushname, prefix)}` + '' + ' ', `${botname}`, unicorn, [{
@@ -2358,11 +2369,15 @@ Report Message: ${text}`
 		case 'soundmenu':
 			if (isBan) return reply(mess.ban)
 			if (isBanChat) return reply(mess.banChat)
-			await RoseMwol.sendMessage(from, {
+			await RoseMwol.sendMessage(m.chat, {
 				react: {
-					text: `${Reactt}`,
-					key: m.key
+				text: Reactt,
+				key: {
+					remoteJid: m.chat,
+					fromMe: true,
+					id: quoted.id
 				}
+			}
 			})
 			var unicorn = await getBuffer(picak + 'Sound Menu')
 			await RoseMwol.send5ButImg(from, `${lang.SoundMenu(pushname, prefix)}` + '' + ' ', `${botname}`, unicorn, [{
@@ -2390,11 +2405,15 @@ Report Message: ${text}`
 		case 'efxmenu':
 			if (isBan) return reply(mess.ban)
 			if (isBanChat) return reply(mess.banChat)
-			await RoseMwol.sendMessage(from, {
+			await RoseMwol.sendMessage(m.chat, {
 				react: {
-					text: `${Reactt}`,
-					key: m.key
+				text: Reactt,
+				key: {
+					remoteJid: m.chat,
+					fromMe: true,
+					id: quoted.id
 				}
+			}
 			})
 			var unicorn = await getBuffer(picak + 'EFX Menu')
 			await RoseMwol.send5ButImg(from, `${lang.EFXMenu(pushname, prefix)}` + '' + ' ', `${botname}`, unicorn, [{
@@ -2422,11 +2441,15 @@ Report Message: ${text}`
 		case 'gamemenu':
 			if (isBan) return reply(mess.ban)
 			if (isBanChat) return reply(mess.banChat)
-			await RoseMwol.sendMessage(from, {
+			await RoseMwol.sendMessage(m.chat, {
 				react: {
-					text: `${Reactt}`,
-					key: m.key
+				text: Reactt,
+				key: {
+					remoteJid: m.chat,
+					fromMe: true,
+					id: quoted.id
 				}
+			}
 			})
 			var unicorn = await getBuffer(picak + 'Game Menu')
 			await RoseMwol.send5ButImg(from, `${lang.GameMenu(pushname, prefix)}` + '' + ' ', `${botname}`, unicorn, [{
@@ -2454,11 +2477,15 @@ Report Message: ${text}`
 		case 'anonymousmenu':
 			if (isBan) return reply(mess.ban)
 			if (isBanChat) return reply(mess.banChat)
-			await RoseMwol.sendMessage(from, {
+			await RoseMwol.sendMessage(m.chat, {
 				react: {
-					text: `${Reactt}`,
-					key: m.key
+				text: Reactt,
+				key: {
+					remoteJid: m.chat,
+					fromMe: true,
+					id: quoted.id
 				}
+			}
 			})
 			var unicorn = await getBuffer(picak + 'Anonymous Menu')
 			await RoseMwol.send5ButImg(from, `${lang.AmogusMenu(pushname, prefix)}` + '' + ' ', `${botname}`, unicorn, [{
@@ -2486,11 +2513,15 @@ Report Message: ${text}`
 		case 'toolmenu':
 			if (isBan) return reply(mess.ban)
 			if (isBanChat) return reply(mess.banChat)
-			await RoseMwol.sendMessage(from, {
+			await RoseMwol.sendMessage(m.chat, {
 				react: {
-					text: `${Reactt}`,
-					key: m.key
+				text: Reactt,
+				key: {
+					remoteJid: m.chat,
+					fromMe: true,
+					id: quoted.id
 				}
+			}
 			})
 			var unicorn = await getBuffer(picak + 'Tool Menu')
 			await RoseMwol.send5ButImg(from, `${lang.ToolMenu(pushname, prefix)}` + '' + ' ', `${botname}`, unicorn, [{
@@ -2518,11 +2549,15 @@ Report Message: ${text}`
 		case 'databasemenu':
 			if (isBan) return reply(mess.ban)
 			if (isBanChat) return reply(mess.banChat)
-			await RoseMwol.sendMessage(from, {
+			await RoseMwol.sendMessage(m.chat, {
 				react: {
-					text: `${Reactt}`,
-					key: m.key
+				text: Reactt,
+				key: {
+					remoteJid: m.chat,
+					fromMe: true,
+					id: quoted.id
 				}
+			}
 			})
 			var unicorn = await getBuffer(picak + 'Database Menu')
 			await RoseMwol.send5ButImg(from, `${lang.DataMenu(pushname, prefix)}` + '' + ' ', `${botname}`, unicorn, [{
@@ -2550,11 +2585,15 @@ Report Message: ${text}`
 		case 'indomenu':
 			if (isBan) return reply(mess.ban)
 			if (isBanChat) return reply(mess.banChat)
-			await RoseMwol.sendMessage(from, {
+			await RoseMwol.sendMessage(m.chat, {
 				react: {
-					text: `${Reactt}`,
-					key: m.key
+				text: Reactt,
+				key: {
+					remoteJid: m.chat,
+					fromMe: true,
+					id: quoted.id
 				}
+			}
 			})
 			var unicorn = await getBuffer(picak + 'Indo Menu')
 			await RoseMwol.send5ButImg(from, `${lang.IndoMenu(pushname, prefix)}` + '' + ' ', `${botname}`, unicorn, [{
@@ -2582,11 +2621,15 @@ Report Message: ${text}`
 		case 'indohoroscopemenu':
 			if (isBan) return reply(mess.ban)
 			if (isBanChat) return reply(mess.banChat)
-			await RoseMwol.sendMessage(from, {
+			await RoseMwol.sendMessage(m.chat, {
 				react: {
-					text: `${Reactt}`,
-					key: m.key
+				text: Reactt,
+				key: {
+					remoteJid: m.chat,
+					fromMe: true,
+					id: quoted.id
 				}
+			}
 			})
 			var unicorn = await getBuffer(picak + 'Indo Horoscope Menu')
 			await RoseMwol.send5ButImg(from, `${lang.IndoHoroScopeMenu(pushname, prefix)}` + '' + ' ', `${botname}`, unicorn, [{
@@ -2614,11 +2657,15 @@ Report Message: ${text}`
 		case 'othermenu':
 			if (isBan) return reply(mess.ban)
 			if (isBanChat) return reply(mess.banChat)
-			await RoseMwol.sendMessage(from, {
+			await RoseMwol.sendMessage(m.chat, {
 				react: {
-					text: `${Reactt}`,
-					key: m.key
+				text: Reactt,
+				key: {
+					remoteJid: m.chat,
+					fromMe: true,
+					id: quoted.id
 				}
+			}
 			})
 			var unicorn = await getBuffer(picak + 'Other Menu')
 			await RoseMwol.send5ButImg(from, `${lang.OtherMenu(pushname, prefix)}` + '' + ' ', `${botname}`, unicorn, [{
@@ -2646,11 +2693,15 @@ Report Message: ${text}`
 		case 'tqtt':
 			if (isBan) return reply(mess.ban)
 			if (isBanChat) return reply(mess.banChat)
-			await RoseMwol.sendMessage(from, {
+			await RoseMwol.sendMessage(m.chat, {
 				react: {
-					text: `${Reactt}`,
-					key: m.key
+				text: Reactt,
+				key: {
+					remoteJid: m.chat,
+					fromMe: true,
+					id: quoted.id
 				}
+			}
 			})
 			reply(`${lang.ThanksTo(pushname, prefix)}`)
 			break
@@ -3452,11 +3503,16 @@ Please @${m.mentionedJid[0].split`@`[0]} To Type Accept/Reject`
 		case 'randomreact': {
 			if (isBan) return reply(mess.ban)
 			if (isBanChat) return reply(mess.banChat)
-			await RoseMwol.sendMessage(from, {
+			if (!m.isGroup) return replay(mess.group)
+			await RoseMwol.sendMessage(m.chat, {
 				react: {
-					text: `${Reactt}`,
-					key: m.key
+				text: Reactt,
+				key: {
+					remoteJid: m.chat,
+					fromMe: true,
+					id: quoted.id
 				}
+			}
 			})
 		}
 		break
@@ -3464,7 +3520,17 @@ Please @${m.mentionedJid[0].split`@`[0]} To Type Accept/Reject`
 		case 'react': {
 			if (isBan) return reply(mess.ban)
 			if (isBanChat) return reply(mess.banChat)
-			RoseMwol.sendMessage(m.chat, reactionMessage)
+			if (!m.isGroup) return replay(mess.group)
+			RoseMwol.sendMessage(m.chat, {
+				react: {
+				text: args[0],
+				key: {
+					remoteJid: m.chat,
+					fromMe: true,
+					id: quoted.id
+				}
+			}
+			})
 		}
 		break
 
@@ -13535,8 +13601,11 @@ To Download Media, Please Click One Of The Buttons Below Or Enter The ytmp3/ytmp
 		case 'tts':{
 			if (isBan) return reply(mess.ban)
 			if (isBanChat) return reply(mess.banChat)
-			let [chara, texts] = args.join` `.split`|`
-			if (!(chara && texts)) reply `Ex: ${usedPrefix + command} fluttershy | hello world`
+			let [texts, chara] = args.join` `.split`|`
+			if (!texts) reply `Example: ${prefix + ` ` + command} fluttershy|Text`
+			if (!chara) {
+				chara = "fluttershy"
+			}
 			let res = await tts(chara, texts)
 			const pttduration = durationn[Math.floor(Math.random() * durationn.length)]
 			await RoseMwol.sendMessage(m.chat, {
@@ -13548,8 +13617,7 @@ To Download Media, Please Click One Of The Buttons Below Or Enter The ytmp3/ytmp
 				ptt: true,
 				contextInfo: {
 					externalAdReply: {
-						title: `${global.botname}`,
-						body: `${global.botname}`,
+						title: `Text To Speach => ${texts}`,
 						thumbnail: log0,
 						mediaType: 2,
 						mediaUrl: `${global.websitex}`,
@@ -13925,11 +13993,15 @@ ${cpus.map((cpu, i) => `${i + 1}. ${cpu.model.trim()} (${cpu.speed} MHZ)\n${Obje
 			if (isBan) return reply(mess.ban)
 			if (isBanChat) return reply(mess.banChat)
 			if (!isCreator) return reply(mess.owner)
-			await RoseMwol.sendMessage(from, {
+			await RoseMwol.sendMessage(m.chat, {
 				react: {
-					text: `${Reactt}`,
-					key: m.key
+				text: Reactt,
+				key: {
+					remoteJid: m.chat,
+					fromMe: true,
+					id: quoted.id
 				}
+			}
 			})
 			let setbot = db.data.settings[botNumber]
 			if (args[0] === 'templateImage') {

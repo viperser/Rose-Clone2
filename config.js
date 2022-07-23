@@ -9,13 +9,6 @@ global.APIKeys = {
 	'https://zenzapis.xyz': 'sancychan01',
 }
 
-
-global.autoTyping = false 
-global.autoreadpmngc = false 
-global.autoReadGc = false 
-global.autoRecord = false 
-global.available = true 
-
 global.vidmenu = fs.readFileSync("./Media/vid/Rose-Mwol-Vid.mp4") 
 
 global.doc1 = 'application/vnd.openxmlformats-officedocument.presentationml.presentation'
