@@ -75,6 +75,9 @@ let {
 	covid
 } = require('./lib/covid.js')
 const {
+	tts
+} = require('./lib/tts')
+const {
 	EmojiAPI
 } = require("emoji-api")
 const emoji = new EmojiAPI()
@@ -13529,6 +13532,35 @@ To Download Media, Please Click One Of The Buttons Below Or Enter The ytmp3/ytmp
 				reply(e)
 			}
 			break
+		case 'tts':{
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			let [chara, texts] = args.join` `.split`|`
+			if (!(chara && texts)) reply `Ex: ${usedPrefix + command} fluttershy | hello world`
+			let res = await tts(chara, texts)
+			const pttduration = durationn[Math.floor(Math.random() * durationn.length)]
+			await RoseMwol.sendMessage(m.chat, {
+				audio: { 
+					url: res
+				},
+				mimetype: 'audio/mpeg',
+				seconds: `${pttduration}`,
+				ptt: true,
+				contextInfo: {
+					externalAdReply: {
+						title: `${global.botname}`,
+						body: `${global.botname}`,
+						thumbnail: log0,
+						mediaType: 2,
+						mediaUrl: `${global.websitex}`,
+						sourceUrl: `${global.websitex}`
+					}
+				}
+			}, {
+				quoted: m
+			})
+		}
+		break
 		case 'setcmd': {
 			if (isBan) return reply(mess.ban)
 			if (isBanChat) return reply(mess.banChat)
