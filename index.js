@@ -107,7 +107,7 @@ async function startRoseMwol() {
 			level: 'silent'
 		}),
 		printQRInTerminal: true,
-		browser: ['Rose-Mwol-MD', 'Chrome', '3.0'],
+		browser: ['Rose-Mwol-MD', 'Windows', '11.0'],
 		auth: state
 	})
 

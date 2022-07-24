@@ -17,7 +17,7 @@
     "bot-md",
     "multi-device"
   ],
-  "author": "Xeon",
+  "author": "Sachu",
   "license": "MIT",
   "dependencies": {
     "@adiwajshing/baileys": "^4.1.0",

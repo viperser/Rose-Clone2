@@ -311,9 +311,12 @@ module.exports = RoseMwol = async (RoseMwol, m, chatUpdate, store) => {
 		const isBan = banUser.includes(m.sender)
 		const Reactt = emojiss[Math.floor(Math.random() * emojiss.length)]
 		const isBanChat = m.isGroup ? banchat.includes(from) : false
+		const isQuotedImage = type === 'extendedTextMessage' && content.includes('imageMessage')
+		const isQuotedVideo = type === 'extendedTextMessage' && content.includes('videoMessage')
+		const isQuotedAudio = type === 'extendedTextMessage' && content.includes('audioMessage')
+		const isQuotedSticker = type === 'extendedTextMessage' && content.includes('stickerMessage')
 		autoreadsw = true
 
-		//member\\
 		let picaks = [flaming, fluming, flarun, flasmurf]
 		let picak = picaks[Math.floor(Math.random() * picaks.length)]
 
@@ -336,8 +339,10 @@ module.exports = RoseMwol = async (RoseMwol, m, chatUpdate, store) => {
 			if (typeof chats !== 'object') global.db.data.chats[m.chat] = {}
 			if (chats) {
 				if (!('mute' in chats)) chats.mute = false
+				if (!('Chatbot' in chats)) chats.Chatbot = false
 			} else global.db.data.chats[m.chat] = {
 				mute: false,
+				Chatbot: false,
 			}
 
 			let setting = global.db.data.settings[botNumber]
@@ -566,7 +571,7 @@ module.exports = RoseMwol = async (RoseMwol, m, chatUpdate, store) => {
 						mediaUrl: `${global.websitex}`,
 						sourceUrl: `${global.websitex}`
 					}
-				}
+				},
 			}, {
 				quoted: m
 			})
@@ -584,13 +589,12 @@ module.exports = RoseMwol = async (RoseMwol, m, chatUpdate, store) => {
 						mediaUrl: `${global.websitex}`,
 						sourceUrl: `${global.websitex}`
 					}
-				}
+				},
 			}, {
 				quoted: m
 			})
 		}
 
-		//Public & Self\\
 		if (!RoseMwol.public) {
 			if (!m.key.fromMe) return
 		}
@@ -971,7 +975,7 @@ module.exports = RoseMwol = async (RoseMwol, m, chatUpdate, store) => {
 			}
 		}
 
-		if (ChatBot === true) {
+		if (db.data.chats[m.chat].Chatbot) {
 			try {
 				let message = budy
 				let unique_id = global.db.data.users[m.sender]
@@ -1033,11 +1037,6 @@ module.exports = RoseMwol = async (RoseMwol, m, chatUpdate, store) => {
 		if (db.data.chats[m.chat].mute && !isAdmins && !isCreator) {
 			return
 		}
-
-		const isQuotedImage = type === 'extendedTextMessage' && content.includes('imageMessage')
-		const isQuotedVideo = type === 'extendedTextMessage' && content.includes('videoMessage')
-		const isQuotedAudio = type === 'extendedTextMessage' && content.includes('audioMessage')
-		const isQuotedSticker = type === 'extendedTextMessage' && content.includes('stickerMessage')
 
 		if (isMedia && m.msg.fileSha256 && (m.msg.fileSha256.toString('base64') in global.db.data.sticker)) {
 			let hash = global.db.data.sticker[m.msg.fileSha256.toString('base64')]
@@ -4994,41 +4993,6 @@ ${global.themeendline}
 			}
 		}
 		break
-		case 'chatbot': {
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			if (!m.isGroup) return replay(mess.group)
-			if (!isBotAdmins) return replay(mess.botAdmin)
-			if (!isAdmins && !isCreator) return replay(mess.admin)
-			if (args[0] === "on") {
-				if (ChatBot) return replay('Already activated')
-				chattbot.push(from)
-				replay('Success in turning on the Chat Bot in this group')
-			} else if (args[0] === "off") {
-				if (!ChatBot) return replay('Already deactivated')
-				let off = autorep.indexOf(from)
-				chattbot.splice(off, 1)
-				replay('Success in turning off Chat Bot in this group')
-			} else {
-				let buttonswlcm = [{
-						buttonId: `${command} on`,
-						buttonText: {
-							displayText: 'On'
-						},
-						type: 1
-					},
-					{
-						buttonId: `${command} off`,
-						buttonText: {
-							displayText: 'Off'
-						},
-						type: 1
-					}
-				]
-				await RoseMwol.sendButtonText(m.chat, buttonswlcm, `Please click the button below\n\nOn to enable\nOff to disable`, `${global.botname}`, m)
-			}
-		}
-		break
 		case 'antitoxic': {
 			if (isBan) return reply(mess.ban)
 			if (isBanChat) return reply(mess.banChat)
@@ -5173,6 +5137,37 @@ ${global.themeendline}
 					}
 				]
 				await RoseMwol.sendButtonText(m.chat, buttonsntnsfw, `Please click the button below\n\nOn to enable\nOff to disable`, `${global.botname}`, m)
+			}
+		}
+		break
+		case 'chatbot': {
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			if (args[0] === "on") {
+				if (db.data.chats[m.chat].Chatbot) return reply(`Previously Active`)
+				db.data.chats[m.chat].Chatbot = true
+				reply(`${RoseMwol.user.name} Chatbot Is On !`)
+			} else if (args[0] === "off") {
+				if (!db.data.chats[m.chat].Chatbot) return reply(`Previously Inactive`)
+				db.data.chats[m.chat].Chatbot = false
+				reply(`${RoseMwol.user.name} Chatbot Is Off !`)
+			} else {
+				let buttons = [{
+						buttonId: 'chatbot on',
+						buttonText: {
+							displayText: 'On'
+						},
+						type: 1
+					},
+					{
+						buttonId: 'chatbot off',
+						buttonText: {
+							displayText: 'Off'
+						},
+						type: 1
+					}
+				]
+				await RoseMwol.sendButtonText(m.chat, buttons, `Chatbot Bot\n\nPlease click the button below\n\nOn to enable\nOff to disable`, RoseMwol.user.name, m)
 			}
 		}
 		break
@@ -13929,7 +13924,7 @@ View List Of Messages With ${prefix}listmsg`)
 			if (!q) return reply('Send orders *#setbio text*')
 			RoseMwol.setStatus(`${q}`)
 			reply(mess.success)
-			break
+		break
 		case 'ping':
 		case 'p':
 		case 'botstatus':
