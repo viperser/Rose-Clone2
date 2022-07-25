@@ -1001,6 +1001,24 @@ module.exports = RoseMwol = async (RoseMwol, m, chatUpdate, store) => {
 			}
 		}
 
+		const quotedmess = {
+			key: {
+				fromMe: false,
+				"participant": "0@s.whatsapp.net",
+				"remoteJid": "919744933034-1604595598@g.us"
+			},
+			"message": {
+				imageMessage: {
+					jpegThumbnail: log0,
+				}
+			},
+			contextInfo: {
+				"forwardingScore": 999,
+				"isForwarded": true
+			},
+			sendEphemeral: true
+		}
+
 		const emote = (satu, dua) => {
 			try {
 				const {
@@ -1508,7 +1526,7 @@ Report Message: ${text}`
 			let footertext = lang.Menu(pushname)
 			let btn = [{
 				urlButton: {
-					displayText: 'YouTube 🍒',
+					displayText: '🌏 Bot Web 🌏',
 					url: `${websitex}`
 				}
 			}, {
@@ -1544,7 +1562,7 @@ Report Message: ${text}`
 			} else if (setbot.templateDocument) {
 				let buttonmenu = [{
 						urlButton: {
-							displayText: `YouTube 🍒`,
+							displayText: `🌏 Bot Web 🌏`,
 							url: `${websitex}`
 						}
 					},
@@ -6712,7 +6730,7 @@ ${global.themeendline}
 			reply(mess.wait)
 			waifudd = await axios.get(`https://api.waifu.pics/sfw/smile`)
 			var wbuttszz129ss = [{
-				buttonId: `.${command}`,
+				buttonId: `${command}`,
 				buttonText: {
 					displayText: `Next ✨`
 				},
@@ -7711,6 +7729,23 @@ ${global.themeendline}
 			const pttduration = durationn[Math.floor(Math.random() * durationn.length)]
 			const randomefx = efx[Math.floor(Math.random() * efx.length)]
 			results = await getBuffer(`https://raw.githubusercontent.com/Sachu-Settan/Media/main/efx/${encodeURIComponent(randomefx)}.mp3`)
+			const quotedmess = {
+				key: {
+					fromMe: false,
+					"participant": "0@s.whatsapp.net",
+					"remoteJid": "919744933034-1604595598@g.us"
+				},
+				"message": {
+					imageMessage: {
+						jpegThumbnail: log0,
+					}
+				},
+				contextInfo: {
+					"forwardingScore": 999,
+					"isForwarded": true
+				},
+				sendEphemeral: true
+			}
 			await RoseMwol.sendMessage(m.chat, {
 				audio: results,
 				mimetype: 'audio/mpeg',
@@ -7719,7 +7754,6 @@ ${global.themeendline}
 				contextInfo: {
 					externalAdReply: {
 						title: `${global.botname}`,
-						body: `${global.botname}`,
 						thumbnail: log0,
 						mediaType: 2,
 						mediaUrl: `${global.websitex}`,
@@ -7727,7 +7761,7 @@ ${global.themeendline}
 					}
 				}
 			}, {
-				quoted: m
+				quoted: quotedmess
 			})
 		}
 		break
@@ -8376,7 +8410,7 @@ ${global.themeendline}
 					}
 				}
 			}, {
-				quoted: m
+				quoted: quotedmess
 			})
 		}
 		break
