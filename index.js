@@ -201,10 +201,8 @@ async function startRoseMwol() {
 
 				let nama = await RoseMwol.getName(num)
 				memb = metadata.participants.length
-				Demoted = await getBuffer(`https://hardianto.xyz/api/tools/demote?nama=${encodeURIComponent(nama)}&namaGb=${encodeURIComponent(metadata.subject)}&pepeGb=${encodeURIComponent(ppgroup)}&totalMem=${encodeURIComponent(memb)}&pepeUser=${encodeURIComponent(ppuser)}&bege=https://telegra.ph/file/d4c05638fa7886a1d8060.jpg&apikey=hardianto`)
-				Promot = await getBuffer(`https://hardianto.xyz/api/tools/promote?nama=${encodeURIComponent(nama)}&namaGb=${encodeURIComponent(metadata.subject)}&pepeGb=${encodeURIComponent(ppgroup)}&totalMem=${encodeURIComponent(memb)}&pepeUser=${encodeURIComponent(ppuser)}&bege=https://telegra.ph/file/d4c05638fa7886a1d8060.jpg&apikey=hardianto`)
-				Wlcm = await getBuffer(`https://hardianto.xyz/api/welcome3?profile=${encodeURIComponent(ppuser)}&name=${encodeURIComponent(nama)}&bg=https://telegra.ph/file/d460e086f9f9bf6b04e17.jpg&namegb=${encodeURIComponent(metadata.subject)}&member=${encodeURIComponent(memb)}`)
-				Lft = await getBuffer(`https://hardianto.xyz/api/goodbye3?profile=${encodeURIComponent(ppuser)}&name=${encodeURIComponent(nama)}&bg=https://telegra.ph/file/d460e086f9f9bf6b04e17.jpg&namegb=${encodeURIComponent(metadata.subject)}&member=${encodeURIComponent(memb)}`)
+				Wlcm = await getBuffer(`https://zerochanbot.herokuapp.com/api/bot/welkom2?pp=${encodeURIComponent(ppuser)}&nama=${encodeURIComponent(nama)}&bg=https://telegra.ph/file/d4c05638fa7886a1d8060.jpg&gc=${encodeURIComponent(metadata.subject)}&member=${encodeURIComponent(memb)}&apikey=${encodeURIComponent(global.zeroapi)}`)
+				Lft = await getBuffer(`https://zerochanbot.herokuapp.com/api/bot/goodbye2?pp=${encodeURIComponent(ppuser)}&nama=${encodeURIComponent(nama)}&bg=https://telegra.ph/file/d4c05638fa7886a1d8060.jpg&member=${encodeURIComponent(memb)}&apikey=${encodeURIComponent(global.zeroapi)}`)
 				if (anu.action == 'add') {
 					const buffer = await getBuffer(ppuser)
 					let Name = num
@@ -263,7 +261,7 @@ async function startRoseMwol() {
 								title: `${ownername}`,
 								body: `Don't forget to read group description`,
 								mediaType: 2,
-								thumbnail: Wlcm,
+								thumbnail: log0,
 								sourceUrl: `${websitex}`,
 								mediaUrl: `${websitex}`
 							}
@@ -321,142 +319,6 @@ async function startRoseMwol() {
 					let buttonMessage = {
 						image: Lft,
 						jpegThumbnail: Lft,
-						mentions: [num],
-						caption: body,
-						footer: `${botname}`,
-						buttons: buttons,
-						headerType: 4,
-						contextInfo: {
-							externalAdReply: {
-								title: `${ownername}`,
-								body: `Bye! my friend, take care.`,
-								mediaType: 2,
-								thumbnail: Lft,
-								sourceUrl: `${websitex}`,
-								mediaUrl: `${websitex}`
-							}
-						}
-					}
-					RoseMwol.sendMessage(anu.id, buttonMessage, {
-						quoted: unicorndoc
-					})
-				} else if (anu.action == 'demote') {
-					const buffer = await getBuffer(ppuser)
-					const time = moment.tz('Asia/Kolkata').format('HH:mm:ss')
-					const date = moment.tz('Asia/Kolkata').format('DD/MM/YYYY')
-					let Name = num
-					const members = metadata.participants.length
-					let unicorndoc = {
-						key: {
-							fromMe: false,
-							"participant": "0@s.whatsapp.net",
-							"remoteJid": "919744933034-1604595598@g.us"
-						},
-						"message": {
-							orderMessage: {
-								itemCount: 9999999,
-								status: 200,
-								thumbnail: buffer,
-								surface: 200,
-								message: `${metadata.subject}`,
-								orderTitle: '',
-								sellerJid: '0@s.whatsapp.net'
-							}
-						},
-						contextInfo: {
-							"forwardingScore": 999,
-							"isForwarded": true
-						},
-						sendEphemeral: true
-					}
-					body = `┌─❖
-│「 𝗗𝗲𝗺𝗼𝘁𝗲𝗱 🙂 」
-└┬❖ 「 @${Name.split("@")[0]}  」
-   │✑  𝗗𝗲𝗺𝗼𝘁𝗲 
-   │✑ ${metadata.subject}
-   │✑  𝗠𝗲𝗺𝗯𝗲𝗿 : 
-   │✑ ${members}th
-   │✑  𝗧𝗶𝗺𝗲 : 
-   │✑  ${time} ${date}
-   └───────────────┈ ⳹`
-					let buttons = [{
-						buttonId: `wkwkwsk`,
-						buttonText: {
-							displayText: '😢'
-						},
-						type: 1
-					}]
-					let buttonMessage = {
-						image: Demoted,
-						jpegThumbnail: Demoted,
-						mentions: [num],
-						caption: body,
-						footer: `${botname}`,
-						buttons: buttons,
-						headerType: 4,
-						contextInfo: {
-							externalAdReply: {
-								title: `${ownername}`,
-								body: `Bye! my friend, take care.`,
-								mediaType: 2,
-								thumbnail: log0,
-								sourceUrl: `${websitex}`,
-								mediaUrl: `${websitex}`
-							}
-						}
-					}
-					RoseMwol.sendMessage(anu.id, buttonMessage, {
-						quoted: unicorndoc
-					})
-				} else if (anu.action == 'promote') {
-					const buffer = await getBuffer(ppuser)
-					const time = moment.tz('Asia/Kolkata').format('HH:mm:ss')
-					const date = moment.tz('Asia/Kolkata').format('DD/MM/YYYY')
-					let Name = num
-					const members = metadata.participants.length
-					let unicorndoc = {
-						key: {
-							fromMe: false,
-							"participant": "0@s.whatsapp.net",
-							"remoteJid": "919744933034-1604595598@g.us"
-						},
-						"message": {
-							orderMessage: {
-								itemCount: 9999999,
-								status: 200,
-								thumbnail: buffer,
-								surface: 200,
-								message: `${metadata.subject}`,
-								orderTitle: '',
-								sellerJid: '0@s.whatsapp.net'
-							}
-						},
-						contextInfo: {
-							"forwardingScore": 999,
-							"isForwarded": true
-						},
-						sendEphemeral: true
-					}
-					body = `┌─❖
-│「 𝗣𝗿𝗼𝗺𝗼𝘁𝗲𝗱 ✨ 」
-└┬❖ 「 @${Name.split("@")[0]}  」
-   │✑  𝗣𝗿𝗼𝗺𝗼𝘁𝗲 
-   │✑ ${metadata.subject}
-   │✑  𝗠𝗲𝗺𝗯𝗲𝗿 : 
-   │✑ ${members}th
-   │✑  𝗧𝗶𝗺𝗲 : 
-   │✑  ${time} ${date}
-   └───────────────┈ ⳹`
-					let buttons = [{
-						buttonId: `wkwkwk`,
-						buttonText: {
-							displayText: 'Congo 🕊'
-						},
-						type: 1
-					}]
-					let buttonMessage = {
-						image: Promot,
-						jpegThumbnail: Promot,
 						mentions: [num],
 						caption: body,
 						footer: `${botname}`,

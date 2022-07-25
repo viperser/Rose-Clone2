@@ -38,6 +38,7 @@ global.watermark = "🤖 ʀᴏꜱᴇ-ᴍᴡᴏʟ-ᴍᴅ 👻"
 global.themeeline = "│"
 global.themeline = "│✙"
 global.themeendline = "│\n└──────────────────┈ ⳹"
+global.zeroapi = "UGSWgULd"
 
 global.thum = fs.readFileSync("./Bot Pic/Rose.jpg") 
 global.log0 = fs.readFileSync("./Bot Pic/Rose.jpg") 

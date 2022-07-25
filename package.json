@@ -20,7 +20,7 @@
   "author": "Sachu",
   "license": "MIT",
   "dependencies": {
-    "@adiwajshing/baileys": "^4.1.0",
+    "@adiwajshing/baileys": "^4.3.0",
     "@adiwajshing/keyed-db": "^0.2.4",
     "@bochilteam/scraper": "^2.0.0",
     "@develoka/angka-terbilang-js": "^1.4.2",
@@ -46,6 +46,7 @@
     "hxz-api": "^1.0.1",
     "jimp": "^0.16.1",
     "jsdom": "^16.4.0",
+    "link-preview-js": "^3.0.0",
     "lowdb": "^2.1.0",
     "minecraft-query": "^1.0.13",
     "moment-timezone": "^0.5.34",
