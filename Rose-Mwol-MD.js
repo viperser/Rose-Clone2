@@ -8414,7 +8414,7 @@ ${global.themeendline}
 			})
 		}
 		break
-		case 'logo1':{
+		case 'gfx1':{
 			if (isBan) return reply(mess.ban)
 			if (isBanChat) return reply(mess.banChat)
 			if (!text) return reply(`Use ${prefix + command} text`)
@@ -8433,7 +8433,7 @@ ${global.themeendline}
 
 		}
 		break
-		case 'logo2':{
+		case 'gfx2':{
 			if (isBan) return reply(mess.ban)
 			if (isBanChat) return reply(mess.banChat)
 			if (!text) return reply(`Use ${prefix + command} text`)
@@ -8452,7 +8452,7 @@ ${global.themeendline}
 
 		}
 		break
-		case 'logo3':{
+		case 'gfx3':{
 			if (isBan) return reply(mess.ban)
 			if (isBanChat) return reply(mess.banChat)
 			if (!text) return reply(`Use ${prefix + command} text|text`)
@@ -8469,6 +8469,47 @@ ${global.themeendline}
 			reply (`${err}`)
 		}
 		}
+		break
+		case 'gfx4':{
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			if (!text) return reply(`Use ${prefix + command} text|text`)
+			try {
+			reply(mess.wait)
+			teks1 = text.split("|")[0]
+			teks2 = text.split("|")[1]
+			logoos = await getBuffer(`https://zerochanbot.herokuapp.com/api/bot/gfx3?text1=${encodeURIComponent(teks1)}&text2=${encodeURIComponent(teks2)}&apikey=UGSWgULd`)
+			await RoseMwol.sendMessage(m.chat, {
+				image: logoos,
+				caption: `Made by ${global.botname}`
+			}, {
+				quoted: m
+			})
+		} catch(err) {
+			reply (`${err}`)
+		}
+		}
+		break
+		case 'gfx5':{
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			if (!text) return reply(`Use ${prefix + command} text|text`)
+			try {
+			reply(mess.wait)
+			teks1 = text.split("|")[0]
+			teks2 = text.split("|")[1]
+			logoos = await getBuffer(`https://zerochanbot.herokuapp.com/api/bot/gfx4?text1=${encodeURIComponent(teks1)}&text2=${encodeURIComponent(teks2)}&apikey=UGSWgULd`)
+			await RoseMwol.sendMessage(m.chat, {
+				image: logoos,
+				caption: `Made by ${global.botname}`
+			}, {
+				quoted: m
+			})
+		} catch(err) {
+			reply (`${err}`)
+		}
+		}
+		break
 		case 'glitch3':
 			if (isBan) return reply(mess.ban)
 			if (isBanChat) return reply(mess.banChat)
