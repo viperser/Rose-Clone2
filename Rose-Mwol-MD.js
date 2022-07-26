@@ -8414,6 +8414,44 @@ ${global.themeendline}
 			})
 		}
 		break
+		case 'logo1':{
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			if (!text) return reply(`Use ${prefix + command} text`)
+			reply(mess.wait)
+			try {
+			logoss = getBuffer(`https://zerochanbot.herokuapp.com/api/bot/gfx1?nama=${encodeURIComponent(text)}&apikey=${encodeURIComponent(global.zeroapi)}`)
+			RoseMwol.sendMessage(m.chat, {
+				image: logoss,
+				caption: `Made by ${global.botname}`
+			}, {
+				quoted: m
+			})
+		} catch(err) {
+			reply (`${err}`)
+		}
+
+		}
+		break
+		case 'logo2':{
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			if (!text) return reply(`Use ${prefix + command} text`)
+			reply(mess.wait)
+			try {
+			logoss = getBuffer(`https://zerochanbot.herokuapp.com/api/bot/gfx2?nama=${encodeURIComponent(text)}&apikey=${encodeURIComponent(global.zeroapi)}`)
+			RoseMwol.sendMessage(m.chat, {
+				image: logoss,
+				caption: `Made by ${global.botname}`
+			}, {
+				quoted: m
+			})
+		} catch(err) {
+			reply (`${err}`)
+		}
+
+		}
+		break
 		case 'glitch3':
 			if (isBan) return reply(mess.ban)
 			if (isBanChat) return reply(mess.banChat)
