@@ -1686,7 +1686,7 @@ Report Message: ${text}`
 								{
 									"title": "Maker Menu 🌈",
 									"description": "Displays The List Of Logo Making Features",
-									"rowId": `${prefix}indomenu`
+									"rowId": `${prefix}makermenu`
 								},
 								{
 									"title": "Sound Menu 🎵",
@@ -1712,6 +1712,11 @@ Report Message: ${text}`
 									"title": "EFX/BGM Menu 🎵",
 									"description": "Displays The List Of EFX/BGM Features",
 									"rowId": `${prefix}efxmenu`
+								},
+								{
+									"title": "GFX Menu 🌈",
+									"description": "Displays The List Of Logo (DP) Making Features",
+									"rowId": `${prefix}gfxmenu`
 								},
 								{
 									"title": "Tool Menu ⚙️",
@@ -1949,6 +1954,42 @@ Report Message: ${text}`
 					"id": 'owner'
 				}
 			}])
+			break
+			case 'gfxmenu':
+				if (isBan) return reply(mess.ban)
+				if (isBanChat) return reply(mess.banChat)
+				await RoseMwol.sendMessage(m.chat, {
+					react: {
+					text: Reactt,
+					key: {
+						remoteJid: m.chat,
+						fromMe: true,
+						id: quoted.id
+					}
+				}
+				})
+				var unicorn = await getBuffer(picak + 'GFX Menu')
+				await RoseMwol.send5ButImg(from, `${lang.GFXMenu(pushname, prefix)}` + '' + ' ', `${botname}`, unicorn, [{
+					"urlButton": {
+						"displayText": "🌏 Bot Web 🌏",
+						"url": `${websitex}`
+					}
+				}, {
+					"urlButton": {
+						"displayText": "Script🔖",
+						"url": `${botscript}`
+					}
+				}, {
+					"quickReplyButton": {
+						"displayText": "Donate 🍜",
+						"id": 'donate'
+					}
+				}, {
+					"quickReplyButton": {
+						"displayText": "Owner 👤",
+						"id": 'owner'
+					}
+				}])
 			break
 		case 'makermenu':
 			if (isBan) return reply(mess.ban)

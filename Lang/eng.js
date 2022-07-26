@@ -376,6 +376,12 @@ exports.AllMenu = (prefix) => {
 ╠ ${prefix}beautifuleffect
 ╠ ${prefix}deleteeffect
 ╠ ${prefix}pixelate
+╠═════✪「 GFX Maker 」
+╠ ${prefix} gfx1 [text]
+╠ ${prefix} gfx2 [text]
+╠ ${prefix} gfx3 [text]
+╠ ${prefix} gfx4 [text|text]
+╠ ${prefix} gfx5 [text|text]
 ╠═══════✪「 RANDOM IMG 」
 ╠ ${prefix}coffee
 ╠ ${prefix}bts
@@ -930,6 +936,17 @@ exports.RpgMenu = (pushname ,prefix) => {
 ╠ ${prefix}profile
 ╠ ${prefix}inventory
 ╠ ${prefix}leaderboard
+╚═════════════✪`
+}
+
+exports.GFXMenu = (pushname, prefix) =>{
+	return`
+╔═══════✪「 GFX Menu 」
+╠ ${prefix} gfx1 [text]
+╠ ${prefix} gfx2 [text]
+╠ ${prefix} gfx3 [text]
+╠ ${prefix} gfx4 [text|text]
+╠ ${prefix} gfx5 [text|text]
 ╚═════════════✪`
 }
 
