@@ -46,7 +46,7 @@
     "hxz-api": "^1.0.1",
     "jimp": "^0.16.1",
     "jsdom": "^16.4.0",
-    "link-preview-js": "^3.0.0",
+    "link-preview-js": "^2.1.19",
     "lowdb": "^2.1.0",
     "minecraft-query": "^1.0.13",
     "moment-timezone": "^0.5.34",
