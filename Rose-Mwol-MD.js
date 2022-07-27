@@ -10674,7 +10674,7 @@ ${global.themeemoji} Media Url : ${images}`,
 							})
 						}
 					}
-				}).catch((err) => reply(mess.error))
+				}).catch((err) => reply(err))
 		}
 		break
 		case 'igdl':
@@ -10682,6 +10682,7 @@ ${global.themeemoji} Media Url : ${images}`,
 		case 'igreels': {
 			if (isBan) return reply(mess.ban)
 			if (isBanChat) return reply(mess.banChat)
+			if (!isUrl(args[0]) && !args[0].includes('instagram.com')) return reply(mess.notiglink)
 			if (!args[0]) return reply(`Example :\n${prefix + command} https://www.instagram.com/`)
 			try {
 				hx.igdl(args[0]).then(async (resed) => {
