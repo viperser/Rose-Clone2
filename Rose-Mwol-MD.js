@@ -10804,7 +10804,7 @@ ${global.themeemoji} Media Url : ${images}`,
 				thumb,
 				channel,
 				url
-			} = await fetchJson(`https://hardianto.xyz/api/yt/playmp4?query=${encodeURIComponent(args[0])}&apikey=hardianto`)
+			} = await fetchJson(`https://zerochanbot.herokuapp.com/api/yt/playmp4?query=${encodeURIComponent(args[0])}&apikey=UGSWgULd`)
 			let buttons = [{
 					buttonId: `downmp4 ${url}`,
 					buttonText: {
@@ -10845,7 +10845,7 @@ ${global.themeemoji} Download Url : ${url}`,
 				thumb,
 				channel,
 				url
-			} = await fetchJson(`https://hardianto.xyz/api/yt/playmp3?query=${encodeURIComponent(args[0])}&apikey=hardianto`)
+			} = await fetchJson(`https://zerochanbot.herokuapp.com/api/yt/playmp3?query=${encodeURIComponent(args[0])}&apikey=UGSWgULd`)
 			let buttons = [{
 					buttonId: `downmp3 ${url}`,
 					buttonText: {
@@ -10881,7 +10881,7 @@ ${global.themeemoji} Download Url : ${url}`,
 			if (!text) return reply(`Example : ${prefix + command} *Query Title*`)
 			let {
 				result
-			} = await fetchJson(`https://hardianto.xyz/api/yt/search?query=${encodeURIComponent(text)}&apikey=hardianto`)
+			} = await fetchJson(`https://zerochanbot.herokuapp.com/api/yt/search?query=${encodeURIComponent(text)}&apikey=UGSWgULd`)
 			let anu = result[Math.floor(Math.random() * result.length)]
 			let buttons = [{
 					buttonId: `ytmp3 ${anu.url}`,
@@ -10914,54 +10914,6 @@ ${global.themeemoji} Channel : ${anu.author.url}
 ${global.themeemoji} Description : ${anu.description}
 ${global.themeemoji} Url : ${anu.url}`,
 				footer: RoseMwol.user.name,
-				buttons: buttons,
-				headerType: 4
-			}
-			RoseMwol.sendMessage(m.chat, buttonMessage, {
-				quoted: m
-			})
-		}
-		break
-
-		case 'play2':
-		case 'song2':
-		case 'ytplay2': {
-			if (!text) return reply(`Example : ${prefix + command} *Query Title*`)
-			let {
-				information
-			} = await fetchJson(`https://hardianto.xyz/api/download/play?query=${encodeURIComponent(text)}&apikey=hardianto`)
-			let anu = information
-			let buttons = [{
-					buttonId: `ytmp3 ${anu.url}`,
-					buttonText: {
-						displayText: '🎶 Audio 🎶'
-					},
-					type: 1
-				},
-				{
-					buttonId: `ytmp4 ${anu.url}`,
-					buttonText: {
-						displayText: '📽️ Video 📽️'
-					},
-					type: 1
-				}
-			]
-			let buttonMessage = {
-				image: {
-					url: anu.thumbnail
-				},
-				caption: `
-${global.themeemoji} Title : ${anu.title}
-${global.themeemoji} Ext : Search
-${global.themeemoji} ID : ${anu.videoId}
-${global.themeemoji} Duration : ${anu.timestamp}
-${global.themeemoji} Viewes : ${anu.views}
-${global.themeemoji} Uploaded On : ${anu.ago}
-${global.themeemoji} Author : ${anu.author.name}
-${global.themeemoji} Channel : ${anu.author.url}
-${global.themeemoji} Description : ${anu.description}
-${global.themeemoji} Url : ${anu.url}`,
-				footer: `${pushname}`,
 				buttons: buttons,
 				headerType: 4
 			}
