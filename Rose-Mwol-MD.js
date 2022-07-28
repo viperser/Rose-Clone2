@@ -3944,7 +3944,7 @@ Cieeee, What's Going On❤️💖👀`
 			if (isBanChat) return reply(mess.banChat)
 			if (!isCreator) return replay(`${mess.owner}`)
 			if (!text) return replay(`Enter The Group Link!`)
-			if (!isUrl(args[0]) && !args[0].includes('whatsapp.com')) return replay(`Invalid Link!`)
+			if (!args[0] && !args[0].includes('whatsapp.com')) return replay(`Invalid Link!`)
 			reply(mess.wait)
 			let result = args[0].split('https://chat.whatsapp.com/')[1]
 			await RoseMwol.groupAcceptInvite(result).then((res) => reply(jsonformat(res))).catch((err) => reply(jsonformat(err)))
@@ -5701,7 +5701,7 @@ ${global.themeendline}
 		case 'soundcloud':
 		case 'scdl': {
 			if (!text) return reply(mess.linkm)
-			if (!isUrl(args[0]) && !args[0].includes('soundcloud.com')) return reply(`*Not a soundcloud link*`)
+			if (!args[0] && !args[0].includes('soundcloud.com')) return reply(`*Not a soundcloud link*`)
 			xfarr.SoundCloud(`${text}`).then(async (data) => {
 				let txt = `*SOUNDCLOUD DOWNLOADER*\n\n`
 				txt += `*${themeemoji}Title :* ${data.title}\n`
@@ -7342,7 +7342,7 @@ ${global.themeendline}
 			if (isBan) return reply(mess.ban)
 			if (isBanChat) return reply(mess.banChat)
 			if (!text) return reply(mess.linkm)
-			if (!isUrl(args[0]) && !args[0].includes('zippyshare.com')) return reply(`The link is not a zippyshare link`)
+			if (!args[0] && !args[0].includes('zippyshare.com')) return reply(`The link is not a zippyshare link`)
 			anu = await fetchJson(`https://violetics.pw/api/downloader/zippyshare?apikey=df7d-425a-3bc8&url=${text}`)
 			m.reply(`*${util.format(anu)}*`)
 			linkyke = await getBuffer(anu.result.dlink)
@@ -7359,7 +7359,7 @@ ${global.themeendline}
 			if (isBan) return reply(mess.ban)
 			if (isBanChat) return reply(mess.banChat)
 			if (!text) return m.reply(`Failed to download media and send audio ${prefix + command} url link`)
-			if (!isUrl(args[0]) && !args[0].includes('facebook.com')) return reply(`The link you provided is invalid`)
+			if (!args[0] && !args[0].includes('facebook.com')) return reply(`The link you provided is invalid`)
 			let noh = require('@bochilteam/scraper')
 			noh.savefrom(`${text}`).then(async (data) => {
 				let sections = []
@@ -10607,7 +10607,7 @@ ${global.themeemoji} Media Url : ${images}`,
 			if (isBan) return reply(mess.ban)
 			if (isBanChat) return reply(mess.banChat)
 			if (!text) return reply(mess.linkm)
-			if (!isUrl(args[0]) && !args[0].includes('instagram.com')) return reply(mess.notiglink)
+			if (!args[0] && !args[0].includes('instagram.com')) return reply(mess.notiglink)
 			reply(`${mess.wait}`)
 			const {
 				instagramdl,
@@ -10636,7 +10636,7 @@ ${global.themeemoji} Media Url : ${images}`,
 			if (isBan) return reply(mess.ban)
 			if (isBanChat) return reply(mess.banChat)
 			if (!text) return reply(mess.linkm)
-			if (!isUrl(args[0]) && !args[0].includes('instagram.com')) return reply(mess.notiglink)
+			if (!args[0] && !args[0].includes('instagram.com')) return reply(mess.notiglink)
 			reply(`${mess.wait}`)
 			const {
 				instagramdl,
@@ -10665,7 +10665,7 @@ ${global.themeemoji} Media Url : ${images}`,
 			if (isBan) return reply(mess.ban)
 			if (isBanChat) return reply(mess.banChat)
 			if (!text) return reply(mess.linkm)
-			if (!isUrl(args[0]) && !args[0].includes('instagram.com')) return reply(mess.notiglink)
+			if (!args[0] && !args[0].includes('instagram.com')) return reply(mess.notiglink)
 			try {
 			let urlnya = text
 			hx.igdl(urlnya)
@@ -10704,7 +10704,7 @@ ${global.themeemoji} Media Url : ${images}`,
 		case 'igreels': {
 			if (isBan) return reply(mess.ban)
 			if (isBanChat) return reply(mess.banChat)
-			if (!isUrl(args[0]) && !args[0].includes('instagram.com')) return reply(mess.notiglink)
+			if (!args[0] && !args[0].includes('instagram.com')) return reply(mess.notiglink)
 			if (!args[0]) return reply(`Example :\n${prefix + command} https://www.instagram.com/`)
 			try {
 				hx.igdl(args[0]).then(async (resed) => {
@@ -11019,7 +11019,7 @@ ${global.themeemoji} Url : ${anu.url}`,
 				instagramdlv2,
 				instagramdlv3
 			} = require('@bochilteam/scraper')
-			if (!isUrl(args[0]) && !args[0].includes('instagram.com')) return reply('*The link you provided is not valid*')
+			if (!args[0] && !args[0].includes('instagram.com')) return reply('*The link you provided is not valid*')
 			instagramdlv3(`${text}`).then(async (data) => {
 				var buf = await getBuffer(data[0].thumbnail)
 				RoseMwol.sendMessage(m.chat, {
@@ -11042,7 +11042,7 @@ ${global.themeemoji} Url : ${anu.url}`,
 			if (isBan) return reply(mess.ban)
 			if (isBanChat) return reply(mess.banChat)
 			if (!text) return reply(`Where is the link?`)
-			if (!isUrl(args[0]) && !args[0].includes('twitter.com')) return reply(`The link you provided is not valid`)
+			if (!args[0] && !args[0].includes('twitter.com')) return reply(`The link you provided is not valid`)
 			xfarr.Twitter(`${text}`).then(async (data) => {
 				let txt = `*TWITTER DOWNLOADER*\n\n`
 				txt += `*${themeemoji}TITLE :* ${data.title}\n`
@@ -11083,7 +11083,7 @@ ${global.themeemoji} Url : ${anu.url}`,
 			if (isBan) return reply(mess.ban)
 			if (isBanChat) return reply(mess.banChat)
 			if (!text) return reply(`Where is the link?`)
-			if (!isUrl(args[0]) && !args[0].includes('twitter.com')) return reply(`*The link you provided is not valid*`)
+			if (!args[0] && !args[0].includes('twitter.com')) return reply(`*The link you provided is not valid*`)
 			xfarr.Twitter(`${text}`).then(async (data) => {
 				RoseMwol.sendMessage(m.chat, {
 					audio: {
@@ -11197,7 +11197,7 @@ _Choose the video quality below by clicking the button_`
 			if (isBan) return reply(mess.ban)
 			if (isBanChat) return reply(mess.banChat)
 			if (!text) return reply(`Where is the link bro?\nExample: ${prefix}facebook https://www.facebook.com/groups/599913174599515/permalink/705467384044093/`)
-			if (!isUrl(args[0]) && !args[0].includes('facebook.com')) return reply(`The link you provided is not valid`)
+			if (!args[0] && !args[0].includes('facebook.com')) return reply(`The link you provided is not valid`)
 			let bocil = require('@bochilteam/scraper')
 			bocil.facebookdlv2(`${text}`).then(async (data) => {
 				let txt = `*FB DOWNLOADER*\n\n`
@@ -11238,7 +11238,7 @@ _Choose the video quality below by clicking the button_`
 			if (isBan) return reply(mess.ban)
 			if (isBanChat) return reply(mess.banChat)
 			if (!text) return reply(`Where is the link?\nExample: ${prefix + command} https://www.facebook.com/groups/599913174599515/permalink/705467384044093/`)
-			if (!isUrl(args[0]) && !args[0].includes('facebook.com')) return reply(`The link you provided is not valid`)
+			if (!args[0] && !args[0].includes('facebook.com')) return reply(`The link you provided is not valid`)
 			let noh = require('@bochilteam/scraper')
 			noh.savefrom(`${text}`).then(async (anu) => {
 				RoseMwol.sendMessage(m.chat, {
@@ -11442,7 +11442,7 @@ _For HD quality you can click the button below_`
 			if (isBan) return reply(mess.ban)
 			if (isBanChat) return reply(mess.banChat)
 			if (!text) return reply(`Use${prefix + command} whatsapp`)
-			if (!isUrl(args[0]) && !args[0].includes('rexdl.com')) reply('*The link you provided is invalid*')
+			if (!args[0] && !args[0].includes('rexdl.com')) reply('*The link you provided is invalid*')
 			let rex = require('./lib/ApkDown.js')
 			rex.ApkDown(`${text}`).then(async (anu) => {
 				if (anu[0].size.split('MB')[0] >= 150) return reply('*File Over Limit* ' + util.format(anu))
@@ -13309,7 +13309,7 @@ _Select video or audio and wait a while_`
 			if (isBan) return reply(mess.ban)
 			if (isBanChat) return reply(mess.banChat)
 			if (!text) return reply(mess.linkm)
-			if (!isUrl(args[0]) && !args[0].includes('youtube.com')) return reply(`The link you provided is invalid`)
+			if (!args[0] && !args[0].includes('youtube.com')) return reply(`The link you provided is invalid`)
 			anu = await fetchJson(`https://api.akuari.my.id/downloader/youtube?link=${text}`)
 			if (anu.filesize_video >= 999999) return reply('*File Over Limit* ' + util.format(anu))
 			tummb = await getBuffer(anu.thumb)
@@ -13337,7 +13337,7 @@ _Select video or audio and wait a while_`
 			if (isBan) return reply(mess.ban)
 			if (isBanChat) return reply(mess.banChat)
 			if (!text) return reply(`*Use ${prefix + command} put yt shorts link*`)
-			if (!isUrl(args[0]) && !args[0].includes('youtube')) return reply(`The link you provided is not valid`)
+			if (!args[0] && !args[0].includes('youtube')) return reply(`The link you provided is not valid`)
 			xfarr.Youtube(`${text}`).then(async (data) => {
 				if (data.medias[0].formattedSize.split('MB')[0] >= 999) return reply('*File Over Limit* ' + util.format(data))
 				cap = `
@@ -13415,7 +13415,7 @@ _Select video or audio and wait a while_`
 			if (isBan) return reply(mess.ban)
 			if (isBanChat) return reply(mess.banChat)
 			if (!text) return reply(mess.linkm)
-			if (!isUrl(args[0]) && !args[0].includes('mediafire.com')) return reply(`The link you provided is invalid`)
+			if (!args[0] && !args[0].includes('mediafire.com')) return reply(`The link you provided is invalid`)
 			const baby1 = await mediafireDl(text)
 			if (baby1[0].size.split('MB')[0] >= 999) return reply('*File Over Limit* ' + util.format(baby1))
 			const result4 = `*MEDIAFIRE DOWNLOADER*
