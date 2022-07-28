@@ -103,7 +103,6 @@ const toHur = require('@develoka/angka-terbilang-js')
 const {
 	hentai
 } = require('./lib/scraper2.js')
-const igscraper = require('@bochilteam/scraper')
 const {
 	FajarNews,
 	BBCNews,
@@ -10330,6 +10329,7 @@ ${global.themeendline}
 			}
 		}
 		break
+		case 'img':
 		case 'toimage':
 		case 'toimg': {
 			if (isBan) return reply(mess.ban)
@@ -10601,44 +10601,62 @@ ${global.themeemoji} Media Url : ${images}`,
 				}).catch((err) => reply(`Sorry username ${text} was not found or maybe he/she has no story uploaded in her id`))
 		}
 		break
-		case 'ig2':
-		case 'igdl2':
-		case 'instagram2': {
+		case 'igimg':
+		case 'igdlimg':
+		case 'instagramimg': {
 			if (isBan) return reply(mess.ban)
 			if (isBanChat) return reply(mess.banChat)
 			if (!text) return reply(mess.linkm)
 			if (!isUrl(args[0]) && !args[0].includes('instagram.com')) return reply(mess.notiglink)
-			try {
-			let {
-				medias
-			} = await fetchJson(`https://hardianto.xyz/api/download/instadl?url=${encodeURIComponent(args[0])}&apikey=hardianto`)
 			reply (`${mess.wait}`)
-			for (let i of medias) {
-				if (i.fileType.includes('mp4')) {
-					let link = await getBuffer(i.url)
-					let thumb = await getBuffer(i.preview)
-					RoseMwol.sendMessage(m.chat, {
-						video: link,
-						jpegThumbnail: thumb,
-						caption: `*${mess.igdownloaded}*`
-					}, {
-						quoted: m
-					})
-				} else {
-					let link = await getBuffer(i.url)
-					let thumb = await getBuffer(i.preview)
-					RoseMwol.sendMessage(m.chat, {
-						image: link,
-						jpegThumbnail: thumb,
-						caption: `*${mess.igdownloaded}*`
-					}, {
-						quoted: m
-					})
-				}
-			}
-		} catch(err) {
-			reply(`${err}`)
+			const {
+				instagramdl,
+				instagramdlv2,
+				instagramdlv3,
+			} = require('@bochilteam/scraper')
+			instagramdl(`${text}`).then(async (data) => {
+				var buf = await getBuffer(data[0].thumbnail)
+				RoseMwol.sendMessage(m.chat, {
+					image: {
+						url: data[0].url
+					},
+					jpegThumbnail: buf,
+					caption: `${botname}`
+				}, {
+					quoted: m
+				})
+			}).catch((err) => {
+				reply(mess.error)
+			})
 		}
+		break
+		case 'igvid':
+		case 'igdlvid':
+		case 'instagramvid': {
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			if (!text) return reply(mess.linkm)
+			if (!isUrl(args[0]) && !args[0].includes('instagram.com')) return reply(mess.notiglink)
+			reply (`${mess.wait}`)
+			const {
+				instagramdl,
+				instagramdlv2,
+				instagramdlv3,
+			} = require('@bochilteam/scraper')
+			instagramdl(`${text}`).then(async (data) => {
+				var buf = await getBuffer(data[0].thumbnail)
+				RoseMwol.sendMessage(m.chat, {
+					video: {
+						url: data[0].url
+					},
+					jpegThumbnail: buf,
+					caption: `${botname}`
+				}, {
+					quoted: m
+				})
+			}).catch((err) => {
+				reply(mess.error)
+			})
 		}
 		break
 		case 'ig':
@@ -11919,7 +11937,7 @@ ${themeemoji} Url : ${result.link}
 					})
 				});
 			break
-		case 'img':
+
 		case 'image': {
 			if (isBan) return reply(mess.ban)
 			if (isBanChat) return reply(mess.banChat)
