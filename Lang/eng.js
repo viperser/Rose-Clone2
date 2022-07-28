@@ -160,6 +160,7 @@ exports.AllMenu = (prefix) => {
 ╠ ${prefix}kick [reply/tag]
 ╠ ${prefix}hidetag [text]
 ╠ ${prefix}tagall [text]
+╠ ${prefix}tagadmins [text]
 ╠ ${prefix}antilinkgc [on/off]
 ╠ ${prefix}antilinktg [on/off]
 ╠ ${prefix}antilinktt [on/off]
@@ -307,6 +308,7 @@ exports.AllMenu = (prefix) => {
 ╠ ${prefix}zippyshare [url]
 ╠═══════✪「 SEARCH 」	
 ╠ ${prefix}play [query]
+╠ ${prefix}play2 [query]
 ╠ ${prefix}song [query]
 ╠ ${prefix}yts [query]
 ╠ ${prefix}lyrics [query]
@@ -891,6 +893,7 @@ exports.GroupMenu = (pushname ,prefix) => {
 ╠ ${prefix}kick [reply/tag]
 ╠ ${prefix}hidetag [text]
 ╠ ${prefix}tagall [text]
+╠ ${prefix}tagadmins [text]
 ╠ ${prefix}autosticker [on/off]
 ╠ ${prefix}autostickerpc [on/off]
 ╠ ${prefix}leveling [on/off]
@@ -1150,6 +1153,7 @@ exports.OwnerMenu = (pushname, prefix) => {
 ┃╠ ${prefix}kick [reply/tag]
 ┃╠ ${prefix}hidetag [text]
 ┃╠ ${prefix}tagall [text]
+╠ ${prefix}tagadmins [text]
 ┃╠ ${prefix}antilink [on/off]
 ┃╠ ${prefix}mute [on/off]
 ┃╠ ${prefix}promote [reply/tag]
@@ -1194,6 +1198,7 @@ exports.SearchMenu = (pushname ,prefix) => {
 	return `
 ╔═══════✪「 SEARCH 」	
 ╠ ${prefix}play [query]
+╠ ${prefix}play2 [query]
 ╠ ${prefix}song [query]
 ╠ ${prefix}yts [query]
 ╠ ${prefix}lyrics [query]

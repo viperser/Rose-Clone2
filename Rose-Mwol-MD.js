@@ -4216,6 +4216,8 @@ Cieeee, What's Going On❤️💖👀`
 			}
 		}
 		break
+		case 'fancy':
+		case 'fancytext':
 		case 'style':
 		case 'styletext': {
 			if (isBan) return reply(mess.ban)
@@ -10920,11 +10922,92 @@ ${global.themeemoji} Download Url : ${url}`,
 
 		case 'play':
 		case 'song':
-		case 'ytplay': {
+		case 'ytplay':{
 			if (!text) return reply(`Example : ${prefix + command} *Query Title*`)
 			let {
 				result
-			} = await fetchJson(`https://zerochanbot.herokuapp.com/api/yt/search?query=${encodeURIComponent(text)}&apikey=UGSWgULd`)
+			} = await fetchJson(`https://api.dhamzxploit.my.id/api/ytsearch?q=${encodeURIComponent(text)}`)
+			let anu = result
+			let template = await generateWAMessageFromContent(m.chat, proto.Message.fromObject({
+				listMessage: {
+					title: `Hi ${pushname} Bro ✨\n`,
+					description: `*Please Choose A Song / Video 👻*\n\n`,
+					buttonText: "Click Here 🕊",
+					footerText: `\`\`\`${global.watermark}\`\`\``,
+					listType: "SINGLE_SELECT",
+					sections: [{
+							"title": "Select An Option",
+							"rows": [{
+								"title": anu[0].title,
+								"description": anu[0].description,
+								"rowId": prefix + `yt ` + anu[0].url
+							},{
+								"title": anu[1].title,
+								"description": anu[1].description,
+								"rowId": prefix + `yt ` + anu[1].url
+							},{
+								"title": anu[2].title,
+								"description": anu[2].description,
+								"rowId": prefix + `yt ` + anu[2].url
+							},{
+								"title": anu[3].title,
+								"description": anu[3].description,
+								"rowId": prefix + `yt ` + anu[3].url
+							},{
+								"title": anu[4].title,
+								"description": anu[4].description,
+								"rowId": prefix + `yt ` + anu[4].url
+							},{
+								"title": anu[5].title,
+								"description": anu[5].description,
+								"rowId": prefix + `yt ` + anu[5].url
+							},{
+								"title": anu[6].title,
+								"description": anu[6].description,
+								"rowId": prefix + `yt ` + anu[6].url
+							},{
+								"title": anu[7].title,
+								"description": anu[7].description,
+								"rowId": prefix + `yt ` + anu[7].url
+							},{
+								"title": anu[8].title,
+								"description": anu[8].description,
+								"rowId": prefix + `yt ` + anu[8].url
+							},{
+								"title": anu[9].title,
+								"description": anu[9].description,
+								"rowId": prefix + `yt ` + anu[9].url
+							},{
+								"title": anu[10].title,
+								"description": anu[10].description,
+								"rowId": prefix + `yt ` + anu[10].url
+							},{
+								"title": anu[11].title,
+								"description": anu[11].description,
+								"rowId": prefix + `yt ` + anu[11].url
+							},{
+								"title": anu[12].title,
+								"description": anu[12].description,
+								"rowId": prefix + `yt ` + anu[12].url
+							}]
+						}
+					],
+					listType: 1
+				}
+			}), {})
+			RoseMwol.relayMessage(m.chat, template.message, {
+				messageId: template.key.id
+			})
+		}
+		break
+
+		case 'play2':
+		case 'song2':
+		case 'ytplay2': {
+			if (!text) return reply(`Example : ${prefix + command} *Query Title*`)
+			let {
+				result
+			} = await fetchJson(`https://api.dhamzxploit.my.id/api/ytsearch?q=${encodeURIComponent(text)}`)
 			let anu = result[Math.floor(Math.random() * result.length)]
 			let buttons = [{
 					buttonId: `ytmp3 ${anu.url}`,
@@ -10965,44 +11048,6 @@ ${global.themeemoji} Url : ${anu.url}`,
 			})
 		}
 		break
-
-		/* 
-		 * Fixed .play And .ytplay By Sachu [ Only For Railway Deploys ] 
-		 * Not Deploying On Railway ??
-		 * Use The One With YT-SEARCH Plugin 
-		 * Dont Forget To Add Plugin In Package.json
-		 */
-		/*
-		case 'play': case 'song': case 'ytplay': {
-		if (!text) return reply(`Example : ${prefix + command} Stay`)
-		let yts = require("yt-search")
-		let search = await yts(text)
-		let anu = search.videos[Math.floor(Math.random() * search.videos.length)]
-		let buttons = [
-			{buttonId: `ytmp3 ${anu.url}`, buttonText: {displayText: '🎶Audio🎶'}, type: 1},
-			{buttonId: `ytmp4 ${anu.url}`, buttonText: {displayText: '📽️Video📽️'}, type: 1}
-		]
-		let buttonMessage = {
-			image: { url: anu.thumbnail },
-			caption: `
-${global.themeemoji} Title : ${anu.title}
-${global.themeemoji} Ext : Search
-${global.themeemoji} ID : ${anu.videoId}
-${global.themeemoji} Duration : ${anu.timestamp}
-${global.themeemoji} Viewes : ${anu.views}
-${global.themeemoji} Uploaded On : ${anu.ago}
-${global.themeemoji} Author : ${anu.author.name}
-${global.themeemoji} Channel : ${anu.author.url}
-${global.themeemoji} Description : ${anu.description}
-${global.themeemoji} Url : ${anu.url}`,
-			footer: RoseMwol.user.name,
-			buttons: buttons,
-			headerType: 4
-		}
-		RoseMwol.sendMessage(m.chat, buttonMessage, { quoted: m })
-		}
-		break
-		*/
 
 		case 'jpeg': {
 			if (isBan) return reply(mess.ban)

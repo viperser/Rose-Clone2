@@ -201,8 +201,11 @@ async function startRoseMwol() {
 
 				let nama = await RoseMwol.getName(num)
 				memb = metadata.participants.length
-				Wlcm = await getBuffer(`https://zerochanbot.herokuapp.com/api/bot/welkom2?pp=${encodeURIComponent(ppuser)}&nama=${encodeURIComponent(nama)}&bg=https://telegra.ph/file/d4c05638fa7886a1d8060.jpg&gc=${encodeURIComponent(metadata.subject)}&member=${encodeURIComponent(memb)}&apikey=${encodeURIComponent(global.zeroapi)}`)
-				Lft = await getBuffer(`https://zerochanbot.herokuapp.com/api/bot/goodbye2?pp=${encodeURIComponent(ppuser)}&nama=${encodeURIComponent(nama)}&bg=https://telegra.ph/file/d4c05638fa7886a1d8060.jpg&member=${encodeURIComponent(memb)}&apikey=${encodeURIComponent(global.zeroapi)}`)
+				// let Wlcm = await getBuffer(`https://zerochanbot.herokuapp.com/api/bot/welkom2?pp=${encodeURIComponent(ppuser)}&nama=${encodeURIComponent(nama)}&bg=https://telegra.ph/file/d4c05638fa7886a1d8060.jpg&gc=${encodeURIComponent(metadata.subject)}&member=${encodeURIComponent(memb)}&apikey=${encodeURIComponent(global.zeroapi)}`)
+				// let Lft = await getBuffer(`https://zerochanbot.herokuapp.com/api/bot/goodbye2?pp=${encodeURIComponent(ppuser)}&nama=${encodeURIComponent(nama)}&bg=https://telegra.ph/file/d4c05638fa7886a1d8060.jpg&member=${encodeURIComponent(memb)}&apikey=${encodeURIComponent(global.zeroapi)}`)
+				let Wlcm = await getBuffer(`https://api.dhamzxploit.my.id/api/canvas/welcome?pp=${encodeURIComponent(ppuser)}&name=${encodeURIComponent(nama)}&bg=https://telegra.ph/file/d4c05638fa7886a1d8060.jpg&grupname=${encodeURIComponent(metadata.subject)}&member=${encodeURIComponent(memb)}`)
+				let Lft = await getBuffer(`https://api.dhamzxploit.my.id/api/canvas/goodbye?pp=${encodeURIComponent(ppuser)}&nama=${encodeURIComponent(nama)}&bg=https://telegra.ph/file/d4c05638fa7886a1d8060.jpg&member=${encodeURIComponent(memb)}`)
+
 				if (anu.action == 'add') {
 					const buffer = await getBuffer(ppuser)
 					let Name = num
