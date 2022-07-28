@@ -245,8 +245,9 @@ let autosticker = JSON.parse(fs.readFileSync('./database/autosticker.json'));
 const _autostick = JSON.parse(fs.readFileSync('./database/autostickpc.json'));
 let banUser = JSON.parse(fs.readFileSync('./database/banUser.json'));
 let banchat = JSON.parse(fs.readFileSync('./database/banChat.json'));
-let bad = JSON.parse(fs.readFileSync('./src/toxic/bad.json'))
-let emojiss = JSON.parse(fs.readFileSync('./Media/emojis/emoji.json'))
+let bad = JSON.parse(fs.readFileSync('./src/toxic/bad.json'));
+let animerandom = JSON.parse(fs.readFileSync('./lib/anime.json'));
+let emojiss = JSON.parse(fs.readFileSync('./Media/emojis/emoji.json'));
 
 let tebaklagu = db.data.game.tebaklagu = []
 let _family100 = db.data.game.family100 = []
@@ -4086,8 +4087,8 @@ Cieeee, What's Going On❤️💖👀`
 			if (!isBotAdmins) return replay(`${mess.botAdmin}`)
 			if (!isAdmins) return replay(`${mess.admin}`)
 			let tagtext = m.quoted ? m.quoted.text ? m.quoted.text : q ? q : m.text : q ? q : m.text
-			if (tagtext === `${prefix}+${command}`) {
-				tagtext = "No Message"
+			if (tagtext.includes(`${command}`) || tagtext.includes(`Tagadmins`)){ 
+				tagtext = ` ` 
 			}
 			let teks = `┌─❖\n${global.themeeline}「 Tag All 」\n└┬❖ 「 𝗧𝗮𝗴𝗴𝗲𝗱 𝗕𝘆, ${pushname} ! 」\n┌┤✑ Message :\n${global.themeeline}${global.themeeline}✑ ${tagtext}\n${global.themeeline}└───────────────┈ ⳹\n${global.themeeline}\n`
 			for (let mem of participants) {
@@ -4097,6 +4098,27 @@ Cieeee, What's Going On❤️💖👀`
 			RoseMwol.sendMessage(m.chat, {
 				text: teks,
 				mentions: participants.map(a => a.id)
+			}, {
+				quoted: m
+			})
+		}
+		break
+		case 'tagadmins': {
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			if (!m.isGroup) return replay(`${mess.group}`)
+			let tagtext = m.quoted ? m.quoted.text ? m.quoted.text : q ? q : m.text : q ? q : m.text
+			if (tagtext.includes(`${command}`) || tagtext.includes(`Tagadmins`)){ 
+				tagtext = ` ` 
+			}
+			let teks = `┌─❖\n${global.themeeline}「 Tag Admins 」\n└┬❖ 「 𝗧𝗮𝗴𝗴𝗲𝗱 𝗕𝘆, ${pushname} ! 」\n┌┤✑ Message :\n${global.themeeline}${global.themeeline}✑ ${tagtext}\n${global.themeeline}└───────────────┈ ⳹\n${global.themeeline}\n`
+			for (let mem of participants.filter(v => v.admin !== null)) {
+				teks += `${themeline} @${mem.id.split('@')[0]}\n`
+			}
+			teks += `${themeendline}`
+			RoseMwol.sendMessage(m.chat, {
+				text: teks,
+				mentions: await participants.filter(v => v.admin !== null).map(v => v.id)
 			}, {
 				quoted: m
 			})
@@ -11670,6 +11692,19 @@ _For HD quality you can click the button below_`
 			RoseMwol.sendImage(m.chat, res.result[0].thumbnail, capt, m)
 		}
 		break
+		case 'randomanime':{
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			const randomanime = animerandom[Math.floor(Math.random() * animerandom.length)]
+			RoseMwol.sendMessage(m.chat, {
+				image: {
+					url: randomanime
+				},
+			}, {
+				quoted: m
+			})
+		}
+		break
 		case 'animexxx': {
 			if (isBan) return reply(mess.ban)
 			if (isBanChat) return reply(mess.banChat)
@@ -11752,6 +11787,7 @@ _For HD quality you can click the button below_`
 				.catch((err) => {
 					reply(mess.error)
 				})
+		break
 		case 'anime':
 			if (isBan) return reply(mess.ban)
 			if (isBanChat) return reply(mess.banChat)
@@ -11847,7 +11883,6 @@ _For HD quality you can click the button below_`
 			}, {
 				quoted: m
 			})
-			break
 			break
 		case 'lyrics': {
 			if (isBan) return reply(mess.ban)
@@ -13770,8 +13805,6 @@ To Download Media, Please Click One Of The Buttons Below Or Enter The ytmp3/ytmp
 		}
 		break
 		case 'setcmd': {
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
 			if (isBan) return reply(mess.ban)
 			if (isBanChat) return reply(mess.banChat)
 			if (!m.quoted) return reply(`Reply Message!`)
