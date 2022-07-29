@@ -10620,7 +10620,6 @@ ${global.themeemoji} Media Url : ${images}`,
 		case 'instagramimg': {
 			if (isBan) return reply(mess.ban)
 			if (isBanChat) return reply(mess.banChat)
-			if (!text) return reply(mess.linkm)
 			if (!args[0] && !args[0].includes('instagram.com')) return reply(mess.notiglink)
 			reply(`${mess.wait}`)
 			const {
@@ -10649,7 +10648,6 @@ ${global.themeemoji} Media Url : ${images}`,
 		case 'instagramvid': {
 			if (isBan) return reply(mess.ban)
 			if (isBanChat) return reply(mess.banChat)
-			if (!text) return reply(mess.linkm)
 			if (!args[0] && !args[0].includes('instagram.com')) return reply(mess.notiglink)
 			reply(`${mess.wait}`)
 			const {
@@ -10684,6 +10682,7 @@ ${global.themeemoji} Media Url : ${images}`,
 			hx.igdl(urlnya)
 				.then(async (result) => {
 					var halo = 0
+					try{
 					reply(`${mess.wait}`)
 					for (let i of result.medias) {
 						if (i.fileType.includes('mp4')) {
@@ -10706,6 +10705,9 @@ ${global.themeemoji} Media Url : ${images}`,
 							})
 						}
 					}
+				} catch (err) {
+					reply(String(result.error))
+				}
 				}).catch((err) => reply(String(err)))
 			} catch (err) {
 				reply(String(err))
