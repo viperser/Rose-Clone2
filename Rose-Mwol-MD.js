@@ -10615,103 +10615,39 @@ ${global.themeemoji} Media Url : ${images}`,
 				}).catch((err) => reply(`Sorry username ${text} was not found or maybe he/she has no story uploaded in her id`))
 		}
 		break
-		case 'igimg':
-		case 'igdlimg':
-		case 'instagramimg': {
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			if (!args[0] && !args[0].includes('instagram.com')) return reply(mess.notiglink)
-			reply(`${mess.wait}`)
-			const {
-				instagramdl,
-				instagramdlv2,
-				instagramdlv3,
-			} = require('@bochilteam/scraper')
-			instagramdl(`${text}`).then(async (data) => {
-				var buf = await getBuffer(data[0].thumbnail)
-				RoseMwol.sendMessage(m.chat, {
-					image: {
-						url: data[0].url
-					},
-					jpegThumbnail: buf,
-					caption: `${botname}`
-				}, {
-					quoted: m
-				})
-			}).catch((err) => {
-				reply(mess.error)
-			})
-		}
-		break
-		case 'igvid':
-		case 'igdlvid':
-		case 'instagramvid': {
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			if (!args[0] && !args[0].includes('instagram.com')) return reply(mess.notiglink)
-			reply(`${mess.wait}`)
-			const {
-				instagramdl,
-				instagramdlv2,
-				instagramdlv3,
-			} = require('@bochilteam/scraper')
-			instagramdl(`${text}`).then(async (data) => {
-				var buf = await getBuffer(data[0].thumbnail)
-				RoseMwol.sendMessage(m.chat, {
-					video: {
-						url: data[0].url
-					},
-					jpegThumbnail: buf,
-					caption: `${botname}`
-				}, {
-					quoted: m
-				})
-			}).catch((err) => {
-				reply(mess.error)
-			})
-		}
-		break
 		case 'ig':
 		case 'igdl':
 		case 'instagram': {
 			if (isBan) return reply(mess.ban)
 			if (isBanChat) return reply(mess.banChat)
 			if (!text) return reply(mess.linkm)
+			let igscraper = require('@bochilteam/scraper')
+			let res = await igscraper.instagramdlv3(text)
 			try {
-			let urlnya = text
-			hx.igdl(urlnya)
-				.then(async (result) => {
-					var halo = 0
-					try{
-					reply(`${mess.wait}`)
-					for (let i of result.medias) {
-						if (i.fileType.includes('mp4')) {
-							let link = await getBuffer(i.url)
-							RoseMwol.sendMessage(m.chat, {
-								video: link,
-								jpegThumbnail: await getBuffer(i.preview),
-								caption: `*${mess.igdownloaded}*`
-							}, {
-								quoted: m
-							})
-						} else {
-							let link = await getBuffer(i.url)
-							RoseMwol.sendMessage(m.chat, {
-								image: link,
-								jpegThumbnail: await getBuffer(i.preview),
-								caption: `*${mess.igdownloaded}*`
-							}, {
-								quoted: m
-							})
-						}
-					}
-				} catch (err) {
-					reply(String(result.error))
+			for (let i = 0; i < res.length; i++) {
+				let Filee = await getBuffer(res[i].url) 
+				let Thumb = await getBuffer(res[i].thumbnail)
+				if ((res[i].url).includes('jpg' || 'jpeg' || 'png')){
+					RoseMwol.sendMessage(m.chat, {
+						image: Filee,
+						jpegThumbnail: Thumb,
+						caption: `*${mess.igdownloaded}*`
+					}, {
+						quoted: m
+					})
+				} else {
+					RoseMwol.sendMessage(m.chat, {
+						video: Filee,
+						jpegThumbnail: Thumb,
+						caption: `*${mess.igdownloaded}*`
+					}, {
+						quoted: m
+					})
 				}
-				}).catch((err) => reply(String(err)))
-			} catch (err) {
-				reply(String(err))
 			}
+		} catch(err){
+			reply(mess.error)
+		}
 		}
 		break
 		case 'igdlreels':
@@ -13283,14 +13219,14 @@ ${global.themeemoji} Quality : ${res.quality}
 
 _Select video or audio and wait a while_`
 					let buttons = [{
-							buttonId: `ytvd ${res.link}`,
+							buttonId: `video ${res.link}`,
 							buttonText: {
 								displayText: '► Video'
 							},
 							type: 1
 						},
 						{
-							buttonId: `ytad ${res.mp3}`,
+							buttonId: `audio ${res.mp3}`,
 							buttonText: {
 								displayText: '♫ Audio'
 							},
@@ -13327,7 +13263,7 @@ _Select video or audio and wait a while_`
 			}
 		}
 		break
-		case 'ytvd': {
+		case 'video': {
 			if (isBan) return reply(mess.ban)
 			if (isBanChat) return reply(mess.banChat)
 			RoseMwol.sendMessage(from, {
@@ -13335,7 +13271,6 @@ _Select video or audio and wait a while_`
 					url: args[0]
 				},
 				mimetype: "video/mp4",
-				caption: "Success",
 				contextInfo: {
 					externalAdReply: {
 						title: `${global.botname}`,
@@ -13351,14 +13286,16 @@ _Select video or audio and wait a while_`
 			})
 		}
 		break
-		case 'ytad': {
+		case 'audio': {
 			if (isBan) return reply(mess.ban)
 			if (isBanChat) return reply(mess.banChat)
+			const pttduration = durationn[Math.floor(Math.random() * durationn.length)]
 			RoseMwol.sendMessage(from, {
 				audio: {
 					url: args[0]
 				},
 				mimetype: "audio/mp4",
+				seconds: `${pttduration}`,
 				ptt: true,
 				contextInfo: {
 					externalAdReply: {
@@ -13457,7 +13394,7 @@ _Select video or audio and wait a while_`
 						image: {
 							url: imgnyee
 						},
-						caption: `${global.dogeemoji} Title : ` + args.join(" ") + `\n${global.dogeemoji} Media Url : ` + imgnyee,
+						caption: `${global.themeemoji} Title : ` + args.join(" ") + `\n${global.themeemoji} Media Url : ` + imgnyee,
 						footer: `${global.botname}`,
 						buttons: buttons,
 						headerType: 4,
