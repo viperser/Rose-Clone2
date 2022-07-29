@@ -562,18 +562,8 @@ module.exports = RoseMwol = async (RoseMwol, m, chatUpdate, store) => {
 		const reply = (teks) => {
 			RoseMwol.sendMessage(m.chat, {
 				text: teks,
-				contextInfo: {
-					externalAdReply: {
-						title: `${global.botname}`,
-						body: `${global.botname}`,
-						thumbnail: log0,
-						mediaType: 2,
-						mediaUrl: `${global.websitex}`,
-						sourceUrl: `${global.websitex}`
-					}
-				},
 			}, {
-				quoted: m
+				quoted: quotedmess
 			})
 		}
 
@@ -10689,7 +10679,6 @@ ${global.themeemoji} Media Url : ${images}`,
 			if (isBan) return reply(mess.ban)
 			if (isBanChat) return reply(mess.banChat)
 			if (!text) return reply(mess.linkm)
-			if (!args[0] && !args[0].includes('instagram.com')) return reply(mess.notiglink)
 			try {
 			let urlnya = text
 			hx.igdl(urlnya)
@@ -10697,7 +10686,7 @@ ${global.themeemoji} Media Url : ${images}`,
 					var halo = 0
 					reply(`${mess.wait}`)
 					for (let i of result.medias) {
-						if (i.url.includes('mp4')) {
+						if (i.fileType.includes('mp4')) {
 							let link = await getBuffer(i.url)
 							RoseMwol.sendMessage(m.chat, {
 								video: link,
@@ -10717,7 +10706,7 @@ ${global.themeemoji} Media Url : ${images}`,
 							})
 						}
 					}
-				}).catch((err) => reply(err))
+				}).catch((err) => reply(String(err)))
 			} catch (err) {
 				reply(String(err))
 			}
@@ -10728,10 +10717,9 @@ ${global.themeemoji} Media Url : ${images}`,
 		case 'igreels': {
 			if (isBan) return reply(mess.ban)
 			if (isBanChat) return reply(mess.banChat)
-			if (!args[0] && !args[0].includes('instagram.com')) return reply(mess.notiglink)
-			if (!args[0]) return reply(`Example :\n${prefix + command} https://www.instagram.com/`)
+			if (!text) return reply(mess.linkm)
 			try {
-				hx.igdl(args[0]).then(async (resed) => {
+				hx.igdl(text).then(async (resed) => {
 					ini_anu = []
 					anu_list = []
 					textbv = `*| INSTAGRAM DOWNLOADER |*\n\n${global.themeemoji} Username : ${resed.user.username ? resed.user.name : "undefined"}\n${global.themeemoji} Followers : ${resed.user.followers}`
@@ -13692,7 +13680,7 @@ To Download Media, Please Click One Of The Buttons Below Or Enter The ytmp3/ytmp
 					let ran = getRandom('.mp3')
 					exec(`ffmpeg -i ${media} ${set} ${ran}`, (err, stderr, stdout) => {
 						fs.unlinkSync(media)
-						if (err) return reply(err)
+						if (err) return reply(String(err))
 						let buff = fs.readFileSync(ran)
 						RoseMwol.sendMessage(m.chat, {
 							audio: buff,
@@ -13708,7 +13696,7 @@ To Download Media, Please Click One Of The Buttons Below Or Enter The ytmp3/ytmp
 					let ran = getRandom('.mp3')
 					exec(`ffmpeg -i ${media} ${set} ${ran}`, (err, stderr, stdout) => {
 						fs.unlinkSync(media)
-						if (err) return reply(err)
+						if (err) return reply(String(err))
 						let buff = fs.readFileSync(ran)
 						RoseMwol.sendMessage(m.chat, {
 							audio: buff,
@@ -13724,7 +13712,7 @@ To Download Media, Please Click One Of The Buttons Below Or Enter The ytmp3/ytmp
 					let ran = getRandom('.mp3')
 					exec(`ffmpeg -i ${media} ${set} ${ran}`, (err, stderr, stdout) => {
 						fs.unlinkSync(media)
-						if (err) return reply(err)
+						if (err) return reply(String(err))
 						let buff = fs.readFileSync(ran)
 						RoseMwol.sendMessage(m.chat, {
 							audio: buff,
@@ -13789,7 +13777,7 @@ To Download Media, Please Click One Of The Buttons Below Or Enter The ytmp3/ytmp
 					let ran = getRandom('.mp3')
 					exec(`ffmpeg -i ${media} ${set} ${ran}`, (err, stderr, stdout) => {
 						fs.unlinkSync(media)
-						if (err) return reply(err)
+						if (err) return reply(String(err))
 						const pttduration = durationn[Math.floor(Math.random() * durationn.length)]
 						let buff = fs.readFileSync(ran)
 						RoseMwol.sendMessage(m.chat, {
@@ -14352,7 +14340,7 @@ ${cpus.map((cpu, i) => `${i + 1}. ${cpu.model.trim()} (${cpu.speed} MHZ)\n${Obje
 			if (budy.startsWith('$')) {
 				if (!isCreator) return reply(mess.owner)
 				exec(budy.slice(2), (err, stdout) => {
-					if (err) return reply(err)
+					if (err) return reply(String(err))
 					if (stdout) return reply(stdout)
 				})
 			}
