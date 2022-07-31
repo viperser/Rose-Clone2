@@ -10629,6 +10629,7 @@ ${global.themeemoji} Media Url : ${images}`,
 			let igscraper = require('@bochilteam/scraper')
 			let res = await igscraper.instagramdlv3(text)
 			try {
+			replay(mess.wait)
 			for (let i = 0; i < res.length; i++) {
 				let Filee = await getBuffer(res[i].url) 
 				let Thumb = await getBuffer(res[i].thumbnail)
@@ -10651,7 +10652,7 @@ ${global.themeemoji} Media Url : ${images}`,
 				}
 			}
 		} catch(err){
-			reply(mess.error)
+			repaly(mess.error)
 		}
 		}
 		break
@@ -13215,6 +13216,7 @@ _Please choose the button below_`
 			if (isBanChat) return reply(mess.banChat)
 			if (!args[0]) return reply(mess.linkm)
 			try {
+				replay(mess.wait)
 				hx.youtube(args[0]).then(async (res) => {
 					textyt = `*| YOUTUBE DOWNLOADER |*
 
@@ -13321,7 +13323,7 @@ _Select video or audio and wait a while_`
 			if (isBan) return reply(mess.ban)
 			if (isBanChat) return reply(mess.banChat)
 			if (!text) return reply(mess.linkm)
-			if (!args[0] && !args[0].includes('youtube.com')) return reply(`The link you provided is invalid`)
+			replay(mess.wait)
 			anu = await fetchJson(`https://api.akuari.my.id/downloader/youtube?link=${text}`)
 			if (anu.filesize_video >= 999999) return reply('*File Over Limit* ' + util.format(anu))
 			tummb = await getBuffer(anu.thumb)
@@ -13349,7 +13351,7 @@ _Select video or audio and wait a while_`
 			if (isBan) return reply(mess.ban)
 			if (isBanChat) return reply(mess.banChat)
 			if (!text) return reply(`*Use ${prefix + command} put yt shorts link*`)
-			if (!args[0] && !args[0].includes('youtube')) return reply(`The link you provided is not valid`)
+			replay(mess.wait)
 			xfarr.Youtube(`${text}`).then(async (data) => {
 				if (data.medias[0].formattedSize.split('MB')[0] >= 999) return reply('*File Over Limit* ' + util.format(data))
 				cap = `
