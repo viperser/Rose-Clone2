@@ -44,6 +44,7 @@ global.thum = fs.readFileSync("./Bot Pic/Rose.jpg")
 global.log0 = fs.readFileSync("./Bot Pic/Rose.jpg") 
 global.err4r = fs.readFileSync("./Bot Pic/Rose.jpg") 
 global.thumb = fs.readFileSync("./Bot Pic/Rose.jpg") 
+global.widelog0 = fs.readFileSync("./Bot Pic/rose_widescreen.jpg")
 
 global.premium = ['919744933034'] 
 global.ntilinkytvid = []

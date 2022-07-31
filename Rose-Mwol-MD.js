@@ -377,7 +377,7 @@ module.exports = RoseMwol = async (RoseMwol, m, chatUpdate, store) => {
 				text: teks,
 			}, {
 				quoted: m,
-				thumbnail: fs.readFileSync('./Media/image/wpmobile.png')
+				thumbnail: fs.readFileSync('./Media/image/Rose-Mwol-MD.jpg')
 			})
 		}
 
@@ -558,30 +558,79 @@ module.exports = RoseMwol = async (RoseMwol, m, chatUpdate, store) => {
 				}
 			}
 		}
+		
+		const replyy = (teks) => {
+			anu = ``
+				let footertext = teks
+				const template = generateWAMessageFromContent(m.chat, proto.Message.fromObject({
+					templateMessage: {
+						hydratedTemplate: {
+							hydratedContentText: anu,
+							locationMessage: {
+								jpegThumbnail: widelog0,
+							},
+							hydratedFooterText: `${footertext}`,
+							hydratedButtons: [{
+								urlButton: {
+									displayText: 'Script 🔖',
+									url: `${botscript}`
+								}
+							}, {
+								quickReplyButton: {
+									displayText: '⚠ Menu ⚠',
+									id: `${prefix}menu`
+								}
+							}]
+						}
+					}
+				}), {
+					userJid: m.chat
+				})
+				RoseMwol.relayMessage(m.chat, template.message, {
+					messageId: template.key.id
+				})
+		}
 
 		const reply = (teks) => {
-			RoseMwol.sendMessage(m.chat, {
-				text: teks,
-			}, {
+			let buttonMessage = {
+				image: widelog0,
+				caption: `${teks}`,
+				headerType: 4,
+				contextInfo: {
+					externalAdReply: {
+						title: `${teks}`,
+						body: `${botname}`,
+						mediaType: 2,
+						thumbnail: log0,
+						sourceUrl: `${websitex}`,
+						mediaUrl: `${websitex}`
+					}
+				}
+			}
+			RoseMwol.sendMessage(m.chat, buttonMessage, {
 				quoted: quotedmess
 			})
 		}
 
 		const replay = (teks) => {
-			RoseMwol.sendMessage(m.chat, {
-				text: teks,
+			let buttonMessage = {
+				video: vidmenu,
+				gifPlayback: true,
+				caption: `${teks}`,
+				headerType: 4,
 				contextInfo: {
 					externalAdReply: {
-						title: `${global.botname}`,
-						body: `${global.botname}`,
-						thumbnail: log0,
+						title: `${teks}`,
+						body: `${botname}`,
 						mediaType: 2,
-						mediaUrl: `${global.websitex}`,
-						sourceUrl: `${global.websitex}`
+						thumbnail: log0,
+						sourceUrl: `${websitex}`,
+						mediaUrl: `${websitex}`
 					}
-				},
-			}, {
-				quoted: m
+				}
+			}
+			RoseMwol.sendMessage(m.chat, buttonMessage, {
+				quoted: quotedmess
 			})
 		}
 
@@ -3905,8 +3954,8 @@ Cieeee, What's Going On❤️💖👀`
 			break
 		case 'when':
 			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			if (!text) return replay(`Use Text, Example : ${prefix + command} will i get married `)
+			if (isBanChat) return replyy(mess.banChat)
+			if (!text) return replyy(`Use Text, Example : ${prefix + command} will i get married `)
 			const kapan = ['5 More Days', '10 More Days', '15 More Days', '20 More Days', '25 More Days', '30 More Days', '35 More Days', '40 More Days', '45 More Days', '50 More Days', '55 More Days', '60 More Days', '65 More Days', '70 More Days', '75 More Days', '80 More Days', '85 More Days', '90 More Days', '100 More Days', '5 Months More', '10 Months More', '15 Months More', '20 Months More', '25 Months More', '30 Months More', '35 Months More', '40 Months More', '45 Months More', '50 Months More', '55 Months More', '60 Months More', '65 Months More', '70 Months More', '75 Months More', '80 Months More', '85 Months More', '90 Months More', '100 Months More', '1 More Year', '2 More Years', '3 More Years', '4 More Years', '5 More Years', 'Tomorrow', 'The Day After Tomorrow', `After This Command, You Too ${q}`]
 			const kapankah = kapan[Math.floor(Math.random() * kapan.length)]
 			RoseMwol.sendMessage(from, {
@@ -5118,10 +5167,10 @@ ${global.themeendline}
 			if (isBan) return reply(mess.ban)
 			if (isBanChat) return reply(mess.banChat)
 			if (!m.isGroup) return replay(mess.group)
-			if (!isBotAdmins) return replay(mess.botAdmin)
-			if (!isAdmins && !isCreator) return replay(mess.admin)
+			if (!isBotAdmins) return replyy(mess.botAdmin)
+			if (!isAdmins && !isCreator) return replyy(mess.admin)
 			if (args[0] === "on") {
-				if (antiWame) return replay('Already activated')
+				if (antiWame) return replyy('Already activated')
 				ntwame.push(from)
 				replay('Success in turning on antiwame in this group')
 				var groupe = await RoseMwol.groupMetadata(from)
@@ -5683,35 +5732,6 @@ ${global.themeendline}
 			await fs.unlinkSync(encmedia)
 		}
 		break
-		case 'attp2': {
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			if (!text) return reply(`Example : ${prefix + command} text`)
-			await RoseMwol.sendMedia(m.chat, `https://xteam.xyz/${command}?file&text=${text}`, 'hisoka', 'morou', m, {
-				asSticker: true
-			})
-
-		}
-		break
-		case 'attp': {
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			if (!text) reply(`Use ${prefix}attp hello\n*Example : ${prefix + command} ${ownername}*`)
-			await RoseMwol.sendMedia(m.chat, `https://cililitan.herokuapp.com/api/attp?teks=${text}`, 'Sachu-Settan', 'Op', m, {
-				asSticker: true
-			}).catch((err) => reply(mess.error))
-		}
-		break
-		case 'ttp': {
-			if (isBan) return reply(mess.ban)
-			if (isBanChat) return reply(mess.banChat)
-			if (!text) return reply(`*Example : ${prefix + command} hello*`)
-			await RoseMwol.sendMedia(m.chat, `https://cililitan.herokuapp.com/api/texttopng2?teks=${text}`, 'A L Y A', 'B O T M D', m, {
-				asSticker: true
-			})
-
-		}
-		break
 		case 'soundcloud':
 		case 'scdl': {
 			if (!text) return reply(mess.linkm)
@@ -6242,7 +6262,7 @@ ${global.themeendline}
 		case 'animenom':
 			if (isBan) return reply(mess.ban)
 			if (isBanChat) return reply(mess.banChat)
-			if (!m.isGroup) return replay(mess.group)
+			if (!m.isGroup) return replyy(mess.group)
 			waifudd = await axios.get(`https://waifu.pics/api/sfw/nom`)
 			let xxhnekobot = [{
 				buttonId: `.nom`,
@@ -6268,7 +6288,7 @@ ${global.themeendline}
 		case 'waifu3':
 			if (isBan) return reply(mess.ban)
 			if (isBanChat) return reply(mess.banChat)
-			reply(mess.wait)
+			replyy(mess.wait)
 			waifudd = await axios.get(`https://nekos.life/api/v2/img/waifu`)
 			var wbuttsss = [{
 				buttonId: `.${command}`,
@@ -7780,26 +7800,10 @@ ${global.themeendline}
 		case 'efx':
 		case 'bgm':
 		case 'bgmidd': {
+			reply(mess.wait)
 			const pttduration = durationn[Math.floor(Math.random() * durationn.length)]
 			const randomefx = efx[Math.floor(Math.random() * efx.length)]
 			results = await getBuffer(`https://raw.githubusercontent.com/Sachu-Settan/Media/main/efx/${encodeURIComponent(randomefx)}.mp3`)
-			const quotedmess = {
-				key: {
-					fromMe: false,
-					"participant": "0@s.whatsapp.net",
-					"remoteJid": "919744933034-1604595598@g.us"
-				},
-				"message": {
-					imageMessage: {
-						jpegThumbnail: log0,
-					}
-				},
-				contextInfo: {
-					"forwardingScore": 999,
-					"isForwarded": true
-				},
-				sendEphemeral: true
-			}
 			await RoseMwol.sendMessage(m.chat, {
 				audio: results,
 				mimetype: 'audio/mpeg',
@@ -8446,6 +8450,7 @@ ${global.themeendline}
 		case 'efx97':
 		case 'efx98':
 		case 'efx99': {
+			replay(mess.wait)
 			const pttduration = durationn[Math.floor(Math.random() * durationn.length)]
 			let results = await getBuffer(`https://raw.githubusercontent.com/Sachu-Settan/Media/main/efx/${encodeURIComponent(command)}.mp3`)
 			await RoseMwol.sendMessage(m.chat, {
@@ -13731,7 +13736,7 @@ To Download Media, Please Click One Of The Buttons Below Or Enter The ytmp3/ytmp
 									thumbnail: log0,
 									mediaType: 2,
 									mediaUrl: `${global.websitex}`,
-									sourceUrl: `${global.websitex}`
+									sourceUrl: `${global.websitex}`,
 								}
 							}
 						}, {
