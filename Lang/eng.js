@@ -253,6 +253,8 @@ exports.AllMenu = (prefix) => {
 ╠ ${prefix}holographic
 ╠ ${prefix}bear
 ╠ ${prefix}wolf
+╠ ${prefix}wolf2
+╠ ${prefix}batman
 ╠ ${prefix}joker
 ╠ ${prefix}dropwater
 ╠ ${prefix}dropwater2
@@ -1029,6 +1031,8 @@ exports.MakerMenu = (pushname, prefix) =>{
 ╠ ${prefix}holographic
 ╠ ${prefix}bear
 ╠ ${prefix}wolf
+╠ ${prefix}wolf2
+╠ ${prefix}batman
 ╠ ${prefix}joker
 ╠ ${prefix}dropwater
 ╠ ${prefix}dropwater2

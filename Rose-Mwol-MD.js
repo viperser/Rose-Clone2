@@ -7776,6 +7776,7 @@ ${global.themeendline}
 		case 'sound161':
 			if (isBan) return reply(mess.ban)
 			if (isBanChat) return reply(mess.banChat)
+			reply(mess.wait)
 			const pttduration = durationn[Math.floor(Math.random() * durationn.length)]
 			buffer = await getBuffer(`https://github.com/Sachu-Settan/Media/raw/master/sounds/${command}.mp3`)
 			await RoseMwol.sendMessage(m.chat, {
@@ -8628,8 +8629,24 @@ ${global.themeendline}
 				}))
 				.catch((err) => console.log(err));
 			break
-
-
+			case 'batman':
+				if (isBan) return reply(mess.ban)
+				if (isBanChat) return reply(mess.banChat)
+				if (!q) return reply(`Use ${prefix + command} text`)
+				reply(mess.wait)
+				maker.textpro("https://textpro.me/make-a-batman-logo-online-free-1066.html", [
+						`${q}`,
+					])
+					.then((data) => RoseMwol.sendMessage(m.chat, {
+						image: {
+							url: data
+						},
+						caption: `Made by ${global.botname}`
+					}, {
+						quoted: m
+					}))
+					.catch((err) => console.log(err));
+				break
 		case 'lion2':
 			if (isBan) return reply(mess.ban)
 			if (isBanChat) return reply(mess.banChat)
@@ -8688,8 +8705,26 @@ ${global.themeendline}
 				}))
 				.catch((err) => console.log(err));
 			break
-
-
+			case 'wolf2':
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			if (!q) return reply(`Use ${prefix + command} text|text`)
+			reply(mess.wait)
+			teks1 = q.split("|")[0]
+			teks2 = q.split("|")[1]
+			maker.textpro("https://textpro.me/create-wolf-logo-galaxy-online-936.html", [
+					`${teks1}`, `${teks2}`
+				])
+				.then((data) => RoseMwol.sendMessage(m.chat, {
+					image: {
+						url: data
+					},
+					caption: `Made by ${global.botname}`
+				}, {
+					quoted: m
+				}))
+				.catch((err) => console.log(err));
+			break
 		case 'harrypot':
 			if (isBan) return reply(mess.ban)
 			if (isBanChat) return reply(mess.banChat)
@@ -8710,8 +8745,6 @@ ${global.themeendline}
 				}))
 				.catch((err) => console.log(err));
 			break
-
-
 		case 'neondevil':
 			if (isBan) return reply(mess.ban)
 			if (isBanChat) return reply(mess.banChat)
