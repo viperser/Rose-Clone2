@@ -207,6 +207,7 @@ const {
 	getSapi,
 	getGajah
 } = require('./storage/user/buruan.js')
+const ytmp3 = require('./lib/ytmp3')
 const timestampe = speed();
 const latensie = speed() - timestampe
 let DarahAwal = global.rpg.darahawal
@@ -5856,14 +5857,7 @@ ${global.themeendline}
 			const swn = args.join(" ")
 			const pcknm = swn.split("|")[0];
 			const atnm = swn.split("|")[1];
-			if (m.quoted.isAnimated === true) {
-				RoseMwol.downloadAndSaveMediaMessage(quoted, "gifee")
-				RoseMwol.sendMessage(from, {
-					sticker: fs.readFileSync("gifee.webp")
-				}, {
-					quoted: m
-				})
-			} else if (/image/.test(mime)) {
+			if (/image/.test(mime)) {
 				let media = await quoted.download()
 				let encmedia = await RoseMwol.sendImageAsSticker(m.chat, media, m, {
 					packname: pcknm,
@@ -13235,6 +13229,11 @@ _Please choose the button below_`
 			}, {
 				quoted: m
 			})
+		}
+		break
+		case 'ytss':{
+			let ytt = await ytmp3(args[0])
+			console.log(ytt)
 		}
 		break
 		case 'getmusic':
