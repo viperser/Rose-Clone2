@@ -207,7 +207,6 @@ const {
 	getSapi,
 	getGajah
 } = require('./storage/user/buruan.js')
-const ytmp3 = require('./lib/ytmp3')
 const timestampe = speed();
 const latensie = speed() - timestampe
 let DarahAwal = global.rpg.darahawal
