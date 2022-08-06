@@ -558,37 +558,37 @@ module.exports = RoseMwol = async (RoseMwol, m, chatUpdate, store) => {
 				}
 			}
 		}
-		
+
 		const replyy = (teks) => {
 			anu = ``
-				let footertext = teks
-				const template = generateWAMessageFromContent(m.chat, proto.Message.fromObject({
-					templateMessage: {
-						hydratedTemplate: {
-							hydratedContentText: anu,
-							locationMessage: {
-								jpegThumbnail: widelog0,
-							},
-							hydratedFooterText: `${footertext}`,
-							hydratedButtons: [{
-								urlButton: {
-									displayText: 'Script 🔖',
-									url: `${botscript}`
-								}
-							}, {
-								quickReplyButton: {
-									displayText: '⚠ Menu ⚠',
-									id: `${prefix}menu`
-								}
-							}]
-						}
+			let footertext = teks
+			const template = generateWAMessageFromContent(m.chat, proto.Message.fromObject({
+				templateMessage: {
+					hydratedTemplate: {
+						hydratedContentText: anu,
+						locationMessage: {
+							jpegThumbnail: widelog0,
+						},
+						hydratedFooterText: `${footertext}`,
+						hydratedButtons: [{
+							urlButton: {
+								displayText: 'Script 🔖',
+								url: `${botscript}`
+							}
+						}, {
+							quickReplyButton: {
+								displayText: '⚠ Menu ⚠',
+								id: `${prefix}menu`
+							}
+						}]
 					}
-				}), {
-					userJid: m.chat
-				})
-				RoseMwol.relayMessage(m.chat, template.message, {
-					messageId: template.key.id
-				})
+				}
+			}), {
+				userJid: m.chat
+			})
+			RoseMwol.relayMessage(m.chat, template.message, {
+				messageId: template.key.id
+			})
 		}
 
 		const reply = (teks) => {
@@ -2991,7 +2991,7 @@ Report Message: ${text}`
 			addEmerald(m.sender, emeraldnya)
 		}
 		break
-		//transaction\\
+			//transaction\\
 		case 'beli':
 		case 'buy': {
 			if (isBan) return reply(mess.ban)
@@ -4126,8 +4126,8 @@ Cieeee, What's Going On❤️💖👀`
 			if (!isBotAdmins) return replay(`${mess.botAdmin}`)
 			if (!isAdmins) return replay(`${mess.admin}`)
 			let tagtext = m.quoted ? m.quoted.text ? m.quoted.text : q ? q : m.text : q ? q : m.text
-			if (tagtext.includes(`${command}`) || tagtext.includes(`Tagadmins`)){ 
-				tagtext = ` ` 
+			if (tagtext.includes(`${command}`) || tagtext.includes(`Tagadmins`)) {
+				tagtext = ` `
 			}
 			let teks = `┌─❖\n${global.themeeline}「 Tag All 」\n└┬❖ 「 𝗧𝗮𝗴𝗴𝗲𝗱 𝗕𝘆, ${pushname} ! 」\n┌┤✑ Message :\n${global.themeeline}${global.themeeline}✑ ${tagtext}\n${global.themeeline}└───────────────┈ ⳹\n${global.themeeline}\n`
 			for (let mem of participants) {
@@ -4147,8 +4147,8 @@ Cieeee, What's Going On❤️💖👀`
 			if (isBanChat) return reply(mess.banChat)
 			if (!m.isGroup) return replay(`${mess.group}`)
 			let tagtext = m.quoted ? m.quoted.text ? m.quoted.text : q ? q : m.text : q ? q : m.text
-			if (tagtext.includes(`${command}`) || tagtext.includes(`Tagadmins`)){ 
-				tagtext = ` ` 
+			if (tagtext.includes(`${command}`) || tagtext.includes(`Tagadmins`)) {
+				tagtext = ` `
 			}
 			let teks = `┌─❖\n${global.themeeline}「 Tag Admins 」\n└┬❖ 「 𝗧𝗮𝗴𝗴𝗲𝗱 𝗕𝘆, ${pushname} ! 」\n┌┤✑ Message :\n${global.themeeline}${global.themeeline}✑ ${tagtext}\n${global.themeeline}└───────────────┈ ⳹\n${global.themeeline}\n`
 			for (let mem of participants.filter(v => v.admin !== null)) {
@@ -8622,24 +8622,24 @@ ${global.themeendline}
 				}))
 				.catch((err) => console.log(err));
 			break
-			case 'batman':
-				if (isBan) return reply(mess.ban)
-				if (isBanChat) return reply(mess.banChat)
-				if (!q) return reply(`Use ${prefix + command} text`)
-				reply(mess.wait)
-				maker.textpro("https://textpro.me/make-a-batman-logo-online-free-1066.html", [
-						`${q}`,
-					])
-					.then((data) => RoseMwol.sendMessage(m.chat, {
-						image: {
-							url: data
-						},
-						caption: `Made by ${global.botname}`
-					}, {
-						quoted: m
-					}))
-					.catch((err) => console.log(err));
-				break
+		case 'batman':
+			if (isBan) return reply(mess.ban)
+			if (isBanChat) return reply(mess.banChat)
+			if (!q) return reply(`Use ${prefix + command} text`)
+			reply(mess.wait)
+			maker.textpro("https://textpro.me/make-a-batman-logo-online-free-1066.html", [
+					`${q}`,
+				])
+				.then((data) => RoseMwol.sendMessage(m.chat, {
+					image: {
+						url: data
+					},
+					caption: `Made by ${global.botname}`
+				}, {
+					quoted: m
+				}))
+				.catch((err) => console.log(err));
+			break
 		case 'lion2':
 			if (isBan) return reply(mess.ban)
 			if (isBanChat) return reply(mess.banChat)
@@ -8698,7 +8698,7 @@ ${global.themeendline}
 				}))
 				.catch((err) => console.log(err));
 			break
-			case 'wolf2':
+		case 'wolf2':
 			if (isBan) return reply(mess.ban)
 			if (isBanChat) return reply(mess.banChat)
 			if (!q) return reply(`Use ${prefix + command} text|text`)
@@ -10655,31 +10655,31 @@ ${global.themeemoji} Media Url : ${images}`,
 			let igscraper = require('@bochilteam/scraper')
 			let res = await igscraper.instagramdlv3(text)
 			try {
-			replay(mess.wait)
-			for (let i = 0; i < res.length; i++) {
-				let Filee = await getBuffer(res[i].url) 
-				let Thumb = await getBuffer(res[i].thumbnail)
-				if ((res[i].url).includes('jpg' || 'jpeg' || 'png')){
-					RoseMwol.sendMessage(m.chat, {
-						image: Filee,
-						jpegThumbnail: Thumb,
-						caption: `*${mess.igdownloaded}*`
-					}, {
-						quoted: m
-					})
-				} else {
-					RoseMwol.sendMessage(m.chat, {
-						video: Filee,
-						jpegThumbnail: Thumb,
-						caption: `*${mess.igdownloaded}*`
-					}, {
-						quoted: m
-					})
+				replay(mess.wait)
+				for (let i = 0; i < res.length; i++) {
+					let Filee = await getBuffer(res[i].url)
+					let Thumb = await getBuffer(res[i].thumbnail)
+					if ((res[i].url).includes('jpg' || 'jpeg' || 'png')) {
+						RoseMwol.sendMessage(m.chat, {
+							image: Filee,
+							jpegThumbnail: Thumb,
+							caption: `*${mess.igdownloaded}*`
+						}, {
+							quoted: m
+						})
+					} else {
+						RoseMwol.sendMessage(m.chat, {
+							video: Filee,
+							jpegThumbnail: Thumb,
+							caption: `*${mess.igdownloaded}*`
+						}, {
+							quoted: m
+						})
+					}
 				}
+			} catch (err) {
+				repaly(mess.error)
 			}
-		} catch(err){
-			repaly(mess.error)
-		}
 		}
 		break
 		case 'igdlreels':
@@ -10880,7 +10880,7 @@ ${global.themeemoji} Download Url : ${url}`,
 
 		case 'play':
 		case 'song':
-		case 'ytplay':{
+		case 'ytplay': {
 			if (!text) return reply(`Example : ${prefix + command} *Query Title*`)
 			let {
 				result
@@ -10894,62 +10894,61 @@ ${global.themeemoji} Download Url : ${url}`,
 					footerText: `\`\`\`${global.watermark}\`\`\``,
 					listType: "SINGLE_SELECT",
 					sections: [{
-							"title": "Select An Option",
-							"rows": [{
-								"title": anu[0].title,
-								"description": anu[0].description,
-								"rowId": prefix + `yt ` + anu[0].url
-							},{
-								"title": anu[1].title,
-								"description": anu[1].description,
-								"rowId": prefix + `yt ` + anu[1].url
-							},{
-								"title": anu[2].title,
-								"description": anu[2].description,
-								"rowId": prefix + `yt ` + anu[2].url
-							},{
-								"title": anu[3].title,
-								"description": anu[3].description,
-								"rowId": prefix + `yt ` + anu[3].url
-							},{
-								"title": anu[4].title,
-								"description": anu[4].description,
-								"rowId": prefix + `yt ` + anu[4].url
-							},{
-								"title": anu[5].title,
-								"description": anu[5].description,
-								"rowId": prefix + `yt ` + anu[5].url
-							},{
-								"title": anu[6].title,
-								"description": anu[6].description,
-								"rowId": prefix + `yt ` + anu[6].url
-							},{
-								"title": anu[7].title,
-								"description": anu[7].description,
-								"rowId": prefix + `yt ` + anu[7].url
-							},{
-								"title": anu[8].title,
-								"description": anu[8].description,
-								"rowId": prefix + `yt ` + anu[8].url
-							},{
-								"title": anu[9].title,
-								"description": anu[9].description,
-								"rowId": prefix + `yt ` + anu[9].url
-							},{
-								"title": anu[10].title,
-								"description": anu[10].description,
-								"rowId": prefix + `yt ` + anu[10].url
-							},{
-								"title": anu[11].title,
-								"description": anu[11].description,
-								"rowId": prefix + `yt ` + anu[11].url
-							},{
-								"title": anu[12].title,
-								"description": anu[12].description,
-								"rowId": prefix + `yt ` + anu[12].url
-							}]
-						}
-					],
+						"title": "Select An Option",
+						"rows": [{
+							"title": anu[0].title,
+							"description": anu[0].description,
+							"rowId": prefix + `yt ` + anu[0].url
+						}, {
+							"title": anu[1].title,
+							"description": anu[1].description,
+							"rowId": prefix + `yt ` + anu[1].url
+						}, {
+							"title": anu[2].title,
+							"description": anu[2].description,
+							"rowId": prefix + `yt ` + anu[2].url
+						}, {
+							"title": anu[3].title,
+							"description": anu[3].description,
+							"rowId": prefix + `yt ` + anu[3].url
+						}, {
+							"title": anu[4].title,
+							"description": anu[4].description,
+							"rowId": prefix + `yt ` + anu[4].url
+						}, {
+							"title": anu[5].title,
+							"description": anu[5].description,
+							"rowId": prefix + `yt ` + anu[5].url
+						}, {
+							"title": anu[6].title,
+							"description": anu[6].description,
+							"rowId": prefix + `yt ` + anu[6].url
+						}, {
+							"title": anu[7].title,
+							"description": anu[7].description,
+							"rowId": prefix + `yt ` + anu[7].url
+						}, {
+							"title": anu[8].title,
+							"description": anu[8].description,
+							"rowId": prefix + `yt ` + anu[8].url
+						}, {
+							"title": anu[9].title,
+							"description": anu[9].description,
+							"rowId": prefix + `yt ` + anu[9].url
+						}, {
+							"title": anu[10].title,
+							"description": anu[10].description,
+							"rowId": prefix + `yt ` + anu[10].url
+						}, {
+							"title": anu[11].title,
+							"description": anu[11].description,
+							"rowId": prefix + `yt ` + anu[11].url
+						}, {
+							"title": anu[12].title,
+							"description": anu[12].description,
+							"rowId": prefix + `yt ` + anu[12].url
+						}]
+					}],
 					listType: 1
 				}
 			}), {})
@@ -11695,7 +11694,7 @@ _For HD quality you can click the button below_`
 			RoseMwol.sendImage(m.chat, res.result[0].thumbnail, capt, m)
 		}
 		break
-		case 'randomanime':{
+		case 'randomanime': {
 			if (isBan) return reply(mess.ban)
 			if (isBanChat) return reply(mess.banChat)
 			const randomanime = animerandom[Math.floor(Math.random() * animerandom.length)]
@@ -11790,7 +11789,7 @@ _For HD quality you can click the button below_`
 				.catch((err) => {
 					reply(mess.error)
 				})
-		break
+			break
 		case 'anime':
 			if (isBan) return reply(mess.ban)
 			if (isBanChat) return reply(mess.banChat)
@@ -13230,7 +13229,7 @@ _Please choose the button below_`
 			})
 		}
 		break
-		case 'ytss':{
+		case 'ytss': {
 			let ytt = await ytmp3(args[0])
 			console.log(ytt)
 		}
@@ -14165,6 +14164,37 @@ _CPU Core(s) Usage (${cpus.length} Core CPU)_
 ${cpus.map((cpu, i) => `${i + 1}. ${cpu.model.trim()} (${cpu.speed} MHZ)\n${Object.keys(cpu.times).map(type => `- *${(type + '*').padEnd(6)}: ${(100 * cpu.times[type] / cpu.total).toFixed(2)}%`).join('\n')}`).join('\n\n')}` : ''}
                 `.trim()
 			reply(respon)
+		}
+		break
+		case 'searchmsg': {
+			if (args.length < 1) return reply(`*What Message Are You Looking For?\nEx-: ${prefix + command} halo|10*`)
+			teks = arg
+			if (teks.includes("|")) {
+				try {
+					var ve = teks.split("|")[0]
+					var za = teks.split("|")[1]
+					sampai = `${za}`
+					if (isNaN(sampai)) return reply('*Must be a Number!*')
+					batas = parseInt(sampai) + 1
+					if (batas > 30) return reply('*Max 30!*')
+					reply(mess.wait)
+					cok = await RoseMwol.searchMessages(`${ve}`, from, batas, 1)
+					if (cok.messages.length < 2) return reply('*Message Not Found*')
+					if (cok.messages.length < parseInt(batas)) reply(`*Found Only* ${cok.messages.length - 1} *Message*`)
+					for (i = 1; i < cok.messages.length; i++) {
+						if (cok.messages[i].message) {
+							RoseMwol.sendMessage(from, `*Found!*`, text, {
+								sendEphemeral: true,
+								quoted: cok.messages[i]
+							})
+						}
+					}
+				} catch (e) {
+					return reply(String(e))
+				}
+			} else {
+				reply(`*The format is wrong tod This is an example of the correct format* : ${prefix + command} halo|10`)
+			}
 		}
 		break
 		case 'owner':
