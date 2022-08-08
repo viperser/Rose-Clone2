@@ -9,7 +9,7 @@ global.APIKeys = {
 	'https://zenzapis.xyz': 'sancychan01',
 }
 
-global.vidmenu = fs.readFileSync("./Media/vid/Rose-Mwol-Vid.mp4") 
+global.vidmenu = fs.readFileSync("https://a.uguu.se/MKdTHZYv.mp4") 
 
 global.doc1 = 'application/vnd.openxmlformats-officedocument.presentationml.presentation'
 global.doc2 = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
@@ -18,23 +18,23 @@ global.doc4 = 'application/zip'
 global.doc5 = 'application/pdf'
 global.doc6 = 'application/vnd.android.package-archive'
 
-global.vcardowner = ['919744933034'] 
-global.ownername = "Sachu-Settan" 
-global.ytname = "YT: Sachu-Mods" 
-global.socialm = "GitHub: Sachu-Settan" 
-global.location = "Kottayam, Kerala, India" 
+global.vcardowner = ['916238054812'] 
+global.ownername = "🌿⃝★  ͢ꪶ𝙑𝙄𝙋𝞢𝙍ꫂ⎯᮫⎯ᷤ⎯ͥ⎯᮫ᷢ⎯➤⃝🪁" 
+global.ytname = "𝙑𝙄𝙋𝞢𝙍 𝙎𝞢𝙍🕊" 
+global.socialm = "𝙄𝙉𝙎𝙏𝘼:_adaxxh" 
+global.location = "Kozhikode, Kerala, India" 
 
-global.owner = ['919744933034']
-global.ownertag = ['919744933034']
-global.botname = 'Rose-Mwol-MD' 
-global.linkz = "https://bit.ly/Bot-Zone" 
-global.websitex = "https://Sachu-Settan.github.io" 
-global.botscript = 'https://github.com/Sachu-Settan/Rose-Mwol-MD'
+global.owner = ['916238054812']
+global.ownertag = ['916238054812']
+global.botname = '🇮🇳⃝⭒͢ꪶ𝙑𝙄𝙋𝞢𝙍💖 𝙈𝘿⋆─ᷨ─ͦ─ͭ─⋆' 
+global.linkz = "www.instagram.com/_adaxxh" 
+global.websitex = "www.instagram.com/_adaxxh" 
+global.botscript = 'www.instagram.com/_adaxxh'
 global.reactmoji = "💝" 
 global.themeemoji = "⚠"
-global.packname = "💞 ᴍᴀᴅᴇ ᴡɪᴛʜ ❤️"
-global.author = "🤖 ʀᴏꜱᴇ-ᴍᴡᴏʟ-ᴍᴅ 👻"
-global.watermark = "🤖 ʀᴏꜱᴇ-ᴍᴡᴏʟ-ᴍᴅ 👻"
+global.packname = "🇮🇳⃝⭒͢ꪶ𝙑𝙄𝙋𝞢𝙍💖 𝙈𝘿⋆─ᷨ─ͦ─ͭ─⋆"
+global.author = "𝙑𝙄𝙋𝞢𝙍 𝙎𝞢𝙍🕊"
+global.watermark = "🇮🇳⃝⭒͢ꪶ𝙑𝙄𝙋𝞢𝙍💖 𝙈𝘿⋆─ᷨ─ͦ─ͭ─⋆"
 global.orderTitle = "👻"
 global.themeeline = "│"
 global.themeline = "│✙"
@@ -47,7 +47,7 @@ global.err4r = fs.readFileSync("./Bot Pic/Rose.jpg")
 global.thumb = fs.readFileSync("./Bot Pic/Rose.jpg") 
 global.widelog0 = fs.readFileSync("./Bot Pic/rose_widescreen.jpg")
 
-global.premium = ['919744933034'] 
+global.premium = ['916238054812'] 
 global.ntilinkytvid = []
 global.ntilinkytch = []
 global.ntilinkig = []
